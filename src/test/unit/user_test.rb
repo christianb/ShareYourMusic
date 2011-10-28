@@ -23,4 +23,14 @@ class UserTest < ActiveSupport::TestCase
     assert !user.save
     assert_equal I18n.translate('activerecord.errors.messages.taken'), user.errors[:email].join('; ')
   end
+  
+  test "valid image uri" do
+    user = User.new(:email => "test@test.com",
+                    :firstname => "Chuck",
+                    :lastname => "Norris",
+                    :password => "12345",
+                    :state => "active",
+                    :image_uri => "image.sh")
+    assert user.invalid?
+  end
 end
