@@ -9,5 +9,5 @@ class User < ActiveRecord::Base
   
   # check if the role record referenced by the foreign key exist
   validates_presence_of :role
-  #has_many :compact_disks
+  has_many :compact_disks
 end
