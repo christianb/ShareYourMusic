@@ -16,21 +16,65 @@ class UserTest < ActiveSupport::TestCase
   
   test "user email must be unique" do
     user = User.new(:email => users(:one).email,
-                    :firstname => "Martin",
-                    :lastname => "Schmidt",
-                    :password => "23456",
-                    :state => "active")
+                    :firstname => users(:one).firstname,
+                    :lastname => users(:one).lastname,
+                    :password => users(:one).password,
+                    :state => users(:one).state)
     assert !user.save
     assert_equal I18n.translate('activerecord.errors.messages.taken'), user.errors[:email].join('; ')
   end
   
-  test "valid image uri" do
+  test "invalid image uri" do
     user = User.new(:email => "test@test.com",
-                    :firstname => "Chuck",
-                    :lastname => "Norris",
-                    :password => "12345",
-                    :state => "active",
+                    :firstname => users(:one).firstname,
+                    :lastname => users(:one).lastname,
+                    :password => users(:one).password,
+                    :state => users(:one).state,
                     :image_uri => "image.sh")
     assert user.invalid?
+  end
+  
+  test "valid image uri" do
+    user = User.new(:email => "test@test.com",
+                    :firstname => users(:one).firstname,
+                    :lastname => users(:one).lastname,
+                    :password => users(:one).password,
+                    :state => users(:one).state,
+                    :image_uri => "image.png")
+    assert user.valid?
+  end
+  
+  test "valid email pattern" do
+    user = User.new(:firstname => users(:one).firstname,
+                    :lastname => users(:one).lastname,
+                    :email => "hans.peter@google.com",
+                    :password => users(:one).password,
+                    :state => users(:one).state,
+                    :image_uri => users(:one).image_uri)
+    assert user.valid?
+  end
+  
+  test "invalid email pattern" do
+    user = User.new(:firstname => users(:one).firstname,
+                    :lastname => users(:one).lastname,
+                    :password => users(:one).password,
+                    :state => users(:one).state,
+                    :image_uri => users(:one).image_uri)
+    
+    user.email = "@me.com"
+    assert user.invalid?, "Should fail due starts with an @ sign"
+                    
+    user.email = "testme.com"
+    assert user.invalid?, "Should fail due to missing @ sign"
+    
+    user.email = "test@mecom"
+    assert user.invalid?, "Should fail due to missing . sign in domain part"
+    
+    user.email = "test@me."
+    assert user.invalid?, "Should fail due no top-level domain is given"
+    
+    user.email = "test@"
+    assert user.invalid?, "Should fail due no domain is given"
+    
   end
 end

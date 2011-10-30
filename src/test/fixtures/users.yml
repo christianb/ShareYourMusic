@@ -10,6 +10,7 @@ one:
     email: "peter.schmidt@web.de"
     password: "12345"
     state: "active"
+    image_uri: "image.png"
 
 two: {}
 #  column: value
