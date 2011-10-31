@@ -11,6 +11,9 @@ beatsteaks:
     genre: "Rock"
     user_id: "0"
     
-#
-two: {}
-#  column: value
+linkin_park:
+    id: "1"
+    title: "Minutes to Midnight"
+    artist: "Linkin Park"
+    genre: "Rock"
+    user_id: "0"

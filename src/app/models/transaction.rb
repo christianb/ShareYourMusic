@@ -1,12 +1,16 @@
-class UserIDsValidator < ActiveModel::Validator
+class SameForeignKeyValidator < ActiveModel::Validator
   def validate(record)
     if record.provider_id == record.receiver_id
       record.errors[:base] << "same id of provider and receiver is not allowed"
     end
+    
+    if record.provider_disk_id == record.receiver_disk_id
+      record.errors[:base] << "same disk_id of provider and receiver is not allowed"
+    end
   end
 end
 
-class UserPresenceValidator < ActiveModel::Validator
+class ForeignKeyPresenceValidator < ActiveModel::Validator
   def validate(record)
     user = User.where(:id => record.provider_id).first
     if user.nil?
@@ -17,6 +21,16 @@ class UserPresenceValidator < ActiveModel::Validator
     if user.nil?
       record.errors[:base] << "Reiceiver id does not exist"
     end
+    
+    disk = CompactDisk.where(:id => record.provider_disk_id).first
+    if disk.nil?
+      record.errors[:base] << "provider_disk_id does not exist"
+    end
+    
+    disk = CompactDisk.where(:id => record.receiver_disk_id).first
+    if disk.nil?
+      record.errors[:base] << "reiceiver_disk_id does not exist"
+    end
   end
 end
 
@@ -24,8 +38,11 @@ class Transaction < ActiveRecord::Base
   belongs_to :user, :class_name => "User", :foreign_key => "provider_id"
   belongs_to :user, :class_name => "User", :foreign_key => "receiver_id"
   
-  validates_with UserIDsValidator
-  validates_with UserPresenceValidator
+  belongs_to :compact_disk, :class_name => "CompactDisk", :foreign_key => "provider_disk_id"
+  belongs_to :compact_disk, :class_name => "CompactDisk", :foreign_key => "receiver_disk_id"
+  
+  validates_with SameForeignKeyValidator
+  validates_with ForeignKeyPresenceValidator
   
 end
 

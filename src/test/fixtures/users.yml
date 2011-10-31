@@ -23,5 +23,3 @@ kathrin:
     image_uri: "image.jpg"
     password: "abcde"
     role_id: "1"
-
-#  column: value

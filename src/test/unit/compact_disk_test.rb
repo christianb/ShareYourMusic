@@ -21,12 +21,18 @@ class CompactDiskTest < ActiveSupport::TestCase
   end
   
   test "user_id must exist to create new compact_disk" do
+    disk = CompactDisk.new(:title => "test",
+                           :artist => "bla",
+                           :genre => "nichts")
+    assert !disk.save, "should not save because user_id has not been set"
+    
     @disk.user_id = 0
-    assert @disk.save, "Should save compact disk due user_id exist"
+    assert @disk.save, "should save compact disk due user_id exist"
     
     @disk.user_id = 42
     assert !@disk.save, "should not save compact disk due user_id does not exist"
+    
+    
   end
-  
   
 end

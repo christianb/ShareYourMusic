@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111030195232) do
+ActiveRecord::Schema.define(:version => 20111031122822) do
 
   create_table "compact_disks", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "title"
-    t.string   "artist"
-    t.string   "genre"
+    t.integer  "user_id",     :null => false
+    t.string   "title",       :null => false
+    t.string   "artist",      :null => false
+    t.string   "genre",       :null => false
     t.date     "date"
     t.string   "image_uri"
     t.text     "description"
@@ -27,35 +27,35 @@ ActiveRecord::Schema.define(:version => 20111030195232) do
   end
 
   create_table "roles", :force => true do |t|
-    t.string   "role"
+    t.string   "role",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "songs", :force => true do |t|
-    t.integer  "compact_disk_id"
-    t.string   "title"
+    t.integer  "compact_disk_id", :null => false
+    t.string   "title",           :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "transactions", :force => true do |t|
-    t.integer  "provider_id"
-    t.integer  "receiver_id"
-    t.integer  "provider_disk_id"
-    t.integer  "receiver_disk_id"
+    t.integer  "provider_id",      :null => false
+    t.integer  "receiver_id",      :null => false
+    t.integer  "provider_disk_id", :null => false
+    t.integer  "receiver_disk_id", :null => false
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
-    t.integer  "role_id"
+    t.integer  "role_id",    :null => false
     t.string   "alias"
-    t.string   "lastname"
-    t.string   "firstname"
-    t.string   "email"
-    t.string   "password"
+    t.string   "lastname",   :null => false
+    t.string   "firstname",  :null => false
+    t.string   "email",      :null => false
+    t.string   "password",   :null => false
     t.string   "image_uri"
     t.string   "state"
     t.datetime "created_at"

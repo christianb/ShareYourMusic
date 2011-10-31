@@ -8,6 +8,3 @@ hello_joe:
     id: "0"
     title: "Hello Joe"
     compact_disk_id: "0"
-    
-two: {}
-#  column: value
