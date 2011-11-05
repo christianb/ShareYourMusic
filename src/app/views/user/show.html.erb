@@ -1,0 +1,7 @@
+<h1>Benutzerprofil</h1>
+
+<p>Name: <%= @user.firstname %> <%= @user.lastname %></p>
+<p>Alias: <%= @user.alias %></p>
+<p>eMail: <%= @user.email %></p>
+<p><%= link_to "Bearbeiten", edit_user_path(@user)%></p>
+<p><%= link_to 'Account löschen', @user, :confirm => 'Sind Sie sicher?', :method => :delete %></p>
