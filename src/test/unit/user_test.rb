@@ -22,7 +22,12 @@ class UserTest < ActiveSupport::TestCase
      assert user.errors[:state].any?
   end
   
-  test "user email must be unique" do
+  test "email" do
+    @user.email = nil
+    assert @user.invalid?, "email must exist"
+  end
+  
+  test "user email must be unique" do  
     user = User.new(:email => users(:peter).email,
                     :firstname => "vorname",
                     :lastname => "nachname",
@@ -38,6 +43,11 @@ class UserTest < ActiveSupport::TestCase
     
     @user.image_uri = "image.png"
     assert @user.valid?, "image uri should be valid"
+    
+    # FAILS
+    # FIX TEST !!!
+    @user.image_uri = nil
+    assert @user.valid?, "image uri is allowed to be nil"
   end
   
   test "email pattern" do
