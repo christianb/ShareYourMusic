@@ -19,7 +19,6 @@ class UserTest < ActiveSupport::TestCase
      assert user.errors[:lastname].any?
      assert user.errors[:email].any?
      assert user.errors[:password].any?
-     assert user.errors[:state].any?
   end
   
   test "email" do
