@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111031122822) do
+ActiveRecord::Schema.define(:version => 20111106114053) do
 
   create_table "compact_disks", :force => true do |t|
     t.integer  "user_id",     :null => false
@@ -50,14 +50,14 @@ ActiveRecord::Schema.define(:version => 20111031122822) do
   end
 
   create_table "users", :force => true do |t|
-    t.integer  "role_id",    :null => false
+    t.integer  "role_id",    :default => 0,        :null => false
     t.string   "alias"
-    t.string   "lastname",   :null => false
-    t.string   "firstname",  :null => false
-    t.string   "email",      :null => false
-    t.string   "password",   :null => false
+    t.string   "lastname",                         :null => false
+    t.string   "firstname",                        :null => false
+    t.string   "email",                            :null => false
+    t.string   "password",                         :null => false
     t.string   "image_uri"
-    t.string   "state"
+    t.string   "state",      :default => "active", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
