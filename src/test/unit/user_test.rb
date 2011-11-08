@@ -43,10 +43,11 @@ class UserTest < ActiveSupport::TestCase
     @user.image_uri = "image.png"
     assert @user.valid?, "image uri should be valid"
     
-    # FAILS
-    # FIX TEST !!!
     @user.image_uri = nil
     assert @user.valid?, "image uri is allowed to be nil"
+     
+    @user.image_uri = ""
+    assert @user.invalid?, "image uri is must not be empty"
   end
   
   test "email pattern" do
