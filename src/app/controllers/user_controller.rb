@@ -31,7 +31,7 @@ class UserController < ApplicationController
     respond_to do |format|
         
         if @user.update_attributes(params[:user])
-          format.html  { redirect_to(@user,
+          format.html  { redirect_to(:action => "show",
                         :notice => 'User was successfully updated.') }
           #format.json  { render :json => {}, :status => :ok }
         else
