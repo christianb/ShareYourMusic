@@ -10,4 +10,9 @@ class User < ActiveRecord::Base
   # check if the role record referenced by the foreign key exist
   validates_presence_of :role
   has_many :compact_disks
+  
+   devise :database_authenticatable, :registerable,
+          :recoverable, :rememberable, :trackable, :validatable
+  attr_accessible :email, :password, :password_confirmation, :remember_me#, :admin, :firstname, :lastname, :role_id
+  
 end
