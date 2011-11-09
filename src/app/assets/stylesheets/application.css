@@ -5,3 +5,17 @@
  *= require_self
  *= require_tree . 
 */
+
+.user-auth-nav{
+	float: right;
+}
+
+.login{
+	
+}
+
+#title{
+	border: 2px solid black;
+	width: 100%;
+	height: 110px;
+}
