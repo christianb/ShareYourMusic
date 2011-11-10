@@ -1,1 +1,14 @@
 <h1>Index CD</h1>
+<p><%= flash[:alert] %></p>
+<% @cds.each do |c| %>
+	<%= c.artist %>
+	<%= c.title %>
+		<%= can? :show,CompactDisk %>
+	<% if can?(:show, c) %>
+		<%= link_to 'Show', c %>
+	<% end %>
+	<% if can?(:manage, c) %>
+		<%= link_to 'Destroy', c, :confirm => 'Are you sure?', :method => :delete %>
+	<% end %>
+	<br />
+<% end %>

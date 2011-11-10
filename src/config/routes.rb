@@ -12,7 +12,7 @@ Projekt::Application.routes.draw do
   # This route can be invoked with purchase_url(:id => product.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  resources :compact_disk
 
   # Sample resource route with options:
   #   resources :products do
