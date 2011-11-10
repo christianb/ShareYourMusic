@@ -15,6 +15,16 @@
 # Visit http://www.pragmaticprogrammer.com/titles/rails4 for more book information.
 #---
 # be sure to change these
+
+# Add RVM's lib directory to the load path.
+$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
+
+# Load RVM's capistrano plugin.    
+require "rvm/capistrano"
+
+set :rvm_ruby_string, '1.9.2'
+set :rvm_type, :user  # Don't use system-wide RVM
+
 set :user, 'rails'
 set :domain, 'kallisto.f4.htw-berlin.de'
 set :application, 'ShareMusicCD'
@@ -43,7 +53,7 @@ role :db, domain, :primary => true
 
 # miscellaneous options
 set :deploy_via, :remote_cache
-set :scm, :git
+set :scm, "git"
 set :branch, 'deployment'
 set :scm_verbose, true
 set :use_sudo, false
@@ -56,12 +66,12 @@ namespace :deploy do
 
   desc "reload the database with seed data"
   task :seed do
-    run "cd #{current_path}; rake db:seed RAILS_ENV=production"
+    run "cd #{current_path}/src; rake db:seed RAILS_ENV=production"
   end
 end
 
 after "deploy:update_code", :bundle_install
 desc "install the necessary prerequisites"
 task :bundle_install, :roles => :app do
-  run "cd #{release_path}/src && bundle install"
+  run "cd #{release_path}/ && bundle install"
 end
