@@ -10,12 +10,10 @@ class Ability
     #can :manage, :all if user.role == "admin"
     #can :show, :all if user.role == "user"
     
-    if user.role_id == 1
-      can :show, :all
+     if user.role == "user"
+        can :show, :all
     end
-    if user.role_id == 2
-      can :manage, :all
-    end
+
     
     
     #

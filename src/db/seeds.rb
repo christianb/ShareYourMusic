@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+puts 'Create CD'
+CompactDisk.create! :user_id => 1, :title => "13", :artist=> "Die Ärzte", :genre => "Punk"
+
+puts 'Create Roles'
+Role.create! :role => "user"
+Role.create! :role => "admin"
