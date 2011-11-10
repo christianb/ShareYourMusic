@@ -11,8 +11,8 @@ Role.create! :role => "user"
 Role.create! :role => "admin"
 
 puts 'Create User'
-User.create! :role_id => 1, :lastname => "User", :firstname=> "Ein", :email => "user@user.de", :image_uri => "user.png"
-User.create! :role_id => 2, :lastname => "Admin", :firstname=> "Ein", :email => "admin@admin.de", :image_uri => "admin.png"
+User.create! :role_id => 1, :lastname => "User", :firstname=> "Ein", :email => "user@user.de", :image_uri => "user.png", :password => "useruser"
+User.create! :role_id => 2, :lastname => "Admin", :firstname=> "Ein", :email => "admin@admin.de", :image_uri => "admin.png", :password => "adminadmin"
 
 puts 'Create CD'
 CompactDisk.create! :user_id => 1, :title => "13", :artist=> "Die Aerzte", :genre => "Punk"
