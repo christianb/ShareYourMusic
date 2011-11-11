@@ -16,7 +16,7 @@
 		<div id="login">
 			Login:
 			<% if user_signed_in? %>
-			  	<%= link_to('Edit registration', edit_user_registration_path) %> | 
+			  	<%= link_to('Edit registration', edit_user_registration_path  ) %> | 
 			  	<%= link_to('Logout', destroy_user_session_path) %> 
 			  <% else %>						  	
 				<%= form_for("user", :url => user_session_path) do |f| %>
@@ -39,7 +39,9 @@
 	<div id="navi">
 		<div id="navidesign1">
 		<div id="navidesign2">
-			Navigation Hier das menü
+			<% if user_signed_in? %>
+				<%= link_to "Profil", user_path(current_user.id) %> 
+			<% end %>
 		</div>
 		</div>
 		
