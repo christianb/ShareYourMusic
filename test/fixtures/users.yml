@@ -9,8 +9,8 @@ peter:
     firstname: "Peter"
     lastname: "Schmidt"
     email: "peter.schmidt@web.de"
-    password: "12345"
     image_uri: "image.png"
+    encrypted_password: "abcde"
     role_id: "0"
 
 kathrin:
@@ -19,5 +19,5 @@ kathrin:
     lastname: "Mayer"
     email: "kathrin.mayer@gmail.com"
     image_uri: "image.jpg"
-    password: "abcde"
+    encrypted_password: "abcde"
     role_id: "1"
