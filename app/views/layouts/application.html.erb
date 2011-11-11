@@ -40,7 +40,8 @@
 		<div id="navidesign1">
 		<div id="navidesign2">
 			<% if user_signed_in? %>
-				<%= link_to "Profil", user_path(current_user.id) %> 
+				<%= link_to "Profil", user_path(current_user.id) %> </br>
+				<%= link_to "Meine CDs", compact_disk_index_path %> 
 			<% end %>
 		</div>
 		</div>

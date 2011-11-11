@@ -14,4 +14,25 @@ class CompactDiskController < ApplicationController
     @cd.destroy
     redirect_to :action => "index"
   end
+  
+  def new
+    @cd = CompactDisk.new
+  end
+  
+  def create
+    @cd = CompactDisk.new(params[:compact_disk])
+    respond_to do |format|
+        if @cd.save
+          format.html  { redirect_to(compact_disk_index_path,
+                        :notice => 'CD was successfully created.') }
+          format.json  { render :json => @cd,
+                        :status => :created, :location => @cd }
+        else
+          format.html  { render :action => "new" }
+          format.json  { render :json => @cd.errors,
+                        :status => :unprocessable_entity }
+        end
+      end
+  end
+  
 end
