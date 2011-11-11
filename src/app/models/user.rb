@@ -11,8 +11,7 @@ class User < ActiveRecord::Base
   validates_presence_of :role
   has_many :compact_disks
   
-   devise :database_authenticatable, :registerable,
-          :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
   attr_accessible :email, :password, :password_confirmation, :remember_me, :firstname, :lastname, :image_uri
   
 has_private_messages
