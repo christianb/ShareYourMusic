@@ -1,0 +1,22 @@
+<h1>New CD</h1>
+
+<%= form_for(@cd, :url => {:action => "create"}) do |form| %>
+	<p>
+		<%= form.label "Titel" %>
+		<%= form.text_field :title, :placeholder => 'Enter text here...' %>
+	</p>
+	
+	<p>
+		<%= form.label "Artist" %>
+		<%= form.text_field :artist, :placeholder => 'Enter text here...' %>
+	</p>
+	
+	<p>
+		<%= form.label "Genre" %>
+		<%= form.text_field :genre, :placeholder => 'Enter text here...' %>
+	</p>
+		<%= form.hidden_field :user_id, :value => current_user.id %>
+	</p>
+	
+	<%= form.submit("CD erstellen") %>
+<% end %>
