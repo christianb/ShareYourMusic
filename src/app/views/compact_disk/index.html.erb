@@ -1,0 +1,13 @@
+<h1>Index CD</h1>
+<p><%= flash[:alert] %></p>
+<% @cds.each do |c| %>
+	<%= c.artist %>
+	<%= c.title %>
+	<% if can?(:show, c) && user_signed_in? %>
+		<%= link_to 'Show', c %>
+	<% end %>
+	<% if can?(:manage, c) && user_signed_in?%>
+		<%= link_to 'Destroy', c, :confirm => 'Are you sure?', :method => :delete %>
+	<% end %>
+	<br />
+<% end %>
