@@ -1,0 +1,27 @@
+<h1>Editing User</h1>
+
+<%= form_for(@user) do |form| %>
+	<p>
+		<%= form.label "Vorname" %>
+		<%= form.text_field :firstname, :placeholder => 'Enter text here...' %>
+	</p>
+	
+	<p>
+		<%= form.label "Nachname" %>
+		<%= form.text_field :lastname, :placeholder => 'Enter text here...' %>
+	</p>
+	
+	<p>
+		<%= form.label "Alias" %>
+		<%= form.text_field :alias, :placeholder => 'Enter text here...' %>
+	</p>
+	
+	<p>
+		<%= form.label "eMail" %>
+		<%= form.text_field :email, :placeholder => 'Enter text here...' %>
+	</p>
+	
+	<p>Passwort ändern</p>
+	
+	<%= submit_tag("Bestätigen") %>
+<% end %>
