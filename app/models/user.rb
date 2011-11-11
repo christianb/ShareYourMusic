@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :compact_disks
   
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :firstname, :lastname, :image_uri
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :firstname, :lastname, :image_uri, :alias
   
 has_private_messages
   
