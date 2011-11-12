@@ -18,6 +18,7 @@
 
 #standard{
 	background-color:silver;
+	font-family: Sans-serif;
 	
 	}
 
@@ -25,7 +26,7 @@
 	
 	position: absolute;
 	width:1024px;
-	height:600px;
+	height: 100%;
 	left: 50%;
 	margin-left: -512px;
 	background-color: white;
@@ -69,7 +70,7 @@
 	}
 #login{
 	width:282px;
-	height:88px;	
+	height: 100px;	
 	float:right;
 	margin: 4px 4px 4px 4px;
 	padding: 4px 4px 4px 4px;
@@ -91,14 +92,49 @@
 	padding-right:10px;
 	
 	color:white;
+}
+#naviline a:link{ 
+	font-weight:bold; 
+	color:blue; 
+	text-decoration:none; 
 	}
+#naviline a:visited { 
+	font-weight:bold; 
+	color:silver; 
+	text-decoration:none; 
+	}
+#naviline a:focus { 
+	font-weight:bold; 
+	color:red; 
+	text-decoration:underline; 
+	}
+#naviline a:hover { 
+	font-weight:bold; 
+	color:green; 
+	text-decoration:none; 
+	}
+#naviline a:active { 
+	font-weight:bold; 
+	color:lime; 
+	text-decoration:underline;
+	 }
+
+
 #logo{  
 	float:left;	
 	width: 724px;
 	height:106px;
 	background-image: url(web1_02.gif);
 	background-repeat:no-repeat;
-	}
+}
 
+#userpic{
+	float: right;
+	border: 2px solid black;
+	width: 140px;
+	height: 180px;
+	position: relative;
+	top: -200px;
+}
 
 
