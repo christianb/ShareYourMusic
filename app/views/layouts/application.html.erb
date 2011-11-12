@@ -16,33 +16,33 @@
 		<div id="login">
 			Login:
 			<% if user_signed_in? %>
-			  	<%= link_to('Edit registration', edit_user_registration_path  ) %> | 
-			  	<%= link_to('Logout', destroy_user_session_path) %> 
+			  	<%= link_to('Daten ändern', edit_user_registration_path  ) %> | 
+			  	<%= link_to('Logout', destroy_user_session_path) %> </br>
+			 	Angemeldet als: <%= current_user.firstname + " " + current_user.lastname  %>
 			  <% else %>						  	
 				<%= form_for("user", :url => user_session_path) do |f| %>
 				  <%= f.text_field :email %></br>
 				  <%= f.password_field :password %></br>
 				  <%= f.check_box :remember_me %>
 				  <%= f.label :remember_me %>
-				  <%= f.submit 'Sign in' %>
+				  <%= f.submit 'Login' %>
 				<% end %>
-				<%= link_to "Forgot your password?", new_password_path('user') %>
-			  	<%= link_to('Register', new_user_registration_path)  %>
+				<%= link_to "Passwort vergessen?", new_password_path('user') %>
+			  	<%= link_to('Registrieren', new_user_registration_path)  %>
 			  <% end %>
 		</div>
 		<div style="float:clear;"></div>
 		<div id="naviline">
-		 Titel/Funktion der Seite
-		</div>
+			<% if user_signed_in? %>
+				<%= link_to "Mein Profil", user_path(current_user.id) %> |
+				<%= link_to "Meine CDs", compact_disk_index_path %> 
+			<% end %>		</div>
 	</div>
 	
 	<div id="navi">
 		<div id="navidesign1">
 		<div id="navidesign2">
-			<% if user_signed_in? %>
-				<%= link_to "Profil", user_path(current_user.id) %> </br>
-				<%= link_to "Meine CDs", compact_disk_index_path %> 
-			<% end %>
+			
 		</div>
 		</div>
 		

@@ -3,5 +3,9 @@
 <p>Name: <%= @user.firstname %> <%= @user.lastname %></p>
 <p>Alias: <%= @user.alias %></p>
 <p>eMail: <%= @user.email %></p>
-<p><%= link_to "Bearbeiten", edit_user_registration_path %></p>
-<p><%= link_to 'Account löschen', registration_path(@user), :confirm => 'Sind Sie sicher?', :method => :delete %></p>
+<p>
+	<%= link_to "Bearbeiten", edit_user_registration_path %> |
+	<%= link_to 'Account löschen', registration_path(@user), :confirm => 'Sind Sie sicher?', :method => :delete %>
+</p>
+
+<div id="userpic">Bild</div>
