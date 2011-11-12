@@ -94,7 +94,7 @@ namespace :deploy do
   task :run_tests do
    unless fetch(:run_tests, "1") == "0"
      run "cd #{release_path} && rake RAILS_ENV=test db:migrate"     
-     run "cd #{release_path} && rake RAILS_ENV=test db:test:prepare" 
+     #run "cd #{release_path} && rake RAILS_ENV=test db:test:prepare" 
      run "cd #{release_path} && rake RAILS_ENV=test test" 
    end
   end
