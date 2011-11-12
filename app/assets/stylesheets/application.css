@@ -137,4 +137,29 @@
 	top: -200px;
 }
 
+#table_style{
+	background: #E6E6E6;
+	border: 2px solid #2E2E2E;
+	border-collapse:collapse;
+}
 
+#table_style th{
+	background: #2E2E2E;
+	color: white;
+}
+
+#cd{
+	border: 1px solid black;
+	height: 150px;
+	width: 150px;
+}
+#cd_view{
+	position: relative;
+}
+
+#feedback { font-size: 1.0em; 
+	}
+#selectable .ui-selecting { background: #FECA40; }
+#selectable .ui-selected { background: #F39814; color: white; }
+#selectable { list-style-type: none; margin: 0; padding: 0; }
+#selectable li { margin: 3px; padding: 1px; float: left; width: 200px; height: 180px; font-size: 2em; text-align: center; }
