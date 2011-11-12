@@ -1,5 +1,24 @@
-<h1>Index CD</h1>
+<h1>Meine CDs</h1>
 <p><%= flash[:alert] %></p>
+<%
+
+=begin %>
+<table id="table_style">
+	<tr>
+		<th>Interpret</th>
+		<th>Album</th>
+	</tr>
+<% @cds.each do |c| %>
+	<tr>
+		<td><%= c.artist %></td>
+		<td><%= c.title %></td>
+	</tr>
+<% end %>
+</table>
+</br>
+<%= link_to 'Neu', new_compact_disk_path %>
+=end %>
+
 <%
 =begin %>
 	<% if can?(:show, c) && user_signed_in? %>
@@ -10,4 +29,17 @@
 	<% end %>
 <%
 =end %>
-<%= link_to 'Neu', new_compact_disk_path %>
+
+<ol id="selectable">
+<% @cds.each do |c| %>
+	<li class="ui-state-default">
+			Cover</br>
+			<%= c.artist %>
+			<%= c.title %>
+	</li>
+<% end %>
+</ol>
+
+
+
+	
