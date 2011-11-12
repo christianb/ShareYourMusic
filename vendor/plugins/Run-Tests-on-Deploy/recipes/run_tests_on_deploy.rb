@@ -96,6 +96,7 @@ namespace :deploy do
      run "cd #{release_path} && rake RAILS_ENV=test db:migrate"     
      #run "cd #{release_path} && rake RAILS_ENV=test db:test:prepare" 
      run "cd #{release_path} && rake RAILS_ENV=test test" 
+     run "cd #{release_path} && rake RAILS_ENV=test cucumber"
    end
   end
 

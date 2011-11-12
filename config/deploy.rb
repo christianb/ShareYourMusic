@@ -70,7 +70,9 @@ namespace :deploy do
   end
 end
 
-after "deploy:update_code", :bundle_install
+before "deploy:assets:precompile", :bundle_install
+
+#after "deploy:update_code", :bundle_install
 desc "install the necessary prerequisites"
 task :bundle_install, :roles => :app do
   run "cd #{release_path}/ && bundle install"
