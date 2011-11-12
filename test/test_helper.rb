@@ -10,4 +10,13 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  #include Devise::TestHelpers
 end
+
+class ActionController::TestCase
+  include Devise::TestHelpers
+end
+
+#class ActionDispatch::PerformanceTest
+#  include Devise::TestHelpers
+#end
