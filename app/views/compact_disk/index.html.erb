@@ -33,9 +33,11 @@
 <ol id="selectable">
 <% @cds.each do |c| %>
 	<li class="ui-state-default">
-			Cover</br>
-			<%= c.artist %>
-			<%= c.title %>
+			<%= image_tag "cd_pic.png" %>
+			<div id="cd_info">
+				<%= c.artist %></br>
+				<%= c.title %>
+			</div>
 	</li>
 <% end %>
 </ol>

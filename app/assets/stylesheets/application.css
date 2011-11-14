@@ -110,7 +110,7 @@
 	}
 #naviline a:hover { 
 	font-weight:bold; 
-	color:green; 
+	color:#F39814; 
 	text-decoration:none; 
 	}
 #naviline a:active { 
@@ -148,18 +148,30 @@
 	color: white;
 }
 
-#cd{
-	border: 1px solid black;
-	height: 150px;
-	width: 150px;
-}
-#cd_view{
-	position: relative;
+#cd_info{
+	font-size: 16px;
 }
 
-#feedback { font-size: 1.0em; 
-	}
-#selectable .ui-selecting { background: #FECA40; }
-#selectable .ui-selected { background: #F39814; color: white; }
-#selectable { list-style-type: none; margin: 0; padding: 0; }
-#selectable li { margin: 3px; padding: 1px; float: left; width: 200px; height: 180px; font-size: 2em; text-align: center; }
+#feedback { 
+	font-size: 1.0em; 
+}
+#selectable .ui-selecting { 
+	background: #FECA40; 
+}
+#selectable .ui-selected { 
+	background: #F39814; 
+	color: white; 
+}
+#selectable { 
+	list-style-type: none; 
+	margin: 0; 
+	padding: 0; 
+}
+#selectable li { 
+	margin: 3px; 
+	padding: 1px; float: 
+	left; width: 200px; 
+	height: 180px; 
+	font-size: 2em; 
+	text-align: center; 
+}
