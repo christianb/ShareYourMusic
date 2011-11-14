@@ -41,6 +41,6 @@ end
 
 gem 'devise'
 gem 'cancan'
-gem 'simple-private-messages', '1.0.0', :git => 'https://github.com/jongilbraith/simple-private-messages.git'
+gem 'simple-private-messages', '1.0.1', :git => 'https://github.com/christianb/simple-private-messages.git'
 
 gem 'therubyracer'
