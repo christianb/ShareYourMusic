@@ -12,10 +12,10 @@
 <%
 =end %>
 
-<ol id="selectable">
+<!-- <ol id="selectable"> -->
+<ul id="selectable" class="gallery ui-helper-reset ui-helper-clearfix">
 <% @cds.each do |c| %>
-
-	<li class="ui-state-default">
+	<li>
 			<%= image_tag "cd_pic.png" %>
 			<div id="cd_info">
 				<%= c.artist %></br>
@@ -23,8 +23,8 @@
 			</div>
 	</li>
 <% end %>
-</ol>
-<%= link_to 'Neu', new_compact_disk_path %>
+</ul>
+
 
 
 	

@@ -11,12 +11,33 @@
 
 
 $(document).ready(function(){
-	
-	$(function() {
-		$( "#selectable" ).selectable();
-	});
-	
+	//selectCD();
+	dragDropCD();
 });
 
+function selectCD(){
+	$( "#selectable" ).selectable();
+}
 
-
+function dragDropCD(){
+	var $cds = $("#selectable");
+	var $share = $("#shareBox");
+	
+	// make elements (cds) draggable
+	$("li", $cds).draggable({
+		revert: "invalid"
+	});
+	
+	// place to drop cds
+	$share.droppable({
+		accept: "#selectable > li",
+		drop: function( event, ui ) {
+			$( "<li></li>" ).text( ui.draggable.text() ).appendTo( this );
+			ui.draggable.fadeOut(1000);
+		}
+	});
+	
+	$cds.droppable({
+		accept: "#shareBox li"
+	});
+}

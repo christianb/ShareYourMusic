@@ -45,6 +45,14 @@
 	height:456px;
 	}
 
+#shareBox{
+	float: left;
+	width: 200px;
+	height:200px;
+	border: 2px solid black;
+	position: absolute;
+	top: 480px;
+}
 
 #navidesign1{
 	background-color:#2E2E2E;
@@ -93,27 +101,27 @@
 	
 	color:white;
 }
-#naviline a:link{ 
+#navidesign2 a:link{ 
 	font-weight:bold; 
 	color:blue; 
 	text-decoration:none; 
 	}
-#naviline a:visited { 
+#navidesign2 a:visited { 
 	font-weight:bold; 
-	color:silver; 
+	color:black; 
 	text-decoration:none; 
 	}
-#naviline a:focus { 
+#navidesign2 a:focus { 
 	font-weight:bold; 
 	color:red; 
 	text-decoration:underline; 
 	}
-#naviline a:hover { 
+#navidesign2 a:hover { 
 	font-weight:bold; 
 	color:#F39814; 
 	text-decoration:none; 
 	}
-#naviline a:active { 
+#navidesign2 a:active { 
 	font-weight:bold; 
 	color:lime; 
 	text-decoration:underline;
