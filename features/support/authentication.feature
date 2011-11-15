@@ -3,12 +3,32 @@ Feature: Authentication
   As a user
   I want to be authenticated
 
-  Scenario: Register new User
+  @ok
+  Scenario: Click on Register
     Given I am on the Welcome page
-		When I press Register
-		Then I should see a Firstname Field
-		And I should see a Lastname Field
-		And I should see an Email Field
-		And I should see a Password Field
+		When I follow Register
+		Then I should see "Sign up"
+		Then I should see a "Firstname" field
+		And I should see a "Lastname" field
+		And I should see an "Email" field
+		And I should see a "Password" field
+	
+	@ok
+	Scenario: Fill Form to register
+		Given I am on the Register page
+    When I fill in "Firstname" with "Christian"
+    And I fill in "Lastname" with "Bunk"
+    #And I fill in "Password" with "Secret"
+    And I fill in "Password" with "weihnachten1986"
+    And I fill in "Password confirmation" with "weihnachten1986"
+    And I fill in "Email" with "hallo@web.de"
+    And I fill in "Image" with "image.png"
+    And I press "Sign up"
+    Then I should see "Meine CDs"
 		
+	@wip
+	Scenario: Login User
+	  Given I am on the Welcome page
+	  Then I should see an "Email" field
+	  And I should see a "Password" field
 		

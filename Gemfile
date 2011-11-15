@@ -35,8 +35,9 @@ group :test do
 	gem 'minitest'
 	gem 'cucumber-rails'
 	gem 'database_cleaner'
-	#gem 'rspec-rails'
-	#gem 'webrat'
+	gem 'rspec'
+	gem 'rspec-rails'
+	gem 'webrat'
 end
 
 gem 'devise'
