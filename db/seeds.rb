@@ -10,8 +10,8 @@ puts 'Create Roles'
 Role.create! :role => "user"
 Role.create! :role => "admin"
 
-#puts 'Create User'
-#User.create! :role_id => 1, :lastname => "User", :firstname=> "Ein", :email => "user@user.de", :image_uri => "user.png", :password => "useruser"
+puts 'Create User'
+User.create! :role_id => 1, :lastname => "Bunk", :firstname=> "Christian", :email => "christianb@web.de", :image_uri => "user.png", :password => "christianb"
 #admin = User.create! :role_id => 2, :lastname => "Admin", :firstname=> "Ein", :email => "admin@admin.de", :image_uri => "admin.png", :password => "adminadmin"
 
 #admin.update_attribute(:role_id, 2)

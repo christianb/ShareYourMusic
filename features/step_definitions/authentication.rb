@@ -2,26 +2,42 @@ Given /^I am on the (.*) page$/ do |arg1|
   visit path_to(arg1)
 end
 
-When /^I follow (.*)$/ do |link|
+Given /^I am logged in$/ do
+  visit path_to("Welcome")
+  within("#login") do 
+    fill_in(field_to("Email"), :with => "christianb@web.de")
+    fill_in(field_to("Password"), :with => "christianb")
+  end
+  click_button("Sign in")
+  page.should have_content("Meine CDs")
+end
+
+When /^I follow "([^\"]*)"$/ do |link|
   visit path_to(link)
 end
 
 When /^I press "([^\"]*)"$/ do |button|
   click_button(button)
-  role=Role.where(:id => 10)
+  #role=Role.where(:id => 10)
   #element = find_by_id("user_new")
   #Capybara::RackTest::Form.new(page.driver, element.native).submit :name => nil
 end
-#
-When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
-  #fill_in "Email", :with => "hallo@welt.de"
-#  find_by_id("user_email").set("hallo@web.de")
-#  fill_in(field_to(field), :with => value)
-  #click_button 'Sign up'
-  #within '#content'
-  #     fill_in "user[email]", :with => "hallo@welt.de"
+
+When /^I fill in "([^\"]*)" with "([^\"]*)" in the login form$/ do |field, value|
+  within("#login") do 
+    fill_in(field_to(field), :with => value)
+  end
+end
+
+When /^I fill in "([^\"]*)" with wrong value "([^\"]*)" in the login form$/ do |field, value|
+  within("#login") do 
+    fill_in(field_to(field), :with => value)
+  end
+end
+
+When /^I fill in "([^\"]*)" with "([^\"]*)" in the registration form$/ do |field, value|
   within("#user_new") do
-      fill_in(field_to(field), :with => value)
+    fill_in(field_to(field), :with => value)
   end
 end
 
@@ -31,4 +47,8 @@ end
 
 Then /^I should see "([^\"]*)"$/ do |text|
   page.should have_content(text)
+end
+
+Then /^the login should not be successful$/ do
+  page.should have_content("Sign in")
 end

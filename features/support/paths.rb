@@ -5,7 +5,8 @@ def path_to(page_name)
     root_path
   when /Register/i
     new_user_registration_path
-  when "Sign up"
+  when /Logout/i
+    destroy_user_session_path
     
   # Add more page name => path mappings here
  
