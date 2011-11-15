@@ -32,7 +32,7 @@ function dragDropCD(){
 	$share.droppable({
 		accept: "#selectable > li",
 		drop: function( event, ui ) {
-			$( "<li></li>" ).text( ui.draggable.text() ).appendTo( this );
+			$( "<li></li>" ).text( ui.draggable.text()).appendTo( this ).append("Remove");
 			ui.draggable.fadeOut(1000);
 		}
 	});
