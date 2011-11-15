@@ -1,23 +1,5 @@
 <h1>Meine CDs</h1>
 <p><%= flash[:alert] %></p>
-<%
-
-=begin %>
-<table id="table_style">
-	<tr>
-		<th>Interpret</th>
-		<th>Album</th>
-	</tr>
-<% @cds.each do |c| %>
-	<tr>
-		<td><%= c.artist %></td>
-		<td><%= c.title %></td>
-	</tr>
-<% end %>
-</table>
-</br>
-<%= link_to 'Neu', new_compact_disk_path %>
-=end %>
 
 <%
 =begin %>
@@ -32,6 +14,7 @@
 
 <ol id="selectable">
 <% @cds.each do |c| %>
+
 	<li class="ui-state-default">
 			<%= image_tag "cd_pic.png" %>
 			<div id="cd_info">
@@ -41,7 +24,7 @@
 	</li>
 <% end %>
 </ol>
-
+<%= link_to 'Neu', new_compact_disk_path %>
 
 
 	

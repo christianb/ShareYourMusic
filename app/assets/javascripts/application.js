@@ -11,9 +11,11 @@
 
 
 $(document).ready(function(){
+	
 	$(function() {
-			$( "#selectable" ).selectable();
+		$( "#selectable" ).selectable();
 	});
+	
 });
 
 

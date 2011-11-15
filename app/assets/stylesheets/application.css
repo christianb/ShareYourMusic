@@ -137,17 +137,6 @@
 	top: -200px;
 }
 
-#table_style{
-	background: #E6E6E6;
-	border: 2px solid #2E2E2E;
-	border-collapse:collapse;
-}
-
-#table_style th{
-	background: #2E2E2E;
-	color: white;
-}
-
 #cd_info{
 	font-size: 16px;
 }
@@ -166,6 +155,7 @@
 	list-style-type: none; 
 	margin: 0; 
 	padding: 0; 
+	height: 100%;
 }
 #selectable li { 
 	margin: 3px; 
