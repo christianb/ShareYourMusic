@@ -32,12 +32,16 @@ function dragDropCD(){
 	$share.droppable({
 		accept: "#selectable > li",
 		drop: function( event, ui ) {
-			$( "<li></li>" ).text( ui.draggable.text()).appendTo( this ).append("Remove");
+		//	$( "<li></li>" ).text( ui.draggable.text()).appendTo( this ).append("Remove");
 			ui.draggable.fadeOut(1000);
 		}
 	});
 	
 	$cds.droppable({
-		accept: "#shareBox li"
+		accept: "#shareBox li",
+		drop: function( event, ui ) {
+			//removeFromShare( ui.draggable );
+			ui.draggable.appendTo("#selectable")
+		}
 	});
 }

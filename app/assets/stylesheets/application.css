@@ -47,11 +47,11 @@
 
 #shareBox{
 	float: left;
-	width: 200px;
-	height:200px;
-	border: 2px solid black;
+	width: 100%;
+	height:100%;
 	position: absolute;
 	top: 480px;
+	z-index: 1;
 }
 
 #navidesign1{
@@ -172,4 +172,5 @@
 	height: 180px; 
 	font-size: 2em; 
 	text-align: center; 
+	z-index: 2;
 }
