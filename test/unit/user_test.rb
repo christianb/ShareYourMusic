@@ -36,19 +36,19 @@ class UserTest < ActiveSupport::TestCase
     #assert_equal I18n.translate('activerecord.errors.messages.taken'), user.errors[:email].join(';')
   end
   
-  test "image uri" do
-    @user.image_uri = "image.sh"
-    assert @user.invalid?, "image uri should be invalid"
+  #test "image uri" do
+  #  @user.image_uri = "image.sh"
+  #  assert @user.invalid?, "image uri should be invalid"
     
-    @user.image_uri = "image.png"
-    assert @user.valid?, "image uri should be valid"
+  #  @user.image_uri = "image.png"
+  #  assert @user.valid?, "image uri should be valid"
     
-    @user.image_uri = nil
-    assert @user.valid?, "image uri is allowed to be nil"
+  #  @user.image_uri = nil
+  #  assert @user.valid?, "image uri is allowed to be nil"
      
-    @user.image_uri = ""
-    assert @user.invalid?, "image uri is must not be empty"
-  end
+  #  @user.image_uri = ""
+  #  assert @user.invalid?, "image uri is must not be empty"
+  #end
   
   test "email pattern" do
     @user.email = "name@domain.com"

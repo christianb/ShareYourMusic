@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111110152245) do
+ActiveRecord::Schema.define(:version => 20111116124850) do
 
   create_table "compact_disks", :force => true do |t|
     t.integer  "user_id",     :null => false
@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(:version => 20111110152245) do
     t.string   "lastname",                                                    :null => false
     t.string   "firstname",                                                   :null => false
     t.string   "email",                                                       :null => false
-    t.string   "image_uri"
     t.string   "state",                                 :default => "active", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -80,6 +79,9 @@ ActiveRecord::Schema.define(:version => 20111110152245) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
   end
 
 end

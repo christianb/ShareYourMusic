@@ -1,5 +1,6 @@
 <h1>Benutzerprofil</h1>
 
+<%= image_tag @user.photo.url(:normal) %>
 <p>Name: <%= @user.firstname %> <%= @user.lastname %></p>
 <p>Alias: <%= @user.alias %></p>
 <p>eMail: <%= @user.email %></p>

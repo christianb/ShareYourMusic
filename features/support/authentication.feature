@@ -1,7 +1,7 @@
 Feature: Authentication
-  In order to use the plattform 
-  As a user
-  I want to be authenticated
+  As a user 
+  I want to login at the plattform
+  So I can share my CDs with other people
 
   @ok
   Scenario: Click on Register
@@ -14,14 +14,14 @@ Feature: Authentication
 		And I should see a "Password" field
 	
 	@ok
-	Scenario: Fill Form to register
+	Scenario: Fill form to register
 		Given I am on the Register page
     When I fill in "Firstname" with "Christian" in the registration form
     And I fill in "Lastname" with "Bunk" in the registration form
     And I fill in "Password" with "weihnachten1986" in the registration form
     And I fill in "Password confirmation" with "weihnachten1986" in the registration form
     And I fill in "Email" with "hallo@web.de" in the registration form
-    And I fill in "Image" with "image.png" in the registration form
+    #And I fill in "Image" with "image.png" in the registration form
     And I press "Sign up"
     Then I should see "Meine CDs"
 		
