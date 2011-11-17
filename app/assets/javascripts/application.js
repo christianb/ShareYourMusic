@@ -13,6 +13,7 @@
 $(document).ready(function(){
 	//selectCD();
 	dragDropCD();
+	openInBox();
 });
 
 function selectCD(){
@@ -43,5 +44,26 @@ function dragDropCD(){
 			//removeFromShare( ui.draggable );
 			ui.draggable.appendTo("#selectable")
 		}
+	});
+}
+
+function openInBox(){
+	$('#opendialog a').each(function() {
+			var $dialog = $('<div></div>');
+			var $link = $(this).one('click', function() {
+				$dialog
+					.load($link.attr('href') + ' #content p')
+					.dialog({
+						title: $link.attr('title'),
+						width: 500,
+						height: 300
+					});
+
+				$link.click(function() {
+					$dialog.dialog('open');
+					return false;
+				});
+				return false;
+			});
 	});
 }

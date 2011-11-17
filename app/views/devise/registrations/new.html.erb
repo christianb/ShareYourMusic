@@ -1,4 +1,4 @@
-<h2>Sign up</h2>
+<% content_for :title, "Sign Up" %>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -6,17 +6,21 @@
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-	
-  <div><%= f.label :firstname %><br />
+  <div><%= f.label "Vorname" %><br />
   <%= f.text_field :firstname %></div>
   
-  <div><%= f.label :lastname %><br />
+  <div><%= f.label "Nachname" %><br />
   <%= f.text_field :lastname %></div>
+
+  <div><%= f.label :alias %><br />
+  <%= f.text_field :alias %></div>
+	</br>
+  <div><%= f.label "Passwort" %><br />
+  <%= f.password_field :password %></div>
+
+  <div><%= f.label "Passwort wiederholen" %><br />
+  <%= f.password_field :password_confirmation %></div>
+	
 
   <div><%= f.label :image_uri %><br />
   <%= f.text_field :image_uri %></div>

@@ -16,8 +16,11 @@
 		<div id="login">
 			Login:
 			<% if user_signed_in? %>
-			  	<%= link_to('Daten ändern', edit_user_registration_path  ) %> | 
-			  	<%= link_to('Logout', destroy_user_session_path) %> </br>
+			<div id="buttons">
+			  	<%= button_to('Daten ändern', edit_user_registration_path, :method => "get" ) %>
+			  	<%= button_to('Logout', destroy_user_session_path, :method => "get") %>
+			</div>
+			</br>
 			 	Angemeldet als: <%= current_user.firstname + " " + current_user.lastname  %>
 			  <% else %>						  	
 				<%= form_for("user", :url => user_session_path) do |f| %>
@@ -27,12 +30,15 @@
 				  <%= f.label :remember_me %>
 				  <%= f.submit 'Login' %>
 				<% end %>
-				<%= link_to "Passwort vergessen?", new_password_path('user') %>
-			  	<%= link_to('Registrieren', new_user_registration_path)  %>
+				<div id="buttons">
+					<%= button_to "Passwort vergessen?", new_password_path('user'), :method => "get" %>
+			  		<%= button_to('Registrieren', new_user_registration_path, :method => "get")  %>
+				</div>
 			  <% end %>
 		</div>
 		<div style="float:clear;"></div>
 		<div id="naviline">
+			<%= yield(:title) %>
 		</div>
 	</div>
 	

@@ -1,4 +1,4 @@
-<h1>Meine CDs</h1>
+<% content_for :title, "Meine CDs" %>
 <p><%= flash[:alert] %></p>
 
 <%
@@ -15,11 +15,13 @@
 <!-- <ol id="selectable"> -->
 <ul id="selectable" class="gallery ui-helper-reset ui-helper-clearfix">
 <% @cds.each do |c| %>
-	<li>
-			<%= image_tag "cd_pic.png" %>
+	<li>	
+			<div id = "opendialog">
+			<%= link_to (image_tag "cd_pic.png"), c,  :title => c.artist + " - " + c.title %>
+			</div>
 			<div id="cd_info">
 				<%= c.artist %></br>
-				<%= c.title %>
+				<%= c.title %></br>
 			</div>
 	</li>
 <% end %>
