@@ -1,5 +1,6 @@
 Projekt::Application.routes.draw do
     devise_for :users
+    
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -15,6 +16,11 @@ Projekt::Application.routes.draw do
   resources :compact_disk
   resources :user
 
+  devise_for :users do
+   get 'users', :to => 'user#show', :as => :user_root # Rails 3
+  end
+
+  #match "user_root" => "user#show"
   # Sample resource route with options:
   #   resources :products do
   #     member do
