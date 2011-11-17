@@ -50,3 +50,5 @@ Feature: Authentication
 	  Given I am logged in
 	  When I follow "Logout"
 	  Then I should see "Logout Erfolgreich"
+	  
+	

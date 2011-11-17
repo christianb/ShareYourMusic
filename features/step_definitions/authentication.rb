@@ -24,15 +24,18 @@ When /^I press "([^\"]*)"$/ do |button|
 end
 
 When /^I fill in "([^\"]*)" with "([^\"]*)" in the login form$/ do |field, value|
-  within("#login") do 
-    fill_in(field_to(field), :with => value)
-  end
+  fill_in(field_to(field), :with => value)
+end
+
+When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
+  fill_in(field_to(field), :with => value)
 end
 
 When /^I fill in "([^\"]*)" with wrong value "([^\"]*)" in the login form$/ do |field, value|
-  within("#login") do 
-    fill_in(field_to(field), :with => value)
-  end
+  #within("#login") do 
+    #fill_in(field_to(field), :with => value)
+  #end
+  fill_in(field_to(field), :with => value)
 end
 
 When /^I fill in "([^\"]*)" with "([^\"]*)" in the registration form$/ do |field, value|
@@ -47,6 +50,10 @@ end
 
 Then /^I should see "([^\"]*)"$/ do |text|
   page.should have_content(text)
+end
+
+Then /^I should not see "([^\"]*)"$/ do |text|
+  !page.should have_content(text)
 end
 
 Then /^the login should not be successful$/ do

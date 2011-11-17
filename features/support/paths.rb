@@ -7,6 +7,16 @@ def path_to(page_name)
     new_user_registration_path
   when /Logout/i
     destroy_user_session_path
+  when "Edit registration"
+    edit_user_registration_path
+  when "Profil"
+    user = User.where(:email => "christianb@web.de")
+    @user = user[0]
+    user_path(@user)
+  when "Account loeschen"
+    url_for(:action => "destroy", :controller => "devise/registrations")
+    #
+    #url_for(:action => "show", :controller => "user")
     
   # Add more page name => path mappings here
  
