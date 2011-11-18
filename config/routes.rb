@@ -14,11 +14,8 @@ Projekt::Application.routes.draw do
   
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   resources :compact_disk
-  resources :user
-
-  devise_for :users do
-   get 'users', :to => 'user#show', :as => :user_root # Rails 3
-  end
+  
+  match '/user/:id' => 'user#show', :as => :user
 
   #match "user_root" => "user#show"
   # Sample resource route with options:
@@ -56,7 +53,7 @@ Projekt::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-   root :to => 'welcome#index'
+  root :to => 'welcome#index', :as => :welcome
 
   # See how all your routes lay out with "rake routes"
 
