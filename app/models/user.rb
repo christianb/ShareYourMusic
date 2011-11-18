@@ -17,8 +17,8 @@ class User < ActiveRecord::Base
 has_private_messages
 
 has_attached_file :photo, :styles => { :normal => "150x150>", :small => "70x70>" },
-                  :url  => "/assets/users/:id/:style/:basename.:extension",
-                  :path => ":rails_root/public/assets/users/:id/:style/:basename.:extension",
+                  :url  => "/system/users/:id/:style/:basename.:extension",
+                  :path => ":rails_root/public/system/users/:id/:style/:basename.:extension",
                   :default_url => "/assets/user_default.png"
 
 #validates_attachment_presence :photo
