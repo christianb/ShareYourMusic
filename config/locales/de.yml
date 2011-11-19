@@ -1,0 +1,26 @@
+de:
+  
+  welcome:
+      index:
+          headline: "Willkommen"
+          
+  user:
+      show:
+          user_show_title: "Benutzerprofil"
+          user_name: "Name"
+          user_alias: "Alias"
+          user_email: "eMail"
+          edit_profil: "Bearbeiten"
+          delete_profil: "Account löschen"
+
+  compact_disk:
+      index:
+          cd_headline: "CD Sammlung"
+          cd_new: "Neue CD anlegen"
+          
+  layouts:
+     application:
+         user_edit: "Account anpassen"
+         user_logout: "Ausloggen"
+         user_show: "Benutzerprofil"
+         user_cd_index: "CD Sammlung"

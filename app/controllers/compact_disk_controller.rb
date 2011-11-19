@@ -1,4 +1,5 @@
 class CompactDiskController < ApplicationController
+  before_filter :set_locale
   load_and_authorize_resource :only => [:show, :destroy]
   
   def index

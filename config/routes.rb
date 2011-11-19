@@ -1,5 +1,5 @@
 Projekt::Application.routes.draw do
-    devise_for :users
+    
     
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -13,10 +13,21 @@ Projekt::Application.routes.draw do
   # This route can be invoked with purchase_url(:id => product.id)
   
   # Sample resource route (maps HTTP verbs to controller actions automatically):
-  resources :compact_disk
   
-  match '/user/:id' => 'user#show', :as => :user
-
+  devise_for :users
+  
+  
+  
+  
+  
+  scope "(:locale)", :locale => /de|en/ do
+    root :to => 'welcome#index', :as => :welcome
+    resources :user
+    resources :compact_disk
+    #match '/compact_disk' => 'compact_disk#index', :as => :compact_disk_index
+    #match '/compact_disk/new' => 'compact_disk#new', :as => :new_compact_disk
+  end
+  
   #match "user_root" => "user#show"
   # Sample resource route with options:
   #   resources :products do
@@ -53,7 +64,7 @@ Projekt::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'welcome#index', :as => :welcome
+  
 
   # See how all your routes lay out with "rake routes"
 

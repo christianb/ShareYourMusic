@@ -16,8 +16,8 @@
 		<div id="login">
 			Login:
 			<% if user_signed_in? %>
-			  	<%= link_to('Edit registration', edit_user_registration_path  ) %> | 
-			  	<%= link_to('Logout', destroy_user_session_path) %> 
+			  	<%= link_to t('.user_edit'), edit_user_registration_path %> | 
+			  	<%= link_to t('.user_logout'), destroy_user_session_path %> 
 			  <% else %>						  	
 				<%= form_for("user", :url => user_session_path) do |f| %>
 				  <%= f.text_field :email %></br>
@@ -40,8 +40,8 @@
 		<div id="navidesign1">
 		<div id="navidesign2">
 			<% if user_signed_in? %>
-				<%= link_to "Profil", user_path(current_user.id) %> </br>
-				<%= link_to "Meine CDs", compact_disk_index_path %> 
+				<%= link_to t('.user_show'), user_path(current_user.id) %> </br>
+				<%= link_to t('.user_cd_index'), compact_disk_index_path %> 
 			<% end %>
 		</div>
 		</div>

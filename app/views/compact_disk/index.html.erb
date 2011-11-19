@@ -1,4 +1,4 @@
-<h1>Index CD</h1>
+<h1><%= t('.cd_headline')%></h1>
 <p><%= flash[:alert] %></p>
 <%
 =begin %>
@@ -10,4 +10,4 @@
 	<% end %>
 <%
 =end %>
-<%= link_to 'Neu', new_compact_disk_path %>
+<%= link_to t('.cd_new'), new_compact_disk_path %>

@@ -1,4 +1,5 @@
 class UserController < ApplicationController
+  before_filter :set_locale
   
   # just print some attributes of a user
   # GET /user/1
