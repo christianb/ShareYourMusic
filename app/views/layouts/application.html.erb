@@ -10,52 +10,50 @@
 	
 <div id="main">
 	
-	<!--<div id="head">-->
+	<div id="head">
 	<div id="logo">	</div>
-	<header>
-		<!-- <div id="logo">	</div> -->
-<%=
-=begin
-%>		
-		<div id="login">
-			Login:
+        <div id="login">
 			<% if user_signed_in? %>
-			<div id="buttons">
-			  	<%= button_to('Daten ändern', edit_user_registration_path, :method => "get" ) %>
-			  	<%= button_to('Logout', destroy_user_session_path, :method => "get") %>
-			</div>
-			</br>
-			 	Angemeldet als: <%= current_user.firstname + " " + current_user.lastname  %>
-			  <% else %>						  	
+                <div id="logged_in_as">
+                    Angemeldet als:
+                    <div id="logged_in_as_name">
+                        <%= current_user.firstname + " " + current_user.lastname  %>
+                    </div>
+                </div>
+                <div id="buttons">
+                    <%= button_to('Daten ändern', edit_user_registration_path, :method => "get" ) %>
+                    <%= button_to('Logout', destroy_user_session_path, :method => "get") %>
+                </div>	
+			<% else %>						  	
 				<%= form_for("user", :url => user_session_path) do |f| %>
-				  <%= f.text_field :email %></br>
+				  <label for="user_email" style="margin-right:13px;">Login:</label>
+                  <%= f.text_field :email %></br>
+                  <lablel for="user_password">Passwort:</label>
 				  <%= f.password_field :password %></br>
 				  <%= f.check_box :remember_me %>
 				  <%= f.label :remember_me %>
 				  <%= f.submit 'Login' %>
 				<% end %>
 				<div id="buttons">
-					<%= button_to "Passwort vergessen?", new_password_path('user'), :method => "get" %>
-			  		<%= button_to('Registrieren', new_user_registration_path, :method => "get")  %>
+					<%= link_to "Passwort vergessen?", new_password_path('user'), :method=> "get" %>
+                    <%= link_to  "Registrieren", new_user_registration_path, :method=> "get" %>
 				</div>
 			  <% end %>
 		</div>
-<%=
-=end
-%>
-	<div id="loginbar">
+        
+	<!--<div id="loginbar">
 		<% if user_signed_in? %>
 			<%= link_to "Daten ändern", edit_user_registration_path %>
 			<%= link_to "Abmelden", destroy_user_session_path %>
 		<% else %>
 			<%= link_to "Anmelden", new_user_session_path %>
 		<% end %>
-	</div>
-	<!-- 	<div style="float:clear;"></div> -->
+	</div>-->
+	<div style="float:clear;"></div>
 		<div id="naviline">
 			<%= yield(:title) %>
 		</div>
-	<!-- </div> -->
+	</div>
 	</header>
 	
 	<div id="navi">

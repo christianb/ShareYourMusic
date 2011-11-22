@@ -17,9 +17,9 @@
 }
 
 #standard{
-	background-color:white;
+	background-color:#D3D3D3;
 	font-family: Sans-serif;
-	
+	font-size: 16px;
 	}
 
 #main{
@@ -67,6 +67,7 @@
 	height: 283px;
 	margin:0px 0px 5px 5px;
 	padding: 6px 6px 6px 6px;
+    font-size: 20px;
 	}
 
 #content{
@@ -74,76 +75,74 @@
 	width:794px;
 	height:426px;
 	padding:20px 10px 10px 20px;
+    background-color:white;
 	}
 #login{
 	width:282px;
-	height: 100px;	
+	height: 88px;	
 	float:right;
 	margin: 4px 4px 4px 4px;
 	padding: 4px 4px 4px 4px;
 	border-width: 1px;
 	border-color: #2E2E2E;
 	border-style: solid;
+    font-size:10px;
 	}
+
+#login user_email{
+    margin-left:13px;
+}
+    
 #naviline{
 	float:left;
 	width:809px;
 	height:32px;
 	background-color:#2E2E2E;
-	/*background-image: url(web1_04.gif);*/
+	background-image: url(web1_04.gif);
 	background-repeat:no-repeat;
 	padding-left: 205px;
 	padding-top: 6px;
 	padding-bottom: 0px;
 	padding-bottom: 0px;
 	padding-right:10px;
-	
 	color:white;
 }
 a:link{ 
 	font-weight:bold; 
-	color:blue; 
+	color:#FF7F24; 
 	text-decoration:none; 
 	}
 a:visited { 
 	font-weight:bold; 
-	color:black; 
+	color:#FF7F24; 
 	text-decoration:none; 
 	}
 a:focus { 
 	font-weight:bold; 
-	color:red; 
+	color:#FF7F24; 
 	text-decoration:underline; 
 	}
 a:hover { 
 	font-weight:bold; 
-	color: white; 
+	color:#FF7F24; 
 	text-decoration:none; 
 	}
 a:active { 
 	font-weight:bold; 
-	color:lime; 
+	color:#FF7F24; 
 	text-decoration:underline;
 	 }
 
 
 #logo{  
-	/*float:left;	*/
+	float:left;
 	width: 724px;
 	height:106px;
-	margin-bottom:5px;
 	background-image: url(web1_02.gif);
 	background-repeat:no-repeat;
 }
 
-#userpic{
-	float: right;
-	border: 2px solid black;
-	width: 140px;
-	height: 180px;
-	position: relative;
-	top: -200px;
-}
+
 
 #cd_info{
 	font-size: 16px;
@@ -181,4 +180,16 @@ a:active {
 	background: #F39814;
 	text-align: right;
 	margin-bottom: 2px;
+}
+#buttons form, #buttons div {
+       display: inline;
+}
+
+#logged_in_as{
+    font-size: 18px;   
+}
+#logged_in_as_name{
+    font-weight: bold;
+    margin-left: 20px;
+    margin-bottom: 13px;
 }
