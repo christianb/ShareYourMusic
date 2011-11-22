@@ -1,4 +1,4 @@
-	<% content_for :title, "Nutzerdaten ändern" %>
+<% content_for :title, "Nutzerdaten ändern" %>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
@@ -20,14 +20,14 @@
 
   <div><%= f.label "Passwort wiederholen" %><br />
   <%= f.password_field :password_confirmation %></div>
-	</br>
+	<br />
   <div><%= f.label "Aktuelles Passwort" %> <i>(Aktuelles Passwort, um Änderungen zu bestätigen)</i><br />
   <%= f.password_field :current_password %></div>
 
   <div><%= f.submit "Update" %></div>
 <% end %>
 
-</br>
+<br />
 <%= link_to "Back", :back %>
-</br>
+<br />
 <p><%= link_to "Account Löschen", registration_path(resource_name), :confirm => "Sicher?", :method => :delete %></p>

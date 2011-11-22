@@ -9,18 +9,11 @@
 <body id="standard">
 	
 <div id="main">
-	<div id="loginbar">
-		<% if user_signed_in? %>
-			<%= link_to "Daten ändern", edit_user_registration_path %>
-			<%= link_to "Abmelden", destroy_user_session_path %>
-		<% else %>
-			<%= link_to "Anmelden", new_user_session_path %>
-		<% end %>
-	</div>
 	
 	<!--<div id="head">-->
+	<div id="logo">	</div>
 	<header>
-		<div id="logo">	</div>
+		<!-- <div id="logo">	</div> -->
 <%=
 =begin
 %>		
@@ -50,7 +43,15 @@
 <%=
 =end
 %>
-		<div style="float:clear;"></div>
+	<div id="loginbar">
+		<% if user_signed_in? %>
+			<%= link_to "Daten ändern", edit_user_registration_path %>
+			<%= link_to "Abmelden", destroy_user_session_path %>
+		<% else %>
+			<%= link_to "Anmelden", new_user_session_path %>
+		<% end %>
+	</div>
+	<!-- 	<div style="float:clear;"></div> -->
 		<div id="naviline">
 			<%= yield(:title) %>
 		</div>

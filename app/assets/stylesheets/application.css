@@ -90,7 +90,7 @@
 	width:809px;
 	height:32px;
 	background-color:#2E2E2E;
-	background-image: url(web1_04.gif);
+	/*background-image: url(web1_04.gif);*/
 	background-repeat:no-repeat;
 	padding-left: 205px;
 	padding-top: 6px;
@@ -128,9 +128,10 @@ a:active {
 
 
 #logo{  
-	float:left;	
+	/*float:left;	*/
 	width: 724px;
 	height:106px;
+	margin-bottom:5px;
 	background-image: url(web1_02.gif);
 	background-repeat:no-repeat;
 }
@@ -173,12 +174,11 @@ a:active {
 	text-align: center; 
 	z-index: 2;
 }
-#buttons form, #buttons div {
-       display: inline
-}
 
 #loginbar{
-	width: 1020px;
-	height: 30px;
+	width: 1024px;
+	height: 25px;
 	background: #F39814;
+	text-align: right;
+	margin-bottom: 2px;
 }
