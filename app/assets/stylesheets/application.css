@@ -17,7 +17,7 @@
 }
 
 #standard{
-	background-color:silver;
+	background-color:white;
 	font-family: Sans-serif;
 	
 	}
@@ -101,27 +101,27 @@
 	
 	color:white;
 }
-#navidesign2 a:link{ 
+a:link{ 
 	font-weight:bold; 
 	color:blue; 
 	text-decoration:none; 
 	}
-#navidesign2 a:visited { 
+a:visited { 
 	font-weight:bold; 
 	color:black; 
 	text-decoration:none; 
 	}
-#navidesign2 a:focus { 
+a:focus { 
 	font-weight:bold; 
 	color:red; 
 	text-decoration:underline; 
 	}
-#navidesign2 a:hover { 
+a:hover { 
 	font-weight:bold; 
-	color:#F39814; 
+	color: white; 
 	text-decoration:none; 
 	}
-#navidesign2 a:active { 
+a:active { 
 	font-weight:bold; 
 	color:lime; 
 	text-decoration:underline;
@@ -176,4 +176,10 @@
 }
 #buttons form, #buttons div {
        display: inline
+}
+
+#loginbar{
+	width: 1020px;
+	height: 30px;
+	background: #F39814;
 }

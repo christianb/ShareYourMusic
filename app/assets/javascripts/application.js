@@ -13,7 +13,7 @@
 $(document).ready(function(){
 	//selectCD();
 	dragDropCD();
-	openInBox();
+	//openInBox();
 });
 
 function selectCD(){
@@ -42,15 +42,15 @@ function dragDropCD(){
 		accept: "#shareBox li",
 		drop: function( event, ui ) {
 			//removeFromShare( ui.draggable );
-			ui.draggable.appendTo("#selectable")
+			ui.draggable.appendTo("#selectable");
 		}
 	});
 }
-
+/*
 function openInBox(){
 	$('#opendialog a').each(function() {
 			var $dialog = $('<div></div>');
-			var $link = $(this).one('click', function() {
+			var $link = $(this).one.('click', function() {
 				$dialog
 					.load($link.attr('href') + ' #content p')
 					.dialog({
@@ -67,3 +67,4 @@ function openInBox(){
 			});
 	});
 }
+*/
