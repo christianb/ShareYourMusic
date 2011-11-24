@@ -1,3 +1,19 @@
 // Place all the styles related to the user controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#optionen{
+    margin-top: 40px;
+}
+
+
+#userpic{
+	float: right;
+	border: 2px solid black;
+	width: 140px;
+	height: 180px;
+	position: relative;
+	top: -140px;
+    margin-right:110px;
+}

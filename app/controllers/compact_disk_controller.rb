@@ -35,4 +35,7 @@ class CompactDiskController < ApplicationController
       end
   end
   
+  def find_by_artist
+    @cd = CompactDisk.where
+  end
 end

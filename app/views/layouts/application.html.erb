@@ -3,54 +3,79 @@
 <head>
   <title>CD - Tauschbörse</title>
   <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "application", %>
   <%= csrf_meta_tags %>
 </head>
 <body id="standard">
 	
 <div id="main">
+	
 	<div id="head">
-		<div id="logo">
-		
-		</div>
-		<div id="login">
-			Login:
+	<div id="logo">	</div>
+        <div id="login">
 			<% if user_signed_in? %>
-			  	<%= link_to('Edit registration', edit_user_registration_path  ) %> | 
-			  	<%= link_to('Logout', destroy_user_session_path) %> 
-			  <% else %>						  	
+                <div id="logged_in_as">
+                    Angemeldet als:
+                    <div id="logged_in_as_name">
+                        <%= current_user.firstname + " " + current_user.lastname  %>
+                    </div>
+                </div>
+                <div id="buttons">
+                    <%= button_to('Daten ändern', edit_user_registration_path, :method => "get" ) %>
+                    <%= button_to('Logout', destroy_user_session_path, :method => "get") %>
+                </div>	
+			<% else %>						  	
 				<%= form_for("user", :url => user_session_path) do |f| %>
-				  <%= f.text_field :email %></br>
+				  <label for="user_email" style="margin-right:13px;">Login:</label>
+                  <%= f.text_field :email %></br>
+                  <lablel for="user_password">Passwort:</label>
 				  <%= f.password_field :password %></br>
 				  <%= f.check_box :remember_me %>
 				  <%= f.label :remember_me %>
-				  <%= f.submit 'Sign in' %>
+				  <%= f.submit 'Login' %>
 				<% end %>
-				<%= link_to "Forgot your password?", new_password_path('user') %>
-			  	<%= link_to('Register', new_user_registration_path)  %>
+				<div id="buttons">
+					<%= link_to "Passwort vergessen?", new_password_path('user'), :method=> "get" %>
+                    <%= link_to  "Registrieren", new_user_registration_path, :method=> "get" %>
+				</div>
 			  <% end %>
 		</div>
-		<div style="float:clear;"></div>
+        
+	<!--<div id="loginbar">
+		<% if user_signed_in? %>
+			<%= link_to "Daten ändern", edit_user_registration_path %>
+			<%= link_to "Abmelden", destroy_user_session_path %>
+		<% else %>
+			<%= link_to "Anmelden", new_user_session_path %>
+		<% end %>
+	</div>-->
+	<div style="float:clear;"></div>
 		<div id="naviline">
-		 Titel/Funktion der Seite
+			<%= yield(:title) %>
 		</div>
 	</div>
+	</header>
 	
 	<div id="navi">
 		<div id="navidesign1">
-		<div id="navidesign2">
-			<% if user_signed_in? %>
-				<%= link_to "Profil", user_path(current_user.id) %> </br>
-				<%= link_to "Meine CDs", compact_disk_index_path %> 
-			<% end %>
+			<div id="navidesign2">
+				<% if user_signed_in? %>
+					<%= link_to "Mein Profil", user_path(current_user.id) %> </br>	
+					<%= link_to "Meine CDs", compact_disk_index_path %> 
+						<% if request.fullpath.include? "compact_disk" %>
+							</br><%= link_to ' * Neue CD', new_compact_disk_path %>
+						<% end %>
+				<% end %>
+			</div>
 		</div>
-		</div>
-		
 	</div>
+
 	<div id="content">
 		<%= yield %>
 	</div>
-	
+	<div id="shareBox">
+		<%= image_tag "cart.png", :size => "212x212" %>
+	</div>	
 </div>
 
 

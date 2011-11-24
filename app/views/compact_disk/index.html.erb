@@ -1,5 +1,6 @@
-<h1>Index CD</h1>
+<% content_for :title, "Meine CDs" %>
 <p><%= flash[:alert] %></p>
+
 <%
 =begin %>
 	<% if can?(:show, c) && user_signed_in? %>
@@ -10,4 +11,21 @@
 	<% end %>
 <%
 =end %>
-<%= link_to 'Neu', new_compact_disk_path %>
+
+<!-- <ol id="selectable"> -->
+<ul id="selectable" class="gallery ui-helper-reset ui-helper-clearfix">
+<% @cds.each do |c| %>
+	<li>	
+
+			<%= image_tag "cd_pic.png" %>
+			<div id="cd_info">
+				<%= c.artist %></br>
+				<%= c.title %></br>
+			</div>
+	</li>
+<% end %>
+</ul>
+
+
+
+	
