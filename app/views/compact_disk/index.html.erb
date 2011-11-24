@@ -1,4 +1,5 @@
 <% content_for :title, "Meine CDs" %>
+<h1><%= t('.cd_headline')%></h1>
 <p><%= flash[:alert] %></p>
 
 <%
@@ -11,21 +12,4 @@
 	<% end %>
 <%
 =end %>
-
-<!-- <ol id="selectable"> -->
-<ul id="selectable" class="gallery ui-helper-reset ui-helper-clearfix">
-<% @cds.each do |c| %>
-	<li>	
-
-			<%= image_tag "cd_pic.png" %>
-			<div id="cd_info">
-				<%= c.artist %></br>
-				<%= c.title %></br>
-			</div>
-	</li>
-<% end %>
-</ul>
-
-
-
-	
+<%= link_to t('.cd_new'), new_compact_disk_path %>

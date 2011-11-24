@@ -2,4 +2,29 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  
+  welcome:
+      index:
+          headline: "Welcome"
+
+  user:
+      show:
+          user_show_title: "User Profil"
+          user_name: "Name"
+          user_alias: "Alias"
+          user_email: "eMail"
+          edit_profil: "Edit User Profil"
+          delete_profil: "Delete Account"
+          
+  compact_disk:
+      index:
+          cd_headline: "CD Collection"
+          cd_new: "Add new CD"
+      
+  layouts:
+      application:
+         user_edit: "Edit Account"
+         user_logout: "Logout"
+         user_show: "User Account"
+         user_cd_index: "CD Collection"
+          
