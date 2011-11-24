@@ -8,7 +8,7 @@ Given /^I am logged in$/ do
     fill_in(field_to("Email"), :with => "christianb@web.de")
     fill_in(field_to("Password"), :with => "christianb")
   end
-  click_button("Sign in")
+  click_button("Login")
   page.should have_content("Meine CDs")
 end
 

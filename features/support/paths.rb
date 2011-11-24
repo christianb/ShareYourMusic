@@ -2,7 +2,7 @@ def path_to(page_name)
   case page_name
  
   when /Welcome/i
-    root_path
+    welcome_path
   when /Register/i
     new_user_registration_path
   when /Logout/i

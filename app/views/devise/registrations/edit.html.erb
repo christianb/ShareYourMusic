@@ -5,19 +5,19 @@
   <p><%= f.label t('user.email') %></p>
   <p><%= f.email_field :email %>*</p>
 
-  <div><%= f.label t('.firstname') %><br />
+  <div><%= f.label t('user.firstname') %><br />
   <%= f.text_field :firstname %>*</div>
   
-  <div><%= f.label t('.lastname') %><br />
+  <div><%= f.label t('user.lastname') %><br />
   <%= f.text_field :lastname %>*</div>
 
   <div><%= f.label t('user.alias') %><br />
   <%= f.text_field :alias %></div>
 	</br>
-  <div><%= f.label t('.password') %> <i> <%= t('.reference1') %></i><br />
+  <div><%= f.label t('user.password') %> <i> <%= t('.reference1') %></i><br />
   <%= f.password_field :password %></div>
 
-  <div><%= f.label t('.password_confirm') %><br />
+  <div><%= f.label t('user.password_confirm') %><br />
   <%= f.password_field :password_confirmation %></div>
 	<br />
   <div><%= f.label t('.password_current') %> <i> <%= t('.reference2') %> </i><br />

@@ -5,32 +5,36 @@ de:
           headline: "Willkommen"
           
   user:
+    # global user variables
     alias: "Alias"
     email: "eMail"
+    firstname: "Vorname"
+    lastname: "Nachname"
+    password: "Neues Passwort"
+    password_confirm: "Neues Passwort bestätigen"
     
     show:
       user_show_title: "Benutzerprofil"
       user_name: "Name"
       edit_account: "Bearbeiten"
-      delete_account: "Account löschen"
+      delete_account: "Profil löschen"
       confirm_changes: "Sind Sie sicher?"
   
   devise:
     registrations:
       edit:
         headline: "Benutzerprofil ändern"
-        firstname: "Vorname"
-        lastname: "Nachname"
-        password: "Neues Passwort"
-        password_confirm: "Neues Passwort bestätigen"
         password_current: "Aktuelles Passwort"
         reference1: "(freilassen, falls es nicht geändert werden soll)"
         reference2: "(um Änderungen zu bestätigen)"
         submit_form: "Absenden"
         cancel: "Abbrechen"
-        delete_account: "Account löschen"
+        delete_account: "Profil löschen"
         confirm_changes: "Sind Sie sicher?"
         upload_photo: "Wählen sie ein Bild aus "
+      new:
+        sign_up: "Profil erstellen"
+        headline: "Erstellen eines persöhnlichen Profils"
 
   compact_disk:
       index:

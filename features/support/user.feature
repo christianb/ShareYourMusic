@@ -8,7 +8,7 @@ Feature: Manage User Data
     Given I am logged in
       When I follow "Edit registration"
       And I fill in "Lastname" with "Schmidt"
-      And I press "Update"
+      And I press "Absenden"
       Then I should see "Current password can't be blank"
     
   @wip

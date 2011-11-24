@@ -1,33 +1,27 @@
-<% content_for :title, "Sign Up" %>
+<% content_for :title, t('.headline') %>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
+  <div><%= f.label t('user.email') %><br />
   <%= f.email_field :email %></div>
 
-  <div><%= f.label "Vorname" %><br />
+  <div><%= f.label t('user.firstname') %><br />
   <%= f.text_field :firstname %></div>
   
-  <div><%= f.label "Nachname" %><br />
+  <div><%= f.label t('user.lastname') %><br />
   <%= f.text_field :lastname %></div>
 
-  <div><%= f.label :alias %><br />
+  <div><%= f.label t('user.alias') %><br />
   <%= f.text_field :alias %></div>
 	</br>
-  <div><%= f.label "Passwort" %><br />
+  <div><%= f.label t('user.password') %><br />
   <%= f.password_field :password %></div>
 
-  <div><%= f.label "Passwort wiederholen" %><br />
+  <div><%= f.label t('user.password_confirm') %><br />
   <%= f.password_field :password_confirmation %></div>
 	
-  <div><%= f.label :firstname %><br />
-  <%= f.text_field :firstname %></div>
-  
-  <div><%= f.label :lastname %><br />
-  <%= f.text_field :lastname %></div>
-	
-  <div><%= f.submit "Sign up" %></div>
+  <div><%= f.submit t('.sign_up') %></div>
 <% end %>
 
-<%= render :partial => "devise/shared/links" %>
+
