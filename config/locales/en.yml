@@ -16,6 +16,12 @@ en:
           edit_profil: "Edit User Profil"
           delete_profil: "Delete Account"
           
+  devise:
+    registrations:
+      edit:
+        user_email: "email"
+        user_firstname: "Firstname"
+          
   compact_disk:
       index:
           cd_headline: "CD Collection"

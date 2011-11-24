@@ -1,12 +1,12 @@
 <h1><%= t('.user_show_title')%></h1>
 
 <%= image_tag @user.photo.url(:normal) %>
-<p><%= t('.user_name') %> <%= @user.firstname %> <%= @user.lastname %></p>
-<p>Alias: <%= @user.alias %></p>
-<p>eMail: <%= @user.email %></p>
+<p><%= t('.user_name')%>: <%= @user.firstname %> <%= @user.lastname %></p>
+<p><%= t('user.alias')%>: <%= @user.alias %></p>
+<p><%= t('user.email')%>: <%= @user.email %></p>
 <p>
-	<%= link_to "Bearbeiten", edit_user_registration_path %> |
-	<%= link_to 'Account löschen', registration_path(@user), :confirm => 'Sind Sie sicher?', :method => :delete %>
+	<%= link_to t('.edit_account'), edit_user_registration_path %>
+	<!--<%= link_to t('.delete_account'), registration_path(@user), :confirm => t('.confirm_changes'), :method => :delete %>-->
 </p>
 
 <div id="userpic">Bild</div>

@@ -5,13 +5,32 @@ de:
           headline: "Willkommen"
           
   user:
-      show:
-          user_show_title: "Benutzerprofil"
-          user_name: "Name"
-          user_alias: "Alias"
-          user_email: "eMail"
-          edit_profil: "Bearbeiten"
-          delete_profil: "Account löschen"
+    alias: "Alias"
+    email: "eMail"
+    
+    show:
+      user_show_title: "Benutzerprofil"
+      user_name: "Name"
+      edit_account: "Bearbeiten"
+      delete_account: "Account löschen"
+      confirm_changes: "Sind Sie sicher?"
+  
+  devise:
+    registrations:
+      edit:
+        headline: "Benutzerprofil ändern"
+        firstname: "Vorname"
+        lastname: "Nachname"
+        password: "Neues Passwort"
+        password_confirm: "Neues Passwort bestätigen"
+        password_current: "Aktuelles Passwort"
+        reference1: "(freilassen, falls es nicht geändert werden soll)"
+        reference2: "(um Änderungen zu bestätigen)"
+        submit_form: "Absenden"
+        cancel: "Abbrechen"
+        delete_account: "Account löschen"
+        confirm_changes: "Sind Sie sicher?"
+        upload_photo: "Wählen sie ein Bild aus "
 
   compact_disk:
       index:
