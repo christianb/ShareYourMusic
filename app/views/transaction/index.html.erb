@@ -1,0 +1,16 @@
+<h1>Neu Anfragen</h1>
+<%= link_to "Neue Anfrage", new_transaction_path %>
+<h1>Anfragen</h1>
+<% @messages_accepted.each do |ma| %>
+	<%= ma.subject %> 
+	<%= link_to "Ablehnen", destroy_url(:id => ma) ,:methode => "delete" %>
+	</br>
+<% end %>
+
+<h2>Abgelehnt</h2>
+<% @messages_rejected.each do |mr| %>
+	<%= mr.subject %> 
+	<%= link_to "Ok", rejected_url(:id => mr) ,:methode => "delete" %>
+	</br>
+<% end %>
+
