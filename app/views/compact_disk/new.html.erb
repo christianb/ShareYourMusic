@@ -1,22 +1,30 @@
 <% content_for :title, "Neue CD" %>
 
 <%= form_for(@cd, :url => {:action => "create"}) do |form| %>
-	<p>
-		<%= form.label "Titel" %>
+	<div>
+		<%= form.label "Titel" %><br />
 		<%= form.text_field :title, :placeholder => 'Enter text here...' %>
-	</p>
+	</div>
 	
-	<p>
-		<%= form.label "Artist" %>
+	<div>
+		<%= form.label "Artist" %><br />
 		<%= form.text_field :artist, :placeholder => 'Enter text here...' %>
-	</p>
+	</div>
 	
-	<p>
-		<%= form.label "Genre" %>
+	<div>
+		<%= form.label "Genre" %><br />
 		<%= form.text_field :genre, :placeholder => 'Enter text here...' %>
-	</p>
+	</div>
 		<%= form.hidden_field :user_id, :value => current_user.id %>
-	</p>
 	
+	<div>
+	<%= form.label "Songs" %>
+		<div id="input1" class="clonedInput">
+			<%= text_field_tag 'song' %>
+		</div>
+	</div>
+	<%= submit_tag "+", :type => 'button', :id => "btnAdd" %>
+	<%= submit_tag "-", :type => 'button', :id => "btnDel" %>
 	<%= form.submit("CD erstellen") %>
 <% end %>
+
