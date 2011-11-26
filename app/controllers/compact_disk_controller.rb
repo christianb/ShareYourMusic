@@ -3,7 +3,7 @@ class CompactDiskController < ApplicationController
   load_and_authorize_resource :only => [:show, :destroy]
   
   def index
-    @cds = CompactDisk.all
+    @cds = CompactDisk.where(:user_id => current_user.id)
   end
   
   def show
