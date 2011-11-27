@@ -60,8 +60,12 @@
 		<div id="navidesign1">
 			<div id="navidesign2">
 				<% if user_signed_in? %>
-					<%= link_to t('.user_show'), user_path(current_user.id) %> </br>
-					<%= link_to t('.user_cd_index'), compact_disk_index_path %> 
+					<div id="menueelement">
+                        <%= link_to t('.user_show'), user_path(current_user.id) %> 
+                    </div>
+                    <div id="menueelement">
+                        <%= link_to t('.user_cd_index'), compact_disk_index_path %> 
+                    </div>
 				<% end %>
 			</div>
 		</div>
