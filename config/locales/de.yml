@@ -47,3 +47,24 @@ de:
          user_logout: "Ausloggen"
          user_show: "Benutzerprofil"
          user_cd_index: "CD Sammlung"
+         
+  errors:
+    messages:
+      not_saved: "Anfrage konnte aufgrund folgender Fehler nicht gesendet werden:"
+  
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              confirmation: "Das neue Passwort muss zur Kontrolle einmal bestätigt werden."
+              too_short: "Das gewählte Passwort ist zu kurz. Es muss mindestens 6 Zeichen beinhalten."
+            current_password:
+              blank: "Das aktuelle Passwort darf nicht leer sein."
+    attributes:
+      user:
+        password: "Neues Passwort: "
+        password_confirmation: "Neues Passwort bestätigen: "
+        current_password: "Aktuelles Passwort: "
+    
