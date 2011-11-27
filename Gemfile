@@ -45,6 +45,6 @@ gem 'devise'
 gem 'cancan'
 gem 'simple-private-messages', '1.0.1', :git => 'https://github.com/christianb/simple-private-messages.git'
 
-gem 'therubyracer'
+#gem 'therubyracer'
 
 gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git'
