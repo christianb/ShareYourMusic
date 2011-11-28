@@ -75,6 +75,14 @@
     margin-bottom:3px;
 }
 
+#menueelement a{
+    margin-right:5px;
+}
+
+#menueelement img{
+    position:absolute;
+}
+
 #content{
 	float:right;
 	width:794px;

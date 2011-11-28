@@ -50,8 +50,9 @@
 		<% end %>
 	</div>-->
 	<div style="float:clear;"></div>
-		<div id="naviline">
+		<div id="naviline"><b>
 			<%= yield(:title) %>
+            </b>
 		</div>
 	</div>
 	</header>
@@ -62,9 +63,11 @@
 				<% if user_signed_in? %>
 					<div id="menueelement">
                         <%= link_to t('.user_show'), user_path(current_user.id) %> 
+                        <img src="/assets/arrow_normal.png"/>
                     </div>
                     <div id="menueelement">
                         <%= link_to t('.user_cd_index'), compact_disk_index_path %> 
+                        <img src="/assets/arrow_normal.png"/>
                     </div>
 				<% end %>
 			</div>
