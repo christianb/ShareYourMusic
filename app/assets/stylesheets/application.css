@@ -86,7 +86,8 @@
 #content{
 	float:right;
 	width:794px;
-	height:426px;
+	min-height:426px;
+    height: auto !important;
 	padding:20px 10px 10px 20px;
     background-color:white;
 	}
@@ -134,7 +135,7 @@ a:visited {
 a:focus { 
 	font-weight:bold; 
 	color:#FF7F24; 
-	text-decoration:underline; 
+	text-decoration:none; 
 	}
 a:hover { 
 	font-weight:bold; 
@@ -144,7 +145,7 @@ a:hover {
 a:active { 
 	font-weight:bold; 
 	color:#FF7F24; 
-	text-decoration:underline;
+	text-decoration:none;
 	 }
 
 
@@ -224,3 +225,27 @@ a:active {
 #error_explanation li{
 	font-size: 14px;
 }
+
+/* CSS sheet fuer devices */
+
+#edituserfield{
+    margin: 2px 2px 6px 0px;
+}
+#submit{
+    margin: 35px 2px 2px 0px;
+}
+
+#otheroptions{
+    margin: 45px 2px 2px 0px;
+}
+
+#otheroptions table{
+    min-width: 350px;
+    max-width: 500px;
+}
+
+#reference{
+    font-style: italic;
+    font-size:10px;
+}
+
