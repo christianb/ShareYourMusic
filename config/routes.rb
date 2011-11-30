@@ -11,8 +11,7 @@ Projekt::Application.routes.draw do
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
-  match 'transaction/:id' => 'transaction#destroy', :as => :destroy
-  match 'transaction/:id' => 'transaction#rejected', :as => :rejected
+
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   
   devise_for :users
@@ -27,6 +26,10 @@ Projekt::Application.routes.draw do
     resources :user
     resources :compact_disk
     resources :transaction
+    match 'transaction/destroy/:id' => 'transaction#destroy', :as => :destroy
+    match 'transaction/rejected/:id' => 'transaction#rejected', :as => :rejected
+    match 'transaction/accept/:id' => 'transaction#accept', :as => :accept
+    match 'transaction/accepted/:id' => 'transaction#accepted', :as => :accepted
     #match '/compact_disk' => 'compact_disk#index', :as => :compact_disk_index
     #match '/compact_disk/new' => 'compact_disk#new', :as => :new_compact_disk
   end

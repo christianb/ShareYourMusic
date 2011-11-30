@@ -1,16 +1,25 @@
 <h1>Neu Anfragen</h1>
 <%= link_to "Neue Anfrage", new_transaction_path %>
 <h1>Anfragen</h1>
-<% @messages_accepted.each do |ma| %>
+<% @messages_requests.each do |ma| %>
 	<%= ma.subject %> 
 	<%= link_to "Ablehnen", destroy_url(:id => ma) ,:methode => "delete" %>
+	<%= link_to "Accept", accept_url(ma) %>
 	</br>
 <% end %>
 
 <h2>Abgelehnt</h2>
 <% @messages_rejected.each do |mr| %>
 	<%= mr.subject %> 
-	<%= link_to "Ok", rejected_url(:id => mr) ,:methode => "delete" %>
+	<%= link_to "Ok", rejected_url(:id => mr)%>
+	</br>
+<% end %>
+
+
+<h2>Angenommen</h2>
+<% @messages_accepted.each do |m| %>
+	<%= m.subject %> 
+	<%= link_to "Ok", accepted_url(:id => m) %>
 	</br>
 <% end %>
 
