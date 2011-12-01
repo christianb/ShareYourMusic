@@ -36,6 +36,22 @@ class CompactDiskController < ApplicationController
       end
   end
   
+  def edit
+    @cd = CompactDisk.find(params[:id])
+  end
+  
+  def update
+    @cd = CompactDisk.find(params[:id])
+
+    respond_to do |format|
+      if @cd.update_attributes(params[:compact_disk])
+        format.html { render action: "show" }
+      else
+        format.html { render action: "edit" }
+      end
+    end
+  end
+  
   def find_by_artist
     @cd = CompactDisk.where
   end

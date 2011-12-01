@@ -1,0 +1,25 @@
+<% content_for :title, t('.headline') %>
+
+<%= form_for(@cd, :html => { :method => :put, :multipart => true}) do |f| %>
+	<div>
+		<%= f.label "Titel" %>
+    <br/>
+    <%= f.text_field :title %>*
+	</div>
+	<div>
+		<%= f.label "Artist" %>
+    <br/>
+    <%= f.text_field :artist %>*
+	</div>
+	<div>
+		<%= f.label "Genre" %>
+    <br/>
+    <%= f.text_field :genre %>*
+	</div>
+	<div>
+  		<%= f.label "Upload Cover" %><br/>
+      <%= f.file_field :photo%>
+  </div>
+
+	<div id="submit"><%= f.submit "Bestätigen" %></div>
+<% end %>
