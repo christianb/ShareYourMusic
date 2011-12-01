@@ -35,6 +35,7 @@ function dragDropCD(){
 		drop: function( event, ui ) {
 		//	$( "<li></li>" ).text( ui.draggable.text()).appendTo( this ).append("Remove");
 			ui.draggable.fadeOut(1000);
+			alert(this.id.attr('img'))
 		}
 	});
 	

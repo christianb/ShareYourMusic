@@ -6,4 +6,7 @@ class CompactDisk < ActiveRecord::Base
     validates_presence_of :user
     
     has_many :songs
+    
+    has_many :transactions, :through => :swap_provider
+    has_many :transactions, :through => :swap_receiver
 end

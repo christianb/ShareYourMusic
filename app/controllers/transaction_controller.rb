@@ -10,8 +10,8 @@ def new
   user = User.find(2)
   dest = User.find(3)
   message = Message.new
-  message.subject = cd
-  message.body = "Anfrage"
+  message.subject = "3;1,2"
+  message.body = "Anfrage; Hallo, ich tausche 2 CDs gegen Chuck Norris"
   message.sender = user
   message.recipient = dest
   message.save
@@ -33,7 +33,7 @@ def destroy
   dest = rsv_message.sender
   message = Message.new
   message.subject = rsv_message.subject
-  message.body = "Abgelehnt"
+  message.body = "Abgelehnt; Will nicht"
   message.sender = user
   message.recipient = dest
   message.save
@@ -50,9 +50,10 @@ def index
    @user = User.find(@user_id)
 
    # Alle Anfrage
-   @messages_accepted = @user.received_messages.find(:all, :conditions => ["read_at is ? and body = 'Angenommen'", nil])
-   @messages_rejected = @user.received_messages.find(:all, :conditions => ["read_at is ? and body = 'Abgelehnt'", nil])
-  @messages_requests = @user.received_messages.find(:all, :conditions => ["read_at is ? and body = 'Anfrage'", nil])
+   @messages_accepted = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Angenommen%'", nil])
+   @messages_rejected = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Abgelehnt%'", nil])
+  @messages_requests = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Anfrage%'", nil])
+  @messages_modified = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Modifikation%'", nil])
 end
 
 # Bestätigung der Absage
@@ -66,7 +67,7 @@ def rejected
   
   # subject von zuerst empfangender mail
   rsv_message = Message.read(msg_id, msg_user.id)
-  sent_message = msg_user.sent_messages.find(:all, :conditions => ["sender_id = ? and subject = ? and body = 'Anfrage'", msg_user.id, subject])
+  sent_message = msg_user.sent_messages.find(:all, :conditions => ["sender_id = ? and subject = ? and body LIKE '%Anfrage%'", msg_user.id, subject])
   
   user = rsv_message.recipient
   #dest = rsv_message.sender
@@ -76,28 +77,6 @@ def rejected
   
   redirect_to :action => "index"
 end
-
-# nicht vergessen !!! Transaction in DB eintragen
-=begin
-def accept  
-  user = params[:locale]
-  
-  # subject von zuerst empfangender mail
-  rsv_message = Message.read(1, user)
-  
-  user = rsv_message.recipient
-  dest = rsv_message.sender
-  message = Message.new
-  message.subject = rsv_message.subject
-  message.body = "Angenommen"
-  message.sender = user
-  message.recipient = dest
-  message.save
-  
-  rsv_message.mark_deleted(user)
-  message.mark_deleted(user)
-end
-=end
 
 def accept  
   #user = params[:user_id]
@@ -110,32 +89,60 @@ def accept
   # subject von zuerst empfangender mail
   rsv_message = Message.read(msg_id, user)
   
+  cds = rsv_message.subject
+  
+  
+  cd_array = cds.split(';')
+
+  tauschCDs = cd_array[0].split(',')
+  wunschCDs = cd_array[1].split(',')
+  
   user = rsv_message.recipient
   dest = rsv_message.sender
   message = Message.new
   message.subject = rsv_message.subject
-  message.body = "Angenommen"
+  message.body = "Angenommen; Na klar"
   message.sender = user
   message.recipient = dest
   message.save
   
   
   # CD tauschen
-  cd_provider = CompactDisk.where(:id => rsv_message.subject)
-  cd_receiver = CompactDisk.where(:id => 2)
+  #cd_provider = CompactDisk.where(:id => rsv_message.subject)
+  #cd_receiver = CompactDisk.where(:id => 2)
   
   user = User.find(user)
   dest = User.find(dest)
   
   # Transaktion erstellen
-  t = Transaction.new(:provider_id => dest.id, :receiver_id => user.id, :provider_disk_id => "3", :receiver_disk_id => "2")
+  t = Transaction.new(:provider_id => dest.id, :receiver_id => user.id, :provider_disk_id => "2".to_i, :receiver_disk_id => "3".to_i)
   t.save
   
-  cd_provider[0].user_id = dest.id
-  cd_receiver[0].user_id = user.id
+  tauschCDs.each do |e|
+    sp = SwapProvider.new(:Transaction_id => t.id, :CompactDisk_id => e.to_i)
+    sp.save
     
-  cd_provider[0].save
-  cd_receiver[0].save
+    disk = CompactDisk.where(:id => e.to_i)
+    disk[0].user_id = user.id
+    disk[0].save
+  end
+  
+  wunschCDs.each do |e|
+    sr = SwapReceiver.new(:Transaction_id => t.id, :CompactDisk_id => e.to_i)
+    sr.save
+    
+    disk = CompactDisk.where(:id => e.to_i)
+    disk[0].user_id = dest.id
+    disk[0].save
+  end
+  
+  
+  #cd_provider[0].user_id = dest.id
+  #cd_receiver[0].user_id = user.id
+    
+  #cd_provider[0].save
+  #cd_receiver[0].save
+  
   # Nachrichen löschen
   msg.mark_deleted(user)
   message.mark_deleted(user)
@@ -155,7 +162,7 @@ def accepted
   
   # subject von zuerst empfangender mail
   rsv_message = Message.read(msg_id, msg_user.id)
-  sent_message = msg_user.sent_messages.find(:all, :conditions => ["sender_id = ? and subject = ? and body = 'Anfrage'", msg_user.id, subject])
+  sent_message = msg_user.sent_messages.find(:all, :conditions => ["sender_id = ? and subject = ? and body LIKE '%Anfrage%'", msg_user.id, subject])
   
   user = rsv_message.recipient
   #dest = rsv_message.sender
@@ -165,4 +172,198 @@ def accepted
   
   redirect_to :action => "index"
 end
+
+def modify
+  #user = params[:user_id]
+  msg_id = params[:id]
+  
+  msg = Message.find(msg_id)
+  user = msg.recipient_id
+  dest = msg.sender_id 
+
+  # subject von zuerst empfangender mail
+  rsv_message = Message.read(msg_id, user)
+  
+  user = rsv_message.recipient
+  dest = rsv_message.sender
+  message = Message.new
+  message.subject = rsv_message.subject + ";1;3"
+  message.body = "Modifikation; Will anders haben!!!"
+  message.sender = user
+  message.recipient = dest
+  message.save
+  
+  msg.mark_deleted(user)
+  message.mark_deleted(user)
+  
+  redirect_to :action => "index"
+end
+
+def modifyAccept
+  msg_id = params[:id]
+
+  msg = Message.find(msg_id)
+  
+  msg_user = User.find(msg.recipient_id)
+  
+  # Quelle der Msg ist neuer Besitzer der CD
+  dest = msg.sender_id 
+  
+  subject = msg.subject
+  
+  # Nachricht lesen
+  rsv_message = Message.read(msg_id, msg_user.id)
+  
+  # CD IDs aus Subject
+  cds = rsv_message.subject
+  
+  # Splitten
+  cd_array = cds.split(';')
+  
+  tauschCDs = cd_array[0]
+  wunschCDs = cd_array[1]
+  
+  #subject = tauschCDs + wunschCDs
+  
+  subject = cd_array[0] + ';' + cd_array[1]
+  
+  #subject = subject.to_s
+  #subject = subject.join ';'
+  
+  sent_message = msg_user.sent_messages.find(:all, :conditions => ["sender_id = ? and subject = ? and body LIKE '%Anfrage%'", msg_user.id, subject])
+
+  user = rsv_message.recipient
+  dest = rsv_message.sender
+  msg.mark_deleted(user)
+  sent_message[0].mark_deleted(user)
+  
+
+  message = Message.new
+  message.subject = rsv_message.subject
+  message.body = "MAngenomme; Klar"
+  message.sender = user
+  message.recipient = dest
+  message.save
+
+  message.mark_deleted(user)
+  
+  #user = User.find(dest)
+  #dest = User.find(user)
+  
+  1; 3
+  
+  tauschCDs_neu = cd_array[2].split(',')
+  wunschCDs_neu = cd_array[3].split(',')
+  
+  
+  # Transaktion erstellen
+  t = Transaction.new(:provider_id => dest.id, :receiver_id => user.id, :provider_disk_id => "2".to_i, :receiver_disk_id => "3".to_i)
+  t.save
+  
+  tauschCDs_neu.each do |e|
+    sp = SwapProvider.new(:Transaction_id => t.id, :CompactDisk_id => e.to_i)
+    sp.save
+    
+    disk = CompactDisk.where(:id => e.to_i)
+    disk[0].user_id = dest
+    disk[0].save
+  end
+  
+  wunschCDs_neu.each do |e|
+    sr = SwapReceiver.new(:Transaction_id => t.id, :CompactDisk_id => e.to_i)
+    sr.save
+    
+    disk = CompactDisk.where(:id => e.to_i)
+    disk[0].user_id = user
+    disk[0].save
+  end
+
+  redirect_to :action => "index"
+end
+
+def modifyAccepted
+   msg_id = params[:id]
+
+    msg = Message.find(msg_id)
+    msg_user = User.find(msg.recipient_id)
+  #  dest = msg.sender_id 
+    subject = msg.subject
+
+    # subject von zuerst empfangender mail
+    rsv_message = Message.read(msg_id, msg_user.id)
+    #sent_message = msg_user.sent_messages.find(:all, :conditions => ["sender_id = ? and subject = ? and body LIKE '%Anfrage%'", msg_user.id, subject])
+
+    user = rsv_message.recipient
+    #dest = rsv_message.sender
+
+    msg.mark_deleted(user)
+    #sent_message[0].mark_deleted(user)
+
+    redirect_to :action => "index"
+end
+
+def modifyReject
+    msg_id = params[:id]
+
+    msg = Message.find(msg_id)
+    msg_user = User.find(msg.recipient_id)
+    dest = msg.sender_id 
+    subject = msg.subject
+    
+
+    # subject von zuerst empfangender mail
+    rsv_message = Message.read(msg_id, msg_user.id)
+    
+    cds = rsv_message.subject
+    cd_array = cds.split(';')
+
+    tauschCDs = cd_array[0]
+    wunschCDs = cd_array[1]
+    
+  #  subject = tauschCDs + wunschCDs
+  subject = cd_array[0] + ';' + cd_array[1]
+    #subject = subject.to_s
+    #subject = subject.join ';'
+    
+    sent_message = msg_user.sent_messages.find(:all, :conditions => ["sender_id = ? and subject = ? and body LIKE '%Anfrage%'", msg_user.id, subject])
+
+    user = rsv_message.recipient
+    dest = rsv_message.sender
+    msg.mark_deleted(user)
+    sent_message[0].mark_deleted(user)
+    
+
+    message = Message.new
+    message.subject = rsv_message.subject
+    message.body = "MAbgelehnt; Will nicht"
+    message.sender = user
+    message.recipient = dest
+    message.save
+
+    message.mark_deleted(user)
+
+    redirect_to :action => "index"
+end
+  
+def modifyRejected
+    msg_id = params[:id]
+
+    msg = Message.find(msg_id)
+    msg_user = User.find(msg.recipient_id)
+  #  dest = msg.sender_id 
+    subject = msg.subject
+
+    # subject von zuerst empfangender mail
+    rsv_message = Message.read(msg_id, msg_user.id)
+    #sent_message = msg_user.sent_messages.find(:all, :conditions => ["sender_id = ? and subject = ? and body LIKE '%Anfrage%'", msg_user.id, subject])
+
+    user = rsv_message.recipient
+    #dest = rsv_message.sender
+
+    msg.mark_deleted(user)
+    #sent_message[0].mark_deleted(user)
+
+    redirect_to :action => "index"
+end
+
 end

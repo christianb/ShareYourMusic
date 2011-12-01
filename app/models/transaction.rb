@@ -41,6 +41,9 @@ class Transaction < ActiveRecord::Base
   belongs_to :compact_disk, :class_name => "CompactDisk", :foreign_key => "provider_disk_id"
   belongs_to :compact_disk, :class_name => "CompactDisk", :foreign_key => "receiver_disk_id"
   
+  has_many :compact_disks, :through => :swap_provider
+  has_many :compact_disks, :through => :swap_receiver
+  
   validates_with SameForeignKeyValidator
   validates_with ForeignKeyPresenceValidator
   
