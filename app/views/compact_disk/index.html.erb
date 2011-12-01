@@ -16,7 +16,7 @@
 <% @cds.each do |c| %>
 	<li>	
 
-			<%= image_tag "cd_pic.png" %>
+			<%= image_tag c.photo.url(:normal) %>
 			<div id="cd_info">
 				<%= c.artist %></br>
 				<%= c.title %></br>

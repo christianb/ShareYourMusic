@@ -1,6 +1,7 @@
 <% content_for :title, "Neue CD" %>
 
-<%= form_for(@cd, :url => {:action => "create"}) do |form| %>
+<%= form_for(@cd, :url => '/compact_disk', :html => { :method => :post, :multipart => true}) do |form| %>
+
 	<div>
 		<%= form.label "Titel" %><br />
 		<%= form.text_field :title, :placeholder => 'Enter text here...' %>
@@ -23,8 +24,15 @@
 			<%= text_field_tag 'song' %>
 		</div>
 	</div>
+	
+	<div>
+    	<%= form.label t('.upload_cover') %><br/>
+        <%= form.file_field :photo%>
+    </div>
+
 	<%= submit_tag "+", :type => 'button', :id => "btnAdd" %>
 	<%= submit_tag "-", :type => 'button', :id => "btnDel" %>
+	
 	<%= form.submit("CD erstellen") %>
 <% end %>
 

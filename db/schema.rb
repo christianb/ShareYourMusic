@@ -11,19 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111116124850) do
+ActiveRecord::Schema.define(:version => 20111201114520) do
 
   create_table "compact_disks", :force => true do |t|
-    t.integer  "user_id",     :null => false
-    t.string   "title",       :null => false
-    t.string   "artist",      :null => false
-    t.string   "genre",       :null => false
+    t.integer  "user_id",            :null => false
+    t.string   "title",              :null => false
+    t.string   "artist",             :null => false
+    t.string   "genre",              :null => false
     t.date     "date"
-    t.string   "image_uri"
     t.text     "description"
     t.boolean  "visible"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
   end
 
   create_table "messages", :force => true do |t|
