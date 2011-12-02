@@ -240,7 +240,7 @@ def modifyAccept
 
   message = Message.new
   message.subject = rsv_message.subject
-  message.body = "MAngenomme; Klar"
+  message.body = "MAngenommen; Klar"
   message.sender = user
   message.recipient = dest
   message.save
@@ -249,9 +249,7 @@ def modifyAccept
   
   #user = User.find(dest)
   #dest = User.find(user)
-  
-  1; 3
-  
+    
   tauschCDs_neu = cd_array[2].split(',')
   wunschCDs_neu = cd_array[3].split(',')
   
@@ -265,7 +263,7 @@ def modifyAccept
     sp.save
     
     disk = CompactDisk.where(:id => e.to_i)
-    disk[0].user_id = dest
+    disk[0].user_id = dest.id
     disk[0].save
   end
   
@@ -274,7 +272,7 @@ def modifyAccept
     sr.save
     
     disk = CompactDisk.where(:id => e.to_i)
-    disk[0].user_id = user
+    disk[0].user_id = user.id
     disk[0].save
   end
 
