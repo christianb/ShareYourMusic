@@ -18,13 +18,13 @@
 <% @cds.each do |c| %>
 			<li class="ui-widget-content ui-corner-tr">
 				<%= image_tag "cd_pic.png", :alt => c.id %>
-				<div id="cd_info">
-					<%= c.artist %></br>
-					<%= c.title %></br>
-				</div>
+
+					<h5><%= c.artist %></h5>
+					<h5><%= c.title %></h5>
 			</li>
 <% end %>
 </ul>
 
 
 <%= link_to t('.cd_new'), new_compact_disk_path %> <br />
+<%= link_to "Tauschen", "", :class => "shareBt"%>

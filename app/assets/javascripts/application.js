@@ -16,6 +16,9 @@ $(document).ready(function(){
 });
 
 function dragDropCD(){
+			
+			var $id_arr = new Array();
+			
 			// there's the gallery and the trash
 			var $gallery = $( "#gallery" ),
 				$trash = $( "#shareBox" );
@@ -35,6 +38,8 @@ function dragDropCD(){
 				activeClass: "ui-state-highlight",
 				drop: function( event, ui ) {
 					deleteImage( ui.draggable );
+					//alert(ui.draggable.find("img").attr("alt"));
+					$id_arr.push(ui.draggable.find("img").attr("alt"));
 				}
 			});
 
@@ -119,6 +124,12 @@ function dragDropCD(){
 
 				return false;
 			});
+			
+			$('.shareBt').click(function(){
+				//$("<h3>Tausche: "+ $id_arr + "</h3>").appendTo($trash);	
+				alert($id_arr);
+			});
+			
 }
 
 
