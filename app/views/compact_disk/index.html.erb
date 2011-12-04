@@ -12,16 +12,19 @@
 	<% end %>
 <%
 =end %>
-<ul id="selectable" >
-<% @cds.each do |c| %>
-	<li>	
 
-			<%= image_tag "cd_pic.png", :alt => c.id %>
-			<div id="cd_info">
-				<%= c.artist %></br>
-				<%= c.title %></br>
-			</div>
-	</li>
+
+<ul id="gallery" class="gallery ui-helper-reset ui-helper-clearfix">
+<% @cds.each do |c| %>
+			<li class="ui-widget-content ui-corner-tr">
+				<%= image_tag "cd_pic.png", :alt => c.id %>
+				<div id="cd_info">
+					<%= c.artist %></br>
+					<%= c.title %></br>
+				</div>
+			</li>
 <% end %>
 </ul>
+
+
 <%= link_to t('.cd_new'), new_compact_disk_path %> <br />
