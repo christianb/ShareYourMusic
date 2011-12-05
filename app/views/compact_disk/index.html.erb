@@ -1,5 +1,5 @@
-<% content_for :title, "Meine CDs" %>
-<h1><%= t('.cd_headline')%></h1>
+<% content_for :title, t('.cd_headline') %>
+
 <p><%= flash[:alert] %></p>
 
 <%
@@ -14,7 +14,7 @@
 =end %>
 <ul id="selectable" class="gallery ui-helper-reset ui-helper-clearfix">
 <% @cds.each do |c| %>
-	<li>	
+	<li class="cd-show">
 
 			<%= image_tag c.photo.url(:normal) %>
 			<div id="cd_info">

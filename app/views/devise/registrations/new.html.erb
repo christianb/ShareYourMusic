@@ -2,26 +2,53 @@
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
+<div class="clearfix">
+    <%= f.label t('user.email') %>
+    <div class="input">
+        <%= f.email_field :email %>
+    </div>
+  </div>
 
-  <div><%= f.label t('user.email') %><br />
-  <%= f.email_field :email %></div>
-
-  <div><%= f.label t('user.firstname') %><br />
-  <%= f.text_field :firstname %></div>
+  <div class="clearfix">
+    <%= f.label t('user.firstname') %>
+    <div class="input">
+       <%= f.text_field :firstname %>
+    </div>
+  </div>
   
-  <div><%= f.label t('user.lastname') %><br />
-  <%= f.text_field :lastname %></div>
+  <div class="clearfix">
+      <%= f.label t('user.lastname') %>
+      <div class="input">
+        <%= f.text_field :lastname %>
+      </div>
+  </div>
 
-  <div><%= f.label t('user.alias') %><br />
-  <%= f.text_field :alias %></div>
-	</br>
-  <div><%= f.label t('user.password') %><br />
-  <%= f.password_field :password %></div>
-
-  <div><%= f.label t('user.password_confirm') %><br />
-  <%= f.password_field :password_confirmation %></div>
+  <div class="clearfix">
+      <%= f.label t('user.alias') %>
+      <div class="input">
+        <%= f.text_field :alias %>
+      </div>
+  </div>
 	
-  <div><%= f.submit t('.sign_up') %></div>
+  <div class="clearfix">
+      <%= f.label t('user.password') %>
+      <div class="input">
+        <%= f.password_field :password %>
+      </div>
+  </div>
+
+  <div class="clearfix">
+      <%= f.label t('user.password_confirm') %>
+      <div class="input">
+        <%= f.password_field :password_confirmation %>
+      </div>
+  </div>
+	
+  <div class="clearfix">
+    <div class="input">
+        <%= f.submit t('.sign_up') %>
+    </div>
+  </div>
 <% end %>
 
 

@@ -6,8 +6,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
-//= require_tree .
+//= require jquery-ui.
+
 
 
 $(document).ready(function(){

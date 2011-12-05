@@ -2,85 +2,92 @@
 <html>
 <head>
   <title>CD - Tauschbörse</title>
-  <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application", %>
+  <%= stylesheet_link_tag    "application", "bootstrap" %>
+  <%= javascript_include_tag "application","bootstrap-alerts", "bootstrap-buttons", "bootstrap-dropdown", "bootstrap-modal","bootstrap-popover","bootstrap-scrollspy", "bootstrap-tabs", "bootstrap-twipsy" %>
   <%= csrf_meta_tags %>
 </head>
-<body id="standard">
-	
-<div id="main">
-	
-	<div id="head">
-	<div id="logo">	</div>
-        <div id="login">
-			<% if user_signed_in? %>
-                <div id="logged_in_as">
-                    Angemeldet als:
-                    <div id="logged_in_as_name">
-                        <%= current_user.firstname + " " + current_user.lastname  %>
-                    </div>
-                </div>
-                <div id="buttons">
-                    <%= button_to('Daten ändern', edit_user_registration_path, :method => "get" ) %>
-                    <%= button_to('Logout', destroy_user_session_path, :method => "get") %>
-                </div>	
-			<% else %>						  	
-				<%= form_for("user", :url => user_session_path) do |f| %>
-				  <label for="user_email" style="margin-right:13px;">Login:</label>
-                  <%= f.text_field :email %></br>
-                  <lablel for="user_password">Passwort:</label>
-				  <%= f.password_field :password %></br>
-				  <%= f.check_box :remember_me %>
-				  <%= f.label :remember_me %>
-				  <%= f.submit 'Login' %>
-				<% end %>
-				<div id="buttons">
-					<%= link_to "Passwort vergessen?", new_password_path('user'), :method=> "get" %>
-                    <%= link_to  "Registrieren", new_user_registration_path, :method=> "get" %>
-				</div>
-			  <% end %>
-		</div>
+<body>
+    <div id="main">
+          <div class="topbar" data-dropdown="dropdown">
+            <div class="fill">
+                <div class="container-fluid">
+                    <%= link_to "SWAR_Logo", welcome_path, :class => "brand" %>
+                    <ul class="nav" style="margin-left:29px;">
+                        <li class="active"><%= link_to "Home", welcome_path, :class => "brand" %></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#">CDs</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">Neuste CDs</a>
+                                </li>  
+                                <li>
+                                    <a href="#">Alle CDs</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <% if user_signed_in? %>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#">CD- Verwaltung</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <%= link_to t('.cd_new'), new_compact_disk_path %>
+                                    </li>  
+                                    <li>
+                                        <%= link_to t('.user_cd_index'), compact_disk_index_path %>
+                                    </li>
+                                    <li>
+                                        <a href="#">Anfragen</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <li>
+                            <%= link_to t('.user_show'), user_path(current_user.id) %>
+                        </li>
+                        <% end %>
+                    </ul>
+                       <% if user_signed_in? %>
+                            <p class="pull-right">
+                                <span class="label notice">Logged in as</span> <%= link_to( current_user.firstname + " " + current_user.lastname, edit_user_registration_path) %> 
+                                <%= link_to('Logout', destroy_user_session_path) %>
+                            </p>
+                         <% else %>
+                                <%= form_for("user", :url => user_session_path, :class => "pull-right") do |f| %>
+                                    <%= f.check_box :remember_me %>
+                                    <%= f.label :remember_me %> 
+                                    <%= f.text_field :email, :class => "input-small", :placeholder => "Username" %>
+                                    <%= f.password_field :password, :class => "input-small", :placeholder => "Password" %>			
+                                    <%= f.submit 'Login'%>
+                                    <div class="login_remind">
+                                       <p style="font-size:10px;color:#404040; line-height:15px !important;"> 
+                                            <%= link_to  "Registrieren", new_user_registration_path %>										
+                                            <span style="margin-left:55px;">
+                                                <%= link_to "Passwort vergessen?", new_password_path('user') %> 
+                                            </span>
+                                       </p>
+                                    </div>
+                                <% end %>
+                         <% end %>
+            </div>
+          </div>
+        </div>
         
-	<!--<div id="loginbar">
-		<% if user_signed_in? %>
-			<%= link_to "Daten ändern", edit_user_registration_path %>
-			<%= link_to "Abmelden", destroy_user_session_path %>
-		<% else %>
-			<%= link_to "Anmelden", new_user_session_path %>
-		<% end %>
-	</div>-->
-	<div style="float:clear;"></div>
-		<div id="naviline"><b>
-			<%= yield(:title) %>
-            </b>
-		</div>
-	</div>
-	</header>
-	
-	<div id="navi">
-		<div id="navidesign1">
-			<div id="navidesign2">
-				<% if user_signed_in? %>
-					<div id="menueelement">
-                        <%= link_to t('.user_show'), user_path(current_user.id) %> 
-                        <img src="/assets/arrow_normal.png"/>
+        <div class="container">
+            <div class="page-header">
+                <div class="row show-grid">
+                    <div class="span8">
+                        <h2> <%= yield(:title) %> </h2>
                     </div>
-                    <div id="menueelement">
-                        <%= link_to t('.user_cd_index'), compact_disk_index_path %> 
-                        <img src="/assets/arrow_normal.png"/>
-                    </div>
-				<% end %>
-			</div>
-		</div>
-	</div>
-
-	<div id="content">
-		<%= yield %>
-	</div>
-
-	<div id="shareBox">
-		<%= image_tag "cart.png", :size => "212x212" %>
-	</div>	
-
+                    <div class="span4">&nbsp;</div>
+                    <div class="span4"><input type="text" placeholder="Search"></div>
+                </div>
+            </div>
+            <div class="content">
+                <%= yield %> 
+            </div>
+            <footer>
+                &copy; RailsProjekt 2011
+            </footer>
+        </div>
+    </div>
 </body>
 </html>

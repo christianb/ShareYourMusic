@@ -2,37 +2,53 @@
 
 <%= form_for(@cd, :url => '/compact_disk', :html => { :method => :post, :multipart => true}) do |form| %>
 
-	<div>
-		<%= form.label "Titel" %><br />
-		<%= form.text_field :title, :placeholder => 'Enter text here...' %>
+	<div class="clearfix">
+		<%= form.label "Titel" %>
+        <div class="input">
+            <%= form.text_field :title, :placeholder => 'Enter text here...' %>
+        </div>
 	</div>
 	
-	<div>
-		<%= form.label "Artist" %><br />
+	<div class="clearfix">
+		<%= form.label "Artist" %>
+        <div class="input">
 		<%= form.text_field :artist, :placeholder => 'Enter text here...' %>
+        </div>
 	</div>
 	
-	<div>
-		<%= form.label "Genre" %><br />
+	<div class="clearfix">
+		<%= form.label "Genre" %>
+        <div class="input">
 		<%= form.text_field :genre, :placeholder => 'Enter text here...' %>
+        </div>
 	</div>
 		<%= form.hidden_field :user_id, :value => current_user.id %>
 	
-	<div>
+	<div class="clearfix">
 	<%= form.label "Songs" %>
-		<div id="input1" class="clonedInput">
+		<div id="input1" class="clonedInput input">
 			<%= text_field_tag 'song' %>
 		</div>
 	</div>
+    <div class="clearfix">
+        <div class="input">
+            <%= submit_tag "+", :type => 'button', :id => "btnAdd" %>
+            <%= submit_tag "-", :type => 'button', :id => "btnDel" %>
+        </div>
+    </div>
 	
-	<div>
-    	<%= form.label t('.upload_cover') %><br/>
+	<div class="clearfix">
+    	<%= form.label t('.upload_cover') %>
+        <div class="input">
         <%= form.file_field :photo%>
+        </div>
     </div>
 
-	<%= submit_tag "+", :type => 'button', :id => "btnAdd" %>
-	<%= submit_tag "-", :type => 'button', :id => "btnDel" %>
-	
-	<%= form.submit("CD erstellen") %>
+
+	<div class="clearfix">
+    <div class="input"> 
+        <%= form.submit("CD erstellen") %>
+    </div>
+    </div>
 <% end %>
 

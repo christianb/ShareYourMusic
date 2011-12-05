@@ -5,8 +5,47 @@
  *= require_self
  *= require_tree . 
 */
+body{
+    padding-top:0px !important;
+}
 
-.user-auth-nav{
+.content{
+    min-height:240px;
+}
+
+.topbar form {
+    float:right !important;
+}
+
+.login_remind{
+    padding: 2px 2px 2px 149px;
+}
+
+.cd-show{
+    width:auto !important;
+}
+
+.field_with_errors{
+    width:auto !important;
+}
+
+#error_explanation{
+    background-color: #FDDFDE;
+    border-color: #FBC7C6;
+    color: #404040;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    background-image: none;
+    border-color: #FCEEC1;
+    box-shadow: none;
+    padding: 14px;
+    border-radius: 4px 4px 4px 4px;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 18px;
+     position: relative;
+}
+
+/*.user-auth-nav{
 	float: right;
 }
 
@@ -225,9 +264,9 @@ a:active {
 #error_explanation li{
 	font-size: 14px;
 }
-
+*/
 /* CSS sheet fuer devices */
-
+/*
 #edituserfield{
     margin: 2px 2px 6px 0px;
 }
@@ -248,4 +287,4 @@ a:active {
     font-style: italic;
     font-size:10px;
 }
-
+*/
