@@ -70,6 +70,7 @@ function openInBox(){
 }
 */
 
+/*
 function addSongField(){
 	$('#btnAdd').click(function() {
                 var num     = $('.clonedInput').length; 
@@ -96,4 +97,17 @@ function addSongField(){
             });
  
             $('#btnDel').attr('disabled','disabled');
+}*/
+
+function addSongField(){
+	var num = 1;
+	$('#btnAdd').click(function(){
+		$('<p><input id="song'+ num +'"></input><p/>').appendTo('#input1');
+		num += 1;
+	});
+	
+	$('#btnDel').click(function(){
+		('#input1').find('input'+ $num).remove();
+	});
 }
+

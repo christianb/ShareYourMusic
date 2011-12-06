@@ -12,20 +12,23 @@
 	<% end %>
 <%
 =end %>
-<ul id="selectable" class="gallery ui-helper-reset ui-helper-clearfix">
+<table class="zebra-striped">
+	<tr>
+		<th></th>
+		<th>Interpret</th>
+		<th>Titel</th>
+		<th></th>
+	</tr>
 <% @cds.each do |c| %>
-	<li class="cd-show">
-
-			<%= image_tag c.photo.url(:normal) %>
-			<div id="cd_info">
-				<%= c.artist %></br>
-				<%= c.title %></br>
+	<tr>
+			<td><%= image_tag c.photo.url(:normal) %></td>
+			<td><%= c.artist %></td>
+			<td><%= c.title %></td>
 				<!-- <%= link_to 'Edit', edit_compact_disk_path(c) %> -->
-				<%= link_to 'Show', compact_disk_path(c) %>
-			</div>
-	</li>
+			<td><%= link_to 'Show', compact_disk_path(c) %></td>
+	</tr>
 <% end %>
-</ul>
+</table>
 <br>
 <br>
 <!--

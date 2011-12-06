@@ -74,13 +74,17 @@
         
         <div class="container">
             <div class="page-header">
-                <div class="row show-grid">
-                    <div class="span8">
-                        <h2> <%= yield(:title) %> </h2>
-                    </div>
-                    <div class="span4">&nbsp;</div>
-                    <div class="span4"><input type="text" placeholder="Search"></div>
-                </div>
+<!--                <div class="row show-grid"> -->
+<!--                    <div class="span8"> -->
+                        <h2> 
+							<%= yield(:title) %>  
+							<div class="pull-right"><input type="text" placeholder="Search"></div>
+						</h2>
+<!--                    </div> -->
+                    
+
+<!--				</div>	-->
+
             </div>
             <div class="content">
                 <%= yield %> 
