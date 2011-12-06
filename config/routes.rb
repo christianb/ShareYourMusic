@@ -24,6 +24,7 @@ Projekt::Application.routes.draw do
     root :to => 'welcome#index', :as => :welcome
     resources :user
     resources :compact_disk
+    match '/compact_disk/myCDs/:id' => 'compact_disk#myCDs', :as => :myCDs
     #match '/compact_disk' => 'compact_disk#index', :as => :compact_disk_index
     #match '/compact_disk/new' => 'compact_disk#new', :as => :new_compact_disk
   end

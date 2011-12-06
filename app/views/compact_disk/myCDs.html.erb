@@ -1,0 +1,17 @@
+<ul id="selectable" class="gallery ui-helper-reset ui-helper-clearfix">
+<% @myCDs.each do |c| %>
+	<li class="cd-show">
+
+			<%= image_tag c.photo.url(:normal) %>
+			<div id="cd_info">
+				<%= c.artist %></br>
+				<%= c.title %></br>
+				<%= link_to 'Edit', edit_compact_disk_path(c) %>
+				<%= link_to 'Show', compact_disk_path(c) %>
+			</div>
+	</li>
+<% end %>
+</ul>
+<br>
+<br>
+<%= link_to t('.cd_new'), new_compact_disk_path %>
