@@ -2,44 +2,56 @@
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :multipart => true}) do |f| %>
   <%= devise_error_messages! %>
-      <div id="edituserfield">
+      <div class="clearfix">
             <%= f.label t('user.email') %>
-            <br/>
-            <%= f.email_field :email %>*
+            <div class="input">
+                <%= f.email_field :email %>*
+            </div>
       </div>
-      <div id="edituserfield">
+      <div class="clearfix">
             <%= f.label t('user.firstname') %>
-            <br />
-            <%= f.text_field :firstname %>*
+            <div class="input">
+                <%= f.text_field :firstname %>*
+            </div>
       </div>
-      <div id="edituserfield">
+      <div class="clearfix">
             <%= f.label t('user.lastname') %>
-            <br />
-            <%= f.text_field :lastname %>*
+            <div class="input">
+                <%= f.text_field :lastname %>*
+            </div>
       </div>
-      <div id="edituserfield">
+      <div class="clearfix">
             <%= f.label t('user.alias') %>
-            <br />
-            <%= f.text_field :alias %>
+            <div class="input">
+                <%= f.text_field :alias %>
+            </div>
       </div>
-      <div id="edituserfield">
-            <%= f.label t('user.password') %> <span id="reference"><%= t('.reference1') %></span>
-            <br />
-            <%= f.password_field :password %>
+     <div class="clearfix">
+            <%= f.label t('.password_current') %>  
+            <div class="input">
+                <%= f.password_field :current_password %>*<br/>
+                <span class="label notice"><%= t('.reference2') %></span>
+            </div>
       </div>
-      <div id="edituserfield">
+      <div class="clearfix">
+            <%= f.label t('user.password') %> 
+            <div class="input">
+                <%= f.password_field :password %><br/>
+                <span class="label notice"><%= t('.reference1') %></span>
+            </div>
+      </div>
+      <div class="clearfix">
             <%= f.label t('user.password_confirm') %>
-            <br />
-            <%= f.password_field :password_confirmation %>
+            <div class="input">
+                <%= f.password_field :password_confirmation %>
+            </div>
       </div>
-      <div id="edituserfield">
-            <%= f.label t('.password_current') %> <span id="reference"> <%= t('.reference2') %> </span>
-            <br />
-            <%= f.password_field :current_password %>*
-      </div>
-      <div id="edituserfield">
-            <%= f.label t('.upload_photo') %><br/>
-            <%= f.file_field :photo%>
+
+      <div class="clearfix">
+            <%= f.label t('.upload_photo') %>
+            <div class="input">
+                <%= f.file_field :photo%>
+            </div>
       </div>
 
   <div id="submit"><%= f.submit t('.submit_form') %></div>
