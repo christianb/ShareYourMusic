@@ -1,17 +1,18 @@
-<ul id="selectable" class="gallery ui-helper-reset ui-helper-clearfix">
+<% content_for :title, "CD Sammlung" %>
+<div class="row">
+<div class="pull-right"><%= link_to t('.cd_new'), new_compact_disk_path %></div>
+</div>
+<ul id="selectable">
 <% @myCDs.each do |c| %>
-	<li class="cd-show">
+	<li>
 
-			<%= image_tag c.photo.url(:normal) %>
-			<div id="cd_info">
-				<%= c.artist %></br>
-				<%= c.title %></br>
-				<%= link_to 'Edit', edit_compact_disk_path(c) %>
-				<%= link_to 'Show', compact_disk_path(c) %>
-			</div>
+		<%= image_tag c.photo.url(:normal) %>
+		<p class="blackFont"><%= c.artist %></p>
+		<p><%= c.title %></p>
+		<p>
+			<%= link_to 'Edit', edit_compact_disk_path(c) %>
+			<%= link_to 'Show', compact_disk_path(c) %>
+		</p>
 	</li>
 <% end %>
 </ul>
-<br>
-<br>
-<%= link_to t('.cd_new'), new_compact_disk_path %>

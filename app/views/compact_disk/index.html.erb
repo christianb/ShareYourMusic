@@ -1,4 +1,4 @@
-<% content_for :title, t('.cd_headline') %>
+<% content_for :title, "Alle CDs" %>
 
 <p><%= flash[:alert] %></p>
 
@@ -11,7 +11,7 @@
 		<%= link_to 'Destroy', c, :confirm => 'Are you sure?', :method => :delete %>
 	<% end %>
 <%
-=end %>
+
 <table class="zebra-striped">
 	<tr>
 		<th></th>
@@ -34,3 +34,18 @@
 <!--
 <%= link_to t('.cd_new'), new_compact_disk_path %>
 -->
+<%
+=end %>
+
+<ol id="selectable">
+	<% @cds.each do |c| %>
+	<li>
+		<%= image_tag c.photo.url(:normal) %>
+		<p class="blackFont"><%= c.artist %></p>
+		<p><%= c.title %></p>
+		<p>
+			<%= link_to 'Show', compact_disk_path(c) %>
+		</p>
+	</li>
+	<% end %>
+</ol>

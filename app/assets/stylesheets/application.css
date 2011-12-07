@@ -288,3 +288,8 @@ a:active {
     font-size:10px;
 }
 */
+#selectable .ui-selecting { background: #FECA40; }
+#selectable .ui-selected { background: #F39814; color: white; }
+#selectable { list-style-type: none; margin: 2px; padding: 2px; }
+#selectable li { margin: 10px; padding: 15px; float: left; width: 120px; height: 130px; font-size: 2em; text-align: center; margin-bottom: 85px; }
+.blackFont {color: black;}

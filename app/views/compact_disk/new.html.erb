@@ -1,7 +1,7 @@
 <% content_for :title, "Neue CD" %>
 
 <%= form_for(@cd, :url => '/compact_disk', :html => { :method => :post, :multipart => true}) do |form| %>
-
+	
 	<div class="clearfix">
 		<%= form.label "Titel" %>
         <div class="input">
@@ -50,5 +50,13 @@
         <%= form.submit("CD erstellen") %>
     </div>
     </div>
+<% end %>
+
+<% if @cd.errors.any? %>
+  <ul>
+    <% @cd.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
 <% end %>
 

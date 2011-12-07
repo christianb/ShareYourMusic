@@ -106,8 +106,8 @@ function addSongField(){
 		num += 1;
 	});
 	
-	$('#btnDel').click(function(){
+/*	$('#btnDel').click(function(){
 		('#input1').find('input'+ $num).remove();
-	});
+	});*/
 }
 
