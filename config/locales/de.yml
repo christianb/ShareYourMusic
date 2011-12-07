@@ -42,7 +42,15 @@ de:
         cd_new: "Neue CD anlegen"
       new:
         upload_cover: "Cover hochladen"
-          
+      myCDs: 
+        my_cds: "Meine CD's"
+      exchange:
+        cd_exchange: "CD Tauschen - Anfrage stellen"
+     
+        
+  session:
+      new:
+        sign_in: "Login"
           
   layouts:
      application:

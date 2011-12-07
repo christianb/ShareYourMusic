@@ -18,12 +18,11 @@
                             <a class="dropdown-toggle" href="#">CDs</a>
                             <ul class="dropdown-menu">
                                 <li>
+                                    <%= link_to 'Alle CDs', compact_disk_index_path %>
+                                </li>
+                                <li>
                                     <a href="#">Neuste CDs</a>
                                 </li>  
-                                <li>
-                                    <!--<a href="#">Alle CDs</a>-->
-									<%= link_to 'Alle CDs', compact_disk_index_path %>
-                                </li>
                             </ul>
                         </li>
                         <% if user_signed_in? %>
