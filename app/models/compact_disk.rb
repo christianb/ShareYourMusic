@@ -8,11 +8,18 @@ class CompactDisk < ActiveRecord::Base
   has_many :songs
     
   has_attached_file :photo, :styles => { :normal => "150x150>", :small => "70x70>" },
-                    :url  => "/system/compact_disk/:id/:style/:basename.:extension",
-                    :path => ":rails_root/public/system/compact_disk/:id/:style/:basename.:extension",
+                    :url  => "/system/covers/:id/:style/:basename.:extension",
+                    :path => ":rails_root/public/system/covers/:id/:style/:basename.:extension",
                     :default_url => "/assets/cd_default.png"
                       
   #validates_attachment_presence :photo
   validates_attachment_size :photo, :less_than => 5.megabytes
   validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png']
+  
+  has_attached_file :audio,
+                    :url => "/system/audios/:id/:basename.:extension",
+                    :path => ":rails_root/public/system/audios/:id/:basename.:extension"
+  
+  validates_attachment_size :audio, :less_than => 5.megabytes
+
 end

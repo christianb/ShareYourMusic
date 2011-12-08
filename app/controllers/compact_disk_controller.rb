@@ -75,4 +75,9 @@ class CompactDiskController < ApplicationController
   def swap
     
   end
+  
+  # search for a user with a given name
+  def self.search(name)
+    CompactDisk.where("artist LIKE ? OR title LIKE ?","%#{name}%","%#{name}%")
+  end
 end
