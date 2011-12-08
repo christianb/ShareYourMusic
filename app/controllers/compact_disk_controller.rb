@@ -14,6 +14,7 @@ class CompactDiskController < ApplicationController
   
   def show
     @cd = CompactDisk.find(params[:id])
+    @songs = Song.where(:compact_disk_id => @cd.id)
   end
   
   def destroy
@@ -28,12 +29,19 @@ class CompactDiskController < ApplicationController
   
   def create
     @cd = CompactDisk.new(params[:compact_disk])
+    @songs = (params[:song])  
+    
     respond_to do |format|
         if @cd.save
           format.html  { redirect_to(compact_disk_index_path,
                         :notice => 'CD was successfully created.') }
           format.json  { render :json => @cd,
                         :status => :created, :location => @cd }
+          
+          @songs.each do |s|
+              @song  = Song.new(:compact_disk_id => @cd.id, :title => s[1])
+              @song.save
+          end
         else
           format.html  { render :action => "new" }
           format.json  { render :json => @cd.errors,

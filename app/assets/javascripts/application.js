@@ -100,9 +100,9 @@ function addSongField(){
 }*/
 
 function addSongField(){
-	var num = 1;
+	var num = 2;
 	$('#btnAdd').click(function(){
-		$('<p><input id="song'+ num +'"></input><p/>').appendTo('#input1');
+		$('<p><input id="song_'+ num +'" ' + 'name="song['+ num + ']"></input><p/>').appendTo('#input1');
 		num += 1;
 	});
 	
