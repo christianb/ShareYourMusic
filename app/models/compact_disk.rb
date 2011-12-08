@@ -19,8 +19,7 @@ class CompactDisk < ActiveRecord::Base
   has_attached_file :audio,
                     :url => "/system/audios/:id/:basename.:extension",
                     :path => ":rails_root/public/system/audios/:id/:basename.:extension"
+  
+  validates_attachment_size :audio, :less_than => 5.megabytes
 
-  attr_accessor :audio_file_name
-  attr_accessor :audio_content_type
-  attr_accessor :audio_file_size
 end
