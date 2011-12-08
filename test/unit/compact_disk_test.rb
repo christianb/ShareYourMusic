@@ -31,8 +31,23 @@ class CompactDiskTest < ActiveSupport::TestCase
     
     @disk.user_id = 42
     assert !@disk.save, "should not save compact disk due user_id does not exist"
+  end
+  
+  test "search compact_disk" do
+    array = CompactDiskController.search("Bea")
+    assert array.count == 1, "should contain exactly one CD"
+    assert array[0].artist == "Beatsteaks", "Artist should be Beatsteaks"
     
+    array = CompactDiskController.search("Li")
+    assert array.count == 2, "should contain exactly two CD's"
+    array.each do |t|
+      assert t.artist == "Linkin Park", "Artist should be Linkin Park"
+    end
     
+    array = CompactDiskController.search("A Thous")
+    assert array.count == 1, "should contain exactly one CD"
+    assert array[0].artist == "Linkin Park", "Artist should be Linkin Park"
+    assert array[0].title == "A Thousand Suns", "Title should be A Thousand Suns"
   end
   
 end
