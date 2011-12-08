@@ -52,14 +52,16 @@ class CompactDiskController < ApplicationController
   
   def edit
     @cd = CompactDisk.find(params[:id])
+    #@songs = Song.where(:compact_disk_id => @cd.id)
   end
   
   def update
     @cd = CompactDisk.find(params[:id])
-
+    @songs = params[:song]
+    
     respond_to do |format|
-      if @cd.update_attributes(params[:compact_disk])
-        format.html { render action: "show" }
+      if @cd.update_attributes(params[:compact_disk].except(:song))
+        format.html { redirect_to action: "show" }
       else
         format.html { render action: "edit" }
       end
