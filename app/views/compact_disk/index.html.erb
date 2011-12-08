@@ -45,7 +45,9 @@
 		<p><%= c.title %></p>
 		<p>
 			<%= link_to 'Show', compact_disk_path(c) %>
+			<%= link_to 'Tauschen', swap_cd_path(c.id) %>
 		</p>
 	</li>
 	<% end %>
 </ol>
+
