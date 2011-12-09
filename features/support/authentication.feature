@@ -3,7 +3,7 @@ Feature: Authentication
   I want to login at the plattform
   So I can share my CDs with other people
 
-  @ok
+  @wip
   Scenario: Click on Register
     Given I am on the Welcome page
 		When I follow "Register"
@@ -13,7 +13,7 @@ Feature: Authentication
 		And I should see an "Email" field
 		And I should see a "Password" field
 	
-	@ok
+	@wip
 	Scenario: Fill form to register
 		Given I am on the Register page
     When I fill in "Firstname" with "Christian" in the registration form
@@ -25,7 +25,7 @@ Feature: Authentication
     And I press "Profil erstellen"
     Then I should see "Meine CDs"
 		
-	@ok
+	@wip
 	Scenario: Login User (successful)
 	  Given I am on the Welcome page
 	  And I should see an "Email" field
@@ -35,7 +35,7 @@ Feature: Authentication
 		And I press "Login"
 		Then I should see "Meine CDs"
 		
-	@ok
+	@wip
 	Scenario: Login User (unsuccessful)
     Given I am on the Welcome page
 	  And I should see an "Email" field

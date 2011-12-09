@@ -30,12 +30,12 @@ class TransactionTest < ActiveSupport::TestCase
     
     
     transaction = Transaction.new(:provider_id => 0,
-                                  :receiver_id => 2,
+                                  :receiver_id => 3,
                                   :provider_disk_id => 1,
                                   :receiver_disk_id => 0)
     assert !transaction.save, "should not be saved du receiver_user_id 2 does not exist"
     
-    transaction = Transaction.new(:provider_id => 2,
+    transaction = Transaction.new(:provider_id => 3,
                                   :receiver_id => 0,
                                   :provider_disk_id => 1,
                                   :receiver_disk_id => 0)
@@ -43,14 +43,14 @@ class TransactionTest < ActiveSupport::TestCase
     
     transaction = Transaction.new(:provider_id => 1,
                                   :receiver_id => 0,
-                                  :provider_disk_id => 2,
+                                  :provider_disk_id => 3,
                                   :receiver_disk_id => 0)
     assert !transaction.save, "should not be saved because provider_disk_id does not exist"
     
     transaction = Transaction.new(:provider_id => 1,
                                   :receiver_id => 0,
                                   :provider_disk_id => 0,
-                                  :receiver_disk_id => 2)
+                                  :receiver_disk_id => 3)
     assert !transaction.save, "should not be saved because receiver_disk_id does not exist"
     
   end

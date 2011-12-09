@@ -11,4 +11,12 @@
 		<b>Genre:</b>
 		<%= @cd.genre %>
 	</p>
+	<p>
+	<b>Songs:</b><br/>
+	<% @songs.each_with_index do |s, index| %>
+		<%= index + 1 %>
+		<%= s.title %>
+		</br>
+	<% end %>
+	</p>
 <%= link_to 'Back', :action => "index" %>

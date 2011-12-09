@@ -21,5 +21,21 @@
       <%= f.file_field :photo%>
   </div>
 
+	<div class="clearfix">
+    	<%= f.label "Upload Song" %>
+        <div class="input">
+        <%= f.file_field :audio%>
+        </div>
+  </div>
+
+	<div>
+	<%= f.label "Songs" %><br/>
+	<% @cd.songs.each do |s| %>
+		<%= f.fields_for s, :index => s do |song| %>
+		<%= song.text_field :title %>
+		<% end %>
+	<% end %>
+	</div>	
+
 	<div id="submit"><%= f.submit "Bestätigen" %></div>
 <% end %>

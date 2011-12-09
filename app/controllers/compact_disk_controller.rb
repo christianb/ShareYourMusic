@@ -14,6 +14,7 @@ class CompactDiskController < ApplicationController
   
   def show
     @cd = CompactDisk.find(params[:id])
+    @songs = Song.where(:compact_disk_id => @cd.id)
   end
   
   def destroy
@@ -28,12 +29,19 @@ class CompactDiskController < ApplicationController
   
   def create
     @cd = CompactDisk.new(params[:compact_disk])
+    @songs = (params[:song])  
+    
     respond_to do |format|
         if @cd.save
           format.html  { redirect_to(compact_disk_index_path,
                         :notice => 'CD was successfully created.') }
           format.json  { render :json => @cd,
                         :status => :created, :location => @cd }
+          
+          @songs.each do |s|
+              @song  = Song.new(:compact_disk_id => @cd.id, :title => s[1])
+              @song.save
+          end
         else
           format.html  { render :action => "new" }
           format.json  { render :json => @cd.errors,
@@ -44,14 +52,16 @@ class CompactDiskController < ApplicationController
   
   def edit
     @cd = CompactDisk.find(params[:id])
+    #@songs = Song.where(:compact_disk_id => @cd.id)
   end
   
   def update
     @cd = CompactDisk.find(params[:id])
-
+    @songs = params[:song]
+    
     respond_to do |format|
-      if @cd.update_attributes(params[:compact_disk])
-        format.html { render action: "show" }
+      if @cd.update_attributes(params[:compact_disk].except(:song))
+        format.html { redirect_to action: "show" }
       else
         format.html { render action: "edit" }
       end
@@ -64,5 +74,10 @@ class CompactDiskController < ApplicationController
   
   def swap
     
+  end
+  
+  # search for a user with a given name
+  def self.search(name)
+    CompactDisk.where("artist LIKE ? OR title LIKE ?","%#{name}%","%#{name}%")
   end
 end

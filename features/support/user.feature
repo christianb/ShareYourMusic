@@ -3,7 +3,7 @@ Feature: Manage User Data
   I want to view my and other profiles
   So I can manage my information
 
-  @ok
+  @wip
   Scenario: Miss Password at Edit Form
     Given I am logged in
       When I follow "Edit registration"
@@ -20,7 +20,7 @@ Feature: Manage User Data
     And I press "Update"
     Then I should see "Profil erfolgreich geupdated"
     
-  @ok
+  @wip
   Scenario: View Profil
     Given I am logged in
       When I follow "Profil"

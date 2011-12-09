@@ -19,3 +19,11 @@ kathrin:
     email: "kathrin.mayer@gmail.com"
     encrypted_password: "abcdef123"
     role_id: "1"
+
+Hannah:
+    id: "2"
+    firstname: "Hannah"
+    lastname: "Schmidt"
+    email: "hannah.schmidt@gmx.de"
+    encrypted_password: "abcdef123"
+    role_id: "1"
