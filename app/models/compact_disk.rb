@@ -22,4 +22,6 @@ class CompactDisk < ActiveRecord::Base
   
   validates_attachment_size :audio, :less_than => 5.megabytes
 
+  has_many :transactions, :through => :swap_provider
+  has_many :transactions, :through => :swap_receiver
 end
