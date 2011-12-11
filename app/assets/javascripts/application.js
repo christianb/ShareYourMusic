@@ -22,11 +22,11 @@ function dragDropCD(){
 			var $id_arr = new Array();
 			
 			// there's the gallery and the trash
-			var $gallery = $( "#gallery" ),
-				$trash = $( "#shareBox" );
+			var $gallery = $( "#myCDs" ),
+				$trash = $( "#mine" );
 
 			// let the gallery items be draggable
-			$( "li", $gallery ).draggable({
+			$( "img", $gallery ).draggable({
 				cancel: "a.ui-icon", // clicking an icon won't initiate dragging
 				revert: "invalid", // when not dropped, the item will revert back to its initial position
 				containment: $( "#demo-frame" ).length ? "#demo-frame" : "document", // stick to demo-frame if present
@@ -36,18 +36,18 @@ function dragDropCD(){
 
 			// let the trash be droppable, accepting the gallery items
 			$trash.droppable({
-				accept: "#gallery > li",
+				accept: "#myCDs > img",
 				activeClass: "ui-state-highlight",
 				drop: function( event, ui ) {
 					deleteImage( ui.draggable );
-					//alert(ui.draggable.find("img").attr("alt"));
-					$id_arr.push(ui.draggable.find("img").attr("alt"));
+					//alert(ui.draggable.attr('alt'));
+					$id_arr.push(ui.draggable.attr('alt'));
 				}
 			});
 
 			// let the gallery be droppable as well, accepting items from the trash
 			$gallery.droppable({
-				accept: "#shareBox li",
+				accept: "#mine img",
 				activeClass: "custom-state-active",
 				drop: function( event, ui ) {
 					recycleImage( ui.draggable );
@@ -65,9 +65,9 @@ function dragDropCD(){
 					$item.find( "a.ui-icon-trash" ).remove();
 					$item.append( recycle_icon ).appendTo( $list ).fadeIn(function() {
 						$item
-							.animate({ width: "48px" })
+							.animate({ width: "70px" })
 							.find( "img" )
-								.animate({ height: "36px" });
+								.animate({ height: "70px" });
 					});
 				});
 			}
@@ -80,10 +80,10 @@ function dragDropCD(){
 						.find( "a.ui-icon-refresh" )
 							.remove()
 						.end()
-						.css( "width", "130px")
+						.css( "width", "70px")
 						.append( trash_icon )
 						.find( "img" )
-							.css( "height", "115px" )
+							.css( "height", "70px" )
 						.end()
 						.appendTo( $gallery )
 						.fadeIn();
@@ -128,8 +128,16 @@ function dragDropCD(){
 			});
 			
 			$('.shareBt').click(function(){
-				//$("<h3>Tausche: "+ $id_arr + "</h3>").appendTo($trash);	
-				alert($id_arr);
+				var url = "http://localhost:3000/de/transaction/new?"
+				var user = $('#user_id').attr('value');
+				alert(user);
+				var href = $('a').attr('href');
+				$('a').attr('href', url + 'user_id=' + user + '?cds = [' + $id_arr + ']');
+				//$('a').attr('href', path + "cds = [" + $id_arr + " ]");
+				//$("<h3>Tausche: "+ $id_arr + "</h3>").appendTo(".row");
+				//$("a").attr("href", $("a").attr("href")+"?cds=[" + $id_arr + " ]");				
+	//			url.append("cds = [" + id_arr + " ]");
+				//alert($id_arr);
 			});			
 }
 

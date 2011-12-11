@@ -1,11 +1,28 @@
 <% content_for :title, t('.swap_cd') %>
 
 <div class="row grid-move" >
-    <div class="span4 swap box-swap" style="padding:4px;" > 
-    </div>
+    <div id="myCDs" class="span4 swap box-swap" style="padding:4px;" > 
+    	<% @myCDs.each do |cd| %>
+			<%= image_tag cd.photo.url(:small), :alt => cd.id %>
+		<% end %>
+	</div>
     <div class="span8" style="margin-left:10px;" >
-        <div class="wanted box-swap">Test wanted</div>
-        <div class="mine box-swap">Test mine</div>
+        <div class="wanted box-swap">
+			<%= hidden_field_tag 'user_id', @user.id %>
+			<%= image_tag @cd.photo.url(:small), :alt => @cd.id %>
+		</div>
+        <div id="mine" class="mine box-swap">
+
+		</div>
     </div>
-    <div class="span4 swap box-swap" style="margin-left:10px; padding:4px;"  >TESt 4</div>
+    <div class="span4 swap box-swap" style="margin-left:10px; padding:4px;"  >
+		Weitere CDs von <%= @user.firstname + " " + @user.lastname %>
+		<% @userCDs.each do |cd| %>
+			<%= image_tag cd.photo.url(:small), :alt => cd.id %>
+		<% end %>
+	</div>
+	
+	<button class="shareBt">Speichern</button>
+	<%= link_to "Anfrage senden", new_transaction_path(:user_id => @cd.user_id) %>
+	
 </div>

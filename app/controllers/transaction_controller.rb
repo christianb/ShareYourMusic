@@ -2,20 +2,28 @@ class TransactionController < ApplicationController
   
   # neue Anfrage erstellen
   def new
-   # user = params[:user_id]
+   # User_ID des Tauschpartners
+   user_id = params[:user_id]
+   
    # dest = params[:dest_user_id]
-   # cd = params[:cd_id]
-
+   
+   # CDs die getauscht werden sollen
+   cd_mine = params[:cds_mine]
+   cd_wanted =params[:cds_wanted]
+   
     cd = 3
-    user = User.find(2)
-    dest = User.find(3)
+    user = User.find(current_user.id)
+    dest = User.find(user_id)
     message = Message.new
-    message.subject = "3;1,2"
+    message.subject = "#{cd_wanted};#{cd_mine}"
     message.body = "Anfrage; Hallo, ich tausche 2 CDs gegen Chuck Norris"
     message.sender = user
     message.recipient = dest
-    message.save
+    if message.save
+      redirect_to :controller => "compact_disk", :action => "index"
+    end
   end
+
 
   # Anfrage löschen/ablehnen
   def destroy  
