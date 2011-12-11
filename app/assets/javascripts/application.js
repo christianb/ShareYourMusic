@@ -132,7 +132,7 @@ function dragDropCD(){
 				var user = $('#user_id').attr('value');
 				alert(user);
 				var href = $('a').attr('href');
-				$('a').attr('href', url + 'user_id=' + user + '?cds = [' + $id_arr + ']');
+				$('a').attr('href', url + 'user_id=' + user + '&cds_mine=' + $id_arr);
 				//$('a').attr('href', path + "cds = [" + $id_arr + " ]");
 				//$("<h3>Tausche: "+ $id_arr + "</h3>").appendTo(".row");
 				//$("a").attr("href", $("a").attr("href")+"?cds=[" + $id_arr + " ]");				
