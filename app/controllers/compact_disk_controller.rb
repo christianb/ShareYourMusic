@@ -4,12 +4,15 @@ class CompactDiskController < ApplicationController
   
   def index
     #@cds = CompactDisk.where(:user_id => current_user.id)
-    @cds = CompactDisk.all
+    #@cds = CompactDisk.all
+    @cds = CompactDisk.paginate(:page => params[:page], :per_page => 9)
   end
   
   def myCDs
     #@allCDs = CompactDisk.all
-    @myCDs = CompactDisk.where(:user_id => current_user.id)
+   # @myCDs = CompactDisk.where(:user_id => current_user.id)
+    @myCDs = CompactDisk.where(:user_id => current_user.id).paginate(:page => params[:page], :per_page => 9)
+
   end
   
   def show

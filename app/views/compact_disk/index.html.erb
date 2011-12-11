@@ -12,31 +12,13 @@
 	<% end %>
 <%
 
-<table class="zebra-striped">
-	<tr>
-		<th></th>
-		<th>Interpret</th>
-		<th>Titel</th>
-		<th></th>
-	</tr>
-<% @cds.each do |c| %>
-	<tr>
-			<td><%= image_tag c.photo.url(:normal) %></td>
-			<td><%= c.artist %></td>
-			<td><%= c.title %></td>
-				<!-- <%= link_to 'Edit', edit_compact_disk_path(c) %> -->
-			<td><%= link_to 'Show', compact_disk_path(c) %></td>
-	</tr>
-<% end %>
-</table>
-<br>
-<br>
-<!--
-<%= link_to t('.cd_new'), new_compact_disk_path %>
--->
+
 <%
 =end %>
-
+<div style="padding-left:20px;">
+<%= will_paginate @cds %>
+</div>
+<div style="height:494px;">
 <ol id="selectable">
 	<% @cds.each do |c| %>
 	<li>
@@ -50,4 +32,7 @@
 	</li>
 	<% end %>
 </ol>
-
+</div>
+<div style="padding-left:20px;">
+<%= will_paginate @cds %>
+</div>

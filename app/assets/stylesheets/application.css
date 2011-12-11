@@ -80,6 +80,10 @@ body{
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
 }
 
+.popover{
+    height:100px !important;
+}
+
 /*.user-auth-nav{
 	float: right;
 }
@@ -326,5 +330,5 @@ a:active {
 #selectable .ui-selecting { background: #FECA40; }
 #selectable .ui-selected { background: #F39814; color: white; }
 #selectable { list-style-type: none; margin: 2px; padding: 2px; }
-#selectable li { margin: 10px; padding: 15px; float: left; width: 120px; height: 130px; font-size: 2em; text-align: center; margin-bottom: 85px; }
+#selectable li { margin: 10px; padding: 15px; float: left; width: 140px; height: 130px; font-size: 2em; text-align: center; margin-bottom: 85px; }
 .blackFont {color: black;}
