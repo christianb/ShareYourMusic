@@ -39,3 +39,11 @@
 
 	<div id="submit"><%= f.submit "Bestätigen" %></div>
 <% end %>
+
+<% if @cd.errors.any? %>
+  <ul>
+    <% @cd.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
