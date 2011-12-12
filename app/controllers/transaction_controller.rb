@@ -11,9 +11,11 @@ class TransactionController < ApplicationController
    cd_mine = params[:cds_mine]
    cd_wanted =params[:cds_wanted]
    
-    cd = 3
+    #cd = 3
+    # Nutzerdaten ermitteln
     user = User.find(current_user.id)
     dest = User.find(user_id)
+    
     message = Message.new
     message.subject = "#{cd_wanted};#{cd_mine}"
     message.body = "Anfrage; Hallo, ich tausche 2 CDs gegen Chuck Norris"

@@ -20,6 +20,7 @@ $(document).ready(function(){
 function dragDropCD(){
 			
 			var $id_arr = new Array();
+			var $wanted_cds = new Array();
 			
 			// there's the gallery and the trash
 			var $gallery = $( "#myCDs" ),
@@ -128,15 +129,18 @@ function dragDropCD(){
 			});
 			
 			$('.shareBt').click(function(){
+				$wanted_cds.push($('#wanted').find('img').attr('alt'));
 				var url = "http://localhost:3000/de/transaction/new?"
 				var user = $('#user_id').attr('value');
-				alert(user);
+				
+				//alert(user);
 				var href = $('a').attr('href');
-				$('a').attr('href', url + 'user_id=' + user + '&cds_mine=' + $id_arr);
+				$('a').attr('href', url + 'user_id=' + user + '&cds_mine=' + $id_arr + '&cds_wanted=' + $.unique($wanted_cds));
+				
 				//$('a').attr('href', path + "cds = [" + $id_arr + " ]");
 				//$("<h3>Tausche: "+ $id_arr + "</h3>").appendTo(".row");
 				//$("a").attr("href", $("a").attr("href")+"?cds=[" + $id_arr + " ]");				
-	//			url.append("cds = [" + id_arr + " ]");
+				//url.append("cds = [" + id_arr + " ]");
 				//alert($id_arr);
 			});			
 }
