@@ -11,8 +11,9 @@
     end
   end  
   
-  # search for a user with a given name
+  # Suche nach einem Benutzer
+  # Suche in Firstname, Lastname, eMail und Alias
   def self.search(name)
-    User.where("firstname LIKE ? OR lastname LIKE ?","%#{name}%","%#{name}%")
+    User.where("firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR alias LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%")
   end
 end
