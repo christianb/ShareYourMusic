@@ -33,7 +33,7 @@ gegen
 	</div>
     <div class="span8" style="margin-left:10px;" >
         <div id="wanted" class="wanted box-swap">
-			<%= hidden_field_tag 'user_id', @user.id %>
+			<%= hidden_field_tag 'msg_id', @msg_id %>
 			<% wcd.each do |w| %>
 				<%= image_tag getCover(w).photo.url(:small), :alt => w %>
 			<% end %>
@@ -52,7 +52,7 @@ gegen
 	</div>
 	
 	<button class="modifyBt">Speichern</button>
-	<%= link_to "Anfrage senden", modify_path() %>
+	<%= link_to "Anfrage senden", modify_url(@msg_id) %>
 	
 </div>
 

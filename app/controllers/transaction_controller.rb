@@ -186,8 +186,8 @@ class TransactionController < ApplicationController
   end
   
   def modifyRequest
-    msg_id = params[:id]
-    msg = Message.find(msg_id)
+    @msg_id = params[:id]
+    msg = Message.find(@msg_id)
     @msg_subject = msg.subject
     
     @user = User.find(msg.sender_id)
@@ -201,7 +201,8 @@ class TransactionController < ApplicationController
     msg_id = params[:id]
     
     # Modifiezierte Anfrage
-    modified_req = params[:modCDs]
+    modified_mine = params[:cds_wanted]
+    modified_wanted = params[:cds_mine]
 
     msg = Message.find(msg_id)
     user = msg.recipient_id
@@ -213,7 +214,7 @@ class TransactionController < ApplicationController
     user = rsv_message.recipient
     dest = rsv_message.sender
     message = Message.new
-    message.subject = rsv_message.subject + ";1;3"
+    message.subject = rsv_message.subject + ";#{modified_mine};#{modified_wanted}"
     message.body = "Modifikation; Will anders haben!!!"
     message.sender = user
     message.recipient = dest

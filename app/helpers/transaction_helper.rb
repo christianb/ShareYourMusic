@@ -4,9 +4,9 @@ module TransactionHelper
     return cd_array[0].split(',')
   end
   
-  def getMineCDs(cds)
-    cd_array = cds.split(';')
-    return cd_array[1].split(',')
+  def getMineCDs(cds)    
+      cd_array = cds.split(';')
+      return cd_array[1].split(',')
   end
   
   def getCover(cd)
