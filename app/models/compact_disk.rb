@@ -21,6 +21,7 @@ class CompactDisk < ActiveRecord::Base
                     :path => ":rails_root/public/system/audios/:id/:basename.:extension"
   
   validates_attachment_size :audio, :less_than => 5.megabytes
+  validates_attachment_content_type :audio, :content_type => [ 'application/mp3', 'application/x-mp3', 'audio/mpeg', 'audio/mp3' , 'audio/mpg', 'audio/mpeg3', 'audio/mpeg', 'audio/x-mpeg', 'audio/mp3', 'audio/x-mp3', 'audio/mpeg3', 'audio/x-mpeg3', 'audio/mpg', 'audio/x-mpg', 'audio/x-mpegaudio', 'audio/x-m4a', 'audio/ogg']
 
   has_many :transactions, :through => :swap_provider
   has_many :transactions, :through => :swap_receiver
