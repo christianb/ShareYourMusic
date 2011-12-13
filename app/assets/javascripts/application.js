@@ -69,6 +69,8 @@ function dragDropCD(){
 				drop: function( event, ui ) {
 					deleteImage( ui.draggable );
 					//alert(ui.draggable.attr('alt'));
+					
+					// CD IDs in Array speichern
 					$id_arr.push(ui.draggable.attr('alt'));
 				}
 			});
@@ -79,7 +81,9 @@ function dragDropCD(){
 				drop: function( event, ui ) {
 					deleteImage2( ui.draggable );
 					//alert(ui.draggable.attr('alt'));
-					$id_arr.push(ui.draggable.attr('alt'));
+					
+					// CD IDs in Array speichern
+					$wanted_cds.push(ui.draggable.attr('alt'));
 				}
 			});
 
@@ -212,23 +216,41 @@ function dragDropCD(){
 			
 			// Mit Klick auf Button wird Link zur Action im Controller erstellt
 			$('.shareBt').click(function(){
-				$wanted_cds.push($('#wanted').find('img').attr('alt'));
+	//			$wanted_cds.push($('#wanted').find('img').attr('alt'));
+				
+						// CDs im Array speichern
+						$('html body').find('#wanted').each(function(index) {
+							$wanted_cds.push($(this).find('img').attr('alt'));
+						});
+						$('html body').find('#mine').each(function(index) {
+						     $id_arr.push($(this).find('img').attr('alt'));
+						});
+						
 				var url = "http://localhost:3000/de/transaction/new?"
 				var user = $('#user_id').attr('value');
 				
 				//alert(user);
 				var href = $('a').attr('href');
-				$('a').attr('href', url + 'user_id=' + user + '&cds_mine=' + $id_arr + '&cds_wanted=' + $.unique($wanted_cds));
+				$('a').attr('href', url + 'user_id=' + user + '&cds_mine=' + $.unique($id_arr) + '&cds_wanted=' + $.unique($wanted_cds));
 			});
 			
 			$('.modifyBt').click(function(){
-				$wanted_cds.push($('#wanted').find('img').attr('alt'));
-				var url = "http://localhost:3000/de/transaction/modify?"
-				var user = $('#user_id').attr('value');
+			//	$wanted_cds.push($('#wanted').find('img').attr('alt'));
+			
+				// CDs im Array speichern
+				$('html body').find('#wanted').each(function(index) {
+					$wanted_cds.push($(this).find('img').attr('alt'));
+				});
+				$('html body').find('#mine').each(function(index) {
+				     $id_arr.push($(this).find('img').attr('alt'));
+				});
 				
-				//alert(user);
+				var url = "http://localhost:3000/de/transaction/modify/"
+				var msg = $('#msg_id').attr('value');
+				
 				var href = $('a').attr('href');
-				$('a').attr('href', url + 'user_id=' + user + '&cds_mine=' + $id_arr + '&cds_wanted=' + $.unique($wanted_cds));
+				$('a').attr('href', url + msg + '?cds_mine=' + $.unique($id_arr) + '&cds_wanted=' + $.unique($wanted_cds));
+
 			});			
 }
 
