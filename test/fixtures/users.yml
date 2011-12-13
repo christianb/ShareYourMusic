@@ -6,6 +6,7 @@
 #
 peter:
     id: "0"
+    alias: "schmiddy"
     firstname: "Peter"
     lastname: "Schmidt"
     email: "peter.schmidt@web.de"
@@ -14,6 +15,7 @@ peter:
 
 kathrin:
     id: "1"
+    alias: "kmayer"
     firstname: "Kathrin"
     lastname: "Mayer"
     email: "kathrin.mayer@gmail.com"
@@ -22,8 +24,18 @@ kathrin:
 
 Hannah:
     id: "2"
+    alias: "schmiddy"
     firstname: "Hannah"
     lastname: "Schmidt"
     email: "hannah.schmidt@gmx.de"
+    encrypted_password: "abcdef123"
+    role_id: "1"
+    
+Christian:
+    id: "3"
+    alias: "cbunk"
+    firstname: "Christian"
+    lastname: "Bunk"
+    email: "christian.bunk@hotmail.de"
     encrypted_password: "abcdef123"
     role_id: "1"

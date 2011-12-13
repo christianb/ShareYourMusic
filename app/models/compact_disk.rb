@@ -5,7 +5,7 @@ class CompactDisk < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :user
     
-  has_many :songs
+  has_many :songs, :dependent => :destroy
     
   has_attached_file :photo, :styles => { :normal => "150x150>", :small => "70x70>" },
                     :url  => "/system/covers/:id/:style/:basename.:extension",
