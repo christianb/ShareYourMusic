@@ -17,7 +17,6 @@ class CompactDiskTest < ActiveSupport::TestCase
      assert cd.invalid?
      assert cd.errors[:title].any?
      assert cd.errors[:artist].any?
-     assert cd.errors[:genre].any?
   end
   
   test "user_id must exist to create new compact_disk" do
