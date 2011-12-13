@@ -85,6 +85,6 @@ class CompactDiskController < ApplicationController
   
   # search for a user with a given name
   def self.search(name)
-    CompactDisk.where("artist LIKE ? OR title LIKE ?","%#{name}%","%#{name}%")
+    CompactDisk.where("artist LIKE ? OR title LIKE ? OR genre LIKE ? OR year LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%")
   end
 end

@@ -48,6 +48,28 @@ class CompactDiskTest < ActiveSupport::TestCase
     assert array.count == 1, "should contain exactly one CD"
     assert array[0].artist == "Linkin Park", "Artist should be Linkin Park"
     assert array[0].title == "A Thousand Suns", "Title should be A Thousand Suns"
+    
+    array = CompactDiskController.search("rock")
+    assert array.count == 2, "should contain exactly two CD's"
+
+    array = CompactDiskController.search("20")
+    assert array.count == 2, "should contain exactly two CD's"
+    
+    array = CompactDiskController.search("19")
+    assert array.count == 1, "should contain exactly one CD"
+    assert array[0].artist == "Beatsteaks", "Artist should be Beatsteaks"
+    
   end
   
+  test "release year" do
+    @disk.year = 1952
+    assert @disk.save, "should be saved"
+    
+    @disk.year = 1910
+    assert !@disk.save, "should not be saved, due release date is out of range"
+    
+    @disk.year = Time.now.year+2
+    assert !@disk.save, "should not be saved, due release date is in future"
+                     
+  end
 end

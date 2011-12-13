@@ -1,3 +1,19 @@
+class DateOfReleaseValidator < ActiveModel::Validator
+  def validate(record)
+    if record.year == nil
+      return
+    end
+    
+    if record.year > Time.now.year
+      record.errors[:base] << "Erscheinungsjahr darf nicht in der Zukunft liegen."
+    end
+    
+    if !((record.year > (Time.now.year - 100)) && (record.year < Time.now.year))
+      record.errors[:base] << "Erscheinungsjahr muss zwischen "+(Time.now.year-100).to_s+" und "+Time.now.year.to_s+ " liegen"
+    end
+  end
+end
+
 class CompactDisk < ActiveRecord::Base
   validates :title, :artist, :genre, :presence => true
     
@@ -25,4 +41,6 @@ class CompactDisk < ActiveRecord::Base
 
   has_many :transactions, :through => :swap_provider
   has_many :transactions, :through => :swap_receiver
+  
+  validates_with DateOfReleaseValidator
 end
