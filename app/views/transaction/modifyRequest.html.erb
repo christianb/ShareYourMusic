@@ -1,0 +1,58 @@
+<!--
+Alte Anfrage:<br /> 
+<% wcd = getWantedCDs(@msg_subject) %>
+<% mcd = getMineCDs(@msg_subject) %>
+Tausche 
+<% wcd.each do |w| %>
+	<%= image_tag getCover(w).photo.url(:small) %>
+<% end %>
+gegen
+<% mcd.each do |m| %>
+	<%= image_tag getCover(m).photo.url(:small) %>
+<% end %>
+<br />
+
+<div id="newReq" class="span4">
+	neue Anfrage
+</div>
+<div id="userCDs" class="span4">
+	<% @userCDs.each do |cd| %>
+		<%= image_tag cd.photo.url(:small) %>
+		<br />
+	<% end %>
+</div>
+-->
+
+<% content_for :title, "Modifizieren" %>
+
+<div class="row grid-move" >
+    <div id="myCDs" class="span4 swap box-swap" style="padding:4px;" > 
+    	<% @myCDs.each do |cd| %>
+			<%= image_tag cd.photo.url(:small), :alt => cd.id %>
+		<% end %>
+	</div>
+    <div class="span8" style="margin-left:10px;" >
+        <div id="wanted" class="wanted box-swap">
+			<%= hidden_field_tag 'user_id', @user.id %>
+			<% wcd.each do |w| %>
+				<%= image_tag getCover(w).photo.url(:small), :alt => w %>
+			<% end %>
+		</div>
+        <div id="mine" class="mine box-swap">
+			<% mcd.each do |m| %>
+				<%= image_tag getCover(m).photo.url(:small), :alt => m %>
+			<% end %>
+		</div>
+    </div>
+    <div id="userCDs" class="span4 swap box-swap" style="margin-left:10px; padding:4px;"  >
+		Weitere CDs von <%= @user.firstname + " " + @user.lastname %>
+		<% @userCDs.each do |cd| %>
+			<%= image_tag cd.photo.url(:small), :alt => cd.id %>
+		<% end %>
+	</div>
+	
+	<button class="modifyBt">Speichern</button>
+	<%= link_to "Anfrage senden", modify_path() %>
+	
+</div>
+

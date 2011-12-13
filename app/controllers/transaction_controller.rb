@@ -184,7 +184,18 @@ class TransactionController < ApplicationController
 
     redirect_to :action => "index"
   end
-
+  
+  def modifyRequest
+    msg_id = params[:id]
+    msg = Message.find(msg_id)
+    @msg_subject = msg.subject
+    
+    @user = User.find(msg.sender_id)
+    @userCDs = CompactDisk.where(:user_id => @user.id)
+    
+    @myCDs = CompactDisk.where(:user_id => current_user.id)
+  end
+  
   def modify
     #user = params[:user_id]
     msg_id = params[:id]

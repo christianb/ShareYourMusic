@@ -37,6 +37,7 @@ Projekt::Application.routes.draw do
     match 'transaction/modifyReject/:id' => 'transaction#modifyReject', :as => :modified_reject
     match 'transaction/modifyRejected/:id' => 'transaction#modifyRejected', :as => :modified_rejected
     match 'transaction/modify/:id' => 'transaction#modify', :as => :modify
+    match 'transaction/modifyRequest/:id' => 'transaction#modifyRequest', :as => :modifyRequest
     
     #match '/compact_disk' => 'compact_disk#index', :as => :compact_disk_index
     #match '/compact_disk/new' => 'compact_disk#new', :as => :new_compact_disk

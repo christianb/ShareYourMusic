@@ -14,7 +14,8 @@
 	<% end %>
 	<%= link_to "Ablehnen", destroy_url(:id => ma) ,:methode => "delete" %>
 	<%= link_to "Annehmen", accept_url(ma) %>
-	<%= link_to "Modifizieren", modify_url(ma) %>
+<!--	<%= link_to "Modifizieren", modify_url(ma) %> -->
+	<%= link_to "Modifizieren", modifyRequest_path(ma) %>
 	</br>
 <% end %>
 
