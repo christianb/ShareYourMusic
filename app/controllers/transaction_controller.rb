@@ -17,7 +17,8 @@ class TransactionController < ApplicationController
     dest = User.find(user_id)
     
     message = Message.new
-    message.subject = "#{cd_wanted};#{cd_mine}"
+    #message.subject = "#{cd_wanted};#{cd_mine}"
+    message.subject = "#{cd_mine};#{cd_wanted}"
     message.body = "Anfrage; Hallo, ich tausche 2 CDs gegen Chuck Norris"
     message.sender = user
     message.recipient = dest
@@ -57,11 +58,11 @@ class TransactionController < ApplicationController
   # Nachricht anzeigen
   def index
     @user_id = current_user.id
-     @user = User.find(@user_id)
+    @user = User.find(@user_id)
 
      # Alle Anfrage
-     @messages_accepted = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Angenommen%'", nil])
-     @messages_rejected = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Abgelehnt%'", nil])
+    @messages_accepted = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Angenommen%'", nil])
+    @messages_rejected = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Abgelehnt%'", nil])
     @messages_requests = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Anfrage%'", nil])
     @messages_modified = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Modifikation%'", nil])
   end
@@ -94,9 +95,10 @@ class TransactionController < ApplicationController
 
     msg = Message.find(msg_id)
     user = msg.recipient_id
+    #dest = msg.recipient_id
     dest = msg.sender_id 
+    #user = msg.sender_id 
 
-    # subject von zuerst empfangender mail
     rsv_message = Message.read(msg_id, user)
 
     cds = rsv_message.subject
@@ -129,7 +131,7 @@ class TransactionController < ApplicationController
     t.save
 
     tauschCDs.each do |e|
-      sp = SwapProvider.new(:Transaction_id => t.id, :CompactDisk_id => e.to_i)
+      sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => e.to_i)
       sp.save
 
       disk = CompactDisk.where(:id => e.to_i)
@@ -138,7 +140,7 @@ class TransactionController < ApplicationController
     end
 
     wunschCDs.each do |e|
-      sr = SwapReceiver.new(:Transaction_id => t.id, :CompactDisk_id => e.to_i)
+      sr = SwapReceiver.new(:transaction_id => t.id, :compact_disk_id => e.to_i)
       sr.save
 
       disk = CompactDisk.where(:id => e.to_i)
@@ -186,6 +188,9 @@ class TransactionController < ApplicationController
   def modify
     #user = params[:user_id]
     msg_id = params[:id]
+    
+    # Modifiezierte Anfrage
+    modified_req = params[:modCDs]
 
     msg = Message.find(msg_id)
     user = msg.recipient_id
@@ -269,7 +274,7 @@ class TransactionController < ApplicationController
     t.save
 
     tauschCDs_neu.each do |e|
-      sp = SwapProvider.new(:Transaction_id => t.id, :CompactDisk_id => e.to_i)
+      sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => e.to_i)
       sp.save
 
       disk = CompactDisk.where(:id => e.to_i)
@@ -278,7 +283,7 @@ class TransactionController < ApplicationController
     end
 
     wunschCDs_neu.each do |e|
-      sr = SwapReceiver.new(:Transaction_id => t.id, :CompactDisk_id => e.to_i)
+      sr = SwapReceiver.new(:transaction_id => t.id, :compact_disk_id => e.to_i)
       sr.save
 
       disk = CompactDisk.where(:id => e.to_i)
