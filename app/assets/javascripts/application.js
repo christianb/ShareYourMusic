@@ -19,15 +19,42 @@ $(document).ready(function(){
 
 function dragDropCD(){
 			
+			// Arrays zum Speichern der CD IDs die per Drag and Drop hinzugefügt wurden
 			var $id_arr = new Array();
 			var $wanted_cds = new Array();
 			
-			// there's the gallery and the trash
+			// Bereich die draggable oder droppable seien sollen
 			var $gallery = $( "#myCDs" ),
-				$trash = $( "#mine" );
+				$trash = $( "#mine" ),
+				$gallery2 = $("#userCDs"),
+				$trash2 = $("#wanted");
 
-			// let the gallery items be draggable
-			$( "img", $gallery ).draggable({
+			// Alle CDs des Nutzers und des Tauschpartners sind draggable
+			$( "img", $gallery).draggable({
+				cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+				revert: "invalid", // when not dropped, the item will revert back to its initial position
+				containment: $( "#demo-frame" ).length ? "#demo-frame" : "document", // stick to demo-frame if present
+				helper: "clone",
+				cursor: "move"
+			});
+			
+			$( "img", $gallery2).draggable({
+				cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+				revert: "invalid", // when not dropped, the item will revert back to its initial position
+				containment: $( "#demo-frame" ).length ? "#demo-frame" : "document", // stick to demo-frame if present
+				helper: "clone",
+				cursor: "move"
+			});
+			
+			$( "img", $trash2).draggable({
+				cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+				revert: "invalid", // when not dropped, the item will revert back to its initial position
+				containment: $( "#demo-frame" ).length ? "#demo-frame" : "document", // stick to demo-frame if present
+				helper: "clone",
+				cursor: "move"
+			});
+
+			$( "img", $trash).draggable({
 				cancel: "a.ui-icon", // clicking an icon won't initiate dragging
 				revert: "invalid", // when not dropped, the item will revert back to its initial position
 				containment: $( "#demo-frame" ).length ? "#demo-frame" : "document", // stick to demo-frame if present
@@ -45,6 +72,16 @@ function dragDropCD(){
 					$id_arr.push(ui.draggable.attr('alt'));
 				}
 			});
+			
+			$trash2.droppable({
+				accept: "#userCDs > img",
+				activeClass: "ui-state-highlight",
+				drop: function( event, ui ) {
+					deleteImage2( ui.draggable );
+					//alert(ui.draggable.attr('alt'));
+					$id_arr.push(ui.draggable.attr('alt'));
+				}
+			});
 
 			// let the gallery be droppable as well, accepting items from the trash
 			$gallery.droppable({
@@ -54,22 +91,50 @@ function dragDropCD(){
 					recycleImage( ui.draggable );
 				}
 			});
+			
+			$gallery2.droppable({
+				accept: "#wanted img",
+				activeClass: "custom-state-active",
+				drop: function( event, ui ) {
+					recycleImage2( ui.draggable );
+				}
+			});
 
 			// image deletion function
 			var recycle_icon = "<a href='link/to/recycle/script/when/we/have/js/off' title='Recycle this image' class='ui-icon ui-icon-refresh'>Recycle image</a>";
 			function deleteImage( $item ) {
-				$item.fadeOut(function() {
+				$item.appendTo( $trash );
+			/*	$item.fadeOut(function() {
 					var $list = $( "ul", $trash ).length ?
 						$( "ul", $trash ) :
 						$( "<ul class='gallery ui-helper-reset'/>" ).appendTo( $trash );
 
 					$item.find( "a.ui-icon-trash" ).remove();
-					$item.append( recycle_icon ).appendTo( $list ).fadeIn(function() {
+					$item.append( recycle_icon ).appendTo( $list ).fadeIn(function() {*/
+						$item.fadeIn(function() {
 						$item
 							.animate({ width: "70px" })
 							.find( "img" )
 								.animate({ height: "70px" });
-					});
+							//	$id_arr.push($item.attr('alt'));
+					//});
+				});
+			}
+			function deleteImage2( $item ) {
+				$item.appendTo( $trash2 );
+/*				$item.fadeOut(function() {
+					var $list = $( "ul", $trash ).length ?
+						$( "ul", $trash ) :
+						$( "<ul class='gallery ui-helper-reset'/>" ).appendTo( $trash2 );
+
+					$item.find( "a.ui-icon-trash" ).remove();
+					$item.append( recycle_icon ).appendTo( $list ).fadeIn(function() {*/
+						$item.fadeIn(function() {
+						$item
+							.animate({ width: "70px" })
+							.find( "img" )
+								.animate({ height: "70px" });
+				//	});
 				});
 			}
 
@@ -90,7 +155,24 @@ function dragDropCD(){
 						.fadeIn();
 				});
 			}
-
+			
+			function recycleImage2( $item ) {
+				$item.fadeOut(function() {
+					$item
+						.find( "a.ui-icon-refresh" )
+							.remove()
+						.end()
+						.css( "width", "70px")
+						.append( trash_icon )
+						.find( "img" )
+							.css( "height", "70px" )
+						.end()
+						.appendTo( $gallery2 )
+						.fadeIn();
+				});
+			}
+			
+			/*
 			// image preview function, demonstrating the ui.dialog used as a modal window
 			function viewLargerImage( $link ) {
 				var src = $link.attr( "href" ),
@@ -110,7 +192,7 @@ function dragDropCD(){
 						});
 					}, 1 );
 				}
-			}
+			}*/
 
 			// resolve the icons behavior with event delegation
 			$( "ul.gallery > li" ).click(function( event ) {
@@ -128,6 +210,7 @@ function dragDropCD(){
 				return false;
 			});
 			
+			// Mit Klick auf Button wird Link zur Action im Controller erstellt
 			$('.shareBt').click(function(){
 				$wanted_cds.push($('#wanted').find('img').attr('alt'));
 				var url = "http://localhost:3000/de/transaction/new?"
@@ -136,12 +219,16 @@ function dragDropCD(){
 				//alert(user);
 				var href = $('a').attr('href');
 				$('a').attr('href', url + 'user_id=' + user + '&cds_mine=' + $id_arr + '&cds_wanted=' + $.unique($wanted_cds));
+			});
+			
+			$('.modifyBt').click(function(){
+				$wanted_cds.push($('#wanted').find('img').attr('alt'));
+				var url = "http://localhost:3000/de/transaction/modify?"
+				var user = $('#user_id').attr('value');
 				
-				//$('a').attr('href', path + "cds = [" + $id_arr + " ]");
-				//$("<h3>Tausche: "+ $id_arr + "</h3>").appendTo(".row");
-				//$("a").attr("href", $("a").attr("href")+"?cds=[" + $id_arr + " ]");				
-				//url.append("cds = [" + id_arr + " ]");
-				//alert($id_arr);
+				//alert(user);
+				var href = $('a').attr('href');
+				$('a').attr('href', url + 'user_id=' + user + '&cds_mine=' + $id_arr + '&cds_wanted=' + $.unique($wanted_cds));
 			});			
 }
 
