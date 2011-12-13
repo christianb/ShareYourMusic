@@ -15,7 +15,7 @@ class DateOfReleaseValidator < ActiveModel::Validator
 end
 
 class CompactDisk < ActiveRecord::Base
-  validates :title, :artist, :genre, :presence => true
+  validates :title, :artist, :presence => true
     
   # each compact disk is assigned to exactly one 
   belongs_to :user
