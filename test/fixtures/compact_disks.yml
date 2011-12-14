@@ -10,6 +10,8 @@ beatsteaks:
     artist: "Beatsteaks"
     genre: "Rock"
     user_id: "0"
+    genre: "Rock"
+    year: "1999"
     
 linkin_park_1:
     id: "1"
@@ -17,6 +19,8 @@ linkin_park_1:
     artist: "Linkin Park"
     genre: "Rock"
     user_id: "0"
+    genre: "rock"
+    year: "2007"
     
 linkin_park_2:
     id: "2"
@@ -24,3 +28,5 @@ linkin_park_2:
     artist: "Linkin Park"
     genre: "Rock"
     user_id: "0" 
+    genre: "punk"
+    year: "2010"
