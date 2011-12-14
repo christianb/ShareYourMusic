@@ -93,6 +93,9 @@ function dragDropCD(){
 				activeClass: "custom-state-active",
 				drop: function( event, ui ) {
 					recycleImage( ui.draggable );
+					//var index = jQuery.inArray(ui.draggable.attr('alt'), $id_arr);
+					//$id_arr.splice(index,1);	
+					$id_arr.length = 0;
 				}
 			});
 			
@@ -101,6 +104,9 @@ function dragDropCD(){
 				activeClass: "custom-state-active",
 				drop: function( event, ui ) {
 					recycleImage2( ui.draggable );
+					//var index = jQuery.inArray(ui.draggable.attr('alt'), $wanted_cds);
+					//$wanted_cds.splice(index,1);
+					$wanted_cds.length = 0;
 				}
 			});
 
@@ -236,7 +242,7 @@ function dragDropCD(){
 			
 			$('.modifyBt').click(function(){
 			//	$wanted_cds.push($('#wanted').find('img').attr('alt'));
-			
+				
 				// CDs im Array speichern
 				$('html body').find('#wanted').each(function(index) {
 					$wanted_cds.push($(this).find('img').attr('alt'));
