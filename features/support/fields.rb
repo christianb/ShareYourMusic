@@ -9,7 +9,7 @@ def field_to(field_name)
   #  :user_password
   when "Password"
     'user_password'
-  when "Password confirmation"
+  when "Password Confirmation"
     'user_password_confirmation'
   when "Firstname"
     'user_firstname'
@@ -17,6 +17,8 @@ def field_to(field_name)
     'user_lastname'
   when "Image"
     'user_image_uri'
+  when "Alias"
+    'user_alias'
     #new_user_registration_path
   # Add more page name => path mappings here
  
