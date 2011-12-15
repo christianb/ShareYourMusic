@@ -23,4 +23,11 @@
 		</br>
 	<% end %>
 	</p>
+	
+	<p>
+	<audio controls="controls">
+	  <source src=<%='" '.html_safe+ @cd.audio.url+ '"'.html_safe %> type=<%='" '.html_safe+ @cd.audio_content_type+ '"'.html_safe %>  />
+	  Your browser does not support the audio element.
+	</audio>
+	</p>
 <%= link_to 'Back', :action => "index" %>
