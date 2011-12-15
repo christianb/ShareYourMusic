@@ -39,6 +39,7 @@ Projekt::Application.routes.draw do
     match 'transaction/modify/:id' => 'transaction#modify', :as => :modify
     match 'transaction/modifyRequest/:id' => 'transaction#modifyRequest', :as => :modifyRequest
     
+    match 'admin/show_all_users' => 'admin#show_all_users', :as => :adminAllUsers
     #match '/compact_disk' => 'compact_disk#index', :as => :compact_disk_index
     #match '/compact_disk/new' => 'compact_disk#new', :as => :new_compact_disk
   end
