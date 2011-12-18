@@ -56,7 +56,7 @@ class CompactDiskController < ApplicationController
   def edit
     @cd = CompactDisk.find(params[:id])
     #@songs = Song.where(:compact_disk_id => @cd.id)
-    @cd.songs.build
+    #@cd.songs.build
     
   end
   
