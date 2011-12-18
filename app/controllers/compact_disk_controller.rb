@@ -56,14 +56,23 @@ class CompactDiskController < ApplicationController
   def edit
     @cd = CompactDisk.find(params[:id])
     #@songs = Song.where(:compact_disk_id => @cd.id)
+    @cd.songs.build
+    
   end
   
   def update
     @cd = CompactDisk.find(params[:id])
-    @songs = params[:song]
-    
+#    @songs = params[:song]
+#    .except(:song)
     respond_to do |format|
-      if @cd.update_attributes(params[:compact_disk].except(:song))
+      if @cd.update_attributes(params[:compact_disk])
+        #allsongs = Song.where(:all, :compact_disk_id => @cd.id)
+        #allsongs.each do |as|
+        #  if as.id == params[:song][:index]
+        #    as.title = params[:song]['1'][:title]
+        #    as.save
+        #  end
+        #end
         format.html { redirect_to action: "show" }
       else
         format.html { render action: "edit" }
