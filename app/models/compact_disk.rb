@@ -22,6 +22,7 @@ class CompactDisk < ActiveRecord::Base
   validates_presence_of :user
     
   has_many :songs, :dependent => :destroy
+  accepts_nested_attributes_for :songs
     
   has_attached_file :photo, :styles => { :normal => "150x150>", :small => "70x70>" },
                     :url  => "/system/covers/:id/:style/:basename.:extension",

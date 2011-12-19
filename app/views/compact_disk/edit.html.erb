@@ -28,15 +28,21 @@
         </div>
   </div>
 
+<!--
 	<div>
 	<%= f.label "Songs" %><br/>
 	<% @cd.songs.each do |s| %>
-		<%= f.fields_for s, :index => s do |song| %>
+		<%= f.fields_for s, :index => s.id do |song| %>
 		<%= song.text_field :title %>
 		<% end %>
 	<% end %>
 	</div>
-	
+-->
+
+ <%= f.fields_for :songs do |songs_form| %>
+	<%= songs_form.text_field :title %>
+<% end %>
+
 	<div id="submit"><%= f.submit "Bestätigen" %></div>
 <% end %>
 
