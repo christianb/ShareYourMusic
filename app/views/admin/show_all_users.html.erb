@@ -1,0 +1,40 @@
+<% content_for :title, "Userverwaltung" %>
+<br />
+<table class="bordered-table zebra-striped" style="margin-left:20px; width: 98% !important;">
+    <colgroup> 
+    <col width="60"> 
+    <col width="auto">
+    <col width="auto">
+    <col width="auto">
+    <col width="auto">
+    <col width="100">
+    <col width="40">
+    <col width="40">
+    </colgroup>
+<thead>
+<tr>
+    <th>Bild</th>
+    <th>Vorname</th>
+    <th>Nachname</th>
+    <th> Email</th>
+    <th> Alias</th>
+    <th> Registierdatum</th>
+    <th></th>
+    <th></th>
+</tr>
+</thead>
+<tbody>
+<% @users.each do |u| %>
+<tr>
+    <td>photo</td>
+	<td><%= u.firstname %></td>
+	<td><%= u.lastname %></td>
+    <td><%= u.email %></td>
+    <td><%= u.alias %></td>
+    <td>Registierdatum</td>
+    <td> <%= image_tag("pencil.png") %></td>
+    <td><%= image_tag("cross-script.png")%></td>
+</tr>
+<% end %>
+</tbody>
+</table>

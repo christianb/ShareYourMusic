@@ -46,6 +46,8 @@ de:
         my_cds: "Meine CD's"
       exchange:
         cd_exchange: "CD Tauschen - Anfrage stellen"
+      swap:
+        swap_cd: "CD's Tauschen"
      
         
   session:
@@ -73,6 +75,9 @@ de:
               too_short: "Das gewählte Passwort ist zu kurz. Es muss mindestens 6 Zeichen beinhalten."
             current_password:
               blank: "Das aktuelle Passwort darf nicht leer sein."
+            role:
+              blank: "Rolle existiert nicht! Bitte kontaktieren Sie einen Admin."
+              
     attributes:
       user:
         password: "Neues Passwort: "

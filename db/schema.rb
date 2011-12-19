@@ -11,14 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111201114520) do
+ActiveRecord::Schema.define(:version => 20111213201055) do
 
   create_table "compact_disks", :force => true do |t|
     t.integer  "user_id",            :null => false
     t.string   "title",              :null => false
     t.string   "artist",             :null => false
     t.string   "genre",              :null => false
-    t.date     "date"
     t.text     "description"
     t.boolean  "visible"
     t.datetime "created_at"
@@ -26,6 +25,10 @@ ActiveRecord::Schema.define(:version => 20111201114520) do
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
+    t.string   "audio_file_name"
+    t.string   "audio_content_type"
+    t.integer  "audio_file_size"
+    t.integer  "year"
   end
 
   create_table "messages", :force => true do |t|
@@ -49,6 +52,20 @@ ActiveRecord::Schema.define(:version => 20111201114520) do
   create_table "songs", :force => true do |t|
     t.integer  "compact_disk_id", :null => false
     t.string   "title",           :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "swap_providers", :force => true do |t|
+    t.integer  "compact_disk_id"
+    t.integer  "transaction_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "swap_receivers", :force => true do |t|
+    t.integer  "compact_disk_id"
+    t.integer  "transaction_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

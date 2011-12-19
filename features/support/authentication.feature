@@ -3,29 +3,29 @@ Feature: Authentication
   I want to login at the plattform
   So I can share my CDs with other people
 
-  @wip
+  @ok
   Scenario: Click on Register
     Given I am on the Welcome page
 		When I follow "Register"
-		Then I should see "Login"
 		Then I should see a "Firstname" field
 		And I should see a "Lastname" field
 		And I should see an "Email" field
 		And I should see a "Password" field
+		And I should see a "Password Confirmation" field
+		And I should see an "Alias" field
 	
-	@wip
-	Scenario: Fill form to register
+	@ok
+	Scenario: Register new Account
 		Given I am on the Register page
     When I fill in "Firstname" with "Christian" in the registration form
     And I fill in "Lastname" with "Bunk" in the registration form
-    And I fill in "Password" with "weihnachten1986" in the registration form
-    And I fill in "Password confirmation" with "weihnachten1986" in the registration form
-    And I fill in "Email" with "hallo@web.de" in the registration form
-    #And I fill in "Image" with "image.png" in the registration form
+    And I fill in "Password" with "qwertz" in the registration form
+    And I fill in "Password Confirmation" with "qwertz" in the registration form
+    And I fill in "Email" with "christianb@gmail.com" in the registration form
     And I press "Profil erstellen"
-    Then I should see "Meine CDs"
+    Then I should see "Alle CDs"
 		
-	@wip
+	@ok
 	Scenario: Login User (successful)
 	  Given I am on the Welcome page
 	  And I should see an "Email" field
@@ -33,7 +33,7 @@ Feature: Authentication
 		When I fill in "Email" with "christianb@web.de" in the login form
 		And I fill in "Password" with "christianb" in the login form
 		And I press "Login"
-		Then I should see "Meine CDs"
+		Then I should see "Alle CDs"
 		
 	@wip
 	Scenario: Login User (unsuccessful)

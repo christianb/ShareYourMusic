@@ -1,0 +1,51 @@
+<% content_for :title, "Anfragen" %>
+
+<h2>Anfragen</h2>
+<% @messages_requests.each do |ma| %>
+	<% wcd = getWantedCDs(ma.subject) %>
+	<% mcd = getMineCDs(ma.subject) %>
+	Meine CD:
+	<% wcd.each do |w| %>
+		<%= image_tag getCover(w).photo.url(:small) %>
+	<% end %>
+	Tausch CD:
+	<% mcd.each do |m| %>
+		<%= image_tag getCover(m).photo.url(:small) %>
+	<% end %>
+	<%= link_to "Ablehnen", destroy_url(:id => ma) ,:methode => "delete" %>
+	<%= link_to "Annehmen", accept_url(ma) %>
+<!--	<%= link_to "Modifizieren", modify_url(ma) %> -->
+	<%= link_to "Modifizieren", modifyRequest_path(ma) %>
+	</br>
+<% end %>
+
+<h2>Abgelehnt</h2>
+<% @messages_rejected.each do |mr| %>
+	<%= mr.subject %> 
+	<% if mr.body.include? "MAbgelehnt" %>
+		<%= link_to "Ok", modified_rejected_url(:id => mr)%>
+	<% else %>
+		<%= link_to "Ok", rejected_url(:id => mr)%>
+	<% end %>
+	</br>
+<% end %>
+
+
+<h2>Angenommen</h2>
+<% @messages_accepted.each do |m| %>
+	<%= m.subject %>
+	<% if m.body.include? "MAngenommen" %>
+		<%= link_to "Ok", modified_accepted_url(:id => mr)%>
+	<% else %>
+		<%= link_to "Ok", accepted_url(:id => m) %>
+	<% end %>
+	</br>
+<% end %>
+
+<h2>Modifiziert</h2>
+<% @messages_modified.each do |m| %>
+	<%= m.subject %> 
+	<%= link_to "M Annehmen", modified_accept_url(:id => m) %>
+	<%= link_to "M Ablehnen", modified_reject_url(:id => m) %>
+	</br>
+<% end %>

@@ -26,6 +26,20 @@ Projekt::Application.routes.draw do
     resources :compact_disk
     match '/compact_disk/myCDs/:id' => 'compact_disk#myCDs', :as => :myCDs
     match 'compact_disk/swap/:id' => 'compact_disk#swap', :as => :swap_cd
+    
+    resources :transaction
+    match 'transaction/destroy/:id' => 'transaction#destroy', :as => :destroy
+    match 'transaction/rejected/:id' => 'transaction#rejected', :as => :rejected
+    match 'transaction/accept/:id' => 'transaction#accept', :as => :accept
+    match 'transaction/accepted/:id' => 'transaction#accepted', :as => :accepted
+    match 'transaction/modifyAccept/:id' => 'transaction#modifyAccept', :as => :modified_accept
+    match 'transaction/modifyAccepted/:id' => 'transaction#modifyAccepted', :as => :modify_accepted
+    match 'transaction/modifyReject/:id' => 'transaction#modifyReject', :as => :modified_reject
+    match 'transaction/modifyRejected/:id' => 'transaction#modifyRejected', :as => :modified_rejected
+    match 'transaction/modify/:id' => 'transaction#modify', :as => :modify
+    match 'transaction/modifyRequest/:id' => 'transaction#modifyRequest', :as => :modifyRequest
+    
+    match 'admin/show_all_users' => 'admin#show_all_users', :as => :adminAllUsers
     #match '/compact_disk' => 'compact_disk#index', :as => :compact_disk_index
     #match '/compact_disk/new' => 'compact_disk#new', :as => :new_compact_disk
   end

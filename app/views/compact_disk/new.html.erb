@@ -18,16 +18,24 @@
 	
 	<div class="clearfix">
 		<%= form.label "Genre" %>
-        <div class="input">
-		<%= form.text_field :genre, :placeholder => 'Enter text here...' %>
-        </div>
+    <div class="input">
+			<%= form.text_field :genre, :placeholder => 'Enter text here...' %>
+		</div>
 	</div>
-		<%= form.hidden_field :user_id, :value => current_user.id %>
+	
+	<div class="clearfix">
+		<%= form.label "Erscheinungsjahr" %>
+    <div class="input">
+			<%= form.text_field :year, :placeholder => '1992' %>
+		</div>
+	</div>
+	
+	<%= form.hidden_field :user_id, :value => current_user.id %>
 	
 	<div class="clearfix">
 	<%= form.label "Songs" %>
 		<div id="input1" class="clonedInput input">
-			<%= text_field_tag 'song' %>
+			<%= text_field_tag 'song[1]' %>
 		</div>
 	</div>
     <div class="clearfix">
@@ -42,7 +50,14 @@
         <div class="input">
         <%= form.file_field :photo%>
         </div>
-    </div>
+  </div>
+
+	<div class="clearfix">
+    	<%= form.label "Upload Song" %>
+        <div class="input">
+        <%= form.file_field :audio%>
+        </div>
+  </div>
 
 
 	<div class="clearfix">

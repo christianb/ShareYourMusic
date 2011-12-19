@@ -44,6 +44,8 @@ class Transaction < ActiveRecord::Base
   validates_with SameForeignKeyValidator
   validates_with ForeignKeyPresenceValidator
   
+  has_many :compact_disks, :through => :swap_provider
+  has_many :compact_disks, :through => :swap_receiver
 end
 
 
