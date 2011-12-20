@@ -60,7 +60,7 @@ class TransactionController < ApplicationController
     @user_id = current_user.id
     @user = User.find(@user_id)
 
-     # Alle Anfrage
+    # Alle Anfrage
     @messages_accepted = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Angenommen%'", nil])
     @messages_rejected = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Abgelehnt%'", nil])
     @messages_requests = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Anfrage%'", nil])
