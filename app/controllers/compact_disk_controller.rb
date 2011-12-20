@@ -5,7 +5,7 @@ class CompactDiskController < ApplicationController
   def index
     #@cds = CompactDisk.where(:user_id => current_user.id)
     #@cds = CompactDisk.all
-    @cds = CompactDisk.paginate(:page => params[:page], :per_page => 9)
+    @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).paginate(:page => params[:page], :per_page => 9)
   end
   
   def myCDs

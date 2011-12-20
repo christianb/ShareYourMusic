@@ -20,10 +20,11 @@ test: &test
 
 production:
   adapter: postgresql
-  database: rails
+  database: rails_production
   username: rails
   pool: 5
   timeout: 5000
+  template: template0
 
 cucumber:
   <<: *test
