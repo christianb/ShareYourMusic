@@ -84,6 +84,23 @@ body{
     height:100px !important;
 }
 
+
+#userdata{
+    height:150px;
+    padding:4px; 
+    width:97%; 
+    margin-left:17px;
+}
+
+#usercds{
+    min-height: 200px;
+    max-height:800px;
+    padding:4px; 
+    width:97%; 
+    margin-left:17px;
+    margin-top: 10px;  
+}
+
 /*.user-auth-nav{
 	float: right;
 }
