@@ -1,4 +1,4 @@
-<% content_for :title, "Userverwaltung" %>
+<% content_for :title, "Nutzerverwaltung" %>
 <br />
 <table class="bordered-table zebra-striped" style="margin-left:20px; width: 98% !important;">
     <colgroup> 
@@ -26,12 +26,12 @@
 <tbody>
 <% @users.each do |u| %>
 <tr>
-    <td>photo</td>
+    <td><%= image_tag u.photo.url(:small) %></td>
 	<td><%= u.firstname %></td>
 	<td><%= u.lastname %></td>
     <td><%= u.email %></td>
     <td><%= u.alias %></td>
-    <td>Registierdatum</td>
+    <td><%= u.created_at %></td>
     <td> <%= image_tag("pencil.png") %></td>
     <td><%= image_tag("cross-script.png")%></td>
 </tr>
