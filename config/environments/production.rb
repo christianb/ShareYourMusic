@@ -58,24 +58,13 @@ Projekt::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
   
-  #config.action_mailer.default_url_options = { :host => 'kallisto.f4.htw-berlin.de' }
-  
-  config.action_controller.allow_forgery_protection = false
-  
-  require 'tlsmail'    
-  Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
-
-  ActionMailer::Base.delivery_method = :smtp
-  ActionMailer::Base.perform_deliveries = true
-  ActionMailer::Base.raise_delivery_errors = true
-  ActionMailer::Base.smtp_settings = {
-    :enable_starttls_auto => true,  
-    :address            => 'smtp.gmail.com',
-    :port               => 587,
-    :tls                  => true,
-    #:domain             => 'kallisto.f4.htw-berlin.de', #you can also use google.com
-    :authentication     => :plain,
-    :user_name          => 'kallisto.rails@gmail.com',
-    :password           => 'm[;COTKdYA01{^N{:joL:AOKo'
-  }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'kallisto.f4.htw-berlin.de',
+    :user_name            => 'kallisto.rails@gmail.com',
+    :password             => 'm[;COTKdYA01{^N{:joL:AOKo',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true  }
 end
