@@ -18,6 +18,7 @@ class CompactDiskController < ApplicationController
   def show
     @cd = CompactDisk.find(params[:id])
     @songs = Song.where(:compact_disk_id => @cd.id)
+    @user = User.find(@cd.user_id)
   end
   
   def destroy
@@ -95,5 +96,11 @@ class CompactDiskController < ApplicationController
   # search for a user with a given name
   def self.search(name)
     CompactDisk.where("artist LIKE ? OR title LIKE ? OR genre LIKE ? OR year LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%")
+  end
+  
+  # Anzeigen aller CDs einez Nutzers + Nutzerinformationen
+  def all_user_cds
+    @cds = CompactDisk.where(:user_id => params[:id])
+    @user = User.find(params[:id])
   end
 end
