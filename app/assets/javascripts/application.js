@@ -22,6 +22,7 @@ function dragDropCD(){
 			// Arrays zum Speichern der CD IDs die per Drag and Drop hinzugefügt wurden
 			var $id_arr = new Array();
 			var $wanted_cds = new Array();
+			$('.sendBtn').hide();
 			
 			// Bereich die draggable oder droppable seien sollen
 			var $gallery = $( "#myCDs" ),
@@ -72,6 +73,8 @@ function dragDropCD(){
 					
 					// CD IDs in Array speichern
 					$id_arr.push(ui.draggable.attr('alt'));
+					$('.sendBtn').hide();
+					$('.shareBt').show();					
 				}
 			});
 			
@@ -84,6 +87,8 @@ function dragDropCD(){
 					
 					// CD IDs in Array speichern
 					$wanted_cds.push(ui.draggable.attr('alt'));
+						$('.sendBtn').hide();
+						$('.shareBt').show();
 				}
 			});
 
@@ -96,6 +101,8 @@ function dragDropCD(){
 					//var index = jQuery.inArray(ui.draggable.attr('alt'), $id_arr);
 					//$id_arr.splice(index,1);	
 					$id_arr.length = 0;
+					$('.sendBtn').hide();
+					$('.shareBt').show();
 				}
 			});
 			
@@ -107,6 +114,8 @@ function dragDropCD(){
 					//var index = jQuery.inArray(ui.draggable.attr('alt'), $wanted_cds);
 					//$wanted_cds.splice(index,1);
 					$wanted_cds.length = 0;
+					$('.sendBtn').hide();
+					$('.shareBt').show();
 				}
 			});
 
@@ -238,6 +247,9 @@ function dragDropCD(){
 				//alert(user);
 				var href = $('a').attr('href');
 				$('a').attr('href', url + 'user_id=' + user + '&cds_mine=' + $.unique($id_arr) + '&cds_wanted=' + $.unique($wanted_cds));
+				
+				$(this).hide();
+				$('.sendBtn').show();
 			});
 			
 			$('.modifyBt').click(function(){
@@ -257,7 +269,8 @@ function dragDropCD(){
 				var href = $('a').attr('href');
 				$('a').attr('href', url + msg + '?cds_mine=' + $.unique($id_arr) + '&cds_wanted=' + $.unique($wanted_cds));
 
-			});			
+			});	
+			
 }
 
 
