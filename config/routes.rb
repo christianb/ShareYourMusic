@@ -20,9 +20,10 @@ Projekt::Application.routes.draw do
   
   
   
-  scope "(:locale)", :locale => /de|en/ do
+  #scope "(:locale)", :locale => /de|en/ do
     root :to => 'welcome#index', :as => :welcome
     resources :user
+    resources :devise
     resources :compact_disk
     match '/compact_disk/myCDs/:id' => 'compact_disk#myCDs', :as => :myCDs
     match 'compact_disk/swap/:id' => 'compact_disk#swap', :as => :swap_cd
@@ -39,10 +40,11 @@ Projekt::Application.routes.draw do
     match 'transaction/modify/:id' => 'transaction#modify', :as => :modify
     match 'transaction/modifyRequest/:id' => 'transaction#modifyRequest', :as => :modifyRequest
     
+    match 'user/reset_password' => 'user#reset_password', :as => :reset_password
     match 'admin/show_all_users' => 'admin#show_all_users', :as => :adminAllUsers
     #match '/compact_disk' => 'compact_disk#index', :as => :compact_disk_index
     #match '/compact_disk/new' => 'compact_disk#new', :as => :new_compact_disk
-  end
+  #end
   
   #match "user_root" => "user#show"
   # Sample resource route with options:
