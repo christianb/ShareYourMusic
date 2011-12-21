@@ -1,60 +1,126 @@
 <% content_for :title, "Anfragen" %>
 
+<h6>Erhaltene Anfragen</h6>
 <table class="bordered-table zebra-striped">
 	<thead>
 	<tr>
 	    <th>Meine CD</th>
-		<th>Meine</th>
+		<th>Gegen</th>
+		<th></th>
 	</tr>
 	</thead>
-</table>
-
-<h2>Anfragen</h2>
-<% @messages_requests.each do |ma| %>
+	
+	<% @messages_requests.each do |ma| %>
 	<% wcd = getWantedCDs(ma.subject) %>
 	<% mcd = getMineCDs(ma.subject) %>
-	Meine CD:
-	<% wcd.each do |w| %>
-		<%= image_tag getCover(w).photo.url(:small) %>
+	<tr>
+		<td>
+			<% mcd.each do |w| %>
+				<%= image_tag getCover(w).photo.url(:small) %>
+			<% end %>
+		</td>
+		<td>
+			<% wcd.each do |m| %>
+				<%= image_tag getCover(m).photo.url(:small) %>
+			<% end %>
+		</td>
+		<td>
+			<%= link_to "Ablehnen", destroy_url(:id => ma) ,:methode => "delete" %> |
+			<%= link_to "Annehmen", accept_url(ma) %> |
+			<%= link_to "Modifizieren", modifyRequest_path(ma) %>
+		</td>
+	</tr>
 	<% end %>
-	Tausch CD:
-	<% mcd.each do |m| %>
-		<%= image_tag getCover(m).photo.url(:small) %>
+</table>
+
+<h6>Abgelehnte Anfragen</h6>
+<table class="bordered-table zebra-striped">
+	<thead>
+	<tr>
+	    <th>Meine CD</th>
+		<th>Gegen</th>
+		<th></th>
+	</tr>
+	</thead>
+	
+	<% @messages_rejected.each do |mr| %>
+	<tr>
+		<td><%= mr.subject %></td>
+		<td></td>
+		<td>
+		<% if mr.body.include? "MAbgelehnt" %>
+			<%= link_to "Ok", modified_rejected_url(:id => mr)%>
+		<% else %>
+			<%= link_to "Ok", rejected_url(:id => mr)%>
+		<% end %>
+		</td>
+	</tr>
 	<% end %>
-	<%= link_to "Ablehnen", destroy_url(:id => ma) ,:methode => "delete" %>
-	<%= link_to "Annehmen", accept_url(ma) %>
-<!--	<%= link_to "Modifizieren", modify_url(ma) %> -->
-	<%= link_to "Modifizieren", modifyRequest_path(ma) %>
-	</br>
-<% end %>
-
-<h2>Abgelehnt</h2>
-<% @messages_rejected.each do |mr| %>
-	<%= mr.subject %> 
-	<% if mr.body.include? "MAbgelehnt" %>
-		<%= link_to "Ok", modified_rejected_url(:id => mr)%>
-	<% else %>
-		<%= link_to "Ok", rejected_url(:id => mr)%>
-	<% end %>
-	</br>
-<% end %>
+</table>
 
 
-<h2>Angenommen</h2>
+<h6>Angenommene Anfragen</h6>
+<table class="bordered-table zebra-striped">
+	<thead>
+	<tr>
+	    <th>Meine CD</th>
+		<th>Gegen</th>
+		<th></th>
+	</tr>
+	</thead>
+	
 <% @messages_accepted.each do |m| %>
-	<%= m.subject %>
+	<tr>
+	<td><%= m.subject %></td>
+	<td>
 	<% if m.body.include? "MAngenommen" %>
-		<%= link_to "Ok", modified_accepted_url(:id => mr)%>
+		<%= link_to "Ok", modify_accepted_url(:id => m)%>
 	<% else %>
 		<%= link_to "Ok", accepted_url(:id => m) %>
 	<% end %>
-	</br>
+	</td>
+	</tr>
 <% end %>
+</table>
 
-<h2>Modifiziert</h2>
+<h6>Modifizierte Anfragen</h6>
+<table class="bordered-table zebra-striped">
+	<thead>
+	<tr>
+	    <th>Meine CD (Alt)</th>
+		<th>Gegen (Alt)</th>
+		<th>Meine (Neu)</th>
+		<th>Gegen (Neu)</th>
+		<th></th>
+	</tr>
+	</thead>
+
 <% @messages_modified.each do |m| %>
-	<%= m.subject %> 
-	<%= link_to "M Annehmen", modified_accept_url(:id => m) %>
-	<%= link_to "M Ablehnen", modified_reject_url(:id => m) %>
-	</br>
+	<tr>
+	<td>
+		<% getOldReqMine(m.subject).each do |orm| %>
+			<%= image_tag getCover(orm).photo.url(:small) %>
+		<% end %>
+	</td>
+	<td>
+		<% getOldReqProvide(m.subject).each do |orp| %>
+			<%= image_tag getCover(orp).photo.url(:small) %>
+		<% end %>
+	</td>
+	<td>
+		<% getNewReqMine(m.subject).each do |nrm| %>
+			<%= image_tag getCover(nrm).photo.url(:small) %>
+		<% end %>
+	</td>
+	<td>
+		<% getNewReqProvide(m.subject).each do |nrp| %>
+			<%= image_tag getCover(nrp).photo.url(:small) %>
+		<% end %>
+	</td>
+	<td>
+		<%= link_to "Modifizierung Annehmen", modified_accept_url(:id => m) %> |
+		<%= link_to "Modifizierung Ablehnen", modified_reject_url(:id => m) %>
+	</td>
+	</tr>
 <% end %>
+</table>

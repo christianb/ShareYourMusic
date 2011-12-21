@@ -136,6 +136,7 @@ class TransactionController < ApplicationController
 
       disk = CompactDisk.where(:id => e.to_i)
       disk[0].user_id = user.id
+      # cd -> visible = false setzen
       disk[0].save
     end
 
@@ -145,6 +146,7 @@ class TransactionController < ApplicationController
 
       disk = CompactDisk.where(:id => e.to_i)
       disk[0].user_id = dest.id
+      # cd -> visible = false setzen
       disk[0].save
     end
 
@@ -291,6 +293,7 @@ class TransactionController < ApplicationController
 
       disk = CompactDisk.where(:id => e.to_i)
       disk[0].user_id = dest.id
+      #cd -> visible = false setzen
       disk[0].save
     end
 
@@ -300,6 +303,7 @@ class TransactionController < ApplicationController
 
       disk = CompactDisk.where(:id => e.to_i)
       disk[0].user_id = user.id
+      #cd -> visible = false setzen
       disk[0].save
     end
 
