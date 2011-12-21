@@ -248,8 +248,13 @@ function dragDropCD(){
 				var href = $('a').attr('href');
 				$('a').attr('href', url + 'user_id=' + user + '&cds_mine=' + $.unique($id_arr) + '&cds_wanted=' + $.unique($wanted_cds));
 				
-				$(this).hide();
-				$('.sendBtn').show();
+				if ($id_arr.toString() != "" && $wanted_cds.toString() != "" ){
+					$(this).hide();
+					$('.sendBtn').show();
+				} else {
+					alert("Es muss mindestens eine CD zum Tausch angeboten werden");
+				}
+			
 			});
 			
 			$('.modifyBt').click(function(){
