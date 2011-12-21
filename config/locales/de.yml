@@ -59,7 +59,7 @@ de:
          user_edit: "Account anpassen"
          user_logout: "Ausloggen"
          user_show: "Benutzerprofil"
-         user_cd_index: "CD Sammlung"
+         user_cd_index: "Meine CDs"
          
   errors:
     messages:

@@ -30,7 +30,15 @@
 		</div>
 	</div>
 	
+	<div class="clearfix">
+		<%= form.label "Beschreibung" %>
+    <div class="input">
+			<%= form.text_field :description, :placeholder => 'Ihre Beschreibung der CD' %>
+		</div>
+	</div>
+	
 	<%= form.hidden_field :user_id, :value => current_user.id %>
+	<%= form.hidden_field :visible, :value => true %>
 	
 	<div class="clearfix">
 	<%= form.label "Songs" %>
