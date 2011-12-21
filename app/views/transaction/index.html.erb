@@ -1,5 +1,14 @@
 <% content_for :title, "Anfragen" %>
 
+<table class="bordered-table zebra-striped">
+	<thead>
+	<tr>
+	    <th>Meine CD</th>
+		<th>Meine</th>
+	</tr>
+	</thead>
+</table>
+
 <h2>Anfragen</h2>
 <% @messages_requests.each do |ma| %>
 	<% wcd = getWantedCDs(ma.subject) %>
