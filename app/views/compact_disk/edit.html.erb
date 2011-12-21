@@ -44,7 +44,10 @@
 <% end %>
 
 	<div id="submit"><%= f.submit "Bestätigen" %></div>
+	<%= link_to "CD löschen", @cd, :confirm => "Wollen Sie Ihre CD \""+ @cd.title+"\" wirklich löschen?", :method => :delete %>
 <% end %>
+
+
 
 <% if @cd.errors.any? %>
   <ul>

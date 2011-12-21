@@ -1,6 +1,6 @@
 class CompactDiskController < ApplicationController
   before_filter :set_locale
-  load_and_authorize_resource :only => [:show, :destroy]
+  #load_and_authorize_resource :only => [:show, :destroy]
   
   def index
     #@cds = CompactDisk.where(:user_id => current_user.id)
