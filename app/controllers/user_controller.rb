@@ -42,4 +42,16 @@
       @user.destroy
       redirect_to :back
   end
+  
+  def set_as_admin
+    @user = User.find(params[:id])
+    @user.update_attribute(:role_id, User.admin);
+    redirect_to :back
+  end
+  
+  def set_as_user
+    @user = User.find(params[:id])
+    @user.update_attribute(:role_id, User.user);
+    redirect_to :back
+  end
 end
