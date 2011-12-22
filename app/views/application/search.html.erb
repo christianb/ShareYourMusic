@@ -40,8 +40,10 @@
 	    <col width="auto">
 	    <col width="auto">
 	    <col width="100">
-	    <col width="40">
-	    <col width="40">
+			<% if current_user.role_id == User.admin %>
+	    	<col width="40">
+	    	<col width="40">
+			<% end %>
 	    </colgroup>
 	<thead>
 	<tr>
@@ -51,8 +53,10 @@
 	    <th> Email</th>
 	    <th> Alias</th>
 	    <th> Registierdatum</th>
-	    <th></th>
-	    <th></th>
+	    <% if current_user.role_id == User.admin %>
+				<th></th>
+	    	<th></th>
+			<% end %>
 	</tr>
 	</thead>
 	<tbody>
@@ -64,8 +68,11 @@
 	    <td><%= u.email %></td>
 	    <td><%= u.alias %></td>
 	    <td><%= u.created_at %></td>
-	    <td> <%= image_tag("pencil.png") %></td>
-	    <td><%= image_tag("cross-script.png")%></td>
+	    
+			<% if current_user.role_id == User.admin %>
+				<td> <%= image_tag("pencil.png") %></td>
+	    	<td><%= image_tag("cross-script.png")%></td>
+			<% end %>
 	</tr>
 	<% end %>
 	</tbody>
