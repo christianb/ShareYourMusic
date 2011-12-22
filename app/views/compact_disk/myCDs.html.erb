@@ -9,28 +9,16 @@
 <% @myCDs.each do |c| %>
 	<li>
         <a href="#" rel="popover" title="test Album" data-content="<%= c.title %> </br><%= c.artist %> ">
-            <%= image_tag c.photo.url(:normal) %>
-            <p class="blackFont"><%= c.artist %></p>
+            <%= image_tag c.photo.url(:normal) %></a>
+            
+			<p class="blackFont"><%= c.artist %></p>
             <p><%= c.title %></p>
             <p>
                 <%= link_to 'Edit', edit_compact_disk_path(c) %>
                 <%= link_to 'Show', compact_disk_path(c) %>
             </p>
-        </a>
+        
 	</li>
-    <script>
-        $(function () {
-            $('a[rel=popover]')
-            .popover({
-                placement: 'below',
-                html: true,
-                template: '<div class="arrow"></div><div class="inner"><h3 class="title"></h3><div class="content" style="height:250px"><p></p></div></div>'
-            })
-            .click(function(e) {
-                 e.preventDefault()
-            })
-        })
-    </script> 
 <% end %>
 </ul>
 <div style="padding-left:20px;">

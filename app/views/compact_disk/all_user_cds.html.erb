@@ -1,17 +1,21 @@
 <% content_for :title, "Profil von " + @user.firstname + " " + @user.lastname %>
 
 
-<div id="userdata" class="box-swap" >
-<h3>Nutzerinformationen</h3>
-<div class="span4"><%= image_tag @user.photo.url(:normal) %></div>
-<div class="span4">
-email: <%= @user.email %>
-alias: <%= @user.alias %>
-</div>
+<!--<div id="userdata" class="box-swap" >-->
 
+<div class="row">
+	<div class="span4"><%= image_tag @user.photo.url(:normal) %></div>
+	<div class="span6">
+		email: <%= @user.email %><br />
+		alias: <%= @user.alias %>
+	</div>
 </div>
-<div id="usercds" class="box-swap" >
-<h3>CD's des Users: </h3>
+<!--</div>-->
+
+<!--<div id="usercds" class="box-swap" >-->
+<div class="row">
+	<h3>CD's des Users: </h3>
+	
 <ol id="selectable">
 	<% @cds.each do |c| %>
 	<% if c.visible == true %>
@@ -28,3 +32,4 @@ alias: <%= @user.alias %>
 	<% end %>
 </ol>
 </div>
+<!--</div>-->

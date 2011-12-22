@@ -15,6 +15,7 @@ $(document).ready(function(){
 	dragDropCD();
 	//openInBox();
 	addSongField();
+	popover();
 });
 
 function dragDropCD(){
@@ -369,5 +370,18 @@ function addSongField(){
 /*	$('#btnDel').click(function(){
 		('#input1').find('input'+ $num).remove();
 	});*/
+}
+
+function popover(){
+    $('a[rel=popover]')
+        .popover({
+            placement: 'below',
+			delayIn: 2000,
+            html: true,
+            template: '<div class="arrow"></div><div class="inner"><h3 class="title"></h3><div class="content" style="height:250px"><p></p></div></div>'
+        })
+        .click(function(e) {
+             e.preventDefault()
+     })
 }
 

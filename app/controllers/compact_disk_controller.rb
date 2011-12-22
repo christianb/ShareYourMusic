@@ -1,6 +1,16 @@
 class CompactDiskController < ApplicationController
   before_filter :set_locale
+  before_filter :checkUser, :only =>[:destroy]
   #load_and_authorize_resource :only => [:show, :destroy]
+  
+  # Eigentümer des CD Prüfen
+  def checkUser
+     @cd = CompactDisk.find(params[:id])
+     unless @cd.user_id == current_user.id
+       flash[:error] = "Dies ist nicht Ihre CD"
+       redirect_to welcome_path
+     end
+  end
   
   def index
     #@cds = CompactDisk.where(:user_id => current_user.id)
