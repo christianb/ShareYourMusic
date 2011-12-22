@@ -27,8 +27,11 @@ Projekt::Application.routes.draw do
     resources :user, :except => [:show, :destroy]
     match '/user/most_active' => 'user#most_active', :as => :most_active_user
     match 'user/reset_password' => 'user#reset_password', :as => :reset_password
+    match '/user/setAdmin/:id' => 'user#set_as_admin', :as => :set_as_admin, :via => :get
+    match '/user/setUser/:id' => 'user#set_as_user', :as => :set_as_user, :via => :get
     match '/user/:id' => 'user#show', :as => :user, :via => :get
     match '/user/:id' => 'user#destroy', :as => :delete_user, :via => :delete
+   
     
     resources :devise
     
