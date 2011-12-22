@@ -25,7 +25,9 @@
 		<p><%= c.title %></p>
 		<p>
 			<%= link_to 'Show', compact_disk_path(c) %>
-			<%= link_to 'Tauschen', swap_cd_path(c.id) %>
+			<% if user_signed_in? %>
+				<%= link_to 'Tauschen', swap_cd_path(c.id) %>
+			<% end %>
 		</p>
 	</li>
 	<% end %>

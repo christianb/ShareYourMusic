@@ -41,6 +41,7 @@
 	</audio>
 	</p>
 <%= link_to 'Back', :action => "index" %>
-<% if @cd.user_id == current_user.id%>
+
+<% if user_signed_in? && @cd.user_id == current_user.id%>
 	<%= link_to 'Edit', edit_compact_disk_path(@cd) %>
 <% end %>

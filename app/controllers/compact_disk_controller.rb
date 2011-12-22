@@ -101,11 +101,14 @@ class CompactDiskController < ApplicationController
   end
   
   def swap
-    @cd = CompactDisk.find(params[:id])
-    @user = User.find(@cd.user_id)
-    @userCDs = CompactDisk.where(:user_id => @cd.user_id)
-    @myCDs = CompactDisk.where(:user_id => current_user.id)
-    
+    if (!user_signed_in?)
+      redirect_to welcome_path
+    else
+      @cd = CompactDisk.find(params[:id])
+      @user = User.find(@cd.user_id)
+      @userCDs = CompactDisk.where(:user_id => @cd.user_id)
+      @myCDs = CompactDisk.where(:user_id => current_user.id)
+    end
   end
   
   
