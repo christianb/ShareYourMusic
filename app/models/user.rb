@@ -24,5 +24,14 @@ has_attached_file :photo, :styles => { :normal => "150x150>", :small => "70x70>"
 #validates_attachment_presence :photo
 validates_attachment_size :photo, :less_than => 5.megabytes
 validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png']
+
+# Constance for Admin and User Role ID
+def self.admin  # Klassenmethode
+  return 0
+end
+
+def self.user
+  return 1
+end
   
 end

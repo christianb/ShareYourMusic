@@ -39,6 +39,7 @@
                                     </li>
                                 </ul>
                             </li>
+							<% if current_user.role_id == User.admin %>
 							<li>
 								<a class="dropdown-toggle" href="#">Administration</a>
 								<ul class="dropdown-menu">
@@ -46,6 +47,7 @@
 									<li><%= link_to "CD Verwaltung", '' %></li>
 								</ul>
 							</li>
+							<% end %>
                         <li>
                             <%= link_to t('.user_show'), user_path(current_user.id) %>
                         </li>
