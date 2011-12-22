@@ -21,7 +21,7 @@ Projekt::Application.routes.draw do
   
   
   
-  #scope "(:locale)", :locale => /de|en/ do
+  scope "(:locale)", :locale => /de|en/ do
     root :to => 'welcome#index', :as => :welcome
     
     resources :user, :except => :show
@@ -56,7 +56,7 @@ Projekt::Application.routes.draw do
     match 'admin/show_all_users' => 'admin#show_all_users', :as => :adminAllUsers
     #match '/compact_disk' => 'compact_disk#index', :as => :compact_disk_index
     #match '/compact_disk/new' => 'compact_disk#new', :as => :new_compact_disk
-  #end
+  end
   
   #match "user_root" => "user#show"
   # Sample resource route with options:

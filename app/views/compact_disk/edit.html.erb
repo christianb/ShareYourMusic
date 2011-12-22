@@ -67,7 +67,9 @@
 
 	<div class="actions"> 
     	<%= f.submit "Bestätigen", :class => "btn primary" %> 
-		<%= link_to "CD löschen", @cd, :confirm => "Wollen Sie Ihre CD \""+ @cd.title+"\" wirklich löschen?", :method => :delete, :class => "btn danger" %>
+		<% if !existingTransactions(@cd.id, @cd.user_id) %>
+			<%= link_to "CD löschen", @cd, :confirm => "Wollen Sie Ihre CD \""+ @cd.title+"\" wirklich löschen?", :method => :delete, :class => "btn danger" %>
+		<% end %>
 	</div>
 <% end %>
 
