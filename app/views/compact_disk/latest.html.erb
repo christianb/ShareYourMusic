@@ -1,0 +1,34 @@
+<% content_for :title, "Neueste CDs" %>
+
+<p><%= flash[:alert] %></p>
+
+<%
+=begin %>
+	<% if can?(:show, c) && user_signed_in? %>
+		<%= link_to 'Show', c %>
+	<% end %>
+	<% if can?(:manage, c) && user_signed_in?%>
+		<%= link_to 'Destroy', c, :confirm => 'Are you sure?', :method => :delete %>
+	<% end %>
+<%
+
+
+<%
+=end %>
+<div style="height:494px;">
+<ol id="selectable">
+	<% @cds.each do |c| %>
+	<% if c.visible == true %>
+	<li>
+		<%= image_tag c.photo.url(:normal) %>
+		<p class="blackFont"><%= c.artist %></p>
+		<p><%= c.title %></p>
+		<p>
+			<%= link_to 'Show', compact_disk_path(c) %>
+			<%= link_to 'Tauschen', swap_cd_path(c.id) %>
+		</p>
+	</li>
+	<% end %>
+	<% end %>
+</ol>
+</div>

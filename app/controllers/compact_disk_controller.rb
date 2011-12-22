@@ -1,6 +1,6 @@
 class CompactDiskController < ApplicationController
   before_filter :set_locale
-  before_filter :checkUser, :only =>[:destroy]
+  before_filter :checkUser, :only =>[:destroy, :update]
   #load_and_authorize_resource :only => [:show, :destroy]
   
   # Eigentümer des CD Prüfen
@@ -48,7 +48,7 @@ class CompactDiskController < ApplicationController
     
     respond_to do |format|
         if @cd.save
-          format.html  { redirect_to(compact_disk_index_path,
+          format.html  { redirect_to(myCDs_path(current_user.id),
                         :notice => 'CD was successfully created.') }
           format.json  { render :json => @cd,
                         :status => :created, :location => @cd }
@@ -104,9 +104,11 @@ class CompactDiskController < ApplicationController
     
   end
   
-  # search for a user with a given name
-  def self.search(name)
-    CompactDisk.where("artist LIKE ? OR title LIKE ? OR genre LIKE ? OR year LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%")
+  
+  
+  # get the last 10 Disks
+  def latest
+    @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).order("id DESC").limit(9)#.paginate(:page => params[:page], :per_page => 9)
   end
   
   # Anzeigen aller CDs einez Nutzers + Nutzerinformationen

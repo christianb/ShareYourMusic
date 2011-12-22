@@ -21,7 +21,7 @@
                                     <%= link_to 'Alle CDs', compact_disk_index_path %>
                                 </li>
                                 <li>
-                                    <a href="#">Neuste CDs</a>
+																		<%= link_to 'Neueste CDs', latest_cd_path %>
                                 </li>  
                             </ul>
                         </li>
@@ -82,7 +82,15 @@
 <!--                    <div class="span8"> -->
                         <h2> 
 							<%= yield(:title) %>  
-							<div class="pull-right"><input type="text" placeholder="Search"></div>
+							
+							<!-- search field -->
+							<div class="pull-right">
+								<!--<input type="text" placeholder="Search">-->
+								<%= form_tag(search_path, :method => "get") do %>
+								  <%= text_field_tag(:querry) %>
+								<% end %>
+							</div>
+						
 						</h2>
 <!--                    </div> -->                    
 <!--				</div>	-->

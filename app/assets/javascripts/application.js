@@ -376,12 +376,10 @@ function popover(){
     $('a[rel=popover]')
         .popover({
             placement: 'below',
-			delayIn: 2000,
+			content:"id",
+			delayIn: 1000,
             html: true,
             template: '<div class="arrow"></div><div class="inner"><h3 class="title"></h3><div class="content" style="height:250px"><p></p></div></div>'
         })
-        .click(function(e) {
-             e.preventDefault()
-     })
 }
 
