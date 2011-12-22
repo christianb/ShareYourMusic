@@ -15,6 +15,7 @@ $(document).ready(function(){
 	dragDropCD();
 	//openInBox();
 	addSongField();
+	popover();
 });
 
 function dragDropCD(){
@@ -22,6 +23,7 @@ function dragDropCD(){
 			// Arrays zum Speichern der CD IDs die per Drag and Drop hinzugefügt wurden
 			var $id_arr = new Array();
 			var $wanted_cds = new Array();
+			$('.sendBtn').hide();
 			
 			// Bereich die draggable oder droppable seien sollen
 			var $gallery = $( "#myCDs" ),
@@ -72,6 +74,8 @@ function dragDropCD(){
 					
 					// CD IDs in Array speichern
 					$id_arr.push(ui.draggable.attr('alt'));
+					$('.sendBtn').hide();
+					$('.shareBt').show();					
 				}
 			});
 			
@@ -84,6 +88,8 @@ function dragDropCD(){
 					
 					// CD IDs in Array speichern
 					$wanted_cds.push(ui.draggable.attr('alt'));
+						$('.sendBtn').hide();
+						$('.shareBt').show();
 				}
 			});
 
@@ -96,6 +102,8 @@ function dragDropCD(){
 					//var index = jQuery.inArray(ui.draggable.attr('alt'), $id_arr);
 					//$id_arr.splice(index,1);	
 					$id_arr.length = 0;
+					$('.sendBtn').hide();
+					$('.shareBt').show();
 				}
 			});
 			
@@ -107,6 +115,8 @@ function dragDropCD(){
 					//var index = jQuery.inArray(ui.draggable.attr('alt'), $wanted_cds);
 					//$wanted_cds.splice(index,1);
 					$wanted_cds.length = 0;
+					$('.sendBtn').hide();
+					$('.shareBt').show();
 				}
 			});
 
@@ -238,6 +248,14 @@ function dragDropCD(){
 				//alert(user);
 				var href = $('a').attr('href');
 				$('a').attr('href', url + 'user_id=' + user + '&cds_mine=' + $.unique($id_arr) + '&cds_wanted=' + $.unique($wanted_cds));
+				
+				if ($id_arr.toString() != "" && $wanted_cds.toString() != "" ){
+					$(this).hide();
+					$('.sendBtn').show();
+				} else {
+					alert("Es muss mindestens eine CD zum Tausch angeboten werden");
+				}
+			
 			});
 			
 			$('.modifyBt').click(function(){
@@ -257,7 +275,8 @@ function dragDropCD(){
 				var href = $('a').attr('href');
 				$('a').attr('href', url + msg + '?cds_mine=' + $.unique($id_arr) + '&cds_wanted=' + $.unique($wanted_cds));
 
-			});			
+			});	
+			
 }
 
 
@@ -351,5 +370,18 @@ function addSongField(){
 /*	$('#btnDel').click(function(){
 		('#input1').find('input'+ $num).remove();
 	});*/
+}
+
+function popover(){
+    $('a[rel=popover]')
+        .popover({
+            placement: 'below',
+			delayIn: 2000,
+            html: true,
+            template: '<div class="arrow"></div><div class="inner"><h3 class="title"></h3><div class="content" style="height:250px"><p></p></div></div>'
+        })
+        .click(function(e) {
+             e.preventDefault()
+     })
 }
 

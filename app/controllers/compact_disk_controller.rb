@@ -1,6 +1,16 @@
 class CompactDiskController < ApplicationController
-  #before_filter :set_locale
+  before_filter :set_locale
+  before_filter :checkUser, :only =>[:destroy]
   #load_and_authorize_resource :only => [:show, :destroy]
+  
+  # Eigentümer des CD Prüfen
+  def checkUser
+     @cd = CompactDisk.find(params[:id])
+     unless @cd.user_id == current_user.id
+       flash[:error] = "Dies ist nicht Ihre CD"
+       redirect_to welcome_path
+     end
+  end
   
   def index
     #@cds = CompactDisk.where(:user_id => current_user.id)
@@ -18,6 +28,7 @@ class CompactDiskController < ApplicationController
   def show
     @cd = CompactDisk.find(params[:id])
     @songs = Song.where(:compact_disk_id => @cd.id)
+    @user = User.find(@cd.user_id)
   end
   
   def destroy
@@ -100,5 +111,11 @@ class CompactDiskController < ApplicationController
   # get the last 10 Disks
   def latest
     @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).order("id DESC").limit(9)#.paginate(:page => params[:page], :per_page => 9)
+  end
+  
+  # Anzeigen aller CDs einez Nutzers + Nutzerinformationen
+  def all_user_cds
+    @cds = CompactDisk.where(:user_id => params[:id])
+    @user = User.find(params[:id])
   end
 end
