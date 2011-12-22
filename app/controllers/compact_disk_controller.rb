@@ -1,6 +1,6 @@
 class CompactDiskController < ApplicationController
   before_filter :set_locale
-  before_filter :checkUser, :only =>[:destroy]
+  before_filter :checkUser, :only =>[:destroy, :update]
   #load_and_authorize_resource :only => [:show, :destroy]
   
   # Eigentümer des CD Prüfen
