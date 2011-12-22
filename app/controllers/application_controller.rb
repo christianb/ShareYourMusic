@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   
   def after_sign_in_path_for(resource)
-      stored_location_for(resource) || compact_disk_index_path
+      stored_location_for(resource) || latest_cd_path
   end
   
   def after_update_path_for(resource)
