@@ -80,6 +80,7 @@ class UserTest < ActiveSupport::TestCase
     assert !@user.save, "should not save user due role_id does not exist"
   end
   
+=begin
   test "search user" do
     array = UserController.search("P")
     assert array.count == 1, "should contain exactly one user with firstname: Peter"
@@ -96,5 +97,6 @@ class UserTest < ActiveSupport::TestCase
     array = UserController.search("schmiddy")
     assert array.count == 2, "should contain exactly two users"
   end
-  
+=end
+
 end
