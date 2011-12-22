@@ -65,19 +65,21 @@
 	</thead>
 	<tbody>
 	<% @users.each do |u| %>
-	<tr>
-	    <td><%= image_tag u.photo.url(:small) %></td>
-		<td><%= u.firstname %></td>
-		<td><%= u.lastname %></td>
-	    <td><%= u.email %></td>
-	    <td><%= u.alias %></td>
-	    <td><%= u.created_at %></td>
+		<% if current_user.id %>
+			<tr>
+			    <td><%= image_tag u.photo.url(:small) %></td>
+				<td><%= u.firstname %></td>
+				<td><%= u.lastname %></td>
+			    <td><%= u.email %></td>
+			    <td><%= u.alias %></td>
+			    <td><%= u.created_at %></td>
 	    
-			<% if current_user.role_id == User.admin %>
-				<td> <%= image_tag("pencil.png") %></td>
-	    	<td><%= image_tag("cross-script.png")%></td>
-			<% end %>
-	</tr>
+					<% if current_user.role_id == User.admin %>
+						<td> <%= image_tag("pencil.png") %></td>
+			    	<td><%= image_tag("cross-script.png")%></td>
+					<% end %>
+			</tr>
+		<% end %>
 	<% end %>
 	</tbody>
 	</table>
