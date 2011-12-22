@@ -15,7 +15,8 @@ Projekt::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   
     devise_for :users
-  
+    
+    match '/search' => 'application#search', :as => :search
   
   
   

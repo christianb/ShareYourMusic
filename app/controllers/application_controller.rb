@@ -33,5 +33,12 @@ class ApplicationController < ActionController::Base
     def default_url_options
       { :locale => I18n.locale }
     end
+    
+    # search for a user with a given name
+    def search
+      name = params[:querry]
+      @cds = CompactDisk.where("artist LIKE ? OR title LIKE ? OR genre LIKE ? OR year LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
+      @users = User.where("firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR alias LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
+    end
   
 end
