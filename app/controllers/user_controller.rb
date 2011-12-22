@@ -36,4 +36,10 @@
       @users = User.order("sign_in_count DESC").limit(9)
     end
   end
+  
+  def destroy
+      @user = User.find(params[:id])
+      @user.destroy
+      redirect_to :back
+  end
 end

@@ -18,8 +18,11 @@ class AdminController < ApplicationController
   def delete_user
   end
   
-  def show_all_users
+  def manage_users
     @users = User.all
   end
   
+  def destroy
+    redirect_to welcome_path
+  end
 end

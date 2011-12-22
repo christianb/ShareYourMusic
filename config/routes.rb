@@ -24,10 +24,11 @@ Projekt::Application.routes.draw do
   scope "(:locale)", :locale => /de|en/ do
     root :to => 'welcome#index', :as => :welcome
     
-    resources :user, :except => :show
+    resources :user, :except => [:show, :destroy]
     match '/user/most_active' => 'user#most_active', :as => :most_active_user
     match 'user/reset_password' => 'user#reset_password', :as => :reset_password
-    match '/user/:id' => 'user#show', :as => :user
+    match '/user/:id' => 'user#show', :as => :user, :via => :get
+    match '/user/:id' => 'user#destroy', :as => :delete_user, :via => :delete
     
     resources :devise
     
@@ -54,7 +55,7 @@ Projekt::Application.routes.draw do
     
     
     
-    match 'admin/show_all_users' => 'admin#show_all_users', :as => :adminAllUsers
+    match 'admin/manage_users' => 'admin#manage_users', :as => :adminAllUsers
     #match '/compact_disk' => 'compact_disk#index', :as => :compact_disk_index
     #match '/compact_disk/new' => 'compact_disk#new', :as => :new_compact_disk
   end
