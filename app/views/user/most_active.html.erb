@@ -1,0 +1,15 @@
+<% content_for :title, "Aktivste User" %>
+
+<p><%= flash[:alert] %></p>
+
+<div style="height:494px;">
+<ol id="selectable">
+	<% @users.each do |u| %>
+	<li>
+		<%= link_to (image_tag u.photo.url(:normal)), user_path(u)%>
+		<p class="blackFont"><%= u.firstname + " " + u.lastname %></p>
+		
+	</li>
+	<% end %>
+</ol>
+</div>

@@ -11,12 +11,6 @@
     end
   end  
   
-  # Suche nach einem Benutzer
-  # Suche in Firstname, Lastname, eMail und Alias
-  def self.search(name)
-    User.where("firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR alias LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%")
-  end
-  
   def reset_password
     user = params[:user]
     email = user["email"]
@@ -33,5 +27,19 @@
     #logger.debug @_new_password
     Notifier.registration_confirmation(email, password).deliver
     redirect_to welcome_path
+  end
+  
+  def most_active
+    if (user_signed_in?)
+      @users = User.where(User.arel_table[:id].not_eq(current_user.id)).order("sign_in_count DESC").limit(9)
+    else
+      @users = User.order("sign_in_count DESC").limit(9)
+    end
+  end
+  
+  def destroy
+      @user = User.find(params[:id])
+      @user.destroy
+      redirect_to :back
   end
 end
