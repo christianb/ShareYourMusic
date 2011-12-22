@@ -8,8 +8,7 @@
 <ul id="selectable">
 <% @myCDs.each do |c| %>
 	<li>
-        <a href="#" rel="popover" title="test Album" data-content="<%= c.title %> </br><%= c.artist %> ">
-            <%= image_tag c.photo.url(:normal) %></a>
+        <%= link_to (image_tag c.photo.url(:normal)), compact_disk_path(c), :rel=>"popover", :title=>c.title+" ("+c.artist+")", :id=>getSongs(c)%>
             
 			<p class="blackFont"><%= c.artist %></p>
             <p><%= c.title %></p>
