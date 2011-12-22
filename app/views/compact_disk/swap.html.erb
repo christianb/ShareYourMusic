@@ -23,10 +23,11 @@
 			<% end %>
 		<% end %>
 	</div>
-	
-	<div class="actions">
-	<button class="shareBt btn">Speichern</button>
-	<%= link_to "Anfrage senden", new_transaction_path(:user_id => @cd.user_id), :class => "btn primary sendBtn" %>
+	<div class="row">
+		<div class="actions">
+			<button class="shareBt btn">Speichern</button>
+			<%= link_to "Anfrage senden", new_transaction_path(:user_id => @cd.user_id), :class => "btn primary sendBtn" %>
+		</div>
 	</div>
 	
 </div>

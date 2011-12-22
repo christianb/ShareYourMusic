@@ -27,7 +27,8 @@ class CompactDiskController < ApplicationController
   
   def show
     @cd = CompactDisk.find(params[:id])
-    @songs = Song.where(:compact_disk_id => @cd.id)
+    #@songs = Song.where(:compact_disk_id => @cd.id)
+    @songs = @cd.songs
     @user = User.find(@cd.user_id)
   end
   

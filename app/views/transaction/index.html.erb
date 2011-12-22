@@ -9,7 +9,7 @@
 		<th></th>
 	</tr>
 	</thead>
-	
+	<tbody>
 	<% @messages_requests.each do |ma| %>
 	<% wcd = getWantedCDs(ma.subject) %>
 	<% mcd = getMineCDs(ma.subject) %>
@@ -25,12 +25,13 @@
 			<% end %>
 		</td>
 		<td>
-			<%= link_to "Ablehnen", destroy_url(:id => ma) ,:methode => "delete" %> |
-			<%= link_to "Annehmen", accept_url(ma) %> |
-			<%= link_to "Modifizieren", modifyRequest_path(ma) %>
+			<%= link_to "Ablehnen", destroy_url(:id => ma) ,:methode => "delete", :class => "btn danger" %>
+			<%= link_to "Annehmen", accept_url(ma), :class => "btn success" %>
+			<%= link_to "Modifizieren", modifyRequest_path(ma), :class => "btn" %>
 		</td>
 	</tr>
 	<% end %>
+	</tbody>
 </table>
 
 <h6>Abgelehnte Anfragen</h6>
@@ -44,14 +45,24 @@
 	</thead>
 	
 	<% @messages_rejected.each do |mr| %>
+	<% wcd = getWantedCDs(mr.subject) %>
+	<% mcd = getMineCDs(mr.subject) %>
 	<tr>
-		<td><%= mr.subject %></td>
-		<td></td>
+		<td>
+			<% mcd.each do |w| %>
+				<%= image_tag getCover(w).photo.url(:small) %>
+			<% end %>
+		</td>
+		<td>
+			<% wcd.each do |m| %>
+				<%= image_tag getCover(m).photo.url(:small) %>
+			<% end %>
+		</td>
 		<td>
 		<% if mr.body.include? "MAbgelehnt" %>
-			<%= link_to "Ok", modified_rejected_url(:id => mr)%>
+			<%= link_to "Ok", modified_rejected_url(:id => mr), :class => "btn" %>
 		<% else %>
-			<%= link_to "Ok", rejected_url(:id => mr)%>
+			<%= link_to "Ok", rejected_url(:id => mr), :class => "btn" %>
 		<% end %>
 		</td>
 	</tr>
@@ -74,9 +85,9 @@
 	<td><%= m.subject %></td>
 	<td>
 	<% if m.body.include? "MAngenommen" %>
-		<%= link_to "Ok", modify_accepted_url(:id => m)%>
+		<%= link_to "Ok", modify_accepted_url(:id => m), :class => "btn"%>
 	<% else %>
-		<%= link_to "Ok", accepted_url(:id => m) %>
+		<%= link_to "Ok", accepted_url(:id => m), :class => "btn" %>
 	<% end %>
 	</td>
 	</tr>
@@ -118,8 +129,8 @@
 		<% end %>
 	</td>
 	<td>
-		<%= link_to "Modifizierung Annehmen", modified_accept_url(:id => m) %> |
-		<%= link_to "Modifizierung Ablehnen", modified_reject_url(:id => m) %>
+		<%= link_to "Modifizierung Annehmen", modified_accept_url(:id => m), :class => "btn success" %> |
+		<%= link_to "Modifizierung Ablehnen", modified_reject_url(:id => m), :class => "btn danger" %>
 	</td>
 	</tr>
 <% end %>
