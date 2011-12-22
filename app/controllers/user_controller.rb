@@ -28,4 +28,8 @@
     Notifier.registration_confirmation(email, password).deliver
     redirect_to welcome_path
   end
+  
+  def most_active
+    @users = User.order("sign_in_count DESC").limit(9)
+  end
 end

@@ -11,11 +11,13 @@
           <div class="topbar" data-dropdown="dropdown">
             <div class="fill">
                 <div class="container-fluid">
-                    <%= link_to "SWAR_Logo", welcome_path, :class => "brand" %>
+										
+                    <%= link_to "SWAR_Logo", latest_cd_path, :class => "brand" %>
                     <ul class="nav" style="margin-left:29px;">
-                        <li class="active"><%= link_to "Home", welcome_path, :class => "brand" %></li>
+                        <!--<li class="active"><%= link_to "Home", welcome_path, :class => "brand" %></li>-->
+												
                         <li class="dropdown">
-                            <a class="dropdown-toggle" href="#">CDs</a>
+                            <a class="dropdown-toggle" href="#">Kategorien</a>
                             <ul class="dropdown-menu">
                                 <li>
                                     <%= link_to 'Alle CDs', compact_disk_index_path %>
@@ -23,6 +25,7 @@
                                 <li>
 																		<%= link_to 'Neueste CDs', latest_cd_path %>
                                 </li>  
+																<li><%= link_to "Aktivste Benutzer", most_active_user_path %></li>
                             </ul>
                         </li>
                         <% if user_signed_in? %>
@@ -35,18 +38,27 @@
                                     <li>
                                         <%= link_to "Anfragen (" + getUnreadMessageCount(current_user.id).to_s + ")", transaction_index_path %>
                                     </li>
+																		<li>
+						                            <%= link_to t('.user_show'), user_path(current_user.id) %>
+						                        </li>
                                 </ul>
                             </li>
-							<li>
-								<a class="dropdown-toggle" href="#">Administration</a>
-								<ul class="dropdown-menu">
-									<li><%= link_to "Nutzerverwaltung", adminAllUsers_path %></li>
-									<li><%= link_to "CD Verwaltung", '' %></li>
-								</ul>
-							</li>
-                        <li>
-                            <%= link_to t('.user_show'), user_path(current_user.id) %>
-                        </li>
+							<% if current_user.role_id == User.admin %>
+								<li>
+									<a class="dropdown-toggle" href="#">Administration</a>
+									<ul class="dropdown-menu">
+										<li><%= link_to "Nutzerverwaltung", adminAllUsers_path %></li>
+										<li><%= link_to "CD Verwaltung", '' %></li>
+									</ul>
+								</li>
+							<% end %>
+                        
+												<!--<input type="text" placeholder="Search">-->
+												<li>
+													<%= form_tag(search_path, :method => "get") do %>
+												  	<%= text_field_tag :querry, nil, :placeholder => 'Suche nach Benutzer oder CDs'%>
+													<% end %>
+												</li>
                         <% end %>
                     </ul>
                        <% if user_signed_in? %>
@@ -82,14 +94,6 @@
 <!--                    <div class="span8"> -->
                         <h2> 
 							<%= yield(:title) %>  
-							
-							<!-- search field -->
-							<div class="pull-right">
-								<!--<input type="text" placeholder="Search">-->
-								<%= form_tag(search_path, :method => "get") do %>
-								  <%= text_field_tag(:querry) %>
-								<% end %>
-							</div>
 						
 						</h2>
 <!--                    </div> -->                    

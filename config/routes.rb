@@ -24,7 +24,10 @@ Projekt::Application.routes.draw do
   scope "(:locale)", :locale => /de|en/ do
     root :to => 'welcome#index', :as => :welcome
     
-    resources :user
+    resources :user, :except => :show
+    match '/user/most_active' => 'user#most_active', :as => :most_active_user
+    match '/user/:id' => 'user#show', :as => :user
+    
     resources :devise
     
     resources :compact_disk, :except => :show
