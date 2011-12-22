@@ -38,8 +38,16 @@ class ApplicationController < ActionController::Base
     def search
       name = params[:querry]
       #if !name.empty?
+      
+      # if param is number
+      num = name.to_i
+      if (num != 0)
+        logger.debug "search num: "+num.to_s
+        @cds = CompactDisk.where("year LIKE ?","%#{num}%").paginate(:page => params[:page], :per_page => 9)
+      else
         @cds = CompactDisk.where("artist LIKE ? OR title LIKE ? OR genre LIKE ? OR year LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
-        @users = User.where("firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR alias LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
+      end
+      @users = User.where("firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR alias LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
       #else
         # @Christian S.: Bitte zeigen eine Fehlermeldung an, oder auch gar nichts. Bei Google kommt ja auch nichts wenn String leer ist.
       #end
