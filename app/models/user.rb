@@ -27,7 +27,7 @@ validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image
 
 # Constance for Admin and User Role ID
 def self.admin  # Klassenmethode
-  return 0
+  return 2
 end
 
 def self.user
