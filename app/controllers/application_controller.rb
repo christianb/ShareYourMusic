@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   
   def after_sign_in_path_for(resource)
-      stored_location_for(resource) || compact_disk_index_path
+      stored_location_for(resource) || latest_cd_path
   end
   
   def after_update_path_for(resource)
@@ -32,6 +32,32 @@ class ApplicationController < ActionController::Base
     
     def default_url_options
       { :locale => I18n.locale }
+    end
+    
+    # search for a user with a given name
+    def search
+      name = params[:querry]
+      #if !name.empty?
+      
+      # if param is number
+      num = name.to_i
+      if (num != 0)
+        logger.debug "search num: "+num.to_s
+        @cds = CompactDisk.where("cast(year as text) LIKE ?","%#{num}%").paginate(:page => params[:page], :per_page => 9)
+      else
+        @cds = CompactDisk.where("artist LIKE ? OR title LIKE ? OR genre LIKE ?","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
+      end
+      @users = User.where("firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR alias LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
+
+      # delete own cd's
+      @cds = @cds.delete_if {|c| c.user_id == current_user.id}
+      
+      # delete own user
+      @users = @users.delete_if {|u| u.id == current_user.id}
+      
+      #else
+        # @Christian S.: Bitte zeigen eine Fehlermeldung an, oder auch gar nichts. Bei Google kommt ja auch nichts wenn String leer ist.
+      #end
     end
   
 end

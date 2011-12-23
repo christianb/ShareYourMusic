@@ -1,32 +1,50 @@
-<% content_for :title, t('.headline') %>
+<% content_for :title, "CD bearbeiten" %>
 
 <%= form_for(@cd, :html => { :method => :put, :multipart => true}) do |f| %>
-	<div>
+	<div class="clearfix">
 		<%= f.label "Titel" %>
-    <br/>
-    <%= f.text_field :title %>*
+		<div class="input">
+    		<%= f.text_field :title, :class => "span6" %>*
+		</div>
 	</div>
-	<div>
+	
+	<div class="clearfix">
 		<%= f.label "Artist" %>
-    <br/>
-    <%= f.text_field :artist %>*
+		<div class="input">
+    		<%= f.text_field :artist, :class => "span6" %>*
+		</div>
 	</div>
-	<div>
+	
+	<div class="clearfix">
 		<%= f.label "Genre" %>
-    <br/>
-    <%= f.text_field :genre %>*
+		<div class="input">
+    		<%= f.text_field :genre, :class => "span6" %>*
+		</div>
 	</div>
-	<div>
-  		<%= f.label "Upload Cover" %><br/>
-      <%= f.file_field :photo%>
-  </div>
+	
+	<div class="clearfix">
+		<%= f.label "Beschreibung" %>
+    	<div class="input">
+			<%= f.text_area :description, :class => "span6", :rows => 5 %>
+		</div>
+	</div>
+	
+	<div class="clearfix">
+  		<%= f.label "Upload Cover" %>
+    	<div class="input">
+      		<%= f.file_field :photo, :class => "input-file" %>
+		</div>
+  	</div>
 
 	<div class="clearfix">
     	<%= f.label "Upload Song" %>
         <div class="input">
-        <%= f.file_field :audio%>
+        	<%= f.file_field :audio, :class => "input-file" %>
         </div>
   </div>
+
+
+
 
 <!--
 	<div>
@@ -40,11 +58,22 @@
 -->
 
  <%= f.fields_for :songs do |songs_form| %>
-	<%= songs_form.text_field :title %>
+	<div class="clearfix">
+		<div class="input">
+			<%= songs_form.text_field :title, :class => "span6" %>
+		</div>
+	</div>
 <% end %>
 
-	<div id="submit"><%= f.submit "Bestätigen" %></div>
+	<div class="actions"> 
+    	<%= f.submit "Bestätigen", :class => "btn primary" %> 
+		<% if !existingTransactions(@cd.id, @cd.user_id) %>
+			<%= link_to "CD löschen", @cd, :confirm => "Wollen Sie Ihre CD \""+ @cd.title+"\" wirklich löschen?", :method => :delete, :class => "btn danger" %>
+		<% end %>
+	</div>
 <% end %>
+
+
 
 <% if @cd.errors.any? %>
   <ul>

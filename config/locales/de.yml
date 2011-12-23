@@ -14,7 +14,7 @@ de:
     password_confirm: "Neues Passwort bestätigen"
     
     show:
-      user_show_title: "Benutzerprofil"
+      user_show_title: "Account Daten"
       user_name: "Name"
       edit_account: "Bearbeiten"
       delete_account: "Profil löschen"
@@ -58,8 +58,8 @@ de:
      application:
          user_edit: "Account anpassen"
          user_logout: "Ausloggen"
-         user_show: "Benutzerprofil"
-         user_cd_index: "CD Sammlung"
+         user_show: "Account Daten"
+         user_cd_index: "Meine CDs"
          
   errors:
     messages:

@@ -1,4 +1,10 @@
 	<%= image_tag @cd.photo.url(:normal) %>
+	<% if current_user.id != @cd.user_id %>
+		<p>
+			<b>Besitzer:</b>
+			<%= link_to @user.firstname + ' ' + @user.lastname, allUserCDs_path(@cd.user_id) %>
+		</p>
+	<% end %>
 	<p>
 		<b>Artist:</b>
 		<%= @cd.artist %>
@@ -15,6 +21,12 @@
 		<b>Erscheinungsjahr:</b>
 		<%= @cd.year %>
 	</p>
+	
+	<p>
+		<b>Beschreibung:</b>
+		<%= @cd.description %>
+	</p>
+	
 	<p>
 	<b>Songs:</b><br/>
 	<% @songs.each_with_index do |s, index| %>
@@ -31,3 +43,7 @@
 	</audio>
 	</p>
 <%= link_to 'Back', :action => "index" %>
+
+<% if user_signed_in? && @cd.user_id == current_user.id%>
+	<%= link_to 'Edit', edit_compact_disk_path(@cd) %>
+<% end %>

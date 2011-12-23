@@ -8,7 +8,7 @@ class DateOfReleaseValidator < ActiveModel::Validator
       record.errors[:base] << "Erscheinungsjahr darf nicht in der Zukunft liegen."
     end
     
-    if !((record.year > (Time.now.year - 100)) && (record.year < Time.now.year))
+    if !((record.year > (Time.now.year - 100)) && (record.year <= Time.now.year))
       record.errors[:base] << "Erscheinungsjahr muss zwischen "+(Time.now.year-100).to_s+" und "+Time.now.year.to_s+ " liegen"
     end
   end
@@ -27,7 +27,7 @@ class CompactDisk < ActiveRecord::Base
   has_attached_file :photo, :styles => { :normal => "150x150>", :small => "70x70>" },
                     :url  => "/system/covers/:id/:style/:basename.:extension",
                     :path => ":rails_root/public/system/covers/:id/:style/:basename.:extension",
-                    :default_url => "/assets/cd_default.png"
+                    :default_url => "/assets/cd_default_:style.png"
                       
   #validates_attachment_presence :photo
   validates_attachment_size :photo, :less_than => 5.megabytes

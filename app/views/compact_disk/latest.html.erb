@@ -1,4 +1,4 @@
-<% content_for :title, "Alle CDs" %>
+<% content_for :title, "Neueste CDs" %>
 
 <p><%= flash[:alert] %></p>
 
@@ -15,9 +15,6 @@
 
 <%
 =end %>
-<div style="padding-left:20px;">
-<%= will_paginate @cds %>
-</div>
 <div style="height:494px;">
 <ol id="selectable">
 	<% @cds.each do |c| %>
@@ -37,7 +34,4 @@
 	<% end %>
 	<% end %>
 </ol>
-</div>
-<div style="padding-left:20px;">
-<%= will_paginate @cds %>
 </div>

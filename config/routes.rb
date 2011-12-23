@@ -14,18 +14,34 @@ Projekt::Application.routes.draw do
   
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   
-  devise_for :users
-  
+    devise_for :users
+    
+    match '/search' => 'application#search', :as => :search
   
   
   
   
   scope "(:locale)", :locale => /de|en/ do
     root :to => 'welcome#index', :as => :welcome
-    resources :user
-    resources :compact_disk
+    
+    resources :user, :except => [:show, :destroy]
+    match '/user/most_active' => 'user#most_active', :as => :most_active_user
+    match 'user/reset_password' => 'user#reset_password', :as => :reset_password
+    match '/user/setAdmin/:id' => 'user#set_as_admin', :as => :set_as_admin, :via => :get
+    match '/user/setUser/:id' => 'user#set_as_user', :as => :set_as_user, :via => :get
+    match '/user/:id' => 'user#show', :as => :user, :via => :get
+    match '/user/:id' => 'user#destroy', :as => :delete_user, :via => :delete
+   
+    
+    resources :devise
+    
+    resources :compact_disk, :except => :show
+    match '/compact_disk/latest' => 'compact_disk#latest', :as => :latest_cd
+    match '/compact_disk/:id' => 'compact_disk#show', :as => :compact_disk
+    
     match '/compact_disk/myCDs/:id' => 'compact_disk#myCDs', :as => :myCDs
     match 'compact_disk/swap/:id' => 'compact_disk#swap', :as => :swap_cd
+    match '/compact_disk/all_user_cds/:id' => 'compact_disk#all_user_cds', :as => :allUserCDs
     
     resources :transaction
     match 'transaction/destroy/:id' => 'transaction#destroy', :as => :destroy
@@ -39,7 +55,10 @@ Projekt::Application.routes.draw do
     match 'transaction/modify/:id' => 'transaction#modify', :as => :modify
     match 'transaction/modifyRequest/:id' => 'transaction#modifyRequest', :as => :modifyRequest
     
-    match 'admin/show_all_users' => 'admin#show_all_users', :as => :adminAllUsers
+    
+    
+    
+    match 'admin/manage_users' => 'admin#manage_users', :as => :adminAllUsers
     #match '/compact_disk' => 'compact_disk#index', :as => :compact_disk_index
     #match '/compact_disk/new' => 'compact_disk#new', :as => :new_compact_disk
   end

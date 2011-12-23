@@ -11,7 +11,7 @@ Role.create! :role => "user"
 Role.create! :role => "admin"
 
 #puts 'Create User'
-User.create! :role_id => 1, :lastname => "Bunk", :firstname=> "Christian", :email => "christianb@gmail.com", :password => "qwertz"
+#User.create! :role_id => 1, :lastname => "Bunk", :firstname=> "Christian", :email => "christianb@gmail.com", :password => "qwertz"
 #admin = User.create! :role_id => 2, :lastname => "Admin", :firstname=> "Ein", :email => "admin@admin.de", :image_uri => "admin.png", :password => "adminadmin"
 
 #admin.update_attribute(:role_id, 2)
