@@ -1,49 +1,69 @@
-	<%= image_tag @cd.photo.url(:normal) %>
-	<% if !user_signed_in? || current_user.id != @cd.user_id %>
-		<p>
-			<b>Besitzer:</b>
-			<%= link_to @user.firstname + ' ' + @user.lastname, allUserCDs_path(@cd.user_id) %>
-		</p>
-	<% end %>
-	<p>
-		<b>Artist:</b>
-		<%= @cd.artist %>
-	</p>
-	<p>
-		<b>Title:</b>
-		<%= @cd.title %>
-	</p>
-	<p>
-		<b>Genre:</b>
-		<%= @cd.genre %>
-	</p>
-	<p>
-		<b>Erscheinungsjahr:</b>
-		<%= @cd.year %>
-	</p>
-	
-	<p>
-		<b>Beschreibung:</b>
-		<%= @cd.description %>
-	</p>
-	
-	<p>
-	<b>Songs:</b><br/>
-	<% @songs.each_with_index do |s, index| %>
-		<%= index + 1 %>
-		<%= s.title %>
-		</br>
-	<% end %>
-	</p>
-	
-	<p>
-	<audio controls="controls">
-	  <source src=<%='" '.html_safe+ @cd.audio.url+ '"'.html_safe %> type=<%='" '.html_safe+ @cd.audio_content_type+ '"'.html_safe %>  />
-	  Your browser does not support the audio element.
-	</audio>
-	</p>
-<%= link_to 'Back', :action => "index" %>
+<% content_for :title, @cd.title+" ("+@cd.artist+")" %>
+<div class="row show-grid" >
+	<div class="span11" style="margin-left:39px;">
+		
+		<% if !user_signed_in? || current_user.id != @cd.user_id %>
+			<p>
+				<b>Besitzer:</b>
+				<%= link_to @user.firstname + ' ' + @user.lastname, allUserCDs_path(@cd.user_id) %>
+			</p>
+		<% end %>
+		
+		<% if !@cd.genre.empty?%>
+			<p>
+				<b>Genre:</b>
+				<%= @cd.genre %>
+			</p>
+		<% end %>
+		
+		<% if @cd.year != nil %>
+			<p>
+				<b>Erscheinungsjahr:</b>
+				<%= @cd.year %>
+			</p>
+		<% end %>
+		
+		<% if !@cd.description.empty?%>
+			<p>
+				<b>Beschreibung:</b>
+				<%= @cd.description %>
+			</p>
+		<% end %>
 
-<% if user_signed_in? && @cd.user_id == current_user.id%>
-	<%= link_to 'Edit', edit_compact_disk_path(@cd) %>
-<% end %>
+		<% if !@songs.empty?%>
+			<p>
+			<b>Songs:</b><br/>
+			<% @songs.each_with_index do |s, index| %>
+				<%= index + 1 %>
+				<%= s.title %>
+				</br>
+			<% end %>
+			</p>
+		<% end %>	
+		
+		<% if @cd.audio_file_name != nil %>
+			<p>
+			<audio controls="controls">
+			  <source src=<%='" '.html_safe+ @cd.audio.url+ '"'.html_safe %> type=<%='" '.html_safe+ @cd.audio_content_type+ '"'.html_safe %>  />
+			  Your browser does not support the audio element.
+			</audio>
+			</p>
+		<% end %>
+	</div>
+	<div class="span5">
+        <%= image_tag @cd.photo.url(:normal) %>
+    </div>
+</div>
+
+<div class="row show-grid">
+	
+	<% if user_signed_in? && @cd.user_id == current_user.id%>
+		<div class="actions"> 
+				<%= link_to 'Zurück', :back, :class => "btn primary" %>
+				<%= link_to 'Edit', edit_compact_disk_path(@cd), :class => "btn primary" %>
+	  	</div>
+	<% else %>
+		<%= link_to 'Abbrechen', myCDs_path, :class => "btn primary" %>
+	<% end %>
+
+</div>

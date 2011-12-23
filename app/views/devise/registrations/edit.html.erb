@@ -53,17 +53,9 @@
             </div>
       </div>
 
-  <div id="submit"><%= f.submit t('.submit_form') %></div>
+	<div class="actions"> 
+      <%= f.submit t('.submit_form'), :class => "btn primary" %>
+	  <%= link_to t('.cancel'), :back, :class => "btn primary" %>
+  	</div>
+
 <% end %>
-<div id="otheroptions">
-    <table>
-        <tr>
-            <td>
-                <%= link_to t('.cancel'), :back %>
-            </td>
-            <td>        
-                <%= link_to t('.delete_account'), registration_path(resource_name), :confirm => t('.confirm_changes'), :method => :delete %>
-            </td>
-        </tr>
-    </table>
-</div>
