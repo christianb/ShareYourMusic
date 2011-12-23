@@ -1,7 +1,8 @@
 <% content_for :title, t('.user_show_title') %>
 
-<div class="row show-grid">
-    <div class="span11">
+<div class="row show-grid" >
+    <div class="span11" style="margin-left:39px;">
+    
         <p><b><%= t('.user_name')%>:</b> <span style="margin-left:10px; "> <%= @user.firstname %> <%= @user.lastname %></span></p>
         <p><b><%= t('user.alias')%>: </b><span style="margin-left:16px;"><%= @user.alias %></span></p>
         <p><b><%= t('user.email')%>: </b><span style="margin-left:12px;"><%= @user.email %></span></p>
@@ -12,7 +13,7 @@
 </div>
 
 <div class="row show-grid">
-<div class="span16" style="margin-top:30px;">
+<div class="span16" style="margin-top:30px; margin-left:39px;">
 	<%= link_to t('.edit_account'), edit_user_registration_path %>
 	<span style="margin-left:20px;"><%= link_to t('.delete_account'), registration_path(@user), :confirm => t('.confirm_changes'), :method => :delete %></span>
 </div>

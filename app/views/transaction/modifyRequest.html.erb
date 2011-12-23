@@ -28,36 +28,44 @@ gegen
 
 <div class="row grid-move" >
     <div id="myCDs" class="span4 swap box-swap" style="padding:4px;" > 
+        <div class="page-header">Meine restlichen CDs </div>
     	<% @myCDs.each do |cd| %>
 			<% if !mcd.include? cd.id.to_s %>			
 					<%= image_tag cd.photo.url(:small), :alt => cd.id, :style => "border: 1px solid white;" %>
+            <% else %>
+                Sie haben leider keine weiteren CDs
 			<% end %>
 		<% end %>
 	</div>
     <div class="span8" style="margin-left:10px;" >
         <div id="wanted" class="wanted box-swap">
+            <div class="page-header">Diese CD moechte ich haben </div>
 			<%= hidden_field_tag 'msg_id', @msg_id %>
 			<% wcd.each do |w| %>
 				<%= image_tag getCover(w).photo.url(:small), :alt => w, :style => "border: 1px solid white;" %>
 			<% end %>
 		</div>
         <div id="mine" class="mine box-swap">
+            <div class="page-header">Diese Cds tausche ich dafuer ein: </div>
 			<% mcd.each do |m| %>
 				<%= image_tag getCover(m).photo.url(:small), :alt => m, :style => "border: 1px solid white;" %>
 			<% end %>
 		</div>
     </div>
     <div id="userCDs" class="span4 swap box-swap" style="margin-left:10px; padding:4px;"  >
-		Weitere CDs von <%= @user.firstname + " " + @user.lastname %>
+		<div class="page-header">Weitere CDs von <%= @user.firstname + " " + @user.lastname %> </div>
 		<% @userCDs.each do |cd| %>
 			<% if !wcd.include? cd.id.to_s %>
 				<%= image_tag cd.photo.url(:small), :alt => cd.id, :style => "border: 1px solid white;" %>
 			<% end %>
 		<% end %>
 	</div>
+</div>    
+	<div style="margin-top:15px; margin-left:17px;">
+        
+        <%= link_to "Anfrage senden" , modify_url(@msg_id), :class => "btn large primary disabled" %>
+    </div>
+    
 	
-	<button class="modifyBt">Speichern</button>
-	<%= link_to "Anfrage senden", modify_url(@msg_id) %>
-	
-</div>
+
 
