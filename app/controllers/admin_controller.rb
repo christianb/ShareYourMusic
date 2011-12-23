@@ -20,6 +20,7 @@ class AdminController < ApplicationController
   
   def manage_users
     @users = User.all
+    @users = @users.delete_if {|u| u.id == current_user.id}
   end
   
   def destroy
