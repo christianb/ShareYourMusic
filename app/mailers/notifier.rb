@@ -17,4 +17,9 @@ class Notifier < ActionMailer::Base
   def account_downgrade_to_user(email)
     mail(:to => email, :subject => "Your Account has been downgraded", :from => "kallisto.rails@gmail.com")  
   end
+  
+  def new_offer(email, nickname)
+    @nick = nickname
+    mail(:to => email, :subject => "Sie haben ein neues Angebot", :from => "kallisto.rails@gmail.com")  
+  end
 end
