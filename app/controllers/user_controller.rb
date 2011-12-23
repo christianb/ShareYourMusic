@@ -39,6 +39,8 @@
   
   def destroy
       @user = User.find(params[:id])
+      Notifier.deletion_confirmation(@user.email).deliver
+      
       @user.destroy
       redirect_to :back
   end
