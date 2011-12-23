@@ -37,31 +37,33 @@ class ApplicationController < ActionController::Base
     # search for a user with a given name
     def search
       name = params[:querry]
-      #if !name.empty?
       
-      # if param is number
-      num = name.to_i
-      if (num != 0)
-        logger.debug "search num: "+num.to_s
-        @cds = CompactDisk.where("cast(year as text) LIKE ?","%#{num}%").paginate(:page => params[:page], :per_page => 9)
-      else
-        @cds = CompactDisk.where("artist LIKE ? OR title LIKE ? OR genre LIKE ?","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
-      end
-      @users = User.where("firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR alias LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
+      if (!name.empty?)
+        #if !name.empty?
+      
+        # if param is number
+        num = name.to_i
+        if (num != 0)
+          logger.debug "search num: "+num.to_s
+          @cds = CompactDisk.where("cast(year as text) LIKE ?","%#{num}%").paginate(:page => params[:page], :per_page => 9)
+        else
+          @cds = CompactDisk.where("artist LIKE ? OR title LIKE ? OR genre LIKE ?","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
+        end
+        @users = User.where("firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR alias LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
 
-      # delete own cd's
-      if (user_signed_in?)
-        @cds = @cds.delete_if {|c| c.user_id == current_user.id}
-      end
+        # delete own cd's
+        if (user_signed_in?)
+          @cds = @cds.delete_if {|c| c.user_id == current_user.id}
+        end
       
-      # delete own user
-      if (user_signed_in?)
-        @users = @users.delete_if {|u| u.id == current_user.id}
+        # delete own user
+        if (user_signed_in?)
+          @users = @users.delete_if {|u| u.id == current_user.id}
+        end
+      else
+        # @Christian S.: Bitte zeigen eine Fehlermeldung an wenn Suchstring leer ist. Danke :)
+        redirect_to :back
       end
-      
-      #else
-        # @Christian S.: Bitte zeigen eine Fehlermeldung an, oder auch gar nichts. Bei Google kommt ja auch nichts wenn String leer ist.
-      #end
     end
   
 end
