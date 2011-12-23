@@ -15,6 +15,7 @@ class TransactionController < ApplicationController
     # Nutzerdaten ermitteln
     user = User.find(current_user.id)
     dest = User.find(user_id)
+    Notifier.new_offer(dest.email, user.alias).deliver
     
     message = Message.new
     #message.subject = "#{cd_wanted};#{cd_mine}"

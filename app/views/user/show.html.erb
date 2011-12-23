@@ -1,10 +1,10 @@
-<% content_for :title, t('.user_show_title') %>
+<% content_for :title, @user.firstname + " " + @user.lastname %>
 
 <div class="row show-grid" >
     <div class="span11" style="margin-left:39px;">
-    
-        <p><b><%= t('.user_name')%>:</b> <span style="margin-left:10px; "> <%= @user.firstname %> <%= @user.lastname %></span></p>
-        <p><b><%= t('user.alias')%>: </b><span style="margin-left:16px;"><%= @user.alias %></span></p>
+		<% if !@user.alias.empty? %>
+        	<p><b><%= t('user.alias')%>: </b><span style="margin-left:16px;"><%= @user.alias %></span></p>
+		<% end %>
         <p><b><%= t('user.email')%>: </b><span style="margin-left:12px;"><%= @user.email %></span></p>
     </div>
     <div class="span5">
@@ -13,9 +13,16 @@
 </div>
 
 <div class="row show-grid">
-<div class="span16" style="margin-top:30px; margin-left:39px;">
-	<%= link_to t('.edit_account'), edit_user_registration_path %>
-	<span style="margin-left:20px;"><%= link_to t('.delete_account'), registration_path(@user), :confirm => t('.confirm_changes'), :method => :delete %></span>
-</div>
-</div>
+	
+	<div class="actions"> 
+	  
+	 	<% if user_signed_in? && current_user.id == @user.id %>
+			<%= link_to 'Abbrechen', myCDs_path, :class => "btn primary" %>
+      		<%= link_to t('.edit_account'), edit_user_registration_path, :class => "btn primary" %>
+	  		<%= link_to t('.delete_account'), registration_path(@user), :class => "btn danger", :confirm => t('.confirm_changes'), :method => :delete %>
+		<% else %>
+			<%= link_to 'Zurück', :back, :class => "btn primary" %>
+		<% end %>
+  	</div>
 
+</div>
