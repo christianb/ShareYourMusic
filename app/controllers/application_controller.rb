@@ -48,6 +48,13 @@ class ApplicationController < ActionController::Base
         @cds = CompactDisk.where("artist LIKE ? OR title LIKE ? OR genre LIKE ?","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
       end
       @users = User.where("firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR alias LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
+
+      # delete own cd's
+      @cds = @cds.delete_if {|c| c.user_id == current_user.id}
+      
+      # delete own user
+      @users = @users.delete_if {|u| u.id == current_user.id}
+      
       #else
         # @Christian S.: Bitte zeigen eine Fehlermeldung an, oder auch gar nichts. Bei Google kommt ja auch nichts wenn String leer ist.
       #end

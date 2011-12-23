@@ -34,51 +34,10 @@
 <% end %>
 
 <% if !@users.empty? %>
-	<h3>Gefundene User</h3>
-	<br />
-	<table class="bordered-table zebra-striped" style="margin-left:20px; width: 98% !important;">
-	    <colgroup> 
-	    <col width="60"> 
-	    <col width="auto">
-	    <col width="auto">
-	    <col width="auto">
-	    <col width="auto">
-	    <col width="100">
-			<% if current_user.role_id == User.admin %>
-	    	<col width="40">
-	    	<col width="40">
-			<% end %>
-	    </colgroup>
-	<thead>
-	<tr>
-	    <th>Bild</th>
-	    <th>Vorname</th>
-	    <th>Nachname</th>
-	    <th> Email</th>
-	    <th> Alias</th>
-	    <th> Registierdatum</th>
-	    <% if current_user.role_id == User.admin %>
-				<th></th>
-	    	<th></th>
-			<% end %>
-	</tr>
-	</thead>
-	<tbody>
-	<% @users.each do |u| %>
-	<tr>
-	    <td><%= image_tag u.photo.url(:small) %></td>
-		<td><%= u.firstname %></td>
-		<td><%= u.lastname %></td>
-	    <td><%= u.email %></td>
-	    <td><%= u.alias %></td>
-	    <td><%= u.created_at %></td>
-	    
-			<% if current_user.role_id == User.admin %>
-				<td> <%= image_tag("pencil.png") %></td>
-	    	<td><%= image_tag("cross-script.png")%></td>
-			<% end %>
-	</tr>
-	<% end %>
-	</tbody>
-	</table>
+<h3>Gefundene User</h3>
+<%= render "admin/manage_user_partial" %>
+<% end %>
+
+<% if @users.empty? && @cds.empty? %>
+	Keine Einträge gefunden.
 <% end %>
