@@ -39,6 +39,8 @@
   
   def destroy
       @user = User.find(params[:id])
+      Notifier.deletion_confirmation(@user.email).deliver
+      
       @user.destroy
       redirect_to :back
   end
@@ -46,12 +48,14 @@
   def set_as_admin
     @user = User.find(params[:id])
     @user.update_attribute(:role_id, User.admin);
+    Notifier.account_upgrade_to_admin(@user.email).deliver
     redirect_to :back
   end
   
   def set_as_user
     @user = User.find(params[:id])
     @user.update_attribute(:role_id, User.user);
+    Notifier.account_downgrade_to_user(@user.email).deliver
     redirect_to :back
   end
 end

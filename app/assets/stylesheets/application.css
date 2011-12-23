@@ -56,21 +56,21 @@ body{
 }
 
 .wanted{
-    min-height:100px;
-    max-height:300px;
+    
+    height:238px;
     margin-bottom:10px;
     padding:4px;
 }
 
 .mine {
-    min-height:100px;
-    max-height:300px;
+    
+    height:242px;
     padding:4px;
 }
 
 .swap{
-    min-height:220px;
-    max-height:600px;
+    
+    height:500px;
 }
 
 .box-swap{
@@ -82,6 +82,23 @@ body{
 
 .popover{
     height:100px !important;
+}
+
+
+#userdata{
+    height:150px;
+    padding:4px; 
+    width:97%; 
+    margin-left:17px;
+}
+
+#usercds{
+    min-height: 200px;
+    max-height:800px;
+    padding:4px; 
+    width:97%; 
+    margin-left:17px;
+    margin-top: 10px;  
 }
 
 /*.user-auth-nav{
@@ -334,18 +351,18 @@ a:active {
 .blackFont {color: black;}
 
 #myCDs{
-	background-color: #FAAC58;
+	background-color: #CED7FC;
 }
 
 #mine{
-	background-color: #FAAC58;
+	background-color: #CED7FC;
 }
 
 #userCDs{
-	background-color: #2E9AFE;
+	background-color: #FCE9CE;
 }
 
 #wanted{
-	background-color: #2E9AFE;
+	background-color: #FCE9CE;
 }
 
