@@ -1,6 +1,6 @@
 <% content_for :title, "CD Sammlung" %>
 <div class="row">
-<div class="pull-right"><%= link_to t('.cd_new'), new_compact_disk_path %></div>
+<div class="pull-right"><%= link_to t('.cd_new'), new_compact_disk_path, :class => "btn primary" %></div>
 </div>
 <div style="padding-left:20px;">
 <%= will_paginate @myCDs %>
