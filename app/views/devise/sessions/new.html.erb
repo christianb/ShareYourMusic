@@ -1,4 +1,4 @@
-<% content_for :title, t('.sign_in') %>
+<% content_for :title, "Fehler beim Login" %>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <div class="clearfix">
@@ -13,18 +13,10 @@
         <%= f.password_field :password %>
     </div>
   </div>
-  <% if devise_mapping.rememberable? -%>
-    <div class="clearfix">
-         
-    <div class="input">
-        <%= f.label :remember_me, :class =>"label_remember" %><%= f.check_box :remember_me %>
-    </div>
-  </div>
-  <% end -%>
 
   <div class="clearfix">
     <div class="input">
-        <%= f.submit "Sign in" %>
+        <%= f.submit "Login" %>
     </div>
   </div>
 <% end %>
