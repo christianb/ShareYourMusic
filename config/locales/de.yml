@@ -10,8 +10,9 @@ de:
     email: "eMail"
     firstname: "Vorname"
     lastname: "Nachname"
-    password: "Neues Passwort"
-    password_confirm: "Neues Passwort bestätigen"
+    password: "Passwort"
+    new_password: "Neues Passwort"
+    password_confirm: "Passwort bestätigen"
     
     show:
       user_show_title: "Account Daten"
@@ -31,7 +32,7 @@ de:
         cancel: "Abbrechen"
         delete_account: "Profil löschen"
         confirm_changes: "Sind Sie sicher?"
-        upload_photo: "Wählen sie ein Bild aus "
+        upload_photo: "Ihr Bild"
       new:
         sign_up: "Profil erstellen"
         headline: "Erstellen eines persöhnlichen Profils"
