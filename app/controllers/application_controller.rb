@@ -50,10 +50,14 @@ class ApplicationController < ActionController::Base
       @users = User.where("firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR alias LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
 
       # delete own cd's
-      @cds = @cds.delete_if {|c| c.user_id == current_user.id}
+      if (user_signed_in?)
+        @cds = @cds.delete_if {|c| c.user_id == current_user.id}
+      end
       
       # delete own user
-      @users = @users.delete_if {|u| u.id == current_user.id}
+      if (user_signed_in?)
+        @users = @users.delete_if {|u| u.id == current_user.id}
+      end
       
       #else
         # @Christian S.: Bitte zeigen eine Fehlermeldung an, oder auch gar nichts. Bei Google kommt ja auch nichts wenn String leer ist.

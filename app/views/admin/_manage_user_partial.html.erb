@@ -27,13 +27,12 @@
 <tbody>
 <% @users.each do |u| %>
 <tr>
-	<% if current_user.id != u.id %>
-    <td><%= image_tag u.photo.url(:small) %></td>
+    	<td><%= image_tag u.photo.url(:small) %></td>
 		<td><%= u.firstname %></td>
 		<td><%= u.lastname %></td>
-    <td><%= u.email %></td>
-    <td><%= u.alias %></td>
-    <td><%= u.created_at %></td>
+    	<td><%= u.email %></td>
+    	<td><%= u.alias %></td>
+    	<td><%= u.created_at %></td>
 		<td>
 			<% if u.role_id == User.admin %>
 				ja
@@ -41,7 +40,7 @@
 			  nein
 			<% end %>
 		</td>
-    <td> <%= image_tag("pencil.png") %></td>
+		<td> <%= image_tag("pencil.png") %></td>
 		<td> 
 			<%= link_to (image_tag("cross-script.png")), delete_user_path(u.id), :method => :delete, :confirm => "Sind Sie sicher?" %> <br>
 			<% if u.role_id == User.admin %>
@@ -54,7 +53,6 @@
 			
 		</td>
     <!--<td><%= image_tag("cross-script.png")%></td>-->
-	<% end %>
 </tr>
 <% end %>
 </tbody>
