@@ -43,6 +43,7 @@ de:
         cd_new: "Neue CD anlegen"
       new:
         upload_cover: "Cover hochladen"
+        create: "Neue CD erstellen"
       myCDs: 
         my_cds: "Meine CD's"
       exchange:
