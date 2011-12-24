@@ -362,13 +362,19 @@ function addSongField(){
 
 function addSongField(){
 	var num = 2;
-	$('#btnAdd').click(function(){
-		$('<p><input id="song_'+ num +'" ' + 'name="song['+ num + ']"></input><p/>').appendTo('#input1');
-		num += 1;
-	});
 	
-/*	$('#btnDel').click(function(){
-		('#input1').find('input'+ $num).remove();
+	$('#btnAdd').click(function(){
+
+		$('<p id="song_p"><input id="song_'+ num +'" class="span6"' + 'name="song['+ num + ']"></input></p> ').appendTo('#input1');
+		num = ($('#input1 > p').size()) + 1
+//		$('#input1 > p').size();
+	});
+/*	
+	$('#btnDel').click(function(){
+			num = ($('#input1 > p').size()) - 1
+			//$('#song_' + num ).remove();
+			$('#song_p').remove();
+	//		num - 1;
 	});*/
 }
 
