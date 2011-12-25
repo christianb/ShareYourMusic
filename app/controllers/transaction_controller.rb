@@ -16,10 +16,13 @@ class TransactionController < ApplicationController
    # einzelne CD IDs 
    seperated_wanted_cds = cd_wanted.split(',')
    seperated_wanted_cds.each do |swcd|
+     
+     # prüfen ob eine der CD nicht visible ist 
      if (!CompactDisk.find(swcd).visible)
        cd_visible = false
        break;
      end
+     
    end
    
     # Nutzerdaten ermitteln
@@ -41,6 +44,7 @@ class TransactionController < ApplicationController
       end
     else
       redirect_to :controller => "compact_disk", :action => "index"
+      flash[:notice] = "Mindestens eine CD ist nicht mehr fuer einen Tausch verfuegbar"
     end
   end
 
