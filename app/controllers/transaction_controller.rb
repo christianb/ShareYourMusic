@@ -2,6 +2,8 @@ class TransactionController < ApplicationController
   
   # neue Anfrage erstellen
   def new
+  
+  cd_visible = true
    # User_ID des Tauschpartners
    user_id = params[:user_id]
    
@@ -9,21 +11,35 @@ class TransactionController < ApplicationController
    
    # CDs die getauscht werden sollen
    cd_mine = params[:cds_mine]
-   cd_wanted =params[:cds_wanted]
+   cd_wanted = params[:cds_wanted]
    
-    #cd = 3
+   # einzelne CD IDs 
+   seperated_wanted_cds = cd_wanted.split(',')
+   seperated_wanted_cds.each do |swcd|
+     if (!CompactDisk.find(swcd).visible)
+       cd_visible = false
+       break;
+     end
+   end
+   
     # Nutzerdaten ermitteln
     user = User.find(current_user.id)
     dest = User.find(user_id)
-    Notifier.new_offer(dest.email, user.alias).deliver
     
-    message = Message.new
-    #message.subject = "#{cd_wanted};#{cd_mine}"
-    message.subject = "#{cd_mine};#{cd_wanted}"
-    message.body = "Anfrage; Hallo, ich tausche 2 CDs gegen Chuck Norris"
-    message.sender = user
-    message.recipient = dest
-    if message.save
+    # Anfrage nur erstellen wenn CD noch visible ist
+    if (cd_visible)
+      Notifier.new_offer(dest.email, user.alias).deliver
+    
+      message = Message.new
+      #message.subject = "#{cd_wanted};#{cd_mine}"
+      message.subject = "#{cd_mine};#{cd_wanted}"
+      message.body = "Anfrage; Hallo, ich tausche 2 CDs gegen Chuck Norris"
+      message.sender = user
+      message.recipient = dest
+      if message.save
+        redirect_to :controller => "compact_disk", :action => "index"
+      end
+    else
       redirect_to :controller => "compact_disk", :action => "index"
     end
   end
@@ -137,7 +153,7 @@ class TransactionController < ApplicationController
 
       disk = CompactDisk.where(:id => e.to_i)
       disk[0].user_id = user.id
-      # cd -> visible = false setzen
+      disk[0].visible = false
       disk[0].save
     end
 
@@ -147,7 +163,7 @@ class TransactionController < ApplicationController
 
       disk = CompactDisk.where(:id => e.to_i)
       disk[0].user_id = dest.id
-      # cd -> visible = false setzen
+      disk[0].visible = false
       disk[0].save
     end
 
@@ -294,7 +310,7 @@ class TransactionController < ApplicationController
 
       disk = CompactDisk.where(:id => e.to_i)
       disk[0].user_id = dest.id
-      #cd -> visible = false setzen
+      disk[0].visible = false
       disk[0].save
     end
 
@@ -304,7 +320,7 @@ class TransactionController < ApplicationController
 
       disk = CompactDisk.where(:id => e.to_i)
       disk[0].user_id = user.id
-      #cd -> visible = false setzen
+      disk[0].visible = false
       disk[0].save
     end
 
