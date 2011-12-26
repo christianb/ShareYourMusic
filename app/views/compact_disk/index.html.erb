@@ -1,6 +1,11 @@
 <% content_for :title, "Alle CDs" %>
 
-<p><%= flash[:alert] %></p>
+<% if flash[:alert] || flash[:notice] %>
+	<div class="alert-message error">
+		<%= flash[:alert] %>
+		<%= flash[:notice] %>
+	</div>
+<% end %>
 
 <%
 =begin %>
