@@ -84,6 +84,11 @@ body{
     height:100px !important;
 }
 
+.welcome{
+    line-height: 18px;
+    margin-bottom: 9px;
+    
+}
 
 #userdata{
     height:150px;
