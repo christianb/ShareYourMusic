@@ -6,7 +6,7 @@
 <ol id="selectable">
 	<% @users.each do |u| %>
 	<li>
-		<%= link_to (image_tag u.photo.url(:normal)), user_path(u)%>
+		<%= link_to (image_tag u.photo.url(:normal)),  allUserCDs_path(u.id)%>
 		<p class="blackFont"><%= u.firstname + " " + u.lastname %></p>
 		
 	</li>

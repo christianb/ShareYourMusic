@@ -1,30 +1,19 @@
-<% content_for :title, "Profil von " + @user.firstname + " " + @user.lastname %>
-
-
-<!--<div id="userdata" class="box-swap" >-->
-
-<div class="row">
-	<div class="span4"><%= image_tag @user.photo.url(:normal) %></div>
-	<div class="span6">
-		email: <%= @user.email %><br />
-		alias: <%= @user.alias %>
-	</div>
-</div>
-<!--</div>-->
+<% content_for :title, "Showcase von "+@user.firstname+" "+@user.lastname %>
+<%= render "user/show_partial" %>
 
 <!--<div id="usercds" class="box-swap" >-->
+<%= will_paginate @cds %>	
 <div class="row">
-	<h3>CD's des Users: </h3>
-	
+	<!--<h3>CD's des Users: </h3>-->
 <ol id="selectable">
 	<% @cds.each do |c| %>
 	<% if c.visible == true %>
 	<li>
-		<%= image_tag c.photo.url(:normal) %>
+		<%= link_to (image_tag c.photo.url(:normal)), compact_disk_path(c), :rel=>"popover", :title=>c.title+" ("+c.artist+")", :id=>getSongs(c)%>
+		
 		<p class="blackFont"><%= c.artist %></p>
 		<p><%= c.title %></p>
 		<p>
-			<%= link_to 'Show', compact_disk_path(c) %>
 			<% if user_signed_in? %>
 				<%= link_to 'Tauschen', swap_cd_path(c.id) %>
 			<% end %>
@@ -34,4 +23,5 @@
 	<% end %>
 </ol>
 </div>
+<%= will_paginate @cds %>	
 <!--</div>-->
