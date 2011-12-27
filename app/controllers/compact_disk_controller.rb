@@ -6,7 +6,7 @@ class CompactDiskController < ApplicationController
   # Eigentümer des CD Prüfen
   def checkUser
      @cd = CompactDisk.find(params[:id])
-     unless @cd.user_id == current_user.id
+     unless (@cd.user_id == current_user.id || AdminController.isAdmin(current_user))
        flash[:error] = "Dies ist nicht Ihre CD"
        redirect_to welcome_path
      end
@@ -38,8 +38,16 @@ class CompactDiskController < ApplicationController
   
   def destroy
     @cd = CompactDisk.find(params[:id])
+    
+    if (@cd.user_id == current_user.id)
+      redirect_to myCDs_path
+    else
+      Notifier.deletion_confirmation_compact_disk(User.where(:id => @cd.user_id).first.email, @cd.title, @cd.artist).deliver
+      redirect_to adminAllCDs_path
+    end
+    
     @cd.destroy
-    redirect_to :action => "index"
+      
   end
   
   def new

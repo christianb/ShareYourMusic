@@ -79,6 +79,8 @@ de:
               blank: "Das aktuelle Passwort darf nicht leer sein."
             role:
               blank: "Rolle existiert nicht! Bitte kontaktieren Sie einen Admin."
+            email:
+                taken: "Email Adresse bereits vergeben!"
               
     attributes:
       user:

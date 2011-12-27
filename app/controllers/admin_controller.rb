@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
   before_filter :isAdmin, :only =>[:show_all_users]
   
-  def isAdmin
+  def self.isAdmin(current_user)
     logger.debug "current user role id = "+current_user.role_id.to_s
     if (current_user.role_id == User.admin)
       logger.debug "isAdmin!!!"
@@ -21,6 +21,11 @@ class AdminController < ApplicationController
   def manage_users
     @users = User.paginate(:page => params[:page], :per_page => 8)
     @users = @users.delete_if {|u| u.id == current_user.id}
+  end
+  
+  def manage_cds
+    @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).paginate(:page => params[:page], :per_page => 8)
+    #@cds = @cds.delete_if {|cd| cd.user_id == current_user.id}
   end
   
   def destroy

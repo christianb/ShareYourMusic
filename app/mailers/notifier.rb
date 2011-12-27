@@ -10,6 +10,12 @@ class Notifier < ActionMailer::Base
       mail(:to => email, :subject => "Your Account has been deleted", :from => "kallisto.rails@gmail.com")  
   end
   
+  def deletion_confirmation_compact_disk(email, title, artist)  
+      @title = title
+      @artist = artist
+      mail(:to => email, :subject => "One of your CDs has been deleted", :from => "kallisto.rails@gmail.com")  
+  end
+  
   def account_upgrade_to_admin(email)
     mail(:to => email, :subject => "Your Account has been upgraded", :from => "kallisto.rails@gmail.com")  
   end
