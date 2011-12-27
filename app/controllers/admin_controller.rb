@@ -19,7 +19,7 @@ class AdminController < ApplicationController
   end
   
   def manage_users
-    @users = User.all
+    @users = User.paginate(:page => params[:page], :per_page => 8)
     @users = @users.delete_if {|u| u.id == current_user.id}
   end
   
