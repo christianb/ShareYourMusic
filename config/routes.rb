@@ -57,7 +57,7 @@ Projekt::Application.routes.draw do
     
     
     
-    
+    match 'impressum' => "application#impressum", :as => :impressum
     match 'admin/manage_users' => 'admin#manage_users', :as => :adminAllUsers
     #match '/compact_disk' => 'compact_disk#index', :as => :compact_disk_index
     #match '/compact_disk/new' => 'compact_disk#new', :as => :new_compact_disk

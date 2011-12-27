@@ -66,4 +66,6 @@ class ApplicationController < ActionController::Base
       end
     end
   
+    def impressum
+    end
 end
