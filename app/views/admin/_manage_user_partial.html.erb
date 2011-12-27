@@ -3,6 +3,7 @@
 <table class="bordered-table zebra-striped" style="margin-left:20px; width: 98% !important;">
     <colgroup>
     <col width="60"> <!-- Bild -->
+	<col width="auto"> <!-- ID -->
     <col width="auto"> <!-- Vorname -->
     <col width="auto"> <!-- Nachname-->
     <col width="auto"> <!-- Email-->
@@ -15,6 +16,7 @@
 <thead>
 <tr>
     <th>Bild</th>
+	<th>ID</th>
     <th>Vorname</th>
     <th>Nachname</th>
     <th> Email</th>
@@ -30,6 +32,7 @@
 <% @users.each do |u| %>
 <tr>
     	<td><%= image_tag u.photo.url(:small) %></td>
+		<td><%= u.id %></td>
 		<td><%= u.firstname %></td>
 		<td><%= u.lastname %></td>
     	<td><%= u.email %></td>
