@@ -14,23 +14,27 @@ class TransactionController < ApplicationController
    cd_wanted = params[:cds_wanted]
    
    # einzelne CD IDs 
+   seperated_mine_cds = cd_mine.split(',')
    seperated_wanted_cds = cd_wanted.split(',')
-   seperated_wanted_cds.each do |swcd|
+   
+   #seperated_wanted_cds.each do |swcd|
      
      # prüfen ob eine der CD nicht visible ist 
-     if (!CompactDisk.find(swcd).visible)
-       cd_visible = false
-       break;
-     end
+     #if CompactDisk.where(:id => seperated_mine_cds, :visible => false).empty?
+    #   cd_visible = false
+     #end
      
-   end
+   #end
    
     # Nutzerdaten ermitteln
     user = User.find(current_user.id)
     dest = User.find(user_id)
     
+    @disks_mine = CompactDisk.where(:id => seperated_mine_cds, :visible => false)
+    @disks_wanted = CompactDisk.where(:id => seperated_wanted_cds, :visible => false)
+
     # Anfrage nur erstellen wenn CD noch visible ist
-    if (cd_visible)
+    if (@disks_mine.empty? || @disks_wanted.empty?)
       Notifier.new_offer(dest.email, user.alias).deliver
     
       message = Message.new
@@ -40,6 +44,8 @@ class TransactionController < ApplicationController
       message.sender = user
       message.recipient = dest
       if message.save
+        CompactDisk.update_all({:visible => false}, {:id => seperated_mine_cds})
+        CompactDisk.update_all({:visible => false}, {:id => seperated_wanted_cds}) 
         redirect_to :controller => "compact_disk", :action => "index"
       end
     else
@@ -86,6 +92,7 @@ class TransactionController < ApplicationController
     @messages_rejected = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Abgelehnt%'", nil])
     @messages_requests = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Anfrage%'", nil])
     @messages_modified = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Modifikation%'", nil])
+    @sent_messages = @user.sent_messages.find(:all);
   end
 
   # Bestätigung der Absage

@@ -18,7 +18,7 @@ class CompactDiskController < ApplicationController
     if user_signed_in?
       @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).paginate(:page => params[:page], :per_page => 25)
     else
-      @cds = CompactDisk.paginate(:page => params[:page], :per_page => 9)
+      @cds = CompactDisk.paginate(:page => params[:page], :per_page => 10)
     end
   end
   
@@ -96,9 +96,9 @@ class CompactDiskController < ApplicationController
     end
   end
   
-  def find_by_artist
-    @cd = CompactDisk.where
-  end
+  #def find_by_artist
+  #  @cd = CompactDisk.where
+  #end
   
   def swap
     if (!user_signed_in?)
@@ -116,9 +116,9 @@ class CompactDiskController < ApplicationController
   # get the last 10 Disks
   def latest
     if (user_signed_in?)
-      @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).order("id DESC").limit(9)#.paginate(:page => params[:page], :per_page => 9)
+      @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).order("id DESC").limit(10)#.paginate(:page => params[:page], :per_page => 9)
     else
-      @cds = CompactDisk.order("id DESC").limit(9)#.paginate(:page => params[:page], :per_page => 9)
+      @cds = CompactDisk.order("id DESC").limit(10)#.paginate(:page => params[:page], :per_page => 9)
     end
   end
   
@@ -127,4 +127,39 @@ class CompactDiskController < ApplicationController
     @cds = CompactDisk.where(:user_id => params[:id]).paginate(:page => params[:page], :per_page => 10)
     @user = User.find(params[:id])
   end
+  
+  # Sichtbarkeit einer CD ändern
+  def makeVisible
+    @cd = CompactDisk.find(params[:id])
+    @user = User.find(@cd.user_id)
+
+    @sent_msg = @user.sent_messages(:all)
+    @received_msg = @user.received_messages(:all)
+
+    @in_transaction = false
+        
+    @sent_msg.each do |sm|
+      if sm.subject.include?(@cd.id.to_s)
+        @in_transaction = true
+        break
+      end
+    end
+    
+    @received_msg.each do |rm|
+      if rm.subject.include?(@cd.id.to_s)
+        @in_transaction = true
+        break
+      end
+    end
+    
+    if !@in_transaction
+      @cd.visible = true
+      @cd.save
+      redirect_to myCDs_path
+    else
+      flash[:error] = "CD befindet sich in einer Transaktion"
+      redirect_to myCDs_path
+    end
+  end
+  
 end

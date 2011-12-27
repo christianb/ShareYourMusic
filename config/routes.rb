@@ -42,6 +42,7 @@ Projekt::Application.routes.draw do
     match '/compact_disk/myCDs/:id' => 'compact_disk#myCDs', :as => :myCDs
     match 'compact_disk/swap/:id' => 'compact_disk#swap', :as => :swap_cd
     match '/compact_disk/all_user_cds/:id' => 'compact_disk#all_user_cds', :as => :allUserCDs
+    match 'compact_disk/makeVisible/:id' => 'compact_disk#makeVisible', :as => :makeVisible
     
     resources :transaction
     match 'transaction/destroy/:id' => 'transaction#destroy', :as => :destroy
@@ -57,7 +58,7 @@ Projekt::Application.routes.draw do
     
     
     
-    
+    match 'impressum' => "application#impressum", :as => :impressum
     match 'admin/manage_users' => 'admin#manage_users', :as => :adminAllUsers
     #match '/compact_disk' => 'compact_disk#index', :as => :compact_disk_index
     #match '/compact_disk/new' => 'compact_disk#new', :as => :new_compact_disk

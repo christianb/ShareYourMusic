@@ -13,6 +13,9 @@
             
 			<p class="blackFont"><%= c.artist %></p>
             <p><%= c.title %></p>
+			<% if !c.visible %>
+				<%= link_to "Freigeben", makeVisible_path(c.id), :class => "btn" %>
+			<% end %>
         
 	</li>
 <% end %>
