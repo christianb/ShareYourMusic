@@ -96,9 +96,9 @@ class CompactDiskController < ApplicationController
     end
   end
   
-  def find_by_artist
-    @cd = CompactDisk.where
-  end
+  #def find_by_artist
+  #  @cd = CompactDisk.where
+  #end
   
   def swap
     if (!user_signed_in?)
@@ -127,4 +127,39 @@ class CompactDiskController < ApplicationController
     @cds = CompactDisk.where(:user_id => params[:id]).paginate(:page => params[:page], :per_page => 10)
     @user = User.find(params[:id])
   end
+  
+  # Sichtbarkeit einer CD ändern
+  def makeVisible
+    @cd = CompactDisk.find(params[:id])
+    @user = User.find(@cd.user_id)
+
+    @sent_msg = @user.sent_messages(:all)
+    @received_msg = @user.received_messages(:all)
+
+    @in_transaction = false
+        
+    @sent_msg.each do |sm|
+      if sm.subject.include?(@cd.id.to_s)
+        @in_transaction = true
+        break
+      end
+    end
+    
+    @received_msg.each do |rm|
+      if rm.subject.include?(@cd.id.to_s)
+        @in_transaction = true
+        break
+      end
+    end
+    
+    if !@in_transaction
+      @cd.visible = true
+      @cd.save
+      redirect_to myCDs_path
+    else
+      flash[:error] = "CD befindet sich in einer Transaktion"
+      redirect_to myCDs_path
+    end
+  end
+  
 end
