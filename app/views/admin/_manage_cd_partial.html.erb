@@ -1,7 +1,8 @@
 <%= will_paginate @cds %>
 <table class="bordered-table zebra-striped" style="margin-left:20px; width: 98% !important;">
     <colgroup>
-    <col width="60"> <!-- Cover ->
+    <col width="60"> <!-- Cover -->
+	<col width="auto"> <!-- ID -->
     <col width="auto"> <!-- Artist -->
     <col width="auto"> <!-- Interpret-->
     <col width="auto"> <!-- Genre-->
@@ -12,6 +13,7 @@
 <thead>
 <tr>
     <th>Cover</th>
+	<th>ID</th>
     <th>Artist</th>
     <th>Interpret</th>
     <th> Genre</th>
@@ -24,6 +26,7 @@
 <% @cds.each do |cd| %>
 <tr>
     	<td><%= image_tag cd.photo.url(:small) %></td>
+		<td><%= cd.id %></td>
 		<td><%= cd.title %></td>
 		<td><%= cd.artist %></td>
     	<td><%= cd.genre %></td>
