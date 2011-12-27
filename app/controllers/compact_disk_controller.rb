@@ -124,7 +124,7 @@ class CompactDiskController < ApplicationController
   
   # Anzeigen aller CDs einez Nutzers + Nutzerinformationen
   def all_user_cds
-    @cds = CompactDisk.where(:user_id => params[:id])
+    @cds = CompactDisk.where(:user_id => params[:id]).paginate(:page => params[:page], :per_page => 10)
     @user = User.find(params[:id])
   end
 end

@@ -2,9 +2,9 @@
 <%= render "user/show_partial" %>
 
 <!--<div id="usercds" class="box-swap" >-->
+<%= will_paginate @cds %>	
 <div class="row">
 	<!--<h3>CD's des Users: </h3>-->
-	
 <ol id="selectable">
 	<% @cds.each do |c| %>
 	<% if c.visible == true %>
@@ -23,4 +23,5 @@
 	<% end %>
 </ol>
 </div>
+<%= will_paginate @cds %>	
 <!--</div>-->
