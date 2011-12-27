@@ -57,17 +57,17 @@
 
 <div class="row show-grid">
 	
+	<div class="actions"> 
 	<% if user_signed_in? && @cd.user_id == current_user.id%>
-		<div class="actions"> 
-				<%= link_to 'Zurück', :back, :class => "btn primary" %>
-				<%= link_to 'Edit', edit_compact_disk_path(@cd), :class => "btn primary" %>
-	  	</div>
+		<%= link_to 'Zurück', :back, :class => "btn primary" %>
+		<%= link_to 'Edit', edit_compact_disk_path(@cd), :class => "btn primary" %>
 	<% else %>
 		<% if user_signed_in? %>
 			<%= link_to 'Abbrechen', myCDs_path, :class => "btn primary" %>
+			<%= link_to 'Tauschen', swap_cd_path(@cd.id), :class => "btn primary" %>
 		<% else %>
 			<%= link_to 'Abbrechen', :back, :class => "btn primary" %>
 		<% end %>
 	<% end %>
-
+	</div>
 </div>
