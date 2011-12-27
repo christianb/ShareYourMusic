@@ -42,6 +42,7 @@ Projekt::Application.routes.draw do
     match '/compact_disk/myCDs/:id' => 'compact_disk#myCDs', :as => :myCDs
     match 'compact_disk/swap/:id' => 'compact_disk#swap', :as => :swap_cd
     match '/compact_disk/all_user_cds/:id' => 'compact_disk#all_user_cds', :as => :allUserCDs
+    match 'compact_disk/makeVisible/:id' => 'compact_disk#makeVisible', :as => :makeVisible
     
     resources :transaction
     match 'transaction/destroy/:id' => 'transaction#destroy', :as => :destroy
