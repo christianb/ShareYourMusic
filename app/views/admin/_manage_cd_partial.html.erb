@@ -1,20 +1,22 @@
 <%= will_paginate @cds %>
 <table class="bordered-table zebra-striped" style="margin-left:20px; width: 98% !important;">
     <colgroup>
-    <col width="60"> <!-- Bild-->
+    <col width="60"> <!-- Cover ->
     <col width="auto"> <!-- Artist -->
     <col width="auto"> <!-- Interpret-->
     <col width="auto"> <!-- Genre-->
     <col width="auto"> <!-- Beschreibung-->
+	<col width="auto"> <!-- Eingestellt von-->
     <col width="auto"> <!-- Löschen -->
     </colgroup>
 <thead>
 <tr>
-    <th>Bild</th>
+    <th>Cover</th>
     <th>Artist</th>
     <th>Interpret</th>
     <th> Genre</th>
     <th> Beschreibung</th>
+	<th> Eingestellt von</th>
     <th> Löschen </th>
 </tr>
 </thead>
@@ -26,6 +28,13 @@
 		<td><%= cd.artist %></td>
     	<td><%= cd.genre %></td>
     	<td><%= cd.description %></td>
+		<% user = User.find(cd.user_id) %>
+		<% if user.alias.empty? %>
+			<td><%= user.firstname + " "+ user.lastname %> </td>
+		<% else %>
+			<td><%= user.alias %> </td>
+		<% end %>
+		
     	<td><%= link_to (image_tag("cross-script.png")), delete_cd_path(cd.id), :method => :delete, :confirm => "Sind Sie sicher?" %> <br></td>
     <!--<td><%= image_tag("cross-script.png")%></td>-->
 </tr>
