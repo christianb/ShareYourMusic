@@ -18,7 +18,7 @@ class CompactDiskController < ApplicationController
     if user_signed_in?
       @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).paginate(:page => params[:page], :per_page => 25)
     else
-      @cds = CompactDisk.paginate(:page => params[:page], :per_page => 9)
+      @cds = CompactDisk.paginate(:page => params[:page], :per_page => 10)
     end
   end
   
@@ -116,9 +116,9 @@ class CompactDiskController < ApplicationController
   # get the last 10 Disks
   def latest
     if (user_signed_in?)
-      @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).order("id DESC").limit(9)#.paginate(:page => params[:page], :per_page => 9)
+      @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).order("id DESC").limit(10)#.paginate(:page => params[:page], :per_page => 9)
     else
-      @cds = CompactDisk.order("id DESC").limit(9)#.paginate(:page => params[:page], :per_page => 9)
+      @cds = CompactDisk.order("id DESC").limit(10)#.paginate(:page => params[:page], :per_page => 9)
     end
   end
   
