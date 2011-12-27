@@ -1,0 +1,11 @@
+<div class="row show-grid" >
+    <div class="span11" style="margin-left:39px;">
+		<% if !@user.alias.empty? %>
+        	<p><b><%= t('user.alias')%>: </b><span style="margin-left:16px;"><%= @user.alias %></span></p>
+		<% end %>
+        <p><b><%= t('user.email')%>: </b><span style="margin-left:12px;"><%= @user.email %></span></p>
+    </div>
+    <div class="span5">
+        <%= image_tag @user.photo.url(:normal) %>
+    </div>
+</div>
