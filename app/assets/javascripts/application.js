@@ -273,7 +273,7 @@ function dragDropCD(){
 				     $id_arr.push($(this).find('img').attr('alt'));
 				});
 				
-				var url = "http://localhost:3000/de/transaction/modify/"
+				var url = "/de/transaction/modify/"
 				var msg = $('#msg_id').attr('value');
 				
 				var href = $('a').attr('href');
