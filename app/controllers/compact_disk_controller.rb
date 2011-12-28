@@ -50,8 +50,10 @@ class CompactDiskController < ApplicationController
     if (@cd.user_id == current_user.id)
       redirect_to myCDs_path
     else
-      
-      Notifier.deletion_confirmation_compact_disk(User.find(@cd.user_id).email, @cd.title, @cd.artist).deliver
+      user = User.find(@cd.user_id)
+      if (user.email_notification)
+        Notifier.deletion_confirmation_compact_disk(user.email, @cd.title, @cd.artist).deliver
+      end
       redirect_to adminAllCDs_path
     end
     
