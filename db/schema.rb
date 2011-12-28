@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 20111228220733) do
     t.string   "audio_content_type"
     t.integer  "audio_file_size"
     t.integer  "year"
-    t.integer  "like",               :default => 0
+    t.integer  "rank",               :default => 0
   end
 
   create_table "messages", :force => true do |t|
@@ -102,7 +102,6 @@ ActiveRecord::Schema.define(:version => 20111228220733) do
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
-    t.boolean  "email_notificaiton",                    :default => true
     t.boolean  "email_notification",                    :default => true
   end
 
