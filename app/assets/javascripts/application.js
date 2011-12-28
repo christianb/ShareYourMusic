@@ -7,6 +7,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require compact_disk
+
 
 
 
@@ -241,8 +243,9 @@ function dragDropCD(){
 						$('html body').find('#mine').each(function(index) {
 						     $id_arr.push($(this).find('img').attr('alt'));
 						});
-						
-				var url = "http://localhost:3000/de/transaction/new?"
+
+				var host = window.location.host;		
+				var url = host + "/de/transaction/new?"
 				var user = $('#user_id').attr('value');
 				
 				//alert(user);
@@ -257,6 +260,7 @@ function dragDropCD(){
 				}
 			
 			});
+			
 			
 			$('.modifyBt').click(function(){
 			//	$wanted_cds.push($('#wanted').find('img').attr('alt'));
@@ -274,62 +278,10 @@ function dragDropCD(){
 				
 				var href = $('a').attr('href');
 				$('a').attr('href', url + msg + '?cds_mine=' + $.unique($id_arr) + '&cds_wanted=' + $.unique($wanted_cds));
-
 			});	
 			
 }
 
-
-/*
-function dragDropCD(){
-	var $cds = $("#selectable");
-	var $share = $("#shareBox");
-	
-	// make elements (cds) draggable
-	$("li", $cds).draggable({
-		revert: "invalid"
-	});
-	
-	// place to drop cds
-	$share.droppable({
-		accept: "#selectable > li",
-		drop: function( event, ui ) {
-		//	$( "<li></li>" ).text( ui.draggable.text()).appendTo( this ).append("Remove");
-			ui.draggable.fadeOut(1000);
-		}
-	});
-	
-	$cds.droppable({
-		accept: "#shareBox li",
-		drop: function( event, ui ) {
-			//removeFromShare( ui.draggable );
-			ui.draggable.appendTo("#selectable");
-		}
-	});
-}
-*/
-/*
-function openInBox(){
-	$('#opendialog a').each(function() {
-			var $dialog = $('<div></div>');
-			var $link = $(this).one.('click', function() {
-				$dialog
-					.load($link.attr('href') + ' #content p')
-					.dialog({
-						title: $link.attr('title'),
-						width: 500,
-						height: 300
-					});
-
-				$link.click(function() {
-					$dialog.dialog('open');
-					return false;
-				});
-				return false;
-			});
-	});
-}
-*/
 
 /*
 function addSongField(){

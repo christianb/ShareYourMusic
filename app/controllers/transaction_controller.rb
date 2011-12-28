@@ -6,6 +6,7 @@ class TransactionController < ApplicationController
   cd_visible = true
    # User_ID des Tauschpartners
    user_id = params[:user_id]
+   body = params[:body]
    
    # dest = params[:dest_user_id]
    
@@ -16,15 +17,6 @@ class TransactionController < ApplicationController
    # einzelne CD IDs 
    seperated_mine_cds = cd_mine.split(',')
    seperated_wanted_cds = cd_wanted.split(',')
-   
-   #seperated_wanted_cds.each do |swcd|
-     
-     # prüfen ob eine der CD nicht visible ist 
-     #if CompactDisk.where(:id => seperated_mine_cds, :visible => false).empty?
-    #   cd_visible = false
-     #end
-     
-   #end
    
     # Nutzerdaten ermitteln
     user = User.find(current_user.id)
@@ -43,9 +35,7 @@ class TransactionController < ApplicationController
       message.body = "Anfrage; Hallo, ich tausche 2 CDs gegen Chuck Norris"
       message.sender = user
       message.recipient = dest
-      if message.save
-        CompactDisk.update_all({:visible => false}, {:id => seperated_mine_cds})
-        CompactDisk.update_all({:visible => false}, {:id => seperated_wanted_cds}) 
+      if message.save        
         redirect_to :controller => "compact_disk", :action => "index"
       end
     else
@@ -131,7 +121,6 @@ class TransactionController < ApplicationController
 
     cds = rsv_message.subject
 
-
     cd_array = cds.split(';')
 
     tauschCDs = cd_array[0].split(',')
@@ -146,6 +135,8 @@ class TransactionController < ApplicationController
     message.recipient = dest
     message.save
 
+#    CompactDisk.update_all({:visible => false}, {:id => seperated_mine_cds})
+#    CompactDisk.update_all({:visible => false}, {:id => seperated_wanted_cds})
 
     # CD tauschen
     #cd_provider = CompactDisk.where(:id => rsv_message.subject)
@@ -158,6 +149,15 @@ class TransactionController < ApplicationController
     t = Transaction.new(:provider_id => dest.id, :receiver_id => user.id, :provider_disk_id => "2".to_i, :receiver_disk_id => "3".to_i)
     t.save
 
+    CompactDisk.update_all({:user_id => user.id}, {:id => tauschCDs})
+    CompactDisk.update_all({:user_id => dest.id}, {:id => wunschCDs})
+    sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => tauschCDs)
+    sp.save
+   
+    sr = SwapReceiver.new(:transaction_id => t.id, :compact_disk_id => wunschCDs)
+    sr.save
+
+=begin    
     tauschCDs.each do |e|
       sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => e.to_i)
       sp.save
@@ -177,13 +177,7 @@ class TransactionController < ApplicationController
       disk[0].visible = false
       disk[0].save
     end
-
-
-    #cd_provider[0].user_id = dest.id
-    #cd_receiver[0].user_id = user.id
-
-    #cd_provider[0].save
-    #cd_receiver[0].save
+=end
 
     # Nachrichen löschen
     msg.mark_deleted(user)
