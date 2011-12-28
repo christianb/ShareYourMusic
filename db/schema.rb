@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111228170810) do
+ActiveRecord::Schema.define(:version => 20111228220733) do
 
   create_table "compact_disks", :force => true do |t|
-    t.integer  "user_id",            :null => false
-    t.string   "title",              :null => false
-    t.string   "artist",             :null => false
-    t.string   "genre",              :null => false
+    t.integer  "user_id",                           :null => false
+    t.string   "title",                             :null => false
+    t.string   "artist",                            :null => false
+    t.string   "genre",                             :null => false
     t.text     "description"
     t.boolean  "visible"
     t.datetime "created_at"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20111228170810) do
     t.string   "audio_content_type"
     t.integer  "audio_file_size"
     t.integer  "year"
+    t.integer  "like",               :default => 0
   end
 
   create_table "messages", :force => true do |t|
