@@ -4,7 +4,8 @@
         	<p><b><%= t('user.alias')%>: </b><span style="margin-left:16px;"><%= @user.alias %></span></p>
 		<% end %>
         <p><b><%= t('user.email')%>: </b><span style="margin-left:12px;"><%= @user.email %></span></p>
-		<% if current_user.id == @user.id %>
+		
+		<% if user_signed_in? && current_user.id == @user.id %>
 			<% if @user.email_notification %>
 				<p><b>Benachrichtigungen: </b><span style="margin-left:12px;">Ja</span></p>
 			<% else %>
