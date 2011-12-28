@@ -77,7 +77,7 @@
 			<%= link_to 'Tauschen', swap_cd_path(@cd.id), :class => "btn primary" %>
 		<% end %>
 		<% if user_signed_in? && AdminController.isAdmin(current_user) %>
-			<%= link_to "CD löschen", @cd, :confirm => "Wollen Sie Ihre CD \""+ @cd.title+"\" wirklich löschen?", :method => :delete, :class => "btn danger" %>
+			<%= link_to "CD löschen", @cd, :confirm => "Wollen die CD \""+ @cd.title+"\" von "+User.find(@cd.user_id).firstname+" "+User.find(@cd.user_id).lastname+" wirklich löschen?", :method => :delete, :class => "btn danger" %>
 		<% end %>
 	<% end %>
 	</div>
