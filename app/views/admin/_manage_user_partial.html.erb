@@ -3,61 +3,68 @@
 <table class="bordered-table zebra-striped" style="margin-left:20px; width: 98% !important;">
     <colgroup>
     <col width="60"> <!-- Bild -->
-	<col width="auto"> <!-- ID -->
     <col width="auto"> <!-- Vorname -->
     <col width="auto"> <!-- Nachname-->
     <col width="auto"> <!-- Email-->
     <col width="auto"> <!-- Alias-->
-    <col width="auto"> <!-- Registrierdatum-->
-	<col width="auto"> <!-- Letzter Login-->
-    <col width="auto">
-    <col width="auto">
+	<% if user_signed_in? && AdminController.isAdmin(current_user) %>
+		<col width="auto"> <!-- ID -->
+	    <col width="auto"> <!-- Registrierdatum-->
+		<col width="auto"> <!-- Letzter Login-->
+	    <col width="auto"> <!-- Admin -->
+	    <col width="auto"> <!-- Löschen -->
+	<% end %>
     </colgroup>
 <thead>
 <tr>
     <th>Bild</th>
-	<th>ID</th>
     <th>Vorname</th>
     <th>Nachname</th>
     <th> Email</th>
     <th> Alias</th>
-    <th> Registierdatum</th>
-	<th> Letzter Login </th>
-		<th>Admin</th>
-    <th></th>
-    <th></th>
+	<% if user_signed_in? && AdminController.isAdmin(current_user) %>
+		<th> ID </th>
+	    <th> Registierdatum</th>
+		<th> Letzter Login </th>
+		<th> Admin </th>
+	    <th></th>
+	    <th></th>
+	<% end %>
 </tr>
 </thead>
 <tbody>
 <% @users.each do |u| %>
 <tr>
     	<td><%= image_tag u.photo.url(:small) %></td>
-		<td><%= u.id %></td>
 		<td><%= u.firstname %></td>
 		<td><%= u.lastname %></td>
     	<td><%= u.email %></td>
     	<td><%= u.alias %></td>
-    	<td><%= u.created_at.strftime("%d. %b. %Y") %></td>
-		<td><%= u.last_sign_in_at.strftime("%d. %b. %Y") %></td>
-		<td>
-			<% if u.role_id == User.admin %>
-				ja
-			<% else %>
-			  nein
-			<% end %>
-		</td>
-		<td> <%= image_tag("pencil.png") %></td>
-		<td> 
-			<%= link_to (image_tag("cross-script.png")), delete_user_path(u.id), :method => :delete, :confirm => "Sind Sie sicher?" %> <br>
-			<% if u.role_id == User.admin %>
-				<%= link_to "set User", set_as_user_path(u.id) %>
-			<% end %>
+		<% if user_signed_in? && AdminController.isAdmin(current_user) %>
+			<td><%= u.id %></td>
+	    	<td><%= u.created_at.strftime("%d. %b. %Y") %></td>
+			<td><%= u.last_sign_in_at.strftime("%d. %b. %Y") %></td>
+			<td>
+				<% if u.role_id == User.admin %>
+					ja
+				<% else %>
+				  nein
+				<% end %>
+			</td>
+			<td> <%= image_tag("pencil.png") %></td>
+			<td> 	
+				<%= link_to (image_tag("cross-script.png")), delete_user_path(u.id), :method => :delete, :confirm => "Sind Sie sicher?" %> <br>
 			
-			<% if u.role_id == User.user %>
-				<%= link_to "set Admin", set_as_admin_path(u.id) %>
-			<% end %>
+				<% if u.role_id == User.admin %>
+					<%= link_to "set User", set_as_user_path(u.id) %>
+				<% end %>
 			
-		</td>
+				<% if u.role_id == User.user %>
+					<%= link_to "set Admin", set_as_admin_path(u.id) %>
+				<% end %>
+			
+			</td>
+		<% end %>
     <!--<td><%= image_tag("cross-script.png")%></td>-->
 </tr>
 <% end %>
