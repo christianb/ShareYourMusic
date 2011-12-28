@@ -27,8 +27,10 @@ class TransactionController < ApplicationController
 
     # Anfrage nur erstellen wenn CD noch visible ist
     if (@disks_mine.empty? || @disks_wanted.empty?)
-      Notifier.new_offer(dest.email, user.alias).deliver
-    
+      if (dest.email_notification)
+        Notifier.new_offer(dest.email, user.alias).deliver
+      end
+      
       message = Message.new
       #message.subject = "#{cd_wanted};#{cd_mine}"
       message.subject = "#{cd_mine};#{cd_wanted}"
