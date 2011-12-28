@@ -2,21 +2,23 @@
 
 <div class="row grid-move" >
     <div id="myCDs" class="span4 swap box-swap" style="padding:4px;" > 
+        <span>Meine CDs:</span></br></br>
     	<% @myCDs.each do |cd| %>
 			<%= image_tag cd.photo.url(:small), :alt => cd.id %>
 		<% end %>
 	</div>
     <div class="span8" style="margin-left:10px;" >
         <div id="wanted" class="wanted box-swap">
+            <span>Diese moechte ich haben:</span></br></br>
 			<%= hidden_field_tag 'user_id', @user.id %>
 			<%= image_tag @cd.photo.url(:small), :alt => @cd.id %>
 		</div>
         <div id="mine" class="mine box-swap">
-
+            <span>Diese tausche ich dafuer ein:</span></br></br>
 		</div>
     </div>
     <div id="userCDs" class="span4 swap box-swap" style="margin-left:10px; padding:4px;"  >
-		Weitere CDs von <%= @user.firstname + " " + @user.lastname %>
+		<span>Weitere CDs von: <%= @user.firstname + " " + @user.lastname %></span></br></br>
 		<% @userCDs.each do |cd| %>
 			<% if cd.id != @cd.id %>
 				<%= image_tag cd.photo.url(:small), :alt => cd.id %>
