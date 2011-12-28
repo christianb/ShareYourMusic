@@ -34,7 +34,7 @@
 <tbody>
 <% @users.each do |u| %>
 <tr>
-    	<td><%= image_tag u.photo.url(:small) %></td>
+    	<td><%= link_to (image_tag u.photo.url(:small)), allUserCDs_path(u.id) %></td>
 		<td><%= u.firstname %></td>
 		<td><%= u.lastname %></td>
     	<td><%= u.email %></td>

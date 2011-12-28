@@ -26,6 +26,7 @@ en:
       index:
           cd_headline: "CD Collection"
           cd_new: "Add new CD"
+          cd_all: "All CDs"
       
   layouts:
       application:

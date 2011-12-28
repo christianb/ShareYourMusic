@@ -25,7 +25,7 @@
 <tbody>
 <% @cds.each do |cd| %>
 <tr>
-    	<td><%= image_tag cd.photo.url(:small) %></td>
+    	<td><%= link_to (image_tag cd.photo.url(:small)), allUserCDs_path(cd.user_id) %> </td>
 		<td><%= cd.id %></td>
 		<td><%= cd.title %></td>
 		<td><%= cd.artist %></td>

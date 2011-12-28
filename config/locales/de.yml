@@ -41,6 +41,7 @@ de:
       index:
         cd_headline: "CD Sammlung"
         cd_new: "Neue CD anlegen"
+        cd_all: "Alle CDs"
       new:
         upload_cover: "Cover"
         demo_song: "Demosong"
@@ -63,6 +64,7 @@ de:
          user_logout: "Ausloggen"
          user_show: "Account Daten"
          user_cd_index: "Meine CDs"
+         cd_all: "Alle CDs"
          
   errors:
     messages:
