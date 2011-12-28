@@ -27,8 +27,7 @@
 	    <th> Registierdatum</th>
 		<th> Letzter Login </th>
 		<th> Admin </th>
-	    <th></th>
-	    <th></th>
+	    <th> Löschen</th>
 	<% end %>
 </tr>
 </thead>
@@ -45,24 +44,26 @@
 	    	<td><%= u.created_at.strftime("%d. %b. %Y") %></td>
 			<td><%= u.last_sign_in_at.strftime("%d. %b. %Y") %></td>
 			<td>
+				<b>
 				<% if u.role_id == User.admin %>
 					ja
 				<% else %>
 				  nein
 				<% end %>
+				</b>
+				<br><br>
+				ändern zu:
+				<% if u.role_id == User.admin %>
+					<br>
+					<%= link_to "User", set_as_user_path(u.id), :class => "btn default" %><br>
+				<% end %>
+				<% if u.role_id == User.user %>
+					<br>
+					<%= link_to "Admin", set_as_admin_path(u.id), :class => "btn default" %><br>
+				<% end %>
 			</td>
-			<td> <%= image_tag("pencil.png") %></td>
 			<td> 	
 				<%= link_to (image_tag("cross-script.png")), delete_user_path(u.id), :method => :delete, :confirm => "Sind Sie sicher?" %> <br>
-			
-				<% if u.role_id == User.admin %>
-					<%= link_to "set User", set_as_user_path(u.id) %>
-				<% end %>
-			
-				<% if u.role_id == User.user %>
-					<%= link_to "set Admin", set_as_admin_path(u.id) %>
-				<% end %>
-			
 			</td>
 		<% end %>
     <!--<td><%= image_tag("cross-script.png")%></td>-->

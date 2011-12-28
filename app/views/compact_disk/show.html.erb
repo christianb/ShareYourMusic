@@ -60,7 +60,7 @@
 	<div class="actions"> 
 	<% if user_signed_in? && @cd.user_id == current_user.id%>
 		<%= link_to 'Zurück', :back, :class => "btn primary" %>
-		<%= link_to 'Edit', edit_compact_disk_path(@cd), :class => "btn primary" %>
+		<%= link_to 'Bearbeiten', edit_compact_disk_path(@cd), :class => "btn primary" %>
 	<% else %>
 		<% if user_signed_in? %>
 			<%= link_to 'Abbrechen', myCDs_path, :class => "btn primary" %>

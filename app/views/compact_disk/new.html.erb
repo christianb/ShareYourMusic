@@ -71,16 +71,16 @@
   </div>
 
 	<div class="clearfix">
-    	<%= form.label "Upload Song" %>
+    	<%= form.label t('.demo_song') %>
         <div class="input">
         	<%= form.file_field :audio, :class => "input-file" %>
         </div>
   </div>
 
+* Pflichtfelder
+
     <div class="actions"> 
-        <%= form.submit "CD erstellen", :class => "btn primary" %>
+        <%= form.submit "CD erstellen", :class => "btn success" %>
     </div>
 <% end %>
-
-
 

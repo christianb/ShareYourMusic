@@ -1,7 +1,15 @@
 class CompactDiskController < ApplicationController
   before_filter :set_locale
   before_filter :checkUser, :only =>[:destroy, :update]
+  before_filter :signed_in?, :only => [:show]
   #load_and_authorize_resource :only => [:show, :destroy]
+  
+  def signed_in?
+    unless user_signed_in?
+      flash[:alert] = "Als Gast koennen sie sich die CD nicht ansehen!"
+      redirect_to :back
+    end
+  end
   
   # Eigentümer des CD Prüfen
   def checkUser
