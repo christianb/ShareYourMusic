@@ -34,7 +34,7 @@ de:
         confirm_changes: "Sind Sie sicher?"
         upload_photo: "Ihr Bild"
       new:
-        sign_up: "Profil erstellen"
+        sign_up: "Erstellen"
         headline: "Erstellen eines persöhnlichen Profils"
 
   compact_disk:
@@ -42,7 +42,8 @@ de:
         cd_headline: "CD Sammlung"
         cd_new: "Neue CD anlegen"
       new:
-        upload_cover: "Cover hochladen"
+        upload_cover: "Cover"
+        demo_song: "Demosong"
         create: "Neue CD erstellen"
       myCDs: 
         my_cds: "Meine CD's"
