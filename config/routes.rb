@@ -37,6 +37,8 @@ Projekt::Application.routes.draw do
     
     resources :compact_disk, :except => [:show, :destroy]
     match '/compact_disk/latest' => 'compact_disk#latest', :as => :latest_cd
+    match 'compact_disk/like/:id' => 'compact_disk#like', :as => :like_cd, :via => :get
+    match 'comapct_disk/best' => 'compact_disk#best', :as => :best_cd, :via => :get
     match '/compact_disk/:id' => 'compact_disk#show', :as => :compact_disk, :via => :get
     
     match '/compact_disk/myCDs/:id' => 'compact_disk#myCDs', :as => :myCDs
@@ -44,6 +46,7 @@ Projekt::Application.routes.draw do
     match '/compact_disk/all_user_cds/:id' => 'compact_disk#all_user_cds', :as => :allUserCDs
     match 'compact_disk/makeVisible/:id' => 'compact_disk#makeVisible', :as => :makeVisible
     match 'compact_disk/:id' => 'compact_disk#destroy', :as => :delete_cd, :via => :delete
+    
     
     resources :transaction
     match 'transaction/destroy/:id' => 'transaction#destroy', :as => :destroy
