@@ -244,13 +244,13 @@ function dragDropCD(){
 						     $id_arr.push($(this).find('img').attr('alt'));
 						});
 
-				var host = window.location.host;		
-				var url = host + "/de/transaction/new?"
+				//var host = window.location.host;		
+				var url = "/de/transaction/new?";
 				var user = $('#user_id').attr('value');
 				
 				//alert(user);
 				var href = $('a').attr('href');
-				$('.actions a').attr('href', url + 'user_id=' + user + '&cds_mine=' + $.unique($id_arr) + '&cds_wanted=' + $.unique($wanted_cds));
+				$('.actions a').attr('href', (url + 'user_id=' + user + '&cds_mine=' + $.unique($id_arr) + '&cds_wanted=' + $.unique($wanted_cds)));
 				
 				if ($id_arr.toString() != "" && $wanted_cds.toString() != "" ){
 					$(this).hide();

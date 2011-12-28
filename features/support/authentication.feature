@@ -22,7 +22,7 @@ Feature: Authentication
     And I fill in "Password" with "qwertz" in the registration form
     And I fill in "Password Confirmation" with "qwertz" in the registration form
     And I fill in "Email" with "christianb@gmail.com" in the registration form
-    And I press "Profil erstellen"
+    And I press "Erstellen"
     Then I should see "Alle CDs"
 		
 	@ok
