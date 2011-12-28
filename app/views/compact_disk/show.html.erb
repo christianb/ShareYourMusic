@@ -51,7 +51,7 @@
 		<% end %>
 		
 		<p>
-			<b>Sterne:</b> <%= @cd.like.to_s %> 
+			<b>Sterne:</b> <%= @cd.rank.to_s %> 
 			<% if current_user.id != @cd.user_id %>
 				(<%= link_to 'Like', like_cd_path(@cd.id) %>)
 			<% end %>
