@@ -1,5 +1,12 @@
   class UserController < ApplicationController
   before_filter :set_locale
+  before_filter :isAdmin, :only =>[:set_as_admin, :set_as_user]
+  
+  def isAdmin
+    unless (user_signed_in? && AdminController.isAdmin(current_user))
+       redirect_to :back
+    end
+  end
   
   # just print some attributes of a user
   # GET /user/1
