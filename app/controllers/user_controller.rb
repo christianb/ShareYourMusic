@@ -30,6 +30,7 @@
       #logger.debug "password: "
       #logger.debug @_new_password
       Notifier.registration_confirmation(email, password).deliver
+      flash[:notice] = "Password versendet."
       redirect_to welcome_path
     else
       flash[:alert] = "Email Adresse nicht bekannt!"

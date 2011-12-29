@@ -1,17 +1,23 @@
-<% content_for :title, "Forgot your password?" %>
+<% content_for :title, "Passwort vergessen?" %>
 
-<% if flash[:alert] || flash[:notice] %>
+<% if flash[:alert] %>
 	<div class="alert-message error">
-		<%= flash[:alert] %>
-		<%= flash[:notice] %>
+		<%= flash[:alert] %></p>
 	</div>
 <% end %>
 
 <%= form_for(resource, :as => resource_name, :url => reset_password_path, :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+	<div class="clearfix">
+  		<%= f.label "Ihre eMail Adresse: " %><br />
+		<div class="input">
+  			<%= f.email_field :email %>
+		</div>
+	</div>
 
-  <div><%= f.submit "Send me new password" %></div>
+  
+	<div class="actions"> 
+		<%= f.submit "Neues Passwort senden", :class => "btn primary" %>
+	</div>
 <% end %>
