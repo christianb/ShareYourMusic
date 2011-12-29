@@ -22,14 +22,19 @@
     array = User.where(:email => email)
     @user = array[0]
     
-    password_length = 8
-    password = Devise.friendly_token.first(password_length)
-    @user.update_attribute(:password, password)
+    if !@user.nil?
+      password_length = 8
+      password = Devise.friendly_token.first(password_length)
+      @user.update_attribute(:password, password)
     
-    #logger.debug "password: "
-    #logger.debug @_new_password
-    Notifier.registration_confirmation(email, password).deliver
-    redirect_to welcome_path
+      #logger.debug "password: "
+      #logger.debug @_new_password
+      Notifier.registration_confirmation(email, password).deliver
+      redirect_to welcome_path
+    else
+      flash[:alert] = "Email Adresse nicht bekannt!"
+      redirect_to :back
+    end
   end
   
   def most_active

@@ -1,5 +1,12 @@
 <% content_for :title, "Forgot your password?" %>
 
+<% if flash[:alert] || flash[:notice] %>
+	<div class="alert-message error">
+		<%= flash[:alert] %>
+		<%= flash[:notice] %>
+	</div>
+<% end %>
+
 <%= form_for(resource, :as => resource_name, :url => reset_password_path, :html => { :method => :post }) do |f| %>
   <%= devise_error_messages! %>
 
