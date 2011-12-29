@@ -1,11 +1,13 @@
 <% content_for :title, "Showcase von "+@user.firstname+" "+@user.lastname %>
 
-<% if flash[:alert] || flash[:notice] %>
+<div style="margin-left:20px;">
+<% if flash[:alert] %>
 	<div class="alert-message error">
+		<a class="alert_close" href="#">×</a>
 		<%= flash[:alert] %>
-		<%= flash[:notice] %>
 	</div>
 <% end %>
+</div>
 
 <%= render "user/show_partial" %>
 

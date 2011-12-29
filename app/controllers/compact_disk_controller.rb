@@ -57,7 +57,9 @@ class CompactDiskController < ApplicationController
       redirect_to adminAllCDs_path
     end
     
+    title = @cd.title
     @cd.destroy  
+    flash[:notice] = "CD: "+title+" erfolgreich geloescht."
   end
   
   def new
@@ -71,7 +73,7 @@ class CompactDiskController < ApplicationController
     respond_to do |format|
         if @cd.save
           format.html  { redirect_to(myCDs_path(current_user.id),
-                        :notice => 'CD was successfully created.') }
+                        :notice => 'CD erfolgreich angelegt.') }
           format.json  { render :json => @cd,
                         :status => :created, :location => @cd }
           
