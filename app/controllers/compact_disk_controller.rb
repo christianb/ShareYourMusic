@@ -33,7 +33,7 @@ class CompactDiskController < ApplicationController
   def myCDs
     #@allCDs = CompactDisk.all
    # @myCDs = CompactDisk.where(:user_id => current_user.id)
-    @myCDs = CompactDisk.where(:user_id => current_user.id).paginate(:page => params[:page], :per_page => 25)
+    @myCDs = CompactDisk.where(:user_id => current_user.id).order("updated_at DESC").paginate(:page => params[:page], :per_page => 25)
 
   end
   

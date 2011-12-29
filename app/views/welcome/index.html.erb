@@ -1,5 +1,11 @@
 <% content_for :title, "Willkommen" %>
 
+<% if flash[:notice] %>
+	<div class="alert-message success">
+		<%= flash[:notice] %></p>
+	</div>
+<% end %>
+
 <div class="row" style="margin-left:17px">
     <div class="span5 welcome">
         <h6 style="text-align: center;">Was ist SwaRMusic?</h6>

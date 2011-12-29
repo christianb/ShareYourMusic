@@ -102,7 +102,6 @@ ActiveRecord::Schema.define(:version => 20111228233145) do
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
-    t.boolean  "email_notificaiton",                    :default => true
     t.boolean  "email_notification",                    :default => true
   end
 
