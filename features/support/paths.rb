@@ -15,6 +15,14 @@ def path_to(page_name)
     user_path(@user)
   when "Account loeschen"
     url_for(:action => "destroy", :controller => "devise/registrations")
+  when "Alle CDs"
+    compact_disk_index_path
+  when "Neueste CDs"
+    latest_cd_path
+  when "Aktivste Benutzer"
+    most_active_user_path
+  when "Tollste CDs"
+    best_cd_path
     #
     #url_for(:action => "show", :controller => "user")
     
