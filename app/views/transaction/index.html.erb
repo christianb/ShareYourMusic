@@ -1,167 +1,187 @@
 <% content_for :title, "Anfragen" %>
 <div style ="margin-left:17px">
 
-<h6>Gesendete Anfragen</h6>
-<table class="bordered-table zebra-striped">
-	<thead>
-	<tr>
-	    <th>Meine CD</th>
-		<th>Gegen</th>
-	</tr>
-	</thead>
-	<tbody>
-	<% @sent_messages.each do |sm| %>
-	<% wcd = getWantedCDs(sm.subject) %>
-	<% mcd = getMineCDs(sm.subject) %>
-	<tr>
-		<td>
-			<% wcd.each do |m| %>
-				<%= image_tag getCover(m).photo.url(:small) %>
-			<% end %>
-		</td>
-		<td>
-			<% mcd.each do |w| %>
-				<%= image_tag getCover(w).photo.url(:small) %>
-			<% end %>
-		</td>
-	</tr>
-	<% end %>
-	</tbody>
-</table>
+<% if !@sent_messages.empty? %>
+	<h6>Gesendete Anfragen</h6>
+	<table class="bordered-table zebra-striped">
+		<thead>
+		<tr>
+		    <th>Meine CDs</th>
+			<th>Gegen CDs von <%= @sent_messages.first.recipient.firstname %> <%= @sent_messages.first.recipient.lastname %></th>
+		</tr>
+		</thead>
+		<tbody>
+		<% @sent_messages.each do |sm| %>
+		<% wcd = getWantedCDs(sm.subject) %>
+		<% mcd = getMineCDs(sm.subject) %>
+		<tr>
+			<td>
+				<% wcd.each do |m| %>
+					<%= image_tag getCover(m).photo.url(:small) %>
+				<% end %>
+			</td>
+			<td>
+				<% mcd.each do |w| %>
+					<%= image_tag getCover(w).photo.url(:small) %>
+				<% end %>
+			</td>
+		</tr>
+		<% end %>
+		</tbody>
+	</table>
+<% end %>
 
-<h6>Erhaltene Anfragen</h6>
-<table class="bordered-table zebra-striped">
-	<thead>
-	<tr>
-	    <th>Meine CD</th>
-		<th>Gegen</th>
-		<th></th>
-	</tr>
-	</thead>
-	<tbody>
-	<% @messages_requests.each do |ma| %>
-	<% wcd = getWantedCDs(ma.subject) %>
-	<% mcd = getMineCDs(ma.subject) %>
-	<tr>
-		<td>
-			<% mcd.each do |w| %>
-				<%= image_tag getCover(w).photo.url(:small) %>
-			<% end %>
-		</td>
-		<td>
-			<% wcd.each do |m| %>
-				<%= image_tag getCover(m).photo.url(:small) %>
-			<% end %>
-		</td>
-		<td>
-			<%= link_to "Ablehnen", destroy_url(:id => ma) ,:methode => "delete", :class => "btn danger" %>
-			<%= link_to "Annehmen", accept_url(ma), :class => "btn success" %>
-			<%= link_to "Modifizieren", modifyRequest_path(ma), :class => "btn" %>
-		</td>
-	</tr>
-	<% end %>
-	</tbody>
-</table>
+<% if !@messages_requests.empty? %>
+	<h6>Erhaltene Anfragen</h6>
+	<table class="bordered-table zebra-striped">
+		<thead>
+		<tr>
+		    <th>Meine CDs</th>
+			<th>Gegen CDs von <%= @messages_requests.first.sender.firstname %> <%= @messages_requests.first.sender.lastname %></th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		<% @messages_requests.each do |ma| %>
+		<% wcd = getWantedCDs(ma.subject) %>
+		<% mcd = getMineCDs(ma.subject) %>
+		<tr>
+			<td>
+				<% mcd.each do |w| %>
+					<%= image_tag getCover(w).photo.url(:small) %>
+				<% end %>
+			</td>
+			<td>
+				<% wcd.each do |m| %>
+					<%= image_tag getCover(m).photo.url(:small) %>
+				<% end %>
+			</td>
+			<td class="middle">
+				<%= link_to "Annehmen", accept_url(ma), :class => "btn success" %>
+				<%= link_to "Ablehnen", destroy_url(:id => ma) ,:methode => "delete", :class => "btn danger" %>
+				<%= link_to "Modifizieren", modifyRequest_path(ma), :class => "btn" %>
+			</td>
+		</tr>
+		<% end %>
+		</tbody>
+	</table>
+<% end %>
 
-<h6>Abgelehnte Anfragen</h6>
-<table class="bordered-table zebra-striped">
-	<thead>
-	<tr>
-	    <th>Meine CD</th>
-		<th>Gegen</th>
-		<th></th>
-	</tr>
-	</thead>
+<% if !@messages_rejected.empty? %>
+	<h6>Abgelehnte Anfragen</h6>
+	<table class="bordered-table zebra-striped">
+		<thead>
+		<tr>
+		    <th>Meine CDs</th>
+			<th>Gegen CDs von <%= @messages_rejected.first.sender.firstname %> <%= @messages_rejected.first.sender.lastname %></th>
+			<th></th>
+		</tr>
+		</thead>
 	
-	<% @messages_rejected.each do |mr| %>
-	<% wcd = getWantedCDs(mr.subject) %>
-	<% mcd = getMineCDs(mr.subject) %>
-	<tr>
+		<% @messages_rejected.each do |mr| %>
+		<% wcd = getWantedCDs(mr.subject) %>
+		<% mcd = getMineCDs(mr.subject) %>
+		<tr>
+			<td>
+				<% wcd.each do |m| %>
+					<%= image_tag getCover(m).photo.url(:small) %>
+				<% end %>
+			</td>
+			<td>
+				<% mcd.each do |w| %>
+					<%= image_tag getCover(w).photo.url(:small) %>
+				<% end %>
+			</td>
+			<td class="middle">
+			<% if mr.body.include? "MAbgelehnt" %>
+				<%= link_to "Ok", modified_rejected_url(:id => mr), :class => "btn" %>
+			<% else %>
+				<%= link_to "Ok", rejected_url(:id => mr), :class => "btn" %>
+			<% end %>
+			</td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>
+
+<% if !@messages_accepted.empty? %>
+	<h6>Angenommene Anfragen</h6>
+	<table class="bordered-table zebra-striped">
+		<thead>
+		<tr>
+		    <th>Meine CD</th>
+			<th>Gegen</th>
+			<th></th>
+		</tr>
+		</thead>
+	
+	<% @messages_accepted.each do |m| %>
+	<% wcd = getWantedCDs(m.subject) %>
+	<% mcd = getMineCDs(m.subject) %>
+		<tr>
 		<td>
-			<% mcd.each do |w| %>
+			<% wcd.each do |w| %>
 				<%= image_tag getCover(w).photo.url(:small) %>
 			<% end %>
 		</td>
 		<td>
-			<% wcd.each do |m| %>
+			<% mcd.each do |m| %>
 				<%= image_tag getCover(m).photo.url(:small) %>
 			<% end %>
 		</td>
-		<td>
-		<% if mr.body.include? "MAbgelehnt" %>
-			<%= link_to "Ok", modified_rejected_url(:id => mr), :class => "btn" %>
+		<td class="middle">
+		<% if m.body.include? "MAngenommen" %>
+			<%= link_to "Ok", modify_accepted_url(:id => m), :class => "btn"%>
 		<% else %>
-			<%= link_to "Ok", rejected_url(:id => mr), :class => "btn" %>
+			<%= link_to "Ok", accepted_url(:id => m), :class => "btn" %>
 		<% end %>
 		</td>
-	</tr>
+		</tr>
 	<% end %>
-</table>
+	</table>
+<% end %>
 
+<% if !@messages_modified.empty? %>
+	<h6>Modifizierte Anfragen</h6>
+	<table class="bordered-table zebra-striped">
+		<thead>
+		<tr>
+		    <th>Meine CD (Alt)</th>
+			<th>Gegen (Alt)</th>
+			<th>Meine (Neu)</th>
+			<th>Gegen (Neu)</th>
+			<th></th>
+		</tr>
+		</thead>
 
-<h6>Angenommene Anfragen</h6>
-<table class="bordered-table zebra-striped">
-	<thead>
-	<tr>
-	    <th>Meine CD</th>
-		<th>Gegen</th>
-		<th></th>
-	</tr>
-	</thead>
-	
-<% @messages_accepted.each do |m| %>
-	<tr>
-	<td><%= m.subject %></td>
-	<td>
-	<% if m.body.include? "MAngenommen" %>
-		<%= link_to "Ok", modify_accepted_url(:id => m), :class => "btn"%>
-	<% else %>
-		<%= link_to "Ok", accepted_url(:id => m), :class => "btn" %>
+	<% @messages_modified.each do |m| %>
+		<tr>
+		<td>
+			<% getOldReqMine(m.subject).each do |orm| %>
+				<%= image_tag getCover(orm).photo.url(:small) %>
+			<% end %>
+		</td>
+		<td>
+			<% getOldReqProvide(m.subject).each do |orp| %>
+				<%= image_tag getCover(orp).photo.url(:small) %>
+			<% end %>
+		</td>
+		<td>
+			<% getNewReqMine(m.subject).each do |nrm| %>
+				<%= image_tag getCover(nrm).photo.url(:small) %>
+			<% end %>
+		</td>
+		<td>
+			<% getNewReqProvide(m.subject).each do |nrp| %>
+				<%= image_tag getCover(nrp).photo.url(:small) %>
+			<% end %>
+		</td>
+		<td class="middle">
+			<%= link_to "Modifizierung Annehmen", modified_accept_url(:id => m), :class => "btn success" %> |
+			<%= link_to "Modifizierung Ablehnen", modified_reject_url(:id => m), :class => "btn danger" %>
+		</td>
+		</tr>
 	<% end %>
-	</td>
-	</tr>
+	</table>
 <% end %>
-</table>
-
-<h6>Modifizierte Anfragen</h6>
-<table class="bordered-table zebra-striped">
-	<thead>
-	<tr>
-	    <th>Meine CD (Alt)</th>
-		<th>Gegen (Alt)</th>
-		<th>Meine (Neu)</th>
-		<th>Gegen (Neu)</th>
-		<th></th>
-	</tr>
-	</thead>
-
-<% @messages_modified.each do |m| %>
-	<tr>
-	<td>
-		<% getOldReqMine(m.subject).each do |orm| %>
-			<%= image_tag getCover(orm).photo.url(:small) %>
-		<% end %>
-	</td>
-	<td>
-		<% getOldReqProvide(m.subject).each do |orp| %>
-			<%= image_tag getCover(orp).photo.url(:small) %>
-		<% end %>
-	</td>
-	<td>
-		<% getNewReqMine(m.subject).each do |nrm| %>
-			<%= image_tag getCover(nrm).photo.url(:small) %>
-		<% end %>
-	</td>
-	<td>
-		<% getNewReqProvide(m.subject).each do |nrp| %>
-			<%= image_tag getCover(nrp).photo.url(:small) %>
-		<% end %>
-	</td>
-	<td>
-		<%= link_to "Modifizierung Annehmen", modified_accept_url(:id => m), :class => "btn success" %> |
-		<%= link_to "Modifizierung Ablehnen", modified_reject_url(:id => m), :class => "btn danger" %>
-	</td>
-	</tr>
-<% end %>
-</table>
 </div>
