@@ -252,6 +252,9 @@ function dragDropCD(){
 				var href = $('a').attr('href');
 				$('.actions a').attr('href', (url + 'user_id=' + user + '&cds_mine=' + $.unique($id_arr) + '&cds_wanted=' + $.unique($wanted_cds)));
 				
+				$('#cds_mine').attr('value', $.unique($id_arr));
+				$('#cds_wanted').attr('value', $.unique($wanted_cds));
+				
 				if ($id_arr.toString() != "" && $wanted_cds.toString() != "" ){
 					$(this).hide();
 					$('.sendBtn').show();

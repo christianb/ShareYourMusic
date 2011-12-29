@@ -1,11 +1,13 @@
 class TransactionController < ApplicationController
 
 # neue Anfrage erstellen
-def new
+def create
   cd_visible = true
  
   # User_ID des Tauschpartners
   user_id = params[:user_id]
+  
+  # Nachrichtentext
   body = params[:body]
  
   # CDs die getauscht werden sollen
@@ -30,7 +32,7 @@ def new
   
     message = Message.new
     message.subject = "#{cd_mine};#{cd_wanted}"
-    message.body = "#{body}"
+    #message.body = "#{body}"
     message.sender = user
     message.recipient = dest
     if message.save        
@@ -41,7 +43,6 @@ def new
       flash[:notice] = "Mindestens eine CD ist nicht mehr fuer einen Tausch verfuegbar"
     end
 end
-
 
 # Anfrage löschen/ablehnen
 def destroy  
