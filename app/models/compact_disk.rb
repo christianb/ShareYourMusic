@@ -8,7 +8,7 @@ class DateOfReleaseValidator < ActiveModel::Validator
       record.errors[:base] << "Erscheinungsjahr darf nicht in der Zukunft liegen."
     end
     
-    if !((record.year > (Time.now.year - 100)) && (record.year <= Time.now.year))
+    if !((record.year >= (Time.now.year - 100)) && (record.year <= Time.now.year))
       record.errors[:base] << "Erscheinungsjahr muss zwischen "+(Time.now.year-100).to_s+" und "+Time.now.year.to_s+ " liegen"
     end
   end
