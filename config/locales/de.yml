@@ -22,6 +22,9 @@ de:
       confirm_changes: "Sind Sie sicher?"
   
   devise:
+    sessions:
+        user:
+            signed_out: "Erfolgreich abgemeldet."
     registrations:
       edit:
         headline: "Benutzerprofil ändern"
