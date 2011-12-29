@@ -49,6 +49,14 @@
 			</audio>
 			</p>
 		<% end %>
+		
+		<p>
+			<b>Sterne:</b> <%= @cd.rank.to_s %> 
+			<% if current_user.id != @cd.user_id %>
+				(<%= link_to 'Like', like_cd_path(@cd.id) %>)
+			<% end %>
+		</p>
+		
 	</div>
 	<div class="span5">
         <%= image_tag @cd.photo.url(:normal) %>
@@ -63,11 +71,10 @@
 		<%= link_to 'Bearbeiten', edit_compact_disk_path(@cd), :class => "btn primary" %>
 	<% else %>
 		<% if user_signed_in? %>
-			<%= link_to 'Abbrechen', myCDs_path, :class => "btn primary" %>
+			<!--<% if current_user.id != @cd.user_id %>
+				<%= link_to 'Like', like_cd_path(@cd.id), :class => "btn success" %>
+			<% end %>-->
 			<%= link_to 'Tauschen', swap_cd_path(@cd.id), :class => "btn primary" %>
-		<% end %>
-		<% if !user_signed_in? %>
-			<%= link_to 'Abbrechen', :back, :class => "btn primary" %>
 		<% end %>
 		<% if user_signed_in? && AdminController.isAdmin(current_user) %>
 			<%= link_to "CD löschen", @cd, :confirm => "Wollen Sie Ihre CD \""+ @cd.title+"\" wirklich löschen?", :method => :delete, :class => "btn danger" %>

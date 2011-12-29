@@ -180,4 +180,13 @@ class CompactDiskController < ApplicationController
     end
   end
   
+  def like
+    cd = CompactDisk.find(params[:id])
+    cd.update_attribute(:rank,(cd.rank+1))
+    redirect_to :back
+  end
+  
+  def best
+    @best = CompactDisk.order("rank DESC").limit(10)
+  end
 end
