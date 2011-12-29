@@ -1,19 +1,20 @@
 <% content_for :title, "Anfragen" %>
 <div style ="margin-left:17px">
 
-<% if !@sent_messages.empty? %>
+<% if !@sent_messages.empty? || @sent_messages != nil %>
 	<h6>Gesendete Anfragen</h6>
 	<table class="bordered-table zebra-striped">
 		<thead>
 		<tr>
 		    <th>Meine CDs</th>
-			<th>Gegen CDs von <%= @sent_messages.first.recipient.firstname %> <%= @sent_messages.first.recipient.lastname %></th>
+			<th>Gegen CDs </th>
+			<th>Von</th>
 		</tr>
 		</thead>
 		<tbody>
 		<% @sent_messages.each do |sm| %>
-		<% wcd = getWantedCDs(sm.subject) %>
-		<% mcd = getMineCDs(sm.subject) %>
+			<% wcd = getWantedCDs(sm.subject) %>
+			<% mcd = getMineCDs(sm.subject) %>
 		<tr>
 			<td>
 				<% wcd.each do |m| %>
@@ -25,19 +26,23 @@
 					<%= image_tag getCover(w).photo.url(:small) %>
 				<% end %>
 			</td>
+			<td>
+				<%= sm.recipient.firstname + " " + sm.recipient.lastname %>
+			</td>
 		</tr>
 		<% end %>
 		</tbody>
 	</table>
 <% end %>
 
-<% if !@messages_requests.empty? %>
+<% if !@messages_requests.empty? || @messages_requests != nil %>
 	<h6>Erhaltene Anfragen</h6>
 	<table class="bordered-table zebra-striped">
 		<thead>
 		<tr>
 		    <th>Meine CDs</th>
-			<th>Gegen CDs von <%= @messages_requests.first.sender.firstname %> <%= @messages_requests.first.sender.lastname %></th>
+			<th>Gegen CDs</th>
+			<th>Von</th>
 			<th></th>
 		</tr>
 		</thead>
@@ -56,6 +61,9 @@
 					<%= image_tag getCover(m).photo.url(:small) %>
 				<% end %>
 			</td>
+			<td>
+				<%= ma.sender.firstname + " " + ma.sender.lastname %>
+			</td>
 			<td class="middle">
 				<%= link_to "Annehmen", accept_url(ma), :class => "btn success" %>
 				<%= link_to "Ablehnen", destroy_url(:id => ma) ,:methode => "delete", :class => "btn danger" %>
@@ -67,13 +75,14 @@
 	</table>
 <% end %>
 
-<% if !@messages_rejected.empty? %>
+<% if !@messages_rejected.empty? || @messages_rejected != nil %>
 	<h6>Abgelehnte Anfragen</h6>
 	<table class="bordered-table zebra-striped">
 		<thead>
 		<tr>
 		    <th>Meine CDs</th>
-			<th>Gegen CDs von <%= @messages_rejected.first.sender.firstname %> <%= @messages_rejected.first.sender.lastname %></th>
+			<th>Gegen CDs</th>
+			<th>Von</th>
 			<th></th>
 		</tr>
 		</thead>
@@ -92,6 +101,9 @@
 					<%= image_tag getCover(w).photo.url(:small) %>
 				<% end %>
 			</td>
+			<td>
+				<%= m.sender.firstname + " " + m.sender.lastname %>
+			</td>
 			<td class="middle">
 			<% if mr.body.include? "MAbgelehnt" %>
 				<%= link_to "Ok", modified_rejected_url(:id => mr), :class => "btn" %>
@@ -104,7 +116,7 @@
 	</table>
 <% end %>
 
-<% if !@messages_accepted.empty? %>
+<% if !@messages_accepted.empty? || @messages_accepted != nil %>
 	<h6>Angenommene Anfragen</h6>
 	<table class="bordered-table zebra-striped">
 		<thead>
@@ -141,7 +153,7 @@
 	</table>
 <% end %>
 
-<% if !@messages_modified.empty? %>
+<% if !@messages_modified.empty? || @messages_modified != nil %>
 	<h6>Modifizierte Anfragen</h6>
 	<table class="bordered-table zebra-striped">
 		<thead>
