@@ -1,13 +1,11 @@
 class TransactionController < ApplicationController
 
 # neue Anfrage erstellen
-def create
+def new
   cd_visible = true
  
   # User_ID des Tauschpartners
   user_id = params[:user_id]
-  
-  # Nachrichtentext
   body = params[:body]
  
   # CDs die getauscht werden sollen
@@ -30,19 +28,60 @@ def create
   if (@disks_mine.empty? || @disks_wanted.empty?)
     Notifier.new_offer(dest.email, user.alias).deliver
   
+<<<<<<< HEAD
     message = Message.new
     message.subject = "#{cd_mine};#{cd_wanted}"
-    #message.body = "#{body}"
+    message.body = "Anfrage; Hallo, ich tausche 2 CDs gegen Chuck Norris"
     message.sender = user
     message.recipient = dest
     if message.save        
       redirect_to :controller => "compact_disk", :action => "index"
     end
+=======
+  cd_visible = true
+   # User_ID des Tauschpartners
+   user_id = params[:user_id]
+   body = params[:body]
+   
+   # dest = params[:dest_user_id]
+   
+   # CDs die getauscht werden sollen
+   cd_mine = params[:cds_mine]
+   cd_wanted = params[:cds_wanted]
+   
+   # einzelne CD IDs 
+   seperated_mine_cds = cd_mine.split(',')
+   seperated_wanted_cds = cd_wanted.split(',')
+   
+    # Nutzerdaten ermitteln
+    user = User.find(current_user.id)
+    dest = User.find(user_id)
+    
+    @disks_mine = CompactDisk.where(:id => seperated_mine_cds, :visible => false)
+    @disks_wanted = CompactDisk.where(:id => seperated_wanted_cds, :visible => false)
+
+    # Anfrage nur erstellen wenn CD noch visible ist
+    if (@disks_mine.empty? || @disks_wanted.empty?)
+      if (dest.email_notification)
+        Notifier.new_offer(dest.email, user.alias).deliver
+      end
+      
+      message = Message.new
+      #message.subject = "#{cd_wanted};#{cd_mine}"
+      message.subject = "#{cd_mine};#{cd_wanted}"
+      message.body = "Anfrage; Hallo, ich tausche 2 CDs gegen Chuck Norris"
+      message.sender = user
+      message.recipient = dest
+      if message.save        
+        redirect_to :controller => "compact_disk", :action => "index"
+      end
+>>>>>>> e68ada27a0cb0b3e7691b23e0646eb5c351dcca7
     else
       redirect_to :controller => "compact_disk", :action => "index"
       flash[:notice] = "Mindestens eine CD ist nicht mehr fuer einen Tausch verfuegbar"
     end
 end
+
 
 # Anfrage löschen/ablehnen
 def destroy  

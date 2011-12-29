@@ -9,8 +9,7 @@
 	</div>
     <div class="span8" style="margin-left:10px;" >
         <div id="wanted" class="wanted box-swap">
-            <span>Diese moechte ich haben:</span></br></br>
-			<%= hidden_field_tag 'user_id', @user.id %>
+            <span>Diese moechte ich haben:</span></br></br>		
 			<%= image_tag @cd.photo.url(:small), :alt => @cd.id %>
 		</div>
         <div id="mine" class="mine box-swap">
@@ -25,15 +24,30 @@
 			<% end %>
 		<% end %>
 	</div>
+	
 	<div class="row">
 		<div class="actions">
 			<button class="shareBt btn">Speichern</button>
-			<%= link_to "Anfrage senden", new_transaction_path(:user_id => @cd.user_id), :class => "btn primary sendBtn" %>
+	<!--		<%= link_to "Anfrage senden", new_transaction_path(:user_id => @cd.user_id), :class => "btn primary sendBtn", :type => "submit" %> -->
+			<%= form_tag({:controller => "transaction", :action => "create"}) do %>
+				<%= hidden_field_tag 'cds_mine', ''%>
+				<%= hidden_field_tag 'cds_wanted', ''%>
+				<%= hidden_field_tag 'user_id', @user.id %>
+				<%= submit_tag 'Anfrage senden', :class => "btn primary sendBtn" %>
+			<% end %>
 		</div>
 	</div>
-	
+<!--	
 	<div class="row">
-		<div>
+		<div class="span10">
+			<%= form_tag({:controller => "transaction", :action => "create"}) do %>
+				<%= hidden_field_tag 'cds_mine', ''%>
+				<%= hidden_field_tag 'cds_wanted', ''%>
+				<%= hidden_field_tag 'user_id', @user.id %>
+				<%= text_area_tag 'body', nil, :rows => 3 %>
+				<%= submit_tag 'Senden', :class => "btn primary sendBtn" %>
+			<% end %>
+		</div>
 	</div>
-	
+-->	
 </div>
