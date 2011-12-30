@@ -11,6 +11,11 @@
 			<% else %>
 				<p><b>Benachrichtigungen: </b><span style="margin-left:12px;">Nein danke.</span></p>
 			<% end %>
+			<% if @user.search_own_cds %>
+				<p><b>Eigene CD's in Suche einbeziehen?: </b><span style="margin-left:12px;">Ja bitte.</span></p>
+			<% else %>
+				<p><b>Eigene CD's in Suche einbeziehen?: </b><span style="margin-left:12px;">Nein danke.</span></p>
+			<% end %>
 		<% end %>
     </div>
     <div class="span5">

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111228233145) do
+ActiveRecord::Schema.define(:version => 20111230142734) do
 
   create_table "compact_disks", :force => true do |t|
     t.integer  "user_id",                           :null => false
@@ -102,7 +102,9 @@ ActiveRecord::Schema.define(:version => 20111228233145) do
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
+    t.boolean  "email_notificaiton",                    :default => true
     t.boolean  "email_notification",                    :default => true
+    t.boolean  "search_own_cds",                        :default => true
   end
 
 end

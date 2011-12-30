@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
         }
 
         # delete own cd's
-        if (user_signed_in?)
+        if (user_signed_in? && !current_user.search_own_cds)
           @cds = @cds.delete_if {|c| c.user_id == current_user.id}
         end
       
