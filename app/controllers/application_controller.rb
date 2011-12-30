@@ -61,7 +61,11 @@ class ApplicationController < ActionController::Base
             #logger.debug 'size cds = '+@cds.length.to_s
             #logger.debug 'title = '+cd.first.title
             #cd.push(@cds)
-            @cds = @cds.push(cd.first)
+            
+            # if cd is not in array
+            if (!@cds.include?(cd.first))
+              @cds = @cds.push(cd.first)
+            end
             #logger.debug 'size cds = '+@cds.length.to_s
           end
         }
