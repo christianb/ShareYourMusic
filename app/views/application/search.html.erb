@@ -1,10 +1,8 @@
 <% content_for :title, "Suchergebniss" %>
-	
-<% if !@cds.empty? %>
-	<h3>Gefundene CDs</h3>
-	<p><%= flash[:alert] %></p>
 
+<% if !@cds.empty? %>
 	<div style="padding-left:20px;">
+		<h3>Gefundene CDs</h3>
 	</div>
 	<div style="height:494px;">
 	<ol id="selectable">
@@ -27,15 +25,22 @@
 		<% end %>
 	</ol>
 	</div>
+	
 	<div style="padding-left:20px;">
-	</div>
+		</div>
 <% end %>
 
+<div>
 <% if !@users.empty? %>
-<h3>Gefundene User</h3>
+<div style="padding-left:20px;">
+	<h3>Gefundene Benutzer</h3>
+</div>
 <%= render "admin/manage_user_partial" %>
 <% end %>
 
 <% if @users.empty? && @cds.empty? %>
+<div style="padding-left:20px;">
 	Keine Einträge gefunden.
+</div>
 <% end %>
+</div>

@@ -1,2 +1,4 @@
 <% content_for :title, "Nutzerverwaltung" %>
+<%= will_paginate @users, :previous_label => "Zurück", :next_label => "Weiter"  %>
 <%= render "admin/manage_user_partial" %>
+<%= will_paginate @users, :previous_label => "Zurück", :next_label => "Weiter"  %>

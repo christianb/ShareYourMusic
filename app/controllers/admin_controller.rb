@@ -19,12 +19,12 @@ class AdminController < ApplicationController
   end
   
   def manage_users
-    @users = User.where(User.arel_table[:id].not_eq(current_user.id))
+    @users = User.where(User.arel_table[:id].not_eq(current_user.id)).paginate(:page => params[:page], :per_page => 8)
     #@users = @users.delete_if {|u| u.id == current_user.id}
   end
   
   def manage_cds
-    @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id))
+    @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).paginate(:page => params[:page], :per_page => 8)
     #@cds = @cds.delete_if {|cd| cd.user_id == current_user.id}
   end
   

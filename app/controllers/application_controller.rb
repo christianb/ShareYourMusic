@@ -45,13 +45,13 @@ class ApplicationController < ActionController::Base
         num = name.to_i
         if (num != 0)
           #logger.debug "search num: "+num.to_s
-          @cds = CompactDisk.where("cast(year as text) LIKE ?","%#{num}%").paginate(:page => params[:page], :per_page => 9)
+          @cds = CompactDisk.where("cast(year as text) LIKE ?","%#{num}%")
         else
           @songs = Song.where("title LIKE ?","%#{name}%")
           #logger.debug 'songs size = '+@songs.size.to_s
-          @cds = CompactDisk.where("artist LIKE ? OR title LIKE ? OR genre LIKE ?","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
+          @cds = CompactDisk.where("artist LIKE ? OR title LIKE ? OR genre LIKE ?","%#{name}%","%#{name}%","%#{name}%")
         end
-        @users = User.where("firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR alias LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
+        @users = User.where("firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR alias LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%")
         
         
         
