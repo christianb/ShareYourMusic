@@ -1,10 +1,11 @@
 <% content_for :title, "Showcase von "+@user.firstname+" "+@user.lastname %>
 
 <div style="margin-left:20px;">
-<% if flash[:alert] %>
+<% if flash[:alert] || flash[:notice] %>
 	<div class="alert-message error">
 		<a class="alert_close" href="#">×</a>
 		<%= flash[:alert] %>
+		<%= flash[:notice] %>
 	</div>
 <% end %>
 </div>
