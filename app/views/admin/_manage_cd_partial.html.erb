@@ -7,7 +7,7 @@
 <% end %>
 </div>
 
-<%= will_paginate @cds %>
+<%= will_paginate @cds, :previous_label => "Zurück", :next_label => "Weiter"  %>
 <table class="bordered-table zebra-striped" style="margin-left:20px; width: 98% !important;">
     <colgroup>
     <col width="60"> <!-- Cover -->
@@ -53,4 +53,4 @@
 <% end %>
 </tbody>
 </table>
-<%= will_paginate @cds %>
+<%= will_paginate @cds, :previous_label => "Zurück", :next_label => "Weiter"  %>

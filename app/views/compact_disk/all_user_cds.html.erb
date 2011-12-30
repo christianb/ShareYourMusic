@@ -13,7 +13,7 @@
 <%= render "user/show_partial" %>
 
 <!--<div id="usercds" class="box-swap" >-->
-<%= will_paginate @cds %>	
+<%= will_paginate @cds, :previous_label => "Zurück", :next_label => "Weiter" %>	
 <div class="row">
 	<!--<h3>CD's des Users: </h3>-->
 <ol id="selectable">
@@ -34,5 +34,5 @@
 	<% end %>
 </ol>
 </div>
-<%= will_paginate @cds %>	
+<%= will_paginate @cds, :previous_label => "Zurück", :next_label => "Weiter"  %>	
 <!--</div>-->

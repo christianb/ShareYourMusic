@@ -5,7 +5,6 @@
 	<p><%= flash[:alert] %></p>
 
 	<div style="padding-left:20px;">
-	<%= will_paginate @cds %>
 	</div>
 	<div style="height:494px;">
 	<ol id="selectable">
@@ -19,7 +18,7 @@
 			<p>
 				<!--<%= link_to 'Show', compact_disk_path(c) %>-->
 				
-				<% if user_signed_in? %>
+				<% if user_signed_in? && current_user.id != c.user_id %>
 					<%= link_to 'Tauschen', swap_cd_path(c.id) %>
 				<% end %>
 			</p>
@@ -29,7 +28,6 @@
 	</ol>
 	</div>
 	<div style="padding-left:20px;">
-	<%= will_paginate @cds %>
 	</div>
 <% end %>
 
