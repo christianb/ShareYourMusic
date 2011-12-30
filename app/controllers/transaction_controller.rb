@@ -32,7 +32,7 @@ def create
   
     message = Message.new
     message.subject = "#{cd_mine};#{cd_wanted}"
-    #message.body = "#{body}"
+    message.body = "Anfrage"
     message.sender = user
     message.recipient = dest
     if message.save        
@@ -76,13 +76,14 @@ end
 def index
   @user_id = current_user.id
   @user = User.find(@user_id)
-
+  
   # Alle Anfrage
   @messages_accepted = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Angenommen%'", nil])
   @messages_rejected = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Abgelehnt%'", nil])
   @messages_requests = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Anfrage%'", nil])
   @messages_modified = @user.received_messages.find(:all, :conditions => ["read_at is ? and body LIKE '%Modifikation%'", nil])
   @sent_messages = @user.sent_messages.find(:all);
+  
 end
 
 # Bestätigung der Absage

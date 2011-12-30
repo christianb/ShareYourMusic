@@ -1,6 +1,13 @@
 <% content_for :title, "Neueste CDs" %>
 
-<p><%= flash[:alert] %></p>
+<div style="margin-left:20px;">
+<% if flash[:alert]%>
+	<div class="alert-message error">
+		<a class="alert_close" href="#">×</a>
+		<%= flash[:alert] %>
+	</div>
+<% end %>
+</div>
 
 <%
 =begin %>
@@ -21,7 +28,7 @@
 	<% if c.visible == true %>
 	<li>
 		<!--<%= image_tag c.photo.url(:normal) %>-->
-		<%= link_to (image_tag c.photo.url(:normal)), allUserCDs_path(c.user_id), :rel=>"popover", :title=>c.title+" ("+c.artist+")", :id=>getSongs(c)%>
+		<%= link_to (image_tag c.photo.url(:normal)), compact_disk_path(c), :rel=>"popover", :title=>c.title+" ("+c.artist+")", :id=>getSongs(c)%>
 		<p class="blackFont"><%= c.artist %></p>
 		<p><%= c.title %></p>
 		<p>

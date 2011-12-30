@@ -24,7 +24,7 @@ de:
   devise:
     sessions:
         user:
-            signed_out: "Erfolgreich abgemeldet."
+            signed_out: "Abmeldung erfolgreich."
     registrations:
       edit:
         headline: "Benutzerprofil ändern"

@@ -4,7 +4,7 @@
 		
 		<% if !user_signed_in? || current_user.id != @cd.user_id %>
 			<p>
-				<b>Besitzer:</b>
+				<b>Showcase von:</b>
 				<%= link_to @user.firstname + ' ' + @user.lastname, allUserCDs_path(@cd.user_id) %>
 			</p>
 		<% end %>
