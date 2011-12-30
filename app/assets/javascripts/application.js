@@ -77,7 +77,8 @@ function dragDropCD(){
 					// CD IDs in Array speichern
 					$id_arr.push(ui.draggable.attr('alt'));
 					$('.sendBtn').hide();
-					$('.shareBt').show();					
+					$('.shareBt').show();
+					$('.modifyBt').show();					
 				}
 			});
 			
@@ -92,6 +93,7 @@ function dragDropCD(){
 					$wanted_cds.push(ui.draggable.attr('alt'));
 						$('.sendBtn').hide();
 						$('.shareBt').show();
+						$('.modifyBt').show();
 				}
 			});
 
@@ -106,6 +108,7 @@ function dragDropCD(){
 					$id_arr.length = 0;
 					$('.sendBtn').hide();
 					$('.shareBt').show();
+					$('.modifyBt').show();
 				}
 			});
 			
@@ -119,6 +122,8 @@ function dragDropCD(){
 					$wanted_cds.length = 0;
 					$('.sendBtn').hide();
 					$('.shareBt').show();
+					$('.modifyBt').show();
+
 				}
 			});
 
@@ -280,7 +285,17 @@ function dragDropCD(){
 				var msg = $('#msg_id').attr('value');
 				
 				var href = $('a').attr('href');
-				$('a').attr('href', url + msg + '?cds_mine=' + $.unique($id_arr) + '&cds_wanted=' + $.unique($wanted_cds));
+				$('.actions a').attr('href', url + msg + '?cds_mine=' + $.unique($id_arr) + '&cds_wanted=' + $.unique($wanted_cds));
+
+				$('#cds_mine').attr('value', $.unique($id_arr));
+				$('#cds_wanted').attr('value', $.unique($wanted_cds));
+				
+				if ($id_arr.toString() != "" && $wanted_cds.toString() != "" ){
+					$(this).hide();
+					$('.sendBtn').show();
+				} else {
+					alert("Es muss mindestens eine CD zum Tausch angeboten werden");
+				}
 			});	
 			
 }
