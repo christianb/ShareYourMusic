@@ -1,10 +1,20 @@
 <% content_for :title, t('layouts.application.user_cd_index') %>
+
+<div style="margin-left:20px;">
+<% if flash[:notice] %>
+	<div class="alert-message success">
+		<a class="alert_close" href="#">×</a>
+		<%= flash[:notice] %></p>
+	</div>
+<% end %>
+</div>
+
 <div class="row">
 <div class="pull-right"><%= link_to t('compact_disk.new.create'), new_compact_disk_path, :class => "btn primary" %></div>
 </div>
 
 <div style="padding-left:20px;">
-<%= will_paginate @myCDs %>
+<%= will_paginate @myCDs, :previous_label => "Zurück", :next_label => "Weiter"  %>
 </div>
 <ul id="selectable">
 <% @myCDs.each do |c| %>
@@ -21,5 +31,5 @@
 <% end %>
 </ul>
 <div style="padding-left:20px;">
-<%= will_paginate @myCDs %>
+<%= will_paginate @myCDs, :previous_label => "Zurück", :next_label => "Weiter"  %>
 </div>

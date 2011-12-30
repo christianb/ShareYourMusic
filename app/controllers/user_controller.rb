@@ -51,7 +51,9 @@
       if (@user.email_notification)
         Notifier.deletion_confirmation(@user.email).deliver
       end
+      name = @user.firstname+" "+@user.lastname
       @user.destroy
+      flash[:notice] = "Benutzer: "+name+" erfolgreich geloescht."
       redirect_to :back
   end
   

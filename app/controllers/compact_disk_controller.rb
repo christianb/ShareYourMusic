@@ -24,7 +24,7 @@ class CompactDiskController < ApplicationController
     #@cds = CompactDisk.where(:user_id => current_user.id)
     #@cds = CompactDisk.all
     if user_signed_in?
-      @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).paginate(:page => params[:page], :per_page => 25)
+      @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).paginate(:page => params[:page], :per_page => 10)
     else
       @cds = CompactDisk.paginate(:page => params[:page], :per_page => 10)
     end
@@ -57,7 +57,9 @@ class CompactDiskController < ApplicationController
       redirect_to adminAllCDs_path
     end
     
+    title = @cd.title
     @cd.destroy  
+    flash[:notice] = "CD: "+title+" erfolgreich geloescht."
   end
   
   def new
@@ -71,7 +73,7 @@ class CompactDiskController < ApplicationController
     respond_to do |format|
         if @cd.save
           format.html  { redirect_to(myCDs_path(current_user.id),
-                        :notice => 'CD was successfully created.') }
+                        :notice => 'CD erfolgreich angelegt.') }
           format.json  { render :json => @cd,
                         :status => :created, :location => @cd }
           

@@ -45,13 +45,13 @@ class ApplicationController < ActionController::Base
         num = name.to_i
         if (num != 0)
           #logger.debug "search num: "+num.to_s
-          @cds = CompactDisk.where("cast(year as text) LIKE ?","%#{num}%").paginate(:page => params[:page], :per_page => 9)
+          @cds = CompactDisk.where("cast(year as text) LIKE ?","%#{num}%")
         else
           @songs = Song.where("title LIKE ?","%#{name}%")
           #logger.debug 'songs size = '+@songs.size.to_s
-          @cds = CompactDisk.where("artist LIKE ? OR title LIKE ? OR genre LIKE ?","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
+          @cds = CompactDisk.where("artist LIKE ? OR title LIKE ? OR genre LIKE ?","%#{name}%","%#{name}%","%#{name}%")
         end
-        @users = User.where("firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR alias LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%").paginate(:page => params[:page], :per_page => 9)
+        @users = User.where("firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR alias LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%")
         
         
         
@@ -61,13 +61,17 @@ class ApplicationController < ActionController::Base
             #logger.debug 'size cds = '+@cds.length.to_s
             #logger.debug 'title = '+cd.first.title
             #cd.push(@cds)
-            @cds = @cds.push(cd.first)
+            
+            # if cd is not in array
+            if (!@cds.include?(cd.first))
+              @cds = @cds.push(cd.first)
+            end
             #logger.debug 'size cds = '+@cds.length.to_s
           end
         }
 
         # delete own cd's
-        if (user_signed_in?)
+        if (user_signed_in? && !current_user.search_own_cds)
           @cds = @cds.delete_if {|c| c.user_id == current_user.id}
         end
       

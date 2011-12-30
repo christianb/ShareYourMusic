@@ -115,6 +115,11 @@
     selector: '.close'
   }
 
+
+	$(document).ready(function(){
+	  $(".alert-message").alert({selector : '.alert_close'});
+	});
+
   $(document).ready(function () {
     new Alert($('body'), {
       selector: '.alert-message[data-alert] .close'

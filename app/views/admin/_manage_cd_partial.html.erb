@@ -1,4 +1,13 @@
-<%= will_paginate @cds %>
+<div style="margin-left:20px;">
+<% if flash[:notice] %>
+	<div class="alert-message success">
+		<a class="alert_close" href="#">×</a>
+		<%= flash[:notice] %></p>
+	</div>
+<% end %>
+</div>
+
+<%= will_paginate @cds, :previous_label => "Zurück", :next_label => "Weiter"  %>
 <table class="bordered-table zebra-striped" style="margin-left:20px; width: 98% !important;">
     <colgroup>
     <col width="60"> <!-- Cover -->
@@ -25,7 +34,7 @@
 <tbody>
 <% @cds.each do |cd| %>
 <tr>
-    	<td><%= link_to (image_tag cd.photo.url(:small)), allUserCDs_path(cd.user_id) %> </td>
+    	<td><%= link_to (image_tag cd.photo.url(:small)), compact_disk_path(cd) %> </td>
 		<td><%= cd.id %></td>
 		<td><%= cd.title %></td>
 		<td><%= cd.artist %></td>
@@ -44,4 +53,4 @@
 <% end %>
 </tbody>
 </table>
-<%= will_paginate @cds %>
+<%= will_paginate @cds, :previous_label => "Zurück", :next_label => "Weiter"  %>

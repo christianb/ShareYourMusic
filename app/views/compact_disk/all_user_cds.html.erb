@@ -1,16 +1,19 @@
 <% content_for :title, "Showcase von "+@user.firstname+" "+@user.lastname %>
 
+<div style="margin-left:20px;">
 <% if flash[:alert] || flash[:notice] %>
 	<div class="alert-message error">
+		<a class="alert_close" href="#">×</a>
 		<%= flash[:alert] %>
 		<%= flash[:notice] %>
 	</div>
 <% end %>
+</div>
 
 <%= render "user/show_partial" %>
 
 <!--<div id="usercds" class="box-swap" >-->
-<%= will_paginate @cds %>	
+<%= will_paginate @cds, :previous_label => "Zurück", :next_label => "Weiter" %>	
 <div class="row">
 	<!--<h3>CD's des Users: </h3>-->
 <ol id="selectable">
@@ -31,5 +34,5 @@
 	<% end %>
 </ol>
 </div>
-<%= will_paginate @cds %>	
+<%= will_paginate @cds, :previous_label => "Zurück", :next_label => "Weiter"  %>	
 <!--</div>-->

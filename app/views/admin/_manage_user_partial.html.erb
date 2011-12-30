@@ -1,4 +1,12 @@
-<%= will_paginate @users %>
+<div style="margin-left:20px;">
+<% if flash[:notice] %>
+	<div class="alert-message success">
+		<a class="alert_close" href="#">×</a>
+		<%= flash[:notice] %></p>
+	</div>
+<% end %>
+</div>
+
 <br />
 <table class="bordered-table zebra-striped" style="margin-left:20px; width: 98% !important;">
     <colgroup>
@@ -71,4 +79,3 @@
 <% end %>
 </tbody>
 </table>
-<%= will_paginate @users %>
