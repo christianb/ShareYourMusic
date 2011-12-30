@@ -24,7 +24,7 @@ class CompactDiskController < ApplicationController
     #@cds = CompactDisk.where(:user_id => current_user.id)
     #@cds = CompactDisk.all
     if user_signed_in?
-      @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).paginate(:page => params[:page], :per_page => 25)
+      @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).paginate(:page => params[:page], :per_page => 10)
     else
       @cds = CompactDisk.paginate(:page => params[:page], :per_page => 10)
     end
