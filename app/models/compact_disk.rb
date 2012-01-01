@@ -15,15 +15,17 @@ class DateOfReleaseValidator < ActiveModel::Validator
 end
 
 class CompactDisk < ActiveRecord::Base
+  #attr_accessible :user_id, :title, :artist, :genre, :description, :visible, :created_at, :updated_at, :photo_file_name, :photo_content_type, :photo_file_size, :audio_file_name, :audio_content_type, :audio_file_size, :year, :rank              
+  
+  has_many :songs, :dependent => :destroy, :inverse_of => :compact_disk
+  accepts_nested_attributes_for :songs, :reject_if => proc { |attributes| attributes[:title].blank? }, :allow_destroy => true
+  
   validates :title, :artist, :presence => true
-    
+
   # each compact disk is assigned to exactly one 
   belongs_to :user
   validates_presence_of :user
-    
-  has_many :songs, :dependent => :destroy
-  accepts_nested_attributes_for :songs
-    
+        
   has_attached_file :photo, :styles => { :normal => "150x150>", :small => "70x70>" },
                     :url  => "/system/covers/:id/:style/:basename.:extension",
                     :path => ":rails_root/public/system/covers/:id/:style/:basename.:extension",

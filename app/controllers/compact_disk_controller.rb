@@ -64,12 +64,13 @@ class CompactDiskController < ApplicationController
   
   def new
     @cd = CompactDisk.new
+    @cd.songs.build
+    #1.times { @cd.songs.build }
   end
   
   def create
     @cd = CompactDisk.new(params[:compact_disk])
-    @songs = (params[:song])  
-    
+    #@songs = (params[:song])  
     respond_to do |format|
         if @cd.save
           format.html  { redirect_to(myCDs_path(current_user.id),
@@ -77,10 +78,10 @@ class CompactDiskController < ApplicationController
           format.json  { render :json => @cd,
                         :status => :created, :location => @cd }
           
-          @songs.each do |s|
-              @song  = Song.new(:compact_disk_id => @cd.id, :title => s[1])
-              @song.save
-          end
+        #  @songs.each do |s|
+         #     @song  = Song.new(:compact_disk_id => @cd.id, :title => s[1])
+          #    @song.save
+          #end
         else
           format.html  { render :action => "new" }
           format.json  { render :json => @cd.errors,

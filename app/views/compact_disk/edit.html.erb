@@ -11,78 +11,9 @@
 <% end %>
 
 <%= form_for(@cd, :html => { :method => :put, :multipart => true}) do |f| %>
-	<div class="clearfix">
-		<%= f.label "Titel" %>
-		<div class="input">
-    		<%= f.text_field :title, :class => "span6" %>*
-		</div>
-	</div>
-	
-	<div class="clearfix">
-		<%= f.label "Artist" %>
-		<div class="input">
-    		<%= f.text_field :artist, :class => "span6" %>*
-		</div>
-	</div>
-    <div class="clearfix">
-		<%= f.label "Erscheinungsjahr" %>
-		<div class="input">
-    		<%= f.text_field :year, :class => "span6" %>
-		</div>
-	</div>
-    
-	
-	<div class="clearfix">
-		<%= f.label "Genre" %>
-		<div class="input">
-    		<%= f.text_field :genre, :class => "span6" %>
-		</div>
-	</div>
-	
-	<div class="clearfix">
-		<%= f.label "Beschreibung" %>
-    	<div class="input">
-			<%= f.text_area :description, :class => "span6", :rows => 5 %>
-		</div>
-	</div>
-	
-  
-	<div class="clearfix">
-  		<%= f.label "Upload Cover" %>
-    	<div class="input">
-           
-      		<%= f.file_field :photo, :class => "input-file" %>
-		</div>
-  	</div>
-
-	<div class="clearfix">
-    	<%= f.label "Upload Song" %>
-        <div class="input">
-        	<%= f.file_field :audio, :class => "input-file" %>
-        </div>
-  </div>
 
 
-
-
-<!--
-	<div>
-	<%= f.label "Songs" %><br/>
-	<% @cd.songs.each do |s| %>
-		<%= f.fields_for s, :index => s.id do |song| %>
-		<%= song.text_field :title %>
-		<% end %>
-	<% end %>
-	</div>
--->
-
- <%= f.fields_for :songs do |songs_form| %>
-	<div class="clearfix">
-		<div class="input">
-			<%= songs_form.text_field :title, :class => "span6" %>
-		</div>
-	</div>
-<% end %>
+	<%= render 'form_fields', :form => f %>
 
 	<div class="actions"> 
     	<%= f.submit "Bestätigen", :class => "btn primary" %> 

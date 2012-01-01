@@ -7,6 +7,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require_tree .
 //= require compact_disk
 
 
@@ -18,6 +19,8 @@ $(document).ready(function(){
 	//openInBox();
 	addSongField();
 	popover();
+	remove_fields();
+	add_fields();
 });
 
 function dragDropCD(){
@@ -358,4 +361,17 @@ function popover(){
             template: '<div class="arrow"></div><div class="inner"><h3 class="title"></h3><div class="content" style="height:250px"><p></p></div></div>'
         })
 }
+
+function remove_fields(link){
+  $(link).prev("input[type=hidden]").val("1");
+  $(link).closest(".fields").hide();
+}
+
+function add_fields(link, association, content) {
+	var new_id = new Date().getTime();
+  	var regexp = new RegExp("new_" + association, "g");
+  	$(link).parent().before(content.replace(regexp, new_id));
+ 	//$(link).before(content.replace(regexp, new_id));
+}
+
 

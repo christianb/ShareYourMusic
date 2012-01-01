@@ -55,7 +55,10 @@ de:
         cd_exchange: "CD Tauschen - Anfrage stellen"
       swap:
         swap_cd: "CD's Tauschen"
-     
+      form_fields:
+        upload_cover: "Cover"
+        demo_song: "Demosong"
+        create: "Neue CD erstellen"
         
   session:
       new:
