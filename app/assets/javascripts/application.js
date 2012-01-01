@@ -7,6 +7,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require_tree .
 //= require compact_disk
 
 
@@ -18,6 +19,8 @@ $(document).ready(function(){
 	//openInBox();
 	addSongField();
 	popover();
+	remove_fields();
+	add_fields();
 });
 
 function dragDropCD(){
@@ -77,7 +80,8 @@ function dragDropCD(){
 					// CD IDs in Array speichern
 					$id_arr.push(ui.draggable.attr('alt'));
 					$('.sendBtn').hide();
-					$('.shareBt').show();					
+					$('.shareBt').show();
+					$('.modifyBt').show();					
 				}
 			});
 			
@@ -92,6 +96,7 @@ function dragDropCD(){
 					$wanted_cds.push(ui.draggable.attr('alt'));
 						$('.sendBtn').hide();
 						$('.shareBt').show();
+						$('.modifyBt').show();
 				}
 			});
 
@@ -106,6 +111,7 @@ function dragDropCD(){
 					$id_arr.length = 0;
 					$('.sendBtn').hide();
 					$('.shareBt').show();
+					$('.modifyBt').show();
 				}
 			});
 			
@@ -119,6 +125,8 @@ function dragDropCD(){
 					$wanted_cds.length = 0;
 					$('.sendBtn').hide();
 					$('.shareBt').show();
+					$('.modifyBt').show();
+
 				}
 			});
 
@@ -280,7 +288,17 @@ function dragDropCD(){
 				var msg = $('#msg_id').attr('value');
 				
 				var href = $('a').attr('href');
-				$('a').attr('href', url + msg + '?cds_mine=' + $.unique($id_arr) + '&cds_wanted=' + $.unique($wanted_cds));
+				$('.actions a').attr('href', url + msg + '?cds_mine=' + $.unique($id_arr) + '&cds_wanted=' + $.unique($wanted_cds));
+
+				$('#cds_mine').attr('value', $.unique($id_arr));
+				$('#cds_wanted').attr('value', $.unique($wanted_cds));
+				
+				if ($id_arr.toString() != "" && $wanted_cds.toString() != "" ){
+					$(this).hide();
+					$('.sendBtn').show();
+				} else {
+					alert("Es muss mindestens eine CD zum Tausch angeboten werden");
+				}
 			});	
 			
 }
@@ -343,4 +361,17 @@ function popover(){
             template: '<div class="arrow"></div><div class="inner"><h3 class="title"></h3><div class="content" style="height:250px"><p></p></div></div>'
         })
 }
+
+function remove_fields(link){
+  $(link).prev("input[type=hidden]").val("1");
+  $(link).closest(".fields").hide();
+}
+
+function add_fields(link, association, content) {
+	var new_id = new Date().getTime();
+  	var regexp = new RegExp("new_" + association, "g");
+  	$(link).parent().before(content.replace(regexp, new_id));
+ 	//$(link).before(content.replace(regexp, new_id));
+}
+
 

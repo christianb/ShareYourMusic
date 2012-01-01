@@ -57,7 +57,7 @@ Projekt::Application.routes.draw do
     match 'transaction/modifyAccepted/:id' => 'transaction#modifyAccepted', :as => :modify_accepted
     match 'transaction/modifyReject/:id' => 'transaction#modifyReject', :as => :modified_reject
     match 'transaction/modifyRejected/:id' => 'transaction#modifyRejected', :as => :modified_rejected
-    match 'transaction/modify/:id' => 'transaction#modify', :as => :modify
+    match 'transaction/modify/:id' => 'transaction#modify', :as => :modify, :via => :post
     match 'transaction/modifyRequest/:id' => 'transaction#modifyRequest', :as => :modifyRequest
     
     

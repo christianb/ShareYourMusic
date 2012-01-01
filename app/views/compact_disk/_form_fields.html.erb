@@ -1,0 +1,77 @@
+<div class="clearfix">
+		<%= form.label "Titel" %>
+        <div class="input">
+            <%= form.text_field :title, :class => "span6" %>*
+        </div>
+	</div>
+	
+	<div class="clearfix">
+		<%= form.label "Artist" %>
+        <div class="input">
+		<%= form.text_field :artist, :class => "span6" %>*
+        </div>
+	</div>
+	
+	<div class="clearfix">
+		<%= form.label "Genre" %>
+    <div class="input">
+			<%= form.text_field :genre, :class => "span6" %>
+		</div>
+	</div>
+	
+	<div class="clearfix">
+		<%= form.label "Erscheinungsjahr" %>
+    <div class="input">
+			<%= form.text_field :year, :placeholder => '1992', :class => "span6" %>
+		</div>
+	</div>
+	
+	<div class="clearfix">
+		<%= form.label "Beschreibung" %>
+    	<div class="input">
+			<%= form.text_area :description, :placeholder => 'Ihre Beschreibung der CD', :class => "span6", :rows => 5 %>
+		</div>
+	</div>
+	
+	<%= form.hidden_field :user_id, :value => current_user.id %>
+	<%= form.hidden_field :visible, :value => true %>
+
+<!--	
+	<div class="clearfix">
+	<%= form.label "Songs" %>
+		<div id="input1" class="clonedInput input">
+			<p><%= text_field_tag 'song[1]', nil, :class => "span6" %></p>
+		</div>
+	</div>
+    <div class="clearfix">
+        <div class="input">
+            <%= submit_tag "+", :type => 'button', :id => "btnAdd" %>
+            <%= submit_tag "-", :type => 'button', :id => "btnDel" %>
+        </div>
+    </div>
+-->	
+	<div class="clearfix">
+		<%= form.label "Songs"%>
+		<%= form.fields_for :songs do |builder| %>
+			<%= render 'song_partial', :f => builder %>
+		<% end %>
+		<div class="input">
+			<%= link_to_add_fields '<span class="label success"> + </span>'.html_safe, form, :songs %>
+		</div>
+	</div>
+	
+	<div class="clearfix">
+    	<%= form.label t('.upload_cover') %>
+        <div class="input">
+        	<%= form.file_field :photo, :class => "input-file" %>
+        </div>
+  </div>
+
+	<div class="clearfix">
+    	<%= form.label t('.demo_song') %>
+        <div class="input">
+        	<%= form.file_field :audio, :class => "input-file" %>
+        </div>
+  </div>
+
+* Pflichtfelder
