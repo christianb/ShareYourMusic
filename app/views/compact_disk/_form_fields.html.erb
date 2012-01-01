@@ -51,6 +51,7 @@
     </div>
 -->	
 	<div class="clearfix">
+		<%= form.label "Songs"%>
 		<%= form.fields_for :songs do |builder| %>
 			<%= render 'song_partial', :f => builder %>
 		<% end %>
