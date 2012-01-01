@@ -8,7 +8,6 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require compact_disk
-//= require_tree .
 
 
 
@@ -19,7 +18,7 @@ $(document).ready(function(){
 	addSongField();
 	popover();
 	remove_fields();
-	add_fields();
+	//add_fields();
 });
 
 function dragDropCD(){
@@ -369,7 +368,7 @@ function remove_fields(link){
 function add_fields(link, association, content) {
 	var new_id = new Date().getTime();
   	var regexp = new RegExp("new_" + association, "g");
-  	$(link).parent().before(content.replace(regexp, new_id));
+  	//$(link).parent().before(content.replace(regexp, new_id));
  	//$(link).before(content.replace(regexp, new_id));
 }
 
