@@ -7,7 +7,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require_tree .
 //= require compact_disk
 
 
@@ -19,8 +18,8 @@ $(document).ready(function(){
 	//openInBox();
 	addSongField();
 	popover();
-	remove_fields();
-	add_fields();
+	//remove_fields();
+	//add_fields();
 });
 
 function dragDropCD(){

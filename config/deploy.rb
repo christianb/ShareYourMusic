@@ -54,7 +54,7 @@ role :db, domain, :primary => true
 # miscellaneous options
 set :deploy_via, :remote_cache
 set :scm, "git"
-set :branch, 'master'
+set :branch, 'test_deploy_2'
 set :scm_verbose, true
 set :use_sudo, false
 
