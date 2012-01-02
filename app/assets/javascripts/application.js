@@ -7,8 +7,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require_tree .
-//= require compact_disk
+
+
 
 
 
@@ -17,10 +17,10 @@ $(document).ready(function(){
 	//selectCD();
 	dragDropCD();
 	//openInBox();
-	addSongField();
+	//addSongField();
 	popover();
-	remove_fields();
-	add_fields();
+	//remove_fields();
+	//add_fields();
 });
 
 function dragDropCD(){
@@ -303,54 +303,6 @@ function dragDropCD(){
 			
 }
 
-
-/*
-function addSongField(){
-	$('#btnAdd').click(function() {
-                var num     = $('.clonedInput').length; 
-                var newNum  = new Number(num + 1);      
- 
-                var newElem = $('#input' + num).clone().attr('id', 'input' + newNum);
- 
-                newElem.children(':first').attr('id', 'name' + newNum).attr('name', 'name' + newNum);
- 
-                $('#input' + num).after(newElem);
- 
-                $('#btnDel').attr('disabled','');
-			
- 			});
-               
-            $('#btnDel').click(function() {
-                var num = $('.clonedInput').length;
-                $('#input' + num).remove();
- 
-                $('#btnAdd').attr('disabled','');
- 
-                if (num-1 == 1)
-                    $('#btnDel').attr('disabled','disabled');
-            });
- 
-            $('#btnDel').attr('disabled','disabled');
-}*/
-
-function addSongField(){
-	var num = 2;
-	
-	$('#btnAdd').click(function(){
-
-		$('<p id="song_p"><input id="song_'+ num +'" class="span6"' + 'name="song['+ num + ']"></input></p> ').appendTo('#input1');
-		num = ($('#input1 > p').size()) + 1
-//		$('#input1 > p').size();
-	});
-/*	
-	$('#btnDel').click(function(){
-			num = ($('#input1 > p').size()) - 1
-			//$('#song_' + num ).remove();
-			$('#song_p').remove();
-	//		num - 1;
-	});*/
-}
-
 function popover(){
     $('a[rel=popover]')
         .popover({
@@ -370,8 +322,8 @@ function remove_fields(link){
 function add_fields(link, association, content) {
 	var new_id = new Date().getTime();
   	var regexp = new RegExp("new_" + association, "g");
-  	$(link).parent().before(content.replace(regexp, new_id));
- 	//$(link).before(content.replace(regexp, new_id));
+	$(link).parent().before(content.replace(regexp, new_id));
 }
+
 
 
