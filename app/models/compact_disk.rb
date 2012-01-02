@@ -46,4 +46,5 @@ class CompactDisk < ActiveRecord::Base
   has_many :transactions, :through => :swap_receiver
   
   validates_with DateOfReleaseValidator
+  
 end

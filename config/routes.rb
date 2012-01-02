@@ -18,8 +18,7 @@ Projekt::Application.routes.draw do
     
     match '/search' => 'application#search', :as => :search
   
-  
-  
+  match '/autoCompl' => 'application#autoCompl', :as => :autoCompl
   
   scope "(:locale)", :locale => /de|en/ do
     root :to => 'welcome#index', :as => :welcome
@@ -40,7 +39,6 @@ Projekt::Application.routes.draw do
     match 'compact_disk/like/:id' => 'compact_disk#like', :as => :like_cd, :via => :get
     match 'comapct_disk/best' => 'compact_disk#best', :as => :best_cd, :via => :get
     match '/compact_disk/:id' => 'compact_disk#show', :as => :compact_disk, :via => :get
-    
     match '/compact_disk/myCDs/:id' => 'compact_disk#myCDs', :as => :myCDs
     match 'compact_disk/swap/:id' => 'compact_disk#swap', :as => :swap_cd
     match '/compact_disk/all_user_cds/:id' => 'compact_disk#all_user_cds', :as => :allUserCDs
