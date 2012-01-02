@@ -15,7 +15,12 @@ class DateOfReleaseValidator < ActiveModel::Validator
 end
 
 class CompactDisk < ActiveRecord::Base
+  attr_accessor :photo_url
+  before_validation :download_remote_image, :if => :image_url_provided?
   #attr_accessible :user_id, :title, :artist, :genre, :description, :visible, :created_at, :updated_at, :photo_file_name, :photo_content_type, :photo_file_size, :audio_file_name, :audio_content_type, :audio_file_size, :year, :rank              
+  
+  #attr_accessible :photo_url
+  
   
   has_many :songs, :dependent => :destroy, :inverse_of => :compact_disk
   accepts_nested_attributes_for :songs, :reject_if => proc { |attributes| attributes[:title].blank? }, :allow_destroy => true
@@ -46,5 +51,22 @@ class CompactDisk < ActiveRecord::Base
   has_many :transactions, :through => :swap_receiver
   
   validates_with DateOfReleaseValidator
-  
+   
+   private
+
+     def image_url_provided?
+       !self.photo_url.blank?
+     end
+
+     def download_remote_image
+       self.photo = do_download_remote_image
+       self.photo_remote_url = photo_url
+     end
+
+     def do_download_remote_image
+       io = open(URI.parse(photo_url))
+       def io.original_filename; base_uri.path.split('/').last; end
+       io.original_filename.blank? ? nil : io
+     rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
+     end 
 end
