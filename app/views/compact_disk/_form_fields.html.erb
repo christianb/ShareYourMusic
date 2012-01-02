@@ -68,6 +68,13 @@
   </div>
 
 	<div class="clearfix">
+        <%= form.label 'Upload via URL' %>
+        <div class="input">
+					 <%= form.text_field :photo_url %>
+        </div>
+  </div>
+
+	<div class="clearfix">
     	<%= form.label t('.demo_song') %>
         <div class="input">
         	<%= form.file_field :audio, :class => "input-file" %>

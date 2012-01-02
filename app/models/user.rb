@@ -3,7 +3,7 @@ require 'open-uri'
 class User < ActiveRecord::Base
   attr_accessor :photo_url
   before_validation :download_remote_image, :if => :image_url_provided?
-  validates_presence_of :photo_remote_url, :if => :image_url_provided?, :message => 'is invalid or inaccessible'
+  
   validates :firstname, :lastname, :email, :state, :presence => true  
   validates :email, :uniqueness => true
   validates :email, :format => {:with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}
@@ -43,7 +43,6 @@ private
 
   def image_url_provided?
     !self.photo_url.blank?
-    logger.debug "photo url blank? "+photo_url.blank?.to_s
   end
 
   def download_remote_image
