@@ -79,6 +79,12 @@ de:
   activerecord:
     errors:
       models:
+        compact_disk:
+            attributes:
+                title:  
+                    blank: "darf nicht leer sein."
+                artist:
+                    blank: "darf nicht leer sein."
         user:
           attributes:
             password:
