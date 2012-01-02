@@ -47,11 +47,11 @@ class ApplicationController < ActionController::Base
           #logger.debug "search num: "+num.to_s
           @cds = CompactDisk.where("cast(year as text) LIKE ?","%#{num}%")
         else
-          @songs = Song.where("title LIKE ?","%#{name}%")
+          @songs = Song.where("title ILIKE ?","%#{name}%")
           #logger.debug 'songs size = '+@songs.size.to_s
-          @cds = CompactDisk.where("artist LIKE ? OR title LIKE ? OR genre LIKE ?","%#{name}%","%#{name}%","%#{name}%")
+          @cds = CompactDisk.where("artist ILIKE ? OR title ILIKE ? OR genre ILIKE ?","%#{name}%","%#{name}%","%#{name}%")
         end
-        @users = User.where("firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR alias LIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%")
+        @users = User.where("firstname ILIKE ? OR lastname ILIKE ? OR email ILIKE ? OR alias ILIKE ?","%#{name}%","%#{name}%","%#{name}%","%#{name}%")
         
         
         
@@ -92,12 +92,12 @@ class ApplicationController < ActionController::Base
     def autoCompl
       if params[:term]
           like= "%".concat(params[:term].concat("%"))
-          cds_artist = CompactDisk.where("artist like ?", like)
-          cds_title = CompactDisk.where("title like ?", like)
-          cds_genre = CompactDisk.where("genre like ?", like)
+          cds_artist = CompactDisk.where("artist Ilike ?", like)
+          cds_title = CompactDisk.where("title Ilike ?", like)
+          cds_genre = CompactDisk.where("genre Ilike ?", like)
           
-          user_first = User.where("firstname like ?", like)
-          user_last = User.where("lastname like ?", like)
+          user_first = User.where("firstname Ilike ?", like)
+          user_last = User.where("lastname Ilike ?", like)
           
           # entferne eigene cds
           if (user_signed_in? && !current_user.search_own_cds)
