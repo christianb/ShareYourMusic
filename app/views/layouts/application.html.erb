@@ -54,8 +54,9 @@
 												<% if user_signed_in?%>
 												<li>
 													<%= form_tag(search_path, :method => "get") do %>
-												  	<%= text_field_tag :querry, nil, :placeholder => 'Suche nach Benutzer oder CDs'%>
+												  		<%= text_field_tag :querry, nil, :placeholder => 'Suche nach Benutzer oder CDs'%>
 													<% end %>
+													
 												</li>
 												<% end %>
                         

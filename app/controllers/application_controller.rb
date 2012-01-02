@@ -87,4 +87,24 @@ class ApplicationController < ActionController::Base
   
     def impressum
     end
+    
+    # Abfrage für Autocomplete beim Suchfeld
+    def autoCompl
+      if params[:term]
+          like= "%".concat(params[:term].concat("%"))
+          cds_artist = CompactDisk.where("artist like ?", like)
+          cds_title = CompactDisk.where("title like ?", like)
+          user_first = User.where("firstname like ?", like)
+          user_last = User.where("lastname like ?", like)
+      else
+          cds = CompactDisk.all
+          users = User.all
+      end
+        list_artist = cds_artist.map {|u| Hash[ id: u.id, label: u.artist, name: u.artist]}
+        list_title = cds_title.map {|u| Hash[ id: u.id, label: u.title, name: u.title]}
+        list_fistname = user_first.map {|u| Hash[ id: u.id, label: u.firstname, name: u.firstname]}
+        list_lastname = user_last.map {|u| Hash[ id: u.id, label: u.lastname, name: u.lastname]}
+        list = list_title + list_artist + list_lastname + list_fistname
+        render json: list
+    end
 end

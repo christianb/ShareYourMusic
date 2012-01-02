@@ -21,6 +21,7 @@ $(document).ready(function(){
 	popover();
 	//remove_fields();
 	//add_fields();
+	autoCompleteSearch();
 });
 
 function dragDropCD(){
@@ -325,5 +326,14 @@ function add_fields(link, association, content) {
 	$(link).parent().before(content.replace(regexp, new_id));
 }
 
+function autoCompleteSearch(){
+	$("#querry").autocomplete({ 
+	    //source: ['hi', 'bye', 'foo', 'bar'],
+		source: '/autoCompl',
+	    minLength: 2
+	}).on("focus", function () {
+	    $(this).autocomplete("search", '');
+	});
+}
 
 
