@@ -68,6 +68,13 @@
             </div>
       </div>
 
+			<div class="clearfix">
+            <%= f.label 'Upload via URL' %>
+            <div class="input">
+							 <%= f.text_field :photo_url %>
+            </div>
+      </div>
+
 	<div class="actions"> 
 			<%= link_to t('.cancel'), user_path(current_user), :class => "btn default" %>
       <%= f.submit 'Bestätigen', :class => "btn primary" %>
