@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111230142734) do
+ActiveRecord::Schema.define(:version => 20120102134250) do
 
   create_table "compact_disks", :force => true do |t|
     t.integer  "user_id",                           :null => false
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20111230142734) do
     t.integer  "audio_file_size"
     t.integer  "year"
     t.integer  "rank",               :default => 0
+    t.string   "photo_remote_url"
   end
 
   create_table "messages", :force => true do |t|
@@ -104,6 +105,7 @@ ActiveRecord::Schema.define(:version => 20111230142734) do
     t.integer  "photo_file_size"
     t.boolean  "email_notification",                    :default => true
     t.boolean  "search_own_cds",                        :default => true
+    t.string   "photo_remote_url"
   end
 
 end
