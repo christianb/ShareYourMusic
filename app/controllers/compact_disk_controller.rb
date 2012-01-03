@@ -1,3 +1,6 @@
+require 'rbrainz'
+include MusicBrainz
+
 class CompactDiskController < ApplicationController
   before_filter :set_locale
   before_filter :checkUser, :only =>[:destroy, :update]
@@ -70,9 +73,20 @@ class CompactDiskController < ApplicationController
   
   def create
     @cd = CompactDisk.new(params[:compact_disk])
+    
+    # lade Tracks von MusicBrainz
+    tracks = searchTracks(@cd.artist, @cd.title)
+    
     #@songs = (params[:song])  
     respond_to do |format|
         if @cd.save
+          # save songs from musicBrianz
+          tracks.each { |t| 
+            logger.debug "erstelle Song: "+t.to_s
+            song = Song.new(:title => t.to_s, :compact_disk_id => @cd.id)
+            song.save
+          }
+          
           format.html  { redirect_to(myCDs_path(current_user.id),
                         :notice => 'CD erfolgreich angelegt.') }
           format.json  { render :json => @cd,
@@ -191,5 +205,13 @@ class CompactDiskController < ApplicationController
   
   def best
     @best = CompactDisk.order("rank DESC").limit(10)
+  end
+  
+  # Songs eines Albums
+  def searchTracks(art, alb)
+    query = Webservice::Query.new
+    filter = Webservice::TrackFilter.new(:release => alb, :artist => art)
+    tracks = query.get_tracks(filter)
+    return tracks.entities()
   end
 end
