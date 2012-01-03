@@ -79,8 +79,11 @@
 			<%= link_to t('.cancel'), user_path(current_user), :class => "btn default" %>
       <%= f.submit 'Bestätigen', :class => "btn primary" %>
 	  <% if user_signed_in? && current_user.id == @user.id %>
-	  	<%= link_to t('.delete_account'), registration_path(@user), :class => "btn danger", :confirm => t('.confirm_changes'), :method => :delete %>
-	  <% end %>
+	  	<div style=" float:right;">
+            <%= link_to t('.delete_account'), registration_path(@user), :class => "btn danger", :confirm => t('.confirm_changes'), :method => :delete %>
+        </div>
+        <div style="clear:both;"></div>
+      <% end %>
   	</div>
 
 <% end %>
