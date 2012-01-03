@@ -76,16 +76,19 @@ class CompactDiskController < ApplicationController
     
     # lade Tracks von MusicBrainz
     tracks = searchTracks(@cd.artist, @cd.title)
+    #logger.debug 'tracks' +tracks.to_s
     
     #@songs = (params[:song])  
     respond_to do |format|
         if @cd.save
           # save songs from musicBrianz
-          tracks.each { |t| 
-            logger.debug "erstelle Song: "+t.to_s
-            song = Song.new(:title => t.to_s, :compact_disk_id => @cd.id)
-            song.save
-          }
+          if !tracks.nil?
+            tracks.each { |t| 
+              logger.debug "erstelle Song: "+t.to_s
+              song = Song.new(:title => t.to_s, :compact_disk_id => @cd.id)
+              song.save
+            }
+          end
           
           format.html  { redirect_to(myCDs_path(current_user.id),
                         :notice => 'CD erfolgreich angelegt.') }
@@ -210,8 +213,18 @@ class CompactDiskController < ApplicationController
   # Songs eines Albums
   def searchTracks(art, alb)
     query = Webservice::Query.new
-    filter = Webservice::TrackFilter.new(:release => alb, :artist => art)
-    tracks = query.get_tracks(filter)
-    return tracks.entities()
+    filter = Webservice::ReleaseFilter.new(:title => alb, :artist => art)
+    release = query.get_releases(filter)
+    if (!release.empty?)
+      # get mbid of first
+      mbid = release.entities[0].id.to_s;
+    
+      release = query.get_release_by_id(mbid, :artist=>true, :tracks=>true)
+      #logger.debug "title: "+ release.title
+      #logger.debug "artist: "+release.artist.name
+      
+      return release.tracks
+    end
+      return nil
   end
 end
