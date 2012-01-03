@@ -16,6 +16,7 @@
 	<%= render 'form_fields', :form => f %>
 
 	<div class="actions"> 
+			<%= link_to 'Abbrechen', compact_disk_path(@cd), :class => "btn default" %>
     	<%= f.submit "Bestätigen", :class => "btn primary" %> 
 		<% if !existingTransactions(@cd.id, @cd.user_id) && current_user.id == @cd.user_id %>
 			<%= link_to "CD löschen", @cd, :confirm => "Wollen Sie Ihre CD \""+ @cd.title+"\" wirklich löschen?", :method => :delete, :class => "btn danger" %>

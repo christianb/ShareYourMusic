@@ -6,10 +6,10 @@
 	<div class="actions"> 
 	  
 	 	<% if user_signed_in? && current_user.id == @user.id %>
-			<%= link_to 'Abbrechen', myCDs_path, :class => "btn default" %>
+			<%= link_to 'Zurück', myCDs_path, :class => "btn default" %>
 			<%= link_to t('.edit_account'), edit_user_registration_path, :class => "btn primary" %>
 		<% else %>
-			<%= link_to 'Zurück', :back, :class => "btn primary" %>
+			<%= link_to 'Zurück', :back, :class => "btn default" %>
 		<% end %>
   	</div>
 
