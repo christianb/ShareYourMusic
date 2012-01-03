@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   
   def after_sign_in_path_for(resource)
-      stored_location_for(resource) || latest_cd_path
+      flash.now[:notice] = nil
+      stored_location_for(resource) || myCDs_path(current_user)
   end
   
   def after_update_path_for(resource)
