@@ -104,6 +104,12 @@ class CompactDiskController < ApplicationController
             }
           end
           
+          # try to convert to ogg if needed
+          @cd.convert_to_ogg
+          #@cd.update_attribute(:audio_file_name, @cd.audio_file_name+".ogg")
+          #@cd.update_attribute(:audio_content_type, "audio/ogg")
+          #logger.debug "new audio path"+@cd.audio.path
+          
           format.html  { redirect_to(myCDs_path(current_user.id),
                         :notice => 'CD erfolgreich angelegt.') }
           format.json  { render :json => @cd,
