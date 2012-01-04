@@ -66,9 +66,23 @@ class CompactDiskController < ApplicationController
   end
   
   def new
+    logger.debug 'call new'
     @cd = CompactDisk.new
+    logger.debug 'new CD'
     @cd.songs.build
     #1.times { @cd.songs.build }
+  end
+  
+  def mbrainz
+    #logger.debug 'call mbrainz'
+    @tracks = searchTracks(params[:artist], params[:title])
+    @tr = @tracks.map! {|t| Hash[value: t]}
+    #respond_to do |format|
+     # format.html
+      #format.js
+    #end
+    render xml: @tr
+    
   end
   
   def create
