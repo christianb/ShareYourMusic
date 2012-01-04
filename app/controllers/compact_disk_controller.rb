@@ -76,7 +76,7 @@ class CompactDiskController < ApplicationController
   def mbrainz
     #logger.debug 'call mbrainz'
     @tracks = searchTracks(params[:artist], params[:title])
-    @tr = @tracks.map! {|t| Hash[value: t]}
+    @tr = @tracks.to_a.map! {|t| Hash[value: t]}
     #respond_to do |format|
      # format.html
       #format.js
