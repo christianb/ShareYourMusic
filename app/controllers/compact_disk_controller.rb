@@ -140,6 +140,7 @@ class CompactDiskController < ApplicationController
 #    .except(:song)
     respond_to do |format|
       if @cd.update_attributes(params[:compact_disk])
+        @cd.convert_to_ogg
         #allsongs = Song.where(:all, :compact_disk_id => @cd.id)
         #allsongs.each do |as|
         #  if as.id == params[:song][:index]
