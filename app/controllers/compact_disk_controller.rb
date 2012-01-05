@@ -101,12 +101,12 @@ class CompactDiskController < ApplicationController
     #logger.debug 'call mbrainz'
     map = searchTracks(params[:artist], params[:title])
     @tracks = map[:tracks]
-    @tr = @tracks.to_a.map! {|t| Hash[value: t]}
+    #@tr = @tracks.to_a.map! {|t| Hash[value: t]}
     #respond_to do |format|
      # format.html
       #format.js
     #end
-    render xml: @tr
+    render xml: map
     
   end
   
@@ -280,7 +280,7 @@ class CompactDiskController < ApplicationController
       # keys :tracks, :cover_url, :genre, :release_date
       
       results_from_rbrainz = {
-          :tracks => release.tracks,
+          :tracks => release.tracks.to_a,
           :cover_url => cover_url,
           :genre => ""
       }
