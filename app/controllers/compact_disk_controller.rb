@@ -89,20 +89,20 @@ class CompactDiskController < ApplicationController
     @cd = CompactDisk.new(params[:compact_disk])
     
     # lade Tracks von MusicBrainz
-    tracks = searchTracks(@cd.artist, @cd.title)
+    #tracks = searchTracks(@cd.artist, @cd.title)
     #logger.debug 'tracks' +tracks.to_s
     
     #@songs = (params[:song])  
     respond_to do |format|
         if @cd.save
           # save songs from musicBrianz
-          if !tracks.nil?
-            tracks.each { |t| 
-              logger.debug "erstelle Song: "+t.to_s
-              song = Song.new(:title => t.to_s, :compact_disk_id => @cd.id)
-              song.save
-            }
-          end
+          #if !tracks.nil?
+          #  tracks.each { |t| 
+          #    logger.debug "erstelle Song: "+t.to_s
+          #    song = Song.new(:title => t.to_s, :compact_disk_id => @cd.id)
+          #    song.save
+          #  }
+          #end
           
           # try to convert to ogg if needed
           @cd.convert_to_ogg
@@ -240,12 +240,25 @@ class CompactDiskController < ApplicationController
       # get mbid of first
       mbid = release.entities[0].id.to_s;
     
-      release = query.get_release_by_id(mbid, :artist=>true, :tracks=>true)
+      release = query.get_release_by_id(mbid, :artist=>true, :tracks=>true, :url_rels => true)
+      logger.debug 'url_rels: '+release.to_s
+      releations = release.get_relations( :relation_type => MusicBrainz::Model::NS_REL_1 + 'AmazonAsin' )
+      id = nil
+      p releations.map {|r| id = r.target.split('/').last}
+      cover_url = generate_cover_url(id)
+      logger.debug "cover url: "+cover_url
+      #logger.debug "r.target"+releations.artist
       #logger.debug "title: "+ release.title
       #logger.debug "artist: "+release.artist.name
       
+      # alle daten in einer map zurückgeben
+      # keys :tracks, :cover_url, :genre, :release_date
       return release.tracks
     end
       return nil
+  end
+  
+  def generate_cover_url (id)
+    return ("http://images.amazon.com/images/P/"+id+".jpg")
   end
 end
