@@ -44,7 +44,14 @@
 		<% if @cd.audio_file_name != nil %>
 			<p>
 			<audio controls="controls">
-			  <source src=<%='" '.html_safe+ @cd.audio.url+ '"'.html_safe %> type=<%='" '.html_safe+ @cd.audio_content_type+ '"'.html_safe %>  />
+				<!-- Dateiname ohne Extension -->
+				<% filename = File.basename(@cd.audio_file_name, File.extname(@cd.audio_file_name).downcase)%>
+				<% path = @cd.audio.url.chomp(@cd.audio_file_name) %>
+				<!-- MP3 -->
+				<source src=<%='"'.html_safe+ path+filename+'.mp3"'.html_safe %> type=<%='"audio/mp3"'.html_safe %>  />
+				
+				<!-- Ogg-->	
+				<source src=<%='"'.html_safe+ path+filename+'.ogg"'.html_safe %> type=<%='"audio/ogg"'.html_safe %>  />
 			  Your browser does not support the audio element.
 			</audio>
 			</p>
