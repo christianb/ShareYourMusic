@@ -99,7 +99,8 @@ class CompactDiskController < ApplicationController
   
   def mbrainz
     #logger.debug 'call mbrainz'
-    @tracks = searchTracks(params[:artist], params[:title])
+    map = searchTracks(params[:artist], params[:title])
+    @tracks = map[:tracks]
     @tr = @tracks.to_a.map! {|t| Hash[value: t]}
     #respond_to do |format|
      # format.html
@@ -277,7 +278,17 @@ class CompactDiskController < ApplicationController
       
       # alle daten in einer map zurückgeben
       # keys :tracks, :cover_url, :genre, :release_date
-      return release.tracks
+      
+      results_from_rbrainz = {
+          :tracks => release.tracks,
+          :cover_url => cover_url,
+          :genre => ""
+      }
+      
+      #logger.debug "show cover from map: "+amap[:cover_url]
+      #logger.debug "show tracks from map: "+amap[:tracks].inspect
+      
+      return results_from_rbrainz
     end
       return nil
   end
