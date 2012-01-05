@@ -270,9 +270,18 @@ class CompactDiskController < ApplicationController
       
       #releations = release.get_relations( :relation_type => MusicBrainz::Model::NS_REL_1 + 'AmazonAsin' )
       #id = nil
-      #p releations.map {|r| id = r.target.split('/').last}
-      cover_url = generate_cover_url(release.asin)
+      #p releations.map {|r| logger.debug "targeT: " +r.target}
+      
+      #logger.debug "id: "+id
+      cover_url = nil
+      unless release.asin.nil?
+        cover_url = generate_cover_url(release.asin)
+      else
+        cover_url = ""
+      end
+      
       logger.debug "cover url: "+cover_url
+      
       #logger.debug "r.target"+releations.artist
       #logger.debug "title: "+ release.title
       #logger.debug "artist: "+release.artist.name
