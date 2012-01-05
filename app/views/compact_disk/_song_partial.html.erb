@@ -1,5 +1,5 @@
 <div class="input fields">
 	<%= f.text_field :title %>
 	<%= f.hidden_field :_destroy %> 
-	<%= link_to_function '<span class="label important"> - </span>'.html_safe, 'remove_fields(this)' %>
+	<%= link_to_function '<span class="label important"> - </span>'.html_safe, 'remove_fields(this)', :class=> "rmSongBt" %>
 </div>

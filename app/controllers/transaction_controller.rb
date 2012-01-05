@@ -35,7 +35,9 @@ def create
     message.body = "Anfrage"
     message.sender = user
     message.recipient = dest
-    if message.save        
+    if message.save
+      CompactDisk.update_all({:visible => false}, {:id => seperated_mine_cds}) 
+      CompactDisk.update_all({:visible => false}, {:id => seperated_wanted_cds})        
       redirect_to :controller => "compact_disk", :action => "index"
     end
     else
@@ -72,6 +74,27 @@ def destroy
   msg.mark_deleted(user)
   message.mark_deleted(user)
 
+  redirect_to :action => "index"
+end
+
+def destroy_sent_msg
+  msg_id = params[:id]
+
+  msg = Message.find(msg_id)
+  
+  # user -> Nutzer der Nachricht (Anfrage) empfangen hat
+  # dest -> Nutzer der benachrichtigt werden soll, dass Anfrage abgelehnt wurde
+  user = msg.recipient_id
+  dest = msg.sender_id 
+
+  rsv_message = Message.read(msg_id, user)
+
+  user = rsv_message.recipient
+  dest = rsv_message.sender
+    
+  # Nachrichten als gelöscht markieren; Sobald Empfänger dies auch macht, wird Nachricht gelöscht
+  msg.destroy
+   
   redirect_to :action => "index"
 end
 
@@ -169,8 +192,8 @@ def accept
     t = Transaction.new(:provider_id => dest.id, :receiver_id => user.id, :provider_disk_id => "2".to_i, :receiver_disk_id => "3".to_i)
     t.save
   
-    CompactDisk.update_all({:user_id => user.id}, {:id => tauschCDs})
-    CompactDisk.update_all({:user_id => dest.id}, {:id => wunschCDs})
+    CompactDisk.update_all({:user_id => user.id, :visible => false}, {:id => tauschCDs})
+    CompactDisk.update_all({:user_id => dest.id, :visible => false}, {:id => wunschCDs})
     sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => tauschCDs)
     sp.save
  
@@ -182,6 +205,16 @@ def accept
     message.mark_deleted(user)
 
     redirect_to :action => "index"
+=begin    
+    other_cd_req = current_user.received_messages.find(:all, :conditions => ["subject LIKE ?", subject])
+    if !other_cd_req.empty?
+      other_cd_req.each do |ocr|
+        ocr.recipient_deleted = true
+        orc.subject = "Abgelehnt"
+        orc.save
+      end
+    end
+=end    
   else
     redirect_to :action => "index"
     flash[:notice] = "Mindestens eine der CDs ist nicht mehr verfuegbar"
@@ -209,7 +242,7 @@ def accepted
 
   msg.mark_deleted(user)
   sent_message[0].mark_deleted(user)
-
+  
   redirect_to :action => "index"
 end
 
@@ -283,62 +316,78 @@ def modifyAccept
   tauschCDs = cd_array[0]
   wunschCDs = cd_array[1]
 
-  #subject = tauschCDs + wunschCDs
-
+  # neuen Subject erstellen
   subject = cd_array[0] + ';' + cd_array[1]
 
   #subject = subject.to_s
   #subject = subject.join ';'
+  
+  # CDs suchen die nicht mehr sichtbar (verfügbar) sind
+  @tausch_visible = CompactDisk.where(:id => tauschCDs, :visible => false)
+  @wunsch_visible = CompactDisk.where(:id => wunschCDs, :visible => false)
 
+  
   sent_message = msg_user.sent_messages.find(:all, :conditions => ["sender_id = ? and subject = ? and body LIKE '%Anfrage%'", msg_user.id, subject])
 
   user = rsv_message.recipient
   dest = rsv_message.sender
   msg.mark_deleted(user)
   sent_message[0].mark_deleted(user)
+  
+  # prüfen ob alle CDs verfügbar sind
+  if @tausch_visible.empty? && @wunsch_visible.empty?
+    message = Message.new
+    message.subject = rsv_message.subject
+    message.body = "MAngenommen"
+    message.sender = user
+    message.recipient = dest
+    message.save
+
+    message.mark_deleted(user)
+
+    tauschCDs_neu = cd_array[2].split(',')
+    wunschCDs_neu = cd_array[3].split(',')
 
 
-  message = Message.new
-  message.subject = rsv_message.subject
-  message.body = "MAngenommen; Klar"
-  message.sender = user
-  message.recipient = dest
-  message.save
-
-  message.mark_deleted(user)
-
-  #user = User.find(dest)
-  #dest = User.find(user)
-
-  tauschCDs_neu = cd_array[2].split(',')
-  wunschCDs_neu = cd_array[3].split(',')
-
-
-  # Transaktion erstellen
-  t = Transaction.new(:provider_id => dest.id, :receiver_id => user.id, :provider_disk_id => "2".to_i, :receiver_disk_id => "3".to_i)
-  t.save
-
-  tauschCDs_neu.each do |e|
-    sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => e.to_i)
+    # Transaktion erstellen
+    t = Transaction.new(:provider_id => dest.id, :receiver_id => user.id, :provider_disk_id => "2".to_i, :receiver_disk_id => "3".to_i)
+    t.save
+    
+    CompactDisk.update_all({:user_id => user.id, :visible => false}, {:id => tauschCDs})
+    CompactDisk.update_all({:user_id => dest.id, :visible => false}, {:id => wunschCDs})
+    sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => tauschCDs)
     sp.save
-
-    disk = CompactDisk.where(:id => e.to_i)
-    disk[0].user_id = dest.id
-    disk[0].visible = false
-    disk[0].save
-  end
-
-  wunschCDs_neu.each do |e|
-    sr = SwapReceiver.new(:transaction_id => t.id, :compact_disk_id => e.to_i)
+ 
+    sr = SwapReceiver.new(:transaction_id => t.id, :compact_disk_id => wunschCDs)
     sr.save
+    
+=begin    
+    tauschCDs_neu.each do |e|
+      sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => e.to_i)
+      sp.save
 
-    disk = CompactDisk.where(:id => e.to_i)
-    disk[0].user_id = user.id
-    disk[0].visible = false
-    disk[0].save
+      disk = CompactDisk.where(:id => e.to_i)
+      disk[0].user_id = dest.id
+      disk[0].visible = false
+      disk[0].save
+    end
+
+    wunschCDs_neu.each do |e|
+      sr = SwapReceiver.new(:transaction_id => t.id, :compact_disk_id => e.to_i)
+      sr.save
+
+      disk = CompactDisk.where(:id => e.to_i)
+      disk[0].user_id = user.id
+      disk[0].visible = false
+      disk[0].save
+    end
+=end
+    redirect_to :action => "index"
+  else
+    redirect_to :action => "index"
+    flash[:notice] = "Mindestens eine der CDs ist nicht mehr verfuegbar"
+    message.mark_deleted(user)
   end
-
-  redirect_to :action => "index"
 end
 
 def modifyAccepted
@@ -381,7 +430,7 @@ def modifyReject
     wunschCDs = cd_array[1]
 
   #  subject = tauschCDs + wunschCDs
-  subject = cd_array[0] + ';' + cd_array[1]
+    subject = cd_array[0] + ';' + cd_array[1]
     #subject = subject.to_s
     #subject = subject.join ';'
 
@@ -395,7 +444,7 @@ def modifyReject
 
     message = Message.new
     message.subject = rsv_message.subject
-    message.body = "MAbgelehnt; Will nicht"
+    message.body = "MAbgelehnt"
     message.sender = user
     message.recipient = dest
     message.save

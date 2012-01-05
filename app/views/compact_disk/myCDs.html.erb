@@ -6,6 +6,11 @@
 		<a class="alert_close" href="#">×</a>
 		<%= flash[:notice] %></p>
 	</div>
+<% elsif flash[:error] %>
+	<div class="alert-message error">
+		<a class="alert_close" href="#">×</a>
+		<%= flash[:error] %></p>
+	</div>
 <% end %>
 </div>
 
@@ -23,8 +28,10 @@
             
 			<p class="blackFont"><%= c.artist %></p>
             <p><%= c.title %></p>
-			<% if !c.visible %>
+			<% if !c.visible && !inTransaction?(current_user, c.id) %>
 				<%= link_to "Freigeben", makeVisible_path(c.id), :class => "btn" %>
+			<% elsif inTransaction?(current_user, c.id) %>
+				<span class="label warning">In einer Transaktion</span>
 			<% end %>
         
 	</li>

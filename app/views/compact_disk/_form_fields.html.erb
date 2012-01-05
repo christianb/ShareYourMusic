@@ -50,15 +50,24 @@
         </div>
     </div>
 -->	
-	<div class="clearfix">
+
+	<div class="clearfix song_fields">
 		<%= form.label "Songs"%>
 		<%= form.fields_for :songs do |builder| %>
 			<%= render 'song_partial', :f => builder %>
 		<% end %>
+		<div class="mbrainz_fields"></div>
 		<div class="input">
 			<%= link_to_add_fields '<span class="label success"> + </span>'.html_safe, form, :songs %>
 		</div>
 	</div>
+	
+	<div class="clearfix">
+		<div class="input">
+			<%= link_to_function 'Songs abfragen', 'mbrainz()', :class => "btn mbrainzBt" %>
+		</div>
+	</div>
+	
 	
 	<div class="clearfix">
     	<%= form.label t('.upload_cover') %>
@@ -82,3 +91,4 @@
   </div>
 
 * Pflichtfelder
+<%= @tracks %>

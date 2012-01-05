@@ -31,7 +31,11 @@
 	<% if c.visible == true %>
 	<li>
 		<!--<%= image_tag c.photo.url(:normal) %>-->
-		<%= link_to (image_tag c.photo.url(:normal)), compact_disk_path(c), :rel=>"popover", :title=>c.title+" ("+c.artist+")", :id=>getSongs(c)%>
+		<% if user_signed_in? %>
+			<%= link_to (image_tag c.photo.url(:normal)), compact_disk_path(c), :rel=>"popover", :title=>c.title+" ("+c.artist+")", :id=>getSongs(c)%>
+		<% else %>
+			<%= link_to (image_tag c.photo.url(:normal)), allUserCDs_path(c.user_id), :rel=>"popover", :title=>c.title+" ("+c.artist+")", :id=>getSongs(c)%>
+		<% end %>
 		<p class="blackFont"><%= c.artist %></p>
 		<p><%= c.title %></p>
 		<p>

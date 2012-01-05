@@ -111,6 +111,8 @@ class ApplicationController < ActionController::Base
           
           user_first = User.where("lower(firstname) like ?", like)
           user_last = User.where("lower(lastname) like ?", like)
+          user_alias = User.where("lower(alias) like ?", like)
+          user_email = User.where("lower(email) like ?", like)
           
           # entferne eigene cds
           if (user_signed_in? && !current_user.search_own_cds)
@@ -121,8 +123,10 @@ class ApplicationController < ActionController::Base
           
           # entferne eigenen user
           if (user_signed_in?)
-            user_first = user_first.delete_if {|c| c.id == current_user.id}
-            user_last = user_last.delete_if {|c| c.id == current_user.id}
+            user_first = user_first.delete_if {|u| u.id == current_user.id}
+            user_last = user_last.delete_if {|u| u.id == current_user.id}
+            user_alias = user_alias.delete_if {|u| u.id == current_user.id}
+            user_email = user_email.delete_if {|u| u.id == current_user.id}
           end
           
           cds_artist.each { |cd| cd[:artist].downcase! } # um doppelte einträge zu vermeiden, mache alles klein
@@ -139,6 +143,10 @@ class ApplicationController < ActionController::Base
           user_first.uniq! { |u| u[:firstname] } # lösche doppelte einträge
           user_last.each { |u| u[:lastname].downcase! } # um doppelte einträge zu vermeiden, mache alles klein
           user_last.uniq! { |u| u[:lastname] } # lösche doppelte einträge
+          user_alias.each { |u| u[:alias].downcase! } # um doppelte einträge zu vermeiden, mache alles klein
+          user_alias.uniq! { |u| u[:alias] } # lösche doppelte einträge
+          user_email.each { |u| u[:email].downcase! } # um doppelte einträge zu vermeiden, mache alles klein
+          user_email.uniq! { |u| u[:email] } # lösche doppelte einträge
           
       else
           cds = CompactDisk.all
@@ -154,7 +162,10 @@ class ApplicationController < ActionController::Base
         
         list_fistname = user_first.map {|u| Hash[ id: u.id, label: u.firstname, name: u.firstname]}
         list_lastname = user_last.map {|u| Hash[ id: u.id, label: u.lastname, name: u.lastname]}
-        list = list_title + list_artist + list_genre + list_lastname + list_fistname + list_songs
+        list_alias = user_alias.map {|u| Hash[ id: u.id, label: u.alias, name: u.alias]}
+        list_email = user_email.map {|u| Hash[ id: u.id, label: u.email, name: u.email]}
+        
+        list = list_title + list_artist + list_genre + list_lastname + list_fistname + list_alias + list_email + list_songs
         list.uniq! {|l| l[:label]} # entferne doppelte einträge aus über alle kategorien
         render json: list
     end

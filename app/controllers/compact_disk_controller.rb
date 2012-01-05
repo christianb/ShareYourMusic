@@ -66,9 +66,23 @@ class CompactDiskController < ApplicationController
   end
   
   def new
+    logger.debug 'call new'
     @cd = CompactDisk.new
+    logger.debug 'new CD'
     @cd.songs.build
     #1.times { @cd.songs.build }
+  end
+  
+  def mbrainz
+    #logger.debug 'call mbrainz'
+    @tracks = searchTracks(params[:artist], params[:title])
+    @tr = @tracks.to_a.map! {|t| Hash[value: t]}
+    #respond_to do |format|
+     # format.html
+      #format.js
+    #end
+    render xml: @tr
+    
   end
   
   def create
@@ -76,16 +90,25 @@ class CompactDiskController < ApplicationController
     
     # lade Tracks von MusicBrainz
     tracks = searchTracks(@cd.artist, @cd.title)
+    #logger.debug 'tracks' +tracks.to_s
     
     #@songs = (params[:song])  
     respond_to do |format|
         if @cd.save
           # save songs from musicBrianz
-          tracks.each { |t| 
-            logger.debug "erstelle Song: "+t.to_s
-            song = Song.new(:title => t.to_s, :compact_disk_id => @cd.id)
-            song.save
-          }
+          if !tracks.nil?
+            tracks.each { |t| 
+              logger.debug "erstelle Song: "+t.to_s
+              song = Song.new(:title => t.to_s, :compact_disk_id => @cd.id)
+              song.save
+            }
+          end
+          
+          # try to convert to ogg if needed
+          @cd.convert_to_ogg
+          #@cd.update_attribute(:audio_file_name, @cd.audio_file_name+".ogg")
+          #@cd.update_attribute(:audio_content_type, "audio/ogg")
+          #logger.debug "new audio path"+@cd.audio.path
           
           format.html  { redirect_to(myCDs_path(current_user.id),
                         :notice => 'CD erfolgreich angelegt.') }
@@ -117,6 +140,7 @@ class CompactDiskController < ApplicationController
 #    .except(:song)
     respond_to do |format|
       if @cd.update_attributes(params[:compact_disk])
+        @cd.convert_to_ogg
         #allsongs = Song.where(:all, :compact_disk_id => @cd.id)
         #allsongs.each do |as|
         #  if as.id == params[:song][:index]
@@ -192,7 +216,7 @@ class CompactDiskController < ApplicationController
       @cd.save
       redirect_to myCDs_path
     else
-      flash[:error] = "CD befindet sich in einer Transaktion"
+      flash[:error] = "CD befindet sich in einer Transaktion und kann nicht Freigegeben werden"
       redirect_to myCDs_path
     end
   end
@@ -210,8 +234,18 @@ class CompactDiskController < ApplicationController
   # Songs eines Albums
   def searchTracks(art, alb)
     query = Webservice::Query.new
-    filter = Webservice::TrackFilter.new(:release => alb, :artist => art)
-    tracks = query.get_tracks(filter)
-    return tracks.entities()
+    filter = Webservice::ReleaseFilter.new(:title => alb, :artist => art)
+    release = query.get_releases(filter)
+    if (!release.empty?)
+      # get mbid of first
+      mbid = release.entities[0].id.to_s;
+    
+      release = query.get_release_by_id(mbid, :artist=>true, :tracks=>true)
+      #logger.debug "title: "+ release.title
+      #logger.debug "artist: "+release.artist.name
+      
+      return release.tracks
+    end
+      return nil
   end
 end

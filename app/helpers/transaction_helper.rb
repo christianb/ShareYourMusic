@@ -14,6 +14,11 @@ module TransactionHelper
     return disk
   end
   
+  def getCD(cd)
+    disk = CompactDisk.find(cd.to_i)
+    return disk
+  end
+  
   def getOldReqMine(cds)
     cd_array = cds.split(';')
     return cd_array[0].split(',')
