@@ -265,12 +265,13 @@ class CompactDiskController < ApplicationController
       # get mbid of first
       mbid = release.entities[0].id.to_s;
     
-      release = query.get_release_by_id(mbid, :artist=>true, :tracks=>true, :url_rels => true)
+      release = query.get_release_by_id(mbid, :artist=>true, :tracks=>true, :release_events => true)
       logger.debug 'url_rels: '+release.to_s
-      releations = release.get_relations( :relation_type => MusicBrainz::Model::NS_REL_1 + 'AmazonAsin' )
-      id = nil
-      p releations.map {|r| id = r.target.split('/').last}
-      cover_url = generate_cover_url(id)
+      
+      #releations = release.get_relations( :relation_type => MusicBrainz::Model::NS_REL_1 + 'AmazonAsin' )
+      #id = nil
+      #p releations.map {|r| id = r.target.split('/').last}
+      cover_url = generate_cover_url(release.asin)
       logger.debug "cover url: "+cover_url
       #logger.debug "r.target"+releations.artist
       #logger.debug "title: "+ release.title
@@ -282,7 +283,7 @@ class CompactDiskController < ApplicationController
       results_from_rbrainz = {
           :tracks => release.tracks.to_a,
           :cover_url => cover_url,
-          :genre => ""
+          :year => release.release_events[0].date.year
       }
       
       #logger.debug "show cover from map: "+amap[:cover_url]

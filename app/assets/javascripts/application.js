@@ -368,6 +368,9 @@ function mbrainz(){
 	
 			var cover_url =  $('#compact_disk_photo_url');
 			cover_url.attr('value',$(xml).find('cover-url').text());
+			
+			var year =  $('#compact_disk_year');
+			year.attr('value',$(xml).find('year').text());
 		}
 	});
 }
