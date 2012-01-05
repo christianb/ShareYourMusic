@@ -49,6 +49,7 @@ Projekt::Application.routes.draw do
     
     
     resources :transaction
+    match 'transaction/destroy_sent_msg/:id' => 'transaction#destroy_sent_msg', :as => :destroy_sent_msg
     match 'transaction/destroy/:id' => 'transaction#destroy', :as => :destroy
     match 'transaction/rejected/:id' => 'transaction#rejected', :as => :rejected
     match 'transaction/accept/:id' => 'transaction#accept', :as => :accept

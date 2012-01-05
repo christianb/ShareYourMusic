@@ -216,7 +216,7 @@ class CompactDiskController < ApplicationController
       @cd.save
       redirect_to myCDs_path
     else
-      flash[:error] = "CD befindet sich in einer Transaktion"
+      flash[:error] = "CD befindet sich in einer Transaktion und kann nicht Freigegeben werden"
       redirect_to myCDs_path
     end
   end

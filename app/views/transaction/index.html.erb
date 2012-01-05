@@ -10,6 +10,7 @@
 			<th>Gegen CDs </th>
 			<th>Von</th>
 			<th>Status</th>
+			<th></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -19,12 +20,12 @@
 		<tr>
 			<td>
 				<% wcd.each do |m| %>
-					<%= image_tag getCover(m).photo.url(:small) %>
+					<%= image_tag getCover(m).photo.url(:small), :rel=>"popover", :title=>getCD(m).title+" ("+getCD(m).artist+")", :id=>getSongs(getCD(m)) %>
 				<% end %>
 			</td>
 			<td>
 				<% mcd.each do |w| %>
-					<%= image_tag getCover(w).photo.url(:small) %>
+					<%= image_tag getCover(w).photo.url(:small), :rel=>"popover", :title=>getCD(w).title+" ("+getCD(w).artist+")", :id=>getSongs(getCD(w)) %>
 				<% end %>
 			</td>
 			<td>
@@ -38,6 +39,9 @@
 				<% else %>
 					Offen
 				<% end %>
+			</td>
+			<td class="middle">
+				<%= link_to "Löschen", destroy_sent_msg_path(:id => sm) ,:methode => "delete", :class => "btn danger" %>
 			</td>
 		</tr>
 		<% end %>
@@ -63,12 +67,12 @@
 		<tr>
 			<td>
 				<% mcd.each do |w| %>
-					<%= image_tag getCover(w).photo.url(:small) %>
+					<%= image_tag getCover(w).photo.url(:small), :rel=>"popover", :title=>getCD(w).title+" ("+getCD(w).artist+")", :id=>getSongs(getCD(w)) %>
 				<% end %>
 			</td>
 			<td>
 				<% wcd.each do |m| %>
-					<%= image_tag getCover(m).photo.url(:small) %>
+					<%= image_tag getCover(m).photo.url(:small), :rel=>"popover", :title=>getCD(m).title+" ("+getCD(m).artist+")", :id=>getSongs(getCD(m)) %>
 				<% end %>
 			</td>
 			<td>
@@ -104,12 +108,12 @@
 				<tr>
 					<td>
 						<% wcd.each do |m| %>
-							<%= image_tag getCover(m).photo.url(:small) %>
+							<%= image_tag getCover(m).photo.url(:small), :rel=>"popover", :title=>getCD(m).title+" ("+getCD(m).artist+")", :id=>getSongs(getCD(m)) %>
 						<% end %>
 					</td>
 					<td>
 						<% mcd.each do |w| %>
-							<%= image_tag getCover(w).photo.url(:small) %>
+							<%= image_tag getCover(w).photo.url(:small), :rel=>"popover", :title=>getCD(w).title+" ("+getCD(w).artist+")", :id=>getSongs(getCD(w)) %>
 						<% end %>
 					</td>
 					<td>
@@ -123,12 +127,12 @@
 					<tr>
 						<td>
 							<% getNewReqMine(mr.subject).each do |nrm| %>
-								<%= image_tag getCover(nrm).photo.url(:small) %>
+								<%= image_tag getCover(nrm).photo.url(:small), :rel=>"popover", :title=>getCD(nrm).title+" ("+getCD(nrm).artist+")", :id=>getSongs(getCD(nrm)) %>
 							<% end %>
 						</td>
 						<td>
 							<% getNewReqProvide(mr.subject).each do |nrp| %>
-								<%= image_tag getCover(nrp).photo.url(:small) %>
+								<%= image_tag getCover(nrp).photo.url(:small), :rel=>"popover", :title=>getCD(nrp).title+" ("+getCD(nrp).artist+")", :id=>getSongs(getCD(nrp)) %>
 							<% end %>
 						</td>
 						<td>
@@ -160,12 +164,12 @@
 		<tr>
 		<td>
 			<% wcd.each do |w| %>
-				<%= image_tag getCover(w).photo.url(:small) %>
+				<%= image_tag getCover(w).photo.url(:small), :rel=>"popover", :title=>getCD(w).title+" ("+getCD(w).artist+")", :id=>getSongs(getCD(w)) %>
 			<% end %>
 		</td>
 		<td>
 			<% mcd.each do |m| %>
-				<%= image_tag getCover(m).photo.url(:small) %>
+				<%= image_tag getCover(m).photo.url(:small), :rel=>"popover", :title=>getCD(m).title+" ("+getCD(m).artist+")", :id=>getSongs(getCD(m)) %>
 			<% end %>
 		</td>
 		<td class="middle">
@@ -208,12 +212,12 @@
 		-->
 		<td>
 			<% getNewReqMine(m.subject).each do |nrm| %>
-				<%= image_tag getCover(nrm).photo.url(:small) %>
+				<%= image_tag getCover(nrm).photo.url(:small), :rel=>"popover", :title=>getCD(nrm).title+" ("+getCD(nrm).artist+")", :id=>getSongs(getCD(nrm)) %>
 			<% end %>
 		</td>
 		<td>
 			<% getNewReqProvide(m.subject).each do |nrp| %>
-				<%= image_tag getCover(nrp).photo.url(:small) %>
+				<%= image_tag getCover(nrp).photo.url(:small), :rel=>"popover", :title=>getCD(nrp).title+" ("+getCD(nrp).artist+")", :id=>getSongs(getCD(nrp)) %>
 			<% end %>
 		</td>
 		<td>

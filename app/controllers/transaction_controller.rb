@@ -35,7 +35,9 @@ def create
     message.body = "Anfrage"
     message.sender = user
     message.recipient = dest
-    if message.save        
+    if message.save
+      CompactDisk.update_all({:visible => false}, {:id => seperated_mine_cds}) 
+      CompactDisk.update_all({:visible => false}, {:id => seperated_wanted_cds})        
       redirect_to :controller => "compact_disk", :action => "index"
     end
     else
@@ -72,6 +74,27 @@ def destroy
   msg.mark_deleted(user)
   message.mark_deleted(user)
 
+  redirect_to :action => "index"
+end
+
+def destroy_sent_msg
+  msg_id = params[:id]
+
+  msg = Message.find(msg_id)
+  
+  # user -> Nutzer der Nachricht (Anfrage) empfangen hat
+  # dest -> Nutzer der benachrichtigt werden soll, dass Anfrage abgelehnt wurde
+  user = msg.recipient_id
+  dest = msg.sender_id 
+
+  rsv_message = Message.read(msg_id, user)
+
+  user = rsv_message.recipient
+  dest = rsv_message.sender
+    
+  # Nachrichten als gelöscht markieren; Sobald Empfänger dies auch macht, wird Nachricht gelöscht
+  msg.destroy
+   
   redirect_to :action => "index"
 end
 
@@ -182,6 +205,16 @@ def accept
     message.mark_deleted(user)
 
     redirect_to :action => "index"
+=begin    
+    other_cd_req = current_user.received_messages.find(:all, :conditions => ["subject LIKE ?", subject])
+    if !other_cd_req.empty?
+      other_cd_req.each do |ocr|
+        ocr.recipient_deleted = true
+        orc.subject = "Abgelehnt"
+        orc.save
+      end
+    end
+=end    
   else
     redirect_to :action => "index"
     flash[:notice] = "Mindestens eine der CDs ist nicht mehr verfuegbar"
@@ -209,7 +242,7 @@ def accepted
 
   msg.mark_deleted(user)
   sent_message[0].mark_deleted(user)
-
+  
   redirect_to :action => "index"
 end
 
