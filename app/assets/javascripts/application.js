@@ -344,7 +344,10 @@ function autoCompleteSearch(){
 function mbrainz(){
 	var artist = $('#compact_disk_artist').val();
 	var title = $('#compact_disk_title').val();
-	var url = '/compact_disk/mbrainz?artist=' + artist + '&title=' + title
+	var url = '/compact_disk/mbrainz?artist=' + artist + '&title=' + title;
+	
+	
+	
 	
 	// Falls bereits Felder vorhanden sind, werden diese entfernt
 	$('.mbrainz_fields').find('input').remove();
@@ -356,12 +359,18 @@ function mbrainz(){
         url: '/compact_disk/mbrainz',
 		data: "artist="+artist+"&title="+title,
 		success: function(xml){
-			$(xml).find('value').each(function(){
+			$(xml).find('tracks track').each(function(){
 				var ran_nr = Math.floor(Math.random()*100);
 				var new_id = (new Date().getTime()) * ran_nr;
 				var val = $(this).text();
 				$('<div class=\"input fields\">\n	<input id=\"compact_disk_songs_attributes_'+ new_id +'_title\" name=\"compact_disk[songs_attributes]['+ new_id +'][title]\" size=\"30\" type=\"text\" value=\"'+ val + '\"/>\n	<input id=\"compact_disk_songs_attributes_'+ new_id +'__destroy\" name=\"compact_disk[songs_attributes]['+ new_id +'][_destroy]\" type=\"hidden\" value=\"false\" /> \n	<a href=\"#\" onclick=\"remove_fields(this); return false;\"><span class=\"label important\"> - <\/span><\/a>\n<\/div>').appendTo('.mbrainz_fields');
 	 		});
+	
+			var cover_url =  $('#compact_disk_photo_url');
+			cover_url.attr('value',$(xml).find('cover-url').text());
+			
+			var year =  $('#compact_disk_year');
+			year.attr('value',$(xml).find('year').text());
 		}
 	});
 }

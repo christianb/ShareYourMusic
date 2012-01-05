@@ -99,13 +99,14 @@ class CompactDiskController < ApplicationController
   
   def mbrainz
     #logger.debug 'call mbrainz'
-    @tracks = searchTracks(params[:artist], params[:title])
-    @tr = @tracks.to_a.map! {|t| Hash[value: t]}
+    map = searchTracks(params[:artist], params[:title])
+    @tracks = map[:tracks]
+    #@tr = @tracks.to_a.map! {|t| Hash[value: t]}
     #respond_to do |format|
      # format.html
       #format.js
     #end
-    render xml: @tr
+    render xml: map
     
   end
   
@@ -113,20 +114,20 @@ class CompactDiskController < ApplicationController
     @cd = CompactDisk.new(params[:compact_disk])
     
     # lade Tracks von MusicBrainz
-    tracks = searchTracks(@cd.artist, @cd.title)
+    #tracks = searchTracks(@cd.artist, @cd.title)
     #logger.debug 'tracks' +tracks.to_s
     
     #@songs = (params[:song])  
     respond_to do |format|
         if @cd.save
           # save songs from musicBrianz
-          if !tracks.nil?
-            tracks.each { |t| 
-              logger.debug "erstelle Song: "+t.to_s
-              song = Song.new(:title => t.to_s, :compact_disk_id => @cd.id)
-              song.save
-            }
-          end
+          #if !tracks.nil?
+          #  tracks.each { |t| 
+          #    logger.debug "erstelle Song: "+t.to_s
+          #    song = Song.new(:title => t.to_s, :compact_disk_id => @cd.id)
+          #    song.save
+          #  }
+          #end
           
           # try to convert to ogg if needed
           @cd.convert_to_ogg
@@ -264,12 +265,36 @@ class CompactDiskController < ApplicationController
       # get mbid of first
       mbid = release.entities[0].id.to_s;
     
-      release = query.get_release_by_id(mbid, :artist=>true, :tracks=>true)
+      release = query.get_release_by_id(mbid, :artist=>true, :tracks=>true, :release_events => true)
+      logger.debug 'url_rels: '+release.to_s
+      
+      #releations = release.get_relations( :relation_type => MusicBrainz::Model::NS_REL_1 + 'AmazonAsin' )
+      #id = nil
+      #p releations.map {|r| id = r.target.split('/').last}
+      cover_url = generate_cover_url(release.asin)
+      logger.debug "cover url: "+cover_url
+      #logger.debug "r.target"+releations.artist
       #logger.debug "title: "+ release.title
       #logger.debug "artist: "+release.artist.name
       
-      return release.tracks
+      # alle daten in einer map zurückgeben
+      # keys :tracks, :cover_url, :genre, :release_date
+      
+      results_from_rbrainz = {
+          :tracks => release.tracks.to_a,
+          :cover_url => cover_url,
+          :year => release.release_events[0].date.year
+      }
+      
+      #logger.debug "show cover from map: "+amap[:cover_url]
+      #logger.debug "show tracks from map: "+amap[:tracks].inspect
+      
+      return results_from_rbrainz
     end
       return nil
+  end
+  
+  def generate_cover_url (id)
+    return ("http://images.amazon.com/images/P/"+id+".jpg")
   end
 end
