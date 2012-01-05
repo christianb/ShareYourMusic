@@ -52,9 +52,37 @@
         Notifier.deletion_confirmation(@user.email).deliver
       end
       name = @user.firstname+" "+@user.lastname
-      @user.destroy
+      
+      # Alle Nachristen eines Users finden
+      sent = @user.sent_messages.find(:all)
+      received = @user.received_messages.find(:all)
+      
+      # IDs der Nutzer an die Nachrichten/Anfragen verschickt wurden oder von denen welche Empfangen wurden
+      user_ids = Array.new
+      
+      # IDs von Sender Empfänger auslesen und in Array user_ids speichern
+      sent.each do |s|
+        user_ids.push(s.recipient_id)
+      end
+      
+      # IDs von Sender Empfänger auslesen und in Array user_ids speichern
+      received.each do |r|
+        user_ids.push(r.sender_id)
+      end
+      
+      # Alle Nachrichten eines Users löschen
+      Message.delete_all(:id => sent)
+      Message.delete_all(:id => received)
+      
       flash[:notice] = "Benutzer: "+name+" erfolgreich geloescht."
-      redirect_to :back
+      if current_user.role.role == "admin"
+        sign_out @user
+        @user.destroy  
+        redirect_to :back
+      else
+        @user.destroy
+        redirect_to :controller => "welcome", :action => "index"
+      end
   end
   
   def set_as_admin
