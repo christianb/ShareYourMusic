@@ -49,6 +49,7 @@ class CompactDiskController < ApplicationController
   
   def destroy
     @cd = CompactDisk.find(params[:id])
+    disk_user = User.find(@cd.user_id)
     
     if (@cd.user_id == current_user.id)
       redirect_to myCDs_path
@@ -59,6 +60,29 @@ class CompactDiskController < ApplicationController
       end
       redirect_to adminAllCDs_path
     end
+    
+    # Löschen aller Nachrichten zu der CD
+    sent = disk_user.sent_messages.find(:all, :conditions => ["subject LIKE '%?%'", @cd.id])
+    received = disk_user.received_messages.find(:all, :conditions => ["subject LIKE '%?%'", @cd.id])
+    @sended = false
+    @rvd = false
+    
+    sent.each do |s|
+      cd_array = s.subject.split(';')
+      split_array = cd_array[0].split(',')
+      if (cd_array.include?(@cd.id.to_s))
+        s.destroy
+      end
+    end
+    
+    received.each do |s|
+      cd_array = s.subject.split(';')
+      split_array = cd_array[0].split(',')
+      if(cd_array.include?(@cd.id.to_s))
+        s.destroy
+      end
+    end
+    
     
     title = @cd.title
     @cd.destroy  
