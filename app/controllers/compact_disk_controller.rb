@@ -219,7 +219,7 @@ class CompactDiskController < ApplicationController
 
     @sent_msg = @user.sent_messages(:all)
     @received_msg = @user.received_messages(:all)
-
+=begin
     @in_transaction = false
         
     @sent_msg.each do |sm|
@@ -235,8 +235,8 @@ class CompactDiskController < ApplicationController
         break
       end
     end
-    
-    if !@in_transaction
+=end    
+    if !@cd.inTransaction
       @cd.visible = true
       @cd.save
       redirect_to myCDs_path

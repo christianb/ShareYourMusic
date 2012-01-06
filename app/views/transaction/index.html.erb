@@ -17,7 +17,9 @@
 		<% @sent_messages.each do |sm| %>
 			<% wcd = getWantedCDs(sm.subject) %>
 			<% mcd = getMineCDs(sm.subject) %>
+		
 		<tr>
+			<% if !sm.body.include? "Modifikation" %>	
 			<td>
 				<% wcd.each do |m| %>
 					<%= image_tag getCover(m).photo.url(:small), :rel=>"popover", :title=>getCD(m).title+" ("+getCD(m).artist+")", :id=>getSongs(getCD(m)) %>
@@ -31,17 +33,47 @@
 			<td>
 				<%= sm.recipient.firstname + " " + sm.recipient.lastname %>
 			</td>
+			<% else %>
+			<tr>
+				<td>
+					<% getNewReqProvide(sm.subject).each do |nrp| %>
+						<%= image_tag getCover(nrp).photo.url(:small), :rel=>"popover", :title=>getCD(nrp).title+" ("+getCD(nrp).artist+")", :id=>getSongs(getCD(nrp)) %>
+					<% end %>
+				</td>
+				<td>
+					<% getNewReqMine(sm.subject).each do |nrm| %>
+						<%= image_tag getCover(nrm).photo.url(:small), :rel=>"popover", :title=>getCD(nrm).title+" ("+getCD(nrm).artist+")", :id=>getSongs(getCD(nrm)) %>
+					<% end %>
+				</td>
+				<td>
+					<%= sm.recipient.firstname + " " + sm.recipient.lastname %>
+				</td>
+			<% end %>
 			<td class="middle">
 				<% if isRejected?(sm.id) %>
-					Abgelehnt
+					Abgelehnt 
 				<% elsif isModified?(sm.id) %>
-					Modifiziert
+					Wurde modifiziert
+				<% elsif isModAccepted?(sm.id) %>
+					Modifikation angenommen
+				<% elsif isAccepted?(sm.id) %>
+					Angenommen
+				<% elsif sm.body.include? "Modifikation" %>
+					Modifikation gesendet
 				<% else %>
 					Offen
 				<% end %>
 			</td>
 			<td class="middle">
-				<%= link_to "Löschen", destroy_sent_msg_path(:id => sm) ,:methode => "delete", :class => "btn danger" %>
+				<% if isRejected?(sm.id) %>
+					<%= link_to "Löschen", rejected_url(:id => getRejectedMsg(sm.id)), :class => "btn danger" %>
+				<% elsif isModAccepted?(sm.id) %>
+					<%= link_to "Löschen", modify_accepted_url(:id => getModifiedMsg(sm.id)), :class => "btn"%>	
+				<% elsif isAccepted?(sm.id) %>
+					<%= link_to "Löschen", accepted_url(:id => getAcceptedMsg(sm.id)), :class => "btn danger" %>
+				<% else %>
+					<%= link_to "Löschen", destroy_sent_msg_path(:id => sm) ,:methode => "delete", :class => "btn danger" %>
+				<% end %>	
 			</td>
 		</tr>
 		<% end %>
@@ -88,7 +120,9 @@
 		</tbody>
 	</table>
 <% end %>
-
+<%
+=begin
+%>
 <% if !@messages_rejected.empty? && @messages_rejected != nil %>
 	<h6>Abgelehnte Angebote</h6>
 	<table class="bordered-table zebra-striped">
@@ -146,7 +180,12 @@
 		<% end %>
 	</table>
 <% end %>
-
+<%
+=end
+%>
+<%
+=begin
+%>
 <% if !@messages_accepted.empty? && @messages_accepted != nil %>
 	<h6>Angenommene Angebote</h6>
 	<table class="bordered-table zebra-striped">
@@ -183,7 +222,9 @@
 	<% end %>
 	</table>
 <% end %>
-
+<%
+=end
+%>
 <% if !@messages_modified.empty? && @messages_modified != nil %>
 	<h6>Erhaltene modifizierte Angebote</h6>
 	<table class="bordered-table zebra-striped">

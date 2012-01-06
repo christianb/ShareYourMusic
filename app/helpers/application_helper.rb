@@ -16,27 +16,9 @@ module ApplicationHelper
 
   end
   
-  def inTransaction?(user, cd_id)
-    in_transaction = false
-    
-    sent_msg = user.sent_messages(:all)
-    received_msg = user.received_messages(:all)
-        
-    sent_msg.each do |sm|
-      if sm.subject.include?(cd_id.to_s)
-        in_transaction = true
-        break
-      end
-    end
-    
-    received_msg.each do |rm|
-      if rm.subject.include?(cd_id.to_s)
-        in_transaction = true
-        break
-      end
-    end
-    return in_transaction
-  end
+#  def inTransaction?(user, cd_id)    
+#    return in_transaction
+#  end
   
   def getSongs(cd)
      logger.debug "cd title: "+cd.title
