@@ -33,6 +33,9 @@
 			<% elsif inTransaction?(current_user, c.id) %>
 				<span class="label warning">In einer Transaktion</span>
 			<% end %>
+			<% if c.created_at > (Time.now-60*60*24) %>
+				<span class="label success"> Neu </span>
+			<% end %>
         
 	</li>
 <% end %>
