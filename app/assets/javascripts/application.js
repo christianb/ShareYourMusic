@@ -345,9 +345,8 @@ function mbrainz(){
 	var artist = $('#compact_disk_artist').val();
 	var title = $('#compact_disk_title').val();
 	var url = '/compact_disk/mbrainz?artist=' + artist + '&title=' + title;
-	
-	
-	
+	var cover_url = $('#compact_disk_photo_url').val();
+	var year = $('#compact_disk_year').val();
 	
 	// Falls bereits Felder vorhanden sind, werden diese entfernt
 	$('.mbrainz_fields').find('input').remove();
@@ -366,11 +365,16 @@ function mbrainz(){
 				$('<div class=\"input fields\">\n	<input id=\"compact_disk_songs_attributes_'+ new_id +'_title\" name=\"compact_disk[songs_attributes]['+ new_id +'][title]\" size=\"30\" type=\"text\" value=\"'+ val + '\"/>\n	<input id=\"compact_disk_songs_attributes_'+ new_id +'__destroy\" name=\"compact_disk[songs_attributes]['+ new_id +'][_destroy]\" type=\"hidden\" value=\"false\" /> \n	<a href=\"#\" onclick=\"remove_fields(this); return false;\"><span class=\"label important\"> - <\/span><\/a>\n<\/div>').appendTo('.mbrainz_fields');
 	 		});
 	
-			var cover_url =  $('#compact_disk_photo_url');
-			cover_url.attr('value',$(xml).find('cover-url').text());
+			var cover_url_field =  $('#compact_disk_photo_url');
+			if (cover_url.length == 0) {
+				cover_url_field.attr('value',$(xml).find('cover-url').text());
+			}
 			
-			var year =  $('#compact_disk_year');
-			year.attr('value',$(xml).find('year').text());
+			
+			var year_field =  $('#compact_disk_year');
+			if (year.length == 0) {
+				year_field.attr('value',$(xml).find('year').text());
+			}
 		}
 	});
 }
