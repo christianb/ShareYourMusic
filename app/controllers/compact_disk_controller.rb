@@ -56,7 +56,16 @@ class CompactDiskController < ApplicationController
     else
       user = User.find(@cd.user_id)
       if (user.email_notification)
-        Notifier.deletion_confirmation_compact_disk(user.email, @cd.title, @cd.artist).deliver
+        
+        params = {
+          'method' => 'deletion_confirmation_compact_disk',
+          'email' => user.email,
+          'title' => @cd.title,
+          'artist' => @cd.artist
+        }
+        
+        Resque.enqueue(Email, params)
+        #Notifier.deletion_confirmation_compact_disk(user.email, @cd.title, @cd.artist).deliver
       end
       redirect_to adminAllCDs_path
     end
@@ -99,8 +108,9 @@ class CompactDiskController < ApplicationController
   
   def mbrainz
     #logger.debug 'call mbrainz'
-    map = searchTracks(params[:artist], params[:title])
+    map = searchMBrainz(params[:artist], params[:title])
     @tracks = map[:tracks]
+    logger.debug "cover url: "+map[:cover_url]
     #@tr = @tracks.to_a.map! {|t| Hash[value: t]}
     #respond_to do |format|
      # format.html
@@ -173,6 +183,7 @@ class CompactDiskController < ApplicationController
         #    as.save
         #  end
         #end
+        flash[:notice] = "CD erfolgreich geaendert."
         format.html { redirect_to action: "show" }
       else
         format.html { render action: "edit" }
@@ -257,7 +268,7 @@ class CompactDiskController < ApplicationController
   end
   
   # Songs eines Albums
-  def searchTracks(art, alb)
+  def searchMBrainz(art, alb)
     query = Webservice::Query.new
     filter = Webservice::ReleaseFilter.new(:title => alb, :artist => art)
     release = query.get_releases(filter)
@@ -267,6 +278,7 @@ class CompactDiskController < ApplicationController
     
       release = query.get_release_by_id(mbid, :artist=>true, :tracks=>true, :release_events => true)
       logger.debug 'url_rels: '+release.to_s
+      logger.debug "asin: "+release.asin.to_s
       
       #releations = release.get_relations( :relation_type => MusicBrainz::Model::NS_REL_1 + 'AmazonAsin' )
       #id = nil

@@ -1,6 +1,8 @@
 Projekt::Application.routes.draw do
-    
-    
+  devise_for :users
+  
+  mount Resque::Server, :at => "/resque"
+   
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -14,7 +16,7 @@ Projekt::Application.routes.draw do
   
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   
-    devise_for :users
+    
     
     match '/search' => 'application#search', :as => :search
   

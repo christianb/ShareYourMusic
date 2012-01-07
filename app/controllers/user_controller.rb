@@ -29,7 +29,16 @@
     
       #logger.debug "password: "
       #logger.debug @_new_password
-      Notifier.registration_confirmation(email, password).deliver
+      
+      params = {
+        'method' => 'registration_confirmation',
+        'email' => email,
+        'password' => password
+      }
+      
+      Resque.enqueue(Email, params)
+      
+      #Notifier.registration_confirmation(email, password).deliver
       flash[:notice] = "Password versendet."
       redirect_to welcome_path
     else
@@ -47,10 +56,19 @@
   end
   
   def destroy
+    logger.debug "call destroy user"
+    logger.debug "destroy user for id: "+:id.to_s
       @user = User.find(params[:id])
-      if (@user.email_notification)
-        Notifier.deletion_confirmation(@user.email).deliver
-      end
+      #if (@user.email_notification)
+      
+       params = {
+          'method' => 'deletion_confirmation',
+          'email' => @user.email
+        }
+        
+        Resque.enqueue(Email, params)
+        #Notifier.deletion_confirmation(@user.email).deliver
+      #end
       name = @user.firstname+" "+@user.lastname
       
       # Alle Nachristen eines Users finden
@@ -75,21 +93,29 @@
       Message.delete_all(:id => received)
       
       flash[:notice] = "Benutzer: "+name+" erfolgreich geloescht."
-      if current_user.role.role == "admin"
-        sign_out @user
-        @user.destroy  
-        redirect_to :back
-      else
+      
+      # logout user
+      #if current_user.id == @user.id
+        #
+        #@user.destroy  
+        #redirect_to :back
+      #else
         @user.destroy
-        redirect_to :controller => "welcome", :action => "index"
-      end
+        redirect_to :back
+      #end
   end
   
   def set_as_admin
     @user = User.find(params[:id])
     @user.update_attribute(:role_id, User.admin);
     if (@user.email_notification)
-      Notifier.account_upgrade_to_admin(@user.email).deliver
+      params = {
+        'method' => 'account_upgrade_to_admin',
+        'email' => @user.email,
+      }
+      
+      Resque.enqueue(Email, params)
+      #Notifier.account_upgrade_to_admin(@user.email).deliver
     end
     redirect_to :back
   end
@@ -98,7 +124,13 @@
     @user = User.find(params[:id])
     @user.update_attribute(:role_id, User.user);
     if (@user.email_notification)
-      Notifier.account_downgrade_to_user(@user.email).deliver
+      params = {
+        'method' => 'account_downgrade_to_user',
+        'email' => @user.email,
+      }
+      
+      Resque.enqueue(Email, params)
+      #Notifier.account_downgrade_to_user(@user.email).deliver
     end
     redirect_to :back
   end

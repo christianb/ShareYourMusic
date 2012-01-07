@@ -28,7 +28,14 @@ def create
 
   # Anfrage nur erstellen wenn CD noch visible ist, d.h Arrays der vorherigen Abfrage sind leer
   if (@disks_mine.empty? || @disks_wanted.empty?)
-    Notifier.new_offer(dest.email, user.alias).deliver
+    params = {
+      'method' => 'new_offer',
+      'email' => dest.email,
+      'alias' => user.alias
+    }
+    
+    Resque.enqueue(Email, params)
+    #Notifier.new_offer(dest.email, user.alias).deliver
   
     message = Message.new
     message.subject = "#{cd_mine};#{cd_wanted}"
