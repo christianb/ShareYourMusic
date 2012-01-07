@@ -99,6 +99,7 @@ de:
               blank: "Rolle existiert nicht! Bitte kontaktieren Sie einen Admin."
             email:
                 taken: "Email Adresse bereits vergeben!"
+                invalid: "Bitte eine korrekte Email eingeben (z.B: name@provider.domain)"
               
     attributes:
       user:

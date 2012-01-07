@@ -56,6 +56,8 @@
   end
   
   def destroy
+    logger.debug "call destroy user"
+    logger.debug "destroy user for id: "+:id.to_s
       @user = User.find(params[:id])
       #if (@user.email_notification)
       
@@ -91,14 +93,16 @@
       Message.delete_all(:id => received)
       
       flash[:notice] = "Benutzer: "+name+" erfolgreich geloescht."
-      if current_user.role.role == "admin"
-        sign_out @user
-        @user.destroy  
-        redirect_to :back
-      else
+      
+      # logout user
+      #if current_user.id == @user.id
+        #
+        #@user.destroy  
+        #redirect_to :back
+      #else
         @user.destroy
-        redirect_to :controller => "welcome", :action => "index"
-      end
+        redirect_to :back
+      #end
   end
   
   def set_as_admin
