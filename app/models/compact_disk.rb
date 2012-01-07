@@ -87,11 +87,12 @@ class CompactDisk < ActiveRecord::Base
       
       Resque.enqueue(AudioConverter, path, audio_file_name, audio_content_type, filename, cd.last_audio_file_name)
       
-      filename_with_ext = audio_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')
-      complete_path = path
-      path = path.chomp(filename_with_ext)
-      file_to_delete = path+cd.last_audio_file_name
-      logger.debug "file to delete: "+file_to_delete+".mp3"
+      #filename_with_ext = audio_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')
+      
+      #complete_path = path
+      #path = path.chomp(filename_with_ext)
+      #file_to_delete = path+cd.last_audio_file_name
+      #logger.debug "file to delete: "+file_to_delete+".mp3"
       
       cd.audio_file_name = filename+".ogg"
       cd.audio_content_type = "audio/ogg"
