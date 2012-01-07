@@ -40,42 +40,52 @@ module TransactionHelper
   end
   
   def isRejected?(msg_id)
-    status_rejected = current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "%Abgelehnt; #{msg_id}%"])
+    status_rejected = current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "Abgelehnt; #{msg_id}%"])
     return !status_rejected.empty?
   end
   
   def getRejectedMsg(msg_id)
-    status_rejected = current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "%Abgelehnt; #{msg_id}%"])
+    status_rejected = current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "Abgelehnt; #{msg_id}%"])
     return status_rejected[0]
   end
 
   def getAcceptedMsg(msg_id)
-     status_accepted = current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "%Angenommen; #{msg_id}%"])
+     status_accepted = current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "Angenommen; #{msg_id}%"])
      return status_accepted[0]
    end
 
   def getModifiedMsg(msg_id)
-     status_modified= current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "%Modifiziert; #{msg_id}%"])
+     status_modified= current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "Modifiziert; #{msg_id}%"])
      return status_modified[0]
    end
 
   def isModified?(msg_id)
-    status_modified = current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "%Modifikation; #{msg_id}%"])
+    status_modified = current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "Modifikation; #{msg_id}%"])
     return !status_modified.empty?
   end
   
   def isAccepted?(msg_id)
-    status_modified = current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "%Angenommen; #{msg_id}%"])
+    status_modified = current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "Angenommen; #{msg_id}%"])
     return !status_modified.empty?
   end
   
   def isModAccepted?(msg_id)
-     status_modAccepted = current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "%MAngenommen; #{msg_id}%"])
+     status_modAccepted = current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "MAngenommen; #{msg_id}%"])
       return !status_modAccepted.empty?
   end
 
+  def isModRejected?(msg_id)
+     status_modAccepted = current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "MAbgelehnt; #{msg_id}%"])
+      return !status_modAccepted.empty?
+  end
+  
   def getModifiedMsg(msg_id)
-     status_modified_accepted= current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "%MAngenommen; #{msg_id}%"])
+     status_modified_accepted= current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "MAngenommen; #{msg_id}%"])
      return status_modified_accepted[0]
-   end
+  end
+  
+  def getModRejectedMsg(msg_id)
+    status_rejected = current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "MAbgelehnt; #{msg_id}%"])
+    return status_rejected[0]
+  end
 end
