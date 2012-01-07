@@ -39,6 +39,8 @@ de:
       new:
         sign_up: "Erstellen"
         headline: "Erstellen eines persöhnlichen Profils"
+      user:
+          updated: "Profil erfolgreich geändert."
 
   compact_disk:
       index:

@@ -1,4 +1,13 @@
 <% content_for :title, @user.firstname + " " + @user.lastname %>
+<div style="margin-left:20px;">
+<% if flash[:notice] %>
+	<div class="alert-message success">
+		<a class="alert_close" href="#">×</a>
+		<%= flash[:notice] %></p>
+	</div>
+<% end %>
+</div>
+
 <%= render "user/show_partial" %>
 
 <div class="row show-grid">

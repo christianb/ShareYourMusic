@@ -56,7 +56,15 @@ class CompactDiskController < ApplicationController
     else
       user = User.find(@cd.user_id)
       if (user.email_notification)
-        Resque.enqueue(EMailDeleteDisk, user.email, @cd.title, @cd.artist)
+        
+        params = {
+          'method' => 'deletion_confirmation_compact_disk',
+          'email' => user.email,
+          'title' => @cd.title,
+          'artist' => @cd.artist
+        }
+        
+        Resque.enqueue(Email, params)
         #Notifier.deletion_confirmation_compact_disk(user.email, @cd.title, @cd.artist).deliver
       end
       redirect_to adminAllCDs_path
@@ -174,6 +182,7 @@ class CompactDiskController < ApplicationController
         #    as.save
         #  end
         #end
+        flash[:notice] = "CD erfolgreich geaendert."
         format.html { redirect_to action: "show" }
       else
         format.html { render action: "edit" }
