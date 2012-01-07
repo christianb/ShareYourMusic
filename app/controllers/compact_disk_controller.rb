@@ -49,16 +49,49 @@ class CompactDiskController < ApplicationController
   
   def destroy
     @cd = CompactDisk.find(params[:id])
+    disk_user = User.find(@cd.user_id)
     
     if (@cd.user_id == current_user.id)
       redirect_to myCDs_path
     else
       user = User.find(@cd.user_id)
       if (user.email_notification)
-        Notifier.deletion_confirmation_compact_disk(user.email, @cd.title, @cd.artist).deliver
+        
+        params = {
+          'method' => 'deletion_confirmation_compact_disk',
+          'email' => user.email,
+          'title' => @cd.title,
+          'artist' => @cd.artist
+        }
+        
+        Resque.enqueue(Email, params)
+        #Notifier.deletion_confirmation_compact_disk(user.email, @cd.title, @cd.artist).deliver
       end
       redirect_to adminAllCDs_path
     end
+    
+    # Löschen aller Nachrichten zu der CD
+    sent = disk_user.sent_messages.find(:all, :conditions => ["subject LIKE '%?%'", @cd.id])
+    received = disk_user.received_messages.find(:all, :conditions => ["subject LIKE '%?%'", @cd.id])
+    @sended = false
+    @rvd = false
+    
+    sent.each do |s|
+      cd_array = s.subject.split(';')
+      split_array = cd_array[0].split(',')
+      if (cd_array.include?(@cd.id.to_s))
+        s.destroy
+      end
+    end
+    
+    received.each do |s|
+      cd_array = s.subject.split(';')
+      split_array = cd_array[0].split(',')
+      if(cd_array.include?(@cd.id.to_s))
+        s.destroy
+      end
+    end
+    
     
     title = @cd.title
     @cd.destroy  
@@ -75,13 +108,15 @@ class CompactDiskController < ApplicationController
   
   def mbrainz
     #logger.debug 'call mbrainz'
-    @tracks = searchTracks(params[:artist], params[:title])
-    @tr = @tracks.to_a.map! {|t| Hash[value: t]}
+    map = searchMBrainz(params[:artist], params[:title])
+    @tracks = map[:tracks]
+    logger.debug "cover url: "+map[:cover_url]
+    #@tr = @tracks.to_a.map! {|t| Hash[value: t]}
     #respond_to do |format|
      # format.html
       #format.js
     #end
-    render xml: @tr
+    render xml: map
     
   end
   
@@ -89,20 +124,20 @@ class CompactDiskController < ApplicationController
     @cd = CompactDisk.new(params[:compact_disk])
     
     # lade Tracks von MusicBrainz
-    tracks = searchTracks(@cd.artist, @cd.title)
+    #tracks = searchTracks(@cd.artist, @cd.title)
     #logger.debug 'tracks' +tracks.to_s
     
     #@songs = (params[:song])  
     respond_to do |format|
         if @cd.save
           # save songs from musicBrianz
-          if !tracks.nil?
-            tracks.each { |t| 
-              logger.debug "erstelle Song: "+t.to_s
-              song = Song.new(:title => t.to_s, :compact_disk_id => @cd.id)
-              song.save
-            }
-          end
+          #if !tracks.nil?
+          #  tracks.each { |t| 
+          #    logger.debug "erstelle Song: "+t.to_s
+          #    song = Song.new(:title => t.to_s, :compact_disk_id => @cd.id)
+          #    song.save
+          #  }
+          #end
           
           # try to convert to ogg if needed
           @cd.convert_to_ogg
@@ -148,6 +183,7 @@ class CompactDiskController < ApplicationController
         #    as.save
         #  end
         #end
+        flash[:notice] = "CD erfolgreich geaendert."
         format.html { redirect_to action: "show" }
       else
         format.html { render action: "edit" }
@@ -194,7 +230,7 @@ class CompactDiskController < ApplicationController
 
     @sent_msg = @user.sent_messages(:all)
     @received_msg = @user.received_messages(:all)
-
+=begin
     @in_transaction = false
         
     @sent_msg.each do |sm|
@@ -210,8 +246,8 @@ class CompactDiskController < ApplicationController
         break
       end
     end
-    
-    if !@in_transaction
+=end    
+    if !@cd.inTransaction
       @cd.visible = true
       @cd.save
       redirect_to myCDs_path
@@ -232,7 +268,7 @@ class CompactDiskController < ApplicationController
   end
   
   # Songs eines Albums
-  def searchTracks(art, alb)
+  def searchMBrainz(art, alb)
     query = Webservice::Query.new
     filter = Webservice::ReleaseFilter.new(:title => alb, :artist => art)
     release = query.get_releases(filter)
@@ -240,12 +276,46 @@ class CompactDiskController < ApplicationController
       # get mbid of first
       mbid = release.entities[0].id.to_s;
     
-      release = query.get_release_by_id(mbid, :artist=>true, :tracks=>true)
+      release = query.get_release_by_id(mbid, :artist=>true, :tracks=>true, :release_events => true)
+      logger.debug 'url_rels: '+release.to_s
+      logger.debug "asin: "+release.asin.to_s
+      
+      #releations = release.get_relations( :relation_type => MusicBrainz::Model::NS_REL_1 + 'AmazonAsin' )
+      #id = nil
+      #p releations.map {|r| logger.debug "targeT: " +r.target}
+      
+      #logger.debug "id: "+id
+      cover_url = nil
+      unless release.asin.nil?
+        cover_url = generate_cover_url(release.asin)
+      else
+        cover_url = ""
+      end
+      
+      logger.debug "cover url: "+cover_url
+      
+      #logger.debug "r.target"+releations.artist
       #logger.debug "title: "+ release.title
       #logger.debug "artist: "+release.artist.name
       
-      return release.tracks
+      # alle daten in einer map zurückgeben
+      # keys :tracks, :cover_url, :genre, :release_date
+      
+      results_from_rbrainz = {
+          :tracks => release.tracks.to_a,
+          :cover_url => cover_url,
+          :year => release.release_events[0].date.year
+      }
+      
+      #logger.debug "show cover from map: "+amap[:cover_url]
+      #logger.debug "show tracks from map: "+amap[:tracks].inspect
+      
+      return results_from_rbrainz
     end
       return nil
+  end
+  
+  def generate_cover_url (id)
+    return ("http://images.amazon.com/images/P/"+id+".jpg")
   end
 end

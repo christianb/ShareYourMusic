@@ -39,6 +39,8 @@ de:
       new:
         sign_up: "Erstellen"
         headline: "Erstellen eines persöhnlichen Profils"
+      user:
+          updated: "Profil erfolgreich geändert."
 
   compact_disk:
       index:
@@ -97,6 +99,7 @@ de:
               blank: "Rolle existiert nicht! Bitte kontaktieren Sie einen Admin."
             email:
                 taken: "Email Adresse bereits vergeben!"
+                invalid: "Bitte eine korrekte Email eingeben (z.B: name@provider.domain)"
               
     attributes:
       user:

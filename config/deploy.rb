@@ -77,3 +77,12 @@ desc "install the necessary prerequisites"
 task :bundle_install, :roles => :app do
   run "cd #{release_path}/ && bundle install"
 end
+
+after "deploy:symlink", "deploy:restart_workers"
+
+namespace :deploy do
+  desc "Restart Resque Workers"
+  task :restart_workers, :roles => :db do
+    run "cd #{current_path}; rake resque:restart_workers"
+  end
+end
