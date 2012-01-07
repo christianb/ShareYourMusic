@@ -26,5 +26,11 @@ class Email
       Notifier.account_downgrade_to_user(map['email']).deliver
     end
     
+    if map['method'] == 'delete_transaction'
+      user_name = map['user_name']
+      email = map['email']
+      Notifier.delete_transaction(email, user_name).deliver
+    end
+    
   end
 end
