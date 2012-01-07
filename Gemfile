@@ -52,3 +52,5 @@ gem 'paperclip', :git => 'git://github.com/thoughtbot/paperclip.git'
 gem "will_paginate", "~> 3.0.pre2"
 
 gem "rbrainz"
+
+gem "resque", :require => "resque/server"

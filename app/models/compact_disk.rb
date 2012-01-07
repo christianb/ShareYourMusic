@@ -72,6 +72,15 @@ class CompactDisk < ActiveRecord::Base
     #logger.debug "convert path: #{self.audio.path} tp "
     
     if (!self.audio_file_name.nil?)
+      Resque.enqueue(AudioConverter, self.id )
+      
+=begin
+      map = {
+        :path => self.audio.path
+        :audio_file_name => self.audio_file_name
+        :audio_content_type
+      }
+      
       path = self.audio.path
       filename = File.basename(self.audio_file_name, File.extname(self.audio_file_name).downcase)
       filename = filename.gsub( /[^a-zA-Z0-9_\.]/, '_')
@@ -105,6 +114,7 @@ class CompactDisk < ActiveRecord::Base
       self.audio_file_name = filename+".ogg"
       self.audio_content_type = "audio/ogg"
       self.save
+=end
     end
     
     #File.expand_path("")

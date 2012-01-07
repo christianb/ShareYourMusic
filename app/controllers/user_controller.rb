@@ -29,7 +29,16 @@
     
       #logger.debug "password: "
       #logger.debug @_new_password
-      Notifier.registration_confirmation(email, password).deliver
+      
+      params = {
+        'method' => 'registration_confirmation',
+        'email' => email,
+        'password' => password
+      }
+      
+      Resque.enqueue(Email, params)
+      
+      #Notifier.registration_confirmation(email, password).deliver
       flash[:notice] = "Password versendet."
       redirect_to welcome_path
     else
@@ -48,9 +57,16 @@
   
   def destroy
       @user = User.find(params[:id])
-      if (@user.email_notification)
-        Notifier.deletion_confirmation(@user.email).deliver
-      end
+      #if (@user.email_notification)
+      
+       params = {
+          'method' => 'deletion_confirmation',
+          'email' => @user.email
+        }
+        
+        Resque.enqueue(Email, params)
+        #Notifier.deletion_confirmation(@user.email).deliver
+      #end
       name = @user.firstname+" "+@user.lastname
       
       # Alle Nachristen eines Users finden
@@ -89,7 +105,13 @@
     @user = User.find(params[:id])
     @user.update_attribute(:role_id, User.admin);
     if (@user.email_notification)
-      Notifier.account_upgrade_to_admin(@user.email).deliver
+      params = {
+        'method' => 'account_upgrade_to_admin',
+        'email' => @user.email,
+      }
+      
+      Resque.enqueue(Email, params)
+      #Notifier.account_upgrade_to_admin(@user.email).deliver
     end
     redirect_to :back
   end
@@ -98,7 +120,13 @@
     @user = User.find(params[:id])
     @user.update_attribute(:role_id, User.user);
     if (@user.email_notification)
-      Notifier.account_downgrade_to_user(@user.email).deliver
+      params = {
+        'method' => 'account_downgrade_to_user',
+        'email' => @user.email,
+      }
+      
+      Resque.enqueue(Email, params)
+      #Notifier.account_downgrade_to_user(@user.email).deliver
     end
     redirect_to :back
   end

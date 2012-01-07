@@ -54,7 +54,7 @@ role :db, domain, :primary => true
 # miscellaneous options
 set :deploy_via, :remote_cache
 set :scm, "git"
-set :branch, 'master'
+set :branch, 'resque'
 set :scm_verbose, true
 set :use_sudo, false
 
@@ -76,4 +76,13 @@ before "deploy:assets:precompile", :bundle_install
 desc "install the necessary prerequisites"
 task :bundle_install, :roles => :app do
   run "cd #{release_path}/ && bundle install"
+end
+
+after "deploy:symlink", "deploy:restart_workers"
+
+namespace :deploy do
+  desc "Restart Resque Workers"
+  task :restart_workers, :roles => :db do
+    run "cd #{current_path}; rake resque:restart_workers"
+  end
 end
