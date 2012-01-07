@@ -88,6 +88,16 @@
         user_ids.push(r.sender_id)
       end
       
+      user_ids.each do |id|
+        user = User.find(id)
+        params = {
+          'method' => 'delete_transaction',
+          'user_name' => @user.firstname+" "+@user.lastname,
+          'email' => user.email
+        }
+    
+        Resque.enqueue(Email, params)
+      end
       # Alle Nachrichten eines Users löschen
       Message.delete_all(:id => sent)
       Message.delete_all(:id => received)
@@ -100,6 +110,10 @@
         #@user.destroy  
         #redirect_to :back
       #else
+        if signed_in?(@user)
+          sign_out(@user)
+        end
+        
         @user.destroy
         redirect_to :back
       #end
