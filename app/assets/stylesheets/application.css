@@ -358,7 +358,6 @@ a:active {
 #myCDs{
 	background-color: #CED7FC;
 	overflow-y:auto;
- 
 }
 
 #mine{
@@ -372,20 +371,6 @@ a:active {
 
 #wanted{
 	background-color: #FCE9CE;
-}
-
-div.scrollable::-webkit-scrollbar {
-    width: 12px;
-}
-
-div.scrollable::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    border-radius: 10px;
-}
-
-div.scrollable::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
 .middle{
