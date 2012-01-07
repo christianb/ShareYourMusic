@@ -72,7 +72,31 @@ class CompactDisk < ActiveRecord::Base
     #logger.debug "convert path: #{self.audio.path} tp "
     
     if (!self.audio_file_name.nil?)
-      Resque.enqueue(AudioConverter, self.id )
+      cd = CompactDisk.find(self.id)
+      path = cd.audio.path
+      
+      audio_file_name = cd.audio_file_name
+      audio_content_type = cd.audio_content_type
+      logger.debug "audio_content_type: "+audio_content_type
+      
+      
+      filename = File.basename(cd.audio_file_name, File.extname(audio_file_name).downcase)
+      filename = filename.gsub( /[^a-zA-Z0-9_\.]/, '_')
+      
+      
+      
+      Resque.enqueue(AudioConverter, path, audio_file_name, audio_content_type, filename, cd.last_audio_file_name)
+      
+      filename_with_ext = audio_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')
+      complete_path = path
+      path = path.chomp(filename_with_ext)
+      file_to_delete = path+cd.last_audio_file_name
+      logger.debug "file to delete: "+file_to_delete+".mp3"
+      
+      cd.audio_file_name = filename+".ogg"
+      cd.audio_content_type = "audio/ogg"
+      cd.last_audio_file_name = filename
+      cd.save
       
 =begin
       map = {
