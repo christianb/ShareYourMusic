@@ -96,15 +96,29 @@ def destroy_sent_msg
 
   user = rsv_message.recipient
   dest = rsv_message.sender
+  if !msg.body.include?('Modifikation')
+    subj_splitted = msg.subject.split(';')
+    cds_splitted = subj_splitted[0].split(',') + subj_splitted[1].split(',')   
+    # Nachrichten als gelöscht markieren; Sobald Empfänger dies auch macht, wird Nachricht gelöscht
+    msg.destroy
   
-  subj_splitted = msg.subject.split(';')
-  cds_splitted = subj_splitted[0].split(',') + subj_splitted[1].split(',')   
-  # Nachrichten als gelöscht markieren; Sobald Empfänger dies auch macht, wird Nachricht gelöscht
-  msg.destroy
-  
-  CompactDisk.update_all({:visible => true, :inTransaction => false}, {:id => cds_splitted}) 
+    CompactDisk.update_all({:visible => true, :inTransaction => false}, {:id => cds_splitted}) 
    
-  redirect_to :action => "index"
+    redirect_to :action => "index"
+  else
+    splitted_body = msg.body.split(';')
+    prev_msg_id = splitted_body[1]
+    prev_msg = Message.find(prev_msg_id)
+    
+    subj_splitted = msg.subject.split(';')
+    cds_splitted = subj_splitted[2].split(',') + subj_splitted[3].split(',')   
+    # Nachrichten als gelöscht markieren; Sobald Empfänger dies auch macht, wird Nachricht gelöscht
+    msg.destroy
+    prev_msg.destroy
+    CompactDisk.update_all({:visible => true, :inTransaction => false}, {:id => cds_splitted}) 
+   
+    redirect_to :action => "index"
+  end
 end
 
 # Nachricht anzeigen
@@ -446,7 +460,9 @@ def modifyReject
 
     tauschCDs = cd_array[0]
     wunschCDs = cd_array[1]
-
+    tauschCDs_neu = cd_array[2].split(',')
+    wunschCDs_neu = cd_array[3].split(',')
+    
   #  subject = tauschCDs + wunschCDs
     subject = cd_array[0] + ';' + cd_array[1]
     #subject = subject.to_s
@@ -467,6 +483,9 @@ def modifyReject
     message.recipient = dest
     message.save
 
+    CompactDisk.update_all({:visible => true, :inTransaction => false}, {:id => tauschCDs_neu})
+    CompactDisk.update_all({:visible => true, :inTransaction => false}, {:id => wunschCDs_neu})
+
     message.mark_deleted(user)
 
     redirect_to :action => "index"
@@ -474,12 +493,15 @@ end
 
 def modifyRejected
     msg_id = params[:id]
-
     msg = Message.find(msg_id)
     msg_user = User.find(msg.recipient_id)
   #  dest = msg.sender_id 
     subject = msg.subject
 
+    splitted_body = msg.body.split(';')
+    prev_msg_id = splitted_body[1]
+    prev_msg = Message.find(prev_msg_id)
+    
     # subject von zuerst empfangender mail
     rsv_message = Message.read(msg_id, msg_user.id)
     #sent_message = msg_user.sent_messages.find(:all, :conditions => ["sender_id = ? and subject = ? and body LIKE '%Anfrage%'", msg_user.id, subject])
@@ -489,7 +511,8 @@ def modifyRejected
 
     msg.mark_deleted(user)
     #sent_message[0].mark_deleted(user)
-
+    prev_msg.destroy
+    
     redirect_to :action => "index"
 end
 end

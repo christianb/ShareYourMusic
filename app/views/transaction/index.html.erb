@@ -58,8 +58,8 @@
 					Modifikation angenommen
 				<% elsif isAccepted?(sm.id) %>
 					Angenommen
-				<% elsif sm.body.include? "Modifikation" %>
-					Modifikation gesendet
+				<% elsif isModRejected?(sm.id) %>
+					Modifikation abgelehnt
 				<% else %>
 					Offen
 				<% end %>
@@ -67,10 +67,14 @@
 			<td class="middle">
 				<% if isRejected?(sm.id) %>
 					<%= link_to "Löschen", rejected_url(:id => getRejectedMsg(sm.id)), :class => "btn danger" %>
+				<% elsif isModified?(sm.id) %>
+					
 				<% elsif isModAccepted?(sm.id) %>
-					<%= link_to "Löschen", modify_accepted_url(:id => getModifiedMsg(sm.id)), :class => "btn"%>	
+					<%= link_to "Löschen", modify_accepted_url(:id => getModifiedMsg(sm.id)), :class => "btn danger"%>	
 				<% elsif isAccepted?(sm.id) %>
-					<%= link_to "Löschen", accepted_url(:id => getAcceptedMsg(sm.id)), :class => "btn danger" %>
+					<%= link_to "Löschen", accepted_url(:id => getAcceptedMsg(sm.id)), :class => "btn danger" %>	
+				<% elsif isModRejected?(sm.id) %>
+					<%= link_to "Löschen", modified_rejected_url(:id => getModRejectedMsg(sm.id)), :class => "btn danger" %>
 				<% else %>
 					<%= link_to "Löschen", destroy_sent_msg_path(:id => sm) ,:methode => "delete", :class => "btn danger" %>
 				<% end %>	
