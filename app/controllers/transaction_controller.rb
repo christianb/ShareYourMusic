@@ -228,11 +228,15 @@ def accept
     CompactDisk.update_all({:user_id => user.id, :visible => false, :inTransaction => false}, {:id => tauschCDs})
     CompactDisk.update_all({:user_id => dest.id, :visible => false, :inTransaction => false}, {:id => wunschCDs})
     
-    sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => tauschCDs)
-    sp.save
- 
-    sr = SwapReceiver.new(:transaction_id => t.id, :compact_disk_id => wunschCDs)
-    sr.save
+    tauschCDs.each do |tcd|
+      sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => tcd.to_i)
+      sp.save
+    end
+    
+    wunschCDs.each do |wcd|
+      sr = SwapReceiver.new(:transaction_id => t.id, :compact_disk_id => wcd.to_i)
+      sr.save
+    end
     
 
     # Nachrichen löschen
@@ -389,14 +393,19 @@ def modifyAccept
     
     CompactDisk.update_all({:user_id => dest.id, :visible => false, :inTransaction => false}, {:id => tauschCDs_neu})
     CompactDisk.update_all({:user_id => user.id, :visible => false, :inTransaction => false}, {:id => wunschCDs_neu})
-    sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => tauschCDs_neu)
-    sp.save
- 
-    sr = SwapReceiver.new(:transaction_id => t.id, :compact_disk_id => wunschCDs_neu)
-    sr.save
     
-    CompactDisk.update_all({:visible => false, :inTransaction => false}, {:id => tauschCDs_neu})
-    CompactDisk.update_all({:visible => false, :inTransaction => false}, {:id => wunschCDs_neu})
+    tauschCDs_neu.each do |tcd|
+      sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => tcd.to_i)
+      sp.save
+    end
+ 
+    wunschCDs_neu.each do |wcd|
+      sr = SwapReceiver.create(:transaction_id => t.id, :compact_disk_id => wcd.to_i)
+      sr.save
+    end
+    
+    #CompactDisk.update_all({:visible => false, :inTransaction => false}, {:id => tauschCDs_neu})
+    #CompactDisk.update_all({:visible => false, :inTransaction => false}, {:id => wunschCDs_neu})
     
     
 =begin    
@@ -521,5 +530,9 @@ def modifyRejected
     prev_msg.destroy
     
     redirect_to :action => "index"
+end
+
+def history
+  @transactions = Transaction.where("provider_id = ? OR receiver_id = ?", current_user.id, current_user.id)
 end
 end
