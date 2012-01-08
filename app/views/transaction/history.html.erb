@@ -1,12 +1,17 @@
-<table>
+<table class="bordered-table zebra-striped">
 	<thead>
 	<tr>
 	    <th>Meine CD(s)</th>
 		<th>Eingetauscht gegen</th>
+		<th>Tauschpartner</th>
+		<th>Datum</th>
 	</tr>
 	</thead>
 	<tbody>
 	<% @transactions.each do |t| %>
+		<% up = User.find(t.provider_id) %>
+		<% ur = User.find(t.receiver_id) %>
+		
 		<% if t.provider_id == current_user.id %>
 			<tr>
 			<td>
@@ -19,6 +24,8 @@
 				<%= image_tag getDiskById(sr.compact_disk_id).photo.url(:small) %>
 			<% end %>
 			</td>
+			<td><%= ur.firstname + ' ' + ur.lastname %></td>
+			<td><%= t.created_at%></td>
 			</tr>	
 		<% else %>
 			<tr>
@@ -32,8 +39,15 @@
 				<%= image_tag getDiskById(sp.compact_disk_id).photo.url(:small) %>
 			<% end %>
 			</td>
+			<td><%= up.firstname + ' ' + up.lastname %></td>
+			<td><%= t.created_at%></td>
 			</tr>
 		<% end %>
 	<% end %>
 	</tbody>
 </table>
+<div class="row">
+	<div style="padding-left:20px;">
+	<%= will_paginate @transactions, :next_label => "Weiter", :previous_label => "Zurück"  %>
+	</div>
+</div>
