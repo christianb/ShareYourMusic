@@ -45,7 +45,7 @@ def create
     if message.save
       CompactDisk.update_all({:visible => false, :inTransaction => true}, {:id => seperated_mine_cds}) 
       CompactDisk.update_all({:visible => false, :inTransaction => true}, {:id => seperated_wanted_cds})        
-      redirect_to :controller => "compact_disk", :action => "index"
+      redirect_to transaction_index_path
     end
     else
       redirect_to :controller => "compact_disk", :action => "index"

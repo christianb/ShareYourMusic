@@ -22,27 +22,27 @@
 			<% if !sm.body.include? "Modifikation" %>	
 			<td>
 				<% wcd.each do |m| %>
-					<%= image_tag getCover(m).photo.url(:small), :rel=>"popover", :title=>getCD(m).title+" ("+getCD(m).artist+")", :id=>getSongs(getCD(m)) %>
+					<%= link_to (image_tag getCover(m).photo.url(:small)), compact_disk_path(getCD(m).id), :rel=>"popover", :title=>getCD(m).title+" ("+getCD(m).artist+")", :id=>getSongs(getCD(m))  %>
 				<% end %>
 			</td>
 			<td>
 				<% mcd.each do |w| %>
-					<%= image_tag getCover(w).photo.url(:small), :rel=>"popover", :title=>getCD(w).title+" ("+getCD(w).artist+")", :id=>getSongs(getCD(w)) %>
+					<%= link_to (image_tag getCover(w).photo.url(:small)), compact_disk_path(getCD(w).id), :rel=>"popover", :title=>getCD(w).title+" ("+getCD(w).artist+")", :id=>getSongs(getCD(w)) %>
 				<% end %>
 			</td>
 			<td>
-				<%= sm.recipient.firstname + " " + sm.recipient.lastname %>
+				<%= link_to sm.recipient.firstname + " " + sm.recipient.lastname, allUserCDs_path(sm.recipient.id) %>
 			</td>
 			<% else %>
 			<tr>
 				<td>
 					<% getNewReqProvide(sm.subject).each do |nrp| %>
-						<%= image_tag getCover(nrp).photo.url(:small), :rel=>"popover", :title=>getCD(nrp).title+" ("+getCD(nrp).artist+")", :id=>getSongs(getCD(nrp)) %>
+						<%= link_to (image_tag getCover(nrp).photo.url(:small)), compact_disk_path(getCD(nrp).id), :rel=>"popover", :title=>getCD(nrp).title+" ("+getCD(nrp).artist+")", :id=>getSongs(getCD(nrp)) %>
 					<% end %>
 				</td>
 				<td>
 					<% getNewReqMine(sm.subject).each do |nrm| %>
-						<%= image_tag getCover(nrm).photo.url(:small), :rel=>"popover", :title=>getCD(nrm).title+" ("+getCD(nrm).artist+")", :id=>getSongs(getCD(nrm)) %>
+						<%= link_to (image_tag getCover(nrm).photo.url(:small)), compact_disk_path(getCD(nrm).id), :rel=>"popover", :title=>getCD(nrm).title+" ("+getCD(nrm).artist+")", :id=>getSongs(getCD(nrm)) %>
 					<% end %>
 				</td>
 				<td>
@@ -103,12 +103,12 @@
 		<tr>
 			<td>
 				<% mcd.each do |w| %>
-					<%= image_tag getCover(w).photo.url(:small), :rel=>"popover", :title=>getCD(w).title+" ("+getCD(w).artist+")", :id=>getSongs(getCD(w)) %>
+					<%= link_to (image_tag getCover(w).photo.url(:small)), compact_disk_path(getCD(w).id), :rel=>"popover", :title=>getCD(w).title+" ("+getCD(w).artist+")", :id=>getSongs(getCD(w)) %>
 				<% end %>
 			</td>
 			<td>
 				<% wcd.each do |m| %>
-					<%= image_tag getCover(m).photo.url(:small), :rel=>"popover", :title=>getCD(m).title+" ("+getCD(m).artist+")", :id=>getSongs(getCD(m)) %>
+					<%= link_to (image_tag getCover(m).photo.url(:small)), compact_disk_path(getCD(m).id), :rel=>"popover", :title=>getCD(m).title+" ("+getCD(m).artist+")", :id=>getSongs(getCD(m)) %>
 				<% end %>
 			</td>
 			<td>
@@ -257,12 +257,12 @@
 		-->
 		<td>
 			<% getNewReqMine(m.subject).each do |nrm| %>
-				<%= image_tag getCover(nrm).photo.url(:small), :rel=>"popover", :title=>getCD(nrm).title+" ("+getCD(nrm).artist+")", :id=>getSongs(getCD(nrm)) %>
+				<%= link_to (image_tag getCover(nrm).photo.url(:small)), compact_disk_path(getCD(nrm).id), :rel=>"popover", :title=>getCD(nrm).title+" ("+getCD(nrm).artist+")", :id=>getSongs(getCD(nrm)) %>
 			<% end %>
 		</td>
 		<td>
 			<% getNewReqProvide(m.subject).each do |nrp| %>
-				<%= image_tag getCover(nrp).photo.url(:small), :rel=>"popover", :title=>getCD(nrp).title+" ("+getCD(nrp).artist+")", :id=>getSongs(getCD(nrp)) %>
+				<%= linkt_to (image_tag getCover(nrp).photo.url(:small)), compact_disk_path(getCD(nrp).id), :rel=>"popover", :title=>getCD(nrp).title+" ("+getCD(nrp).artist+")", :id=>getSongs(getCD(nrp)) %>
 			<% end %>
 		</td>
 		<td>

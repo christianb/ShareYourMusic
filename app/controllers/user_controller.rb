@@ -114,6 +114,15 @@
           sign_out(@user)
         end
         
+        # löschen aller song files
+        cds = CompactDisk.where(:user_id => @user.id)
+        cds.each { |cd|
+          path = cd.audio.path
+          filename_with_ext = cd.audio_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')
+          path = path.chomp(filename_with_ext)
+          system("rm -rf #{path}")
+        }
+        
         @user.destroy
         redirect_to :back
       #end
