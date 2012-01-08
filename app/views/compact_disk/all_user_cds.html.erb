@@ -18,19 +18,20 @@
 	<!--<h3>CD's des Users: </h3>-->
 <ol id="selectable">
 	<% @cds.each do |c| %>
-	<% if c.visible == true %>
 	<li>
 		<%= link_to (image_tag c.photo.url(:normal)), compact_disk_path(c), :rel=>"popover", :title=>c.title+" ("+c.artist+")", :id=>getSongs(c)%>
 		
 		<p class="blackFont"><%= c.artist %></p>
 		<p><%= c.title %></p>
 		<p>
-			<% if user_signed_in? %>
+			<% if user_signed_in? && !c.inTransaction %>
 				<%= link_to 'Tauschen', swap_cd_path(c.id) %>
+			<% end %>
+			<% if c.inTransaction %>
+				<span class="label warning">In einer Transaktion</span></br>
 			<% end %>
 		</p>
 	</li>
-	<% end %>
 	<% end %>
 </ol>
 </div>
