@@ -25,7 +25,6 @@
 <div style="height:494px;">
 <ol id="selectable">
 	<% @cds.each do |c| %>
-	<% if c.visible == true %>
 	<li>
 		<!--<%= image_tag c.photo.url(:normal) %>-->
 		<% if user_signed_in? %>
@@ -37,12 +36,14 @@
 		<p><%= c.title %></p>
 		<p>
 			<!--<%= link_to 'Show', compact_disk_path(c) %>-->
-			<% if user_signed_in? %>
+			<% if user_signed_in? && current_user.id != c.user_id && !c.in_transaction && c.visible%>
 				<%= link_to 'Tauschen', swap_cd_path(c.id) %>
+			<% end %>
+			<% if user_signed_in? && c.in_transaction %>
+				<span class="label warning">In einer Transaktion</span></br>
 			<% end %>
 		</p>
 	</li>
-	<% end %>
 	<% end %>
 </ol>
 </div>
