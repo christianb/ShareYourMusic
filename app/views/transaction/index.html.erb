@@ -46,7 +46,7 @@
 					<% end %>
 				</td>
 				<td>
-					<%= sm.recipient.firstname + " " + sm.recipient.lastname %>
+					<%= link_to sm.recipient.firstname + " " + sm.recipient.lastname, allUserCDs_path(sm.recipient.id) %>
 				</td>
 			<% end %>
 			<td class="middle">
@@ -112,7 +112,7 @@
 				<% end %>
 			</td>
 			<td>
-				<%= ma.sender.firstname + " " + ma.sender.lastname %>
+				<%= link_to ma.sender.firstname + " " + ma.sender.lastname, allUserCDs_path(ma.sender.id) %>
 			</td>
 			<td class="middle">
 				<%= link_to "Annehmen", accept_url(ma), :class => "btn success" %>
@@ -262,11 +262,11 @@
 		</td>
 		<td>
 			<% getNewReqProvide(m.subject).each do |nrp| %>
-				<%= linkt_to (image_tag getCover(nrp).photo.url(:small)), compact_disk_path(getCD(nrp).id), :rel=>"popover", :title=>getCD(nrp).title+" ("+getCD(nrp).artist+")", :id=>getSongs(getCD(nrp)) %>
+				<%= link_to (image_tag getCover(nrp).photo.url(:small)), compact_disk_path(getCD(nrp).id), :rel=>"popover", :title=>getCD(nrp).title+" ("+getCD(nrp).artist+")", :id=>getSongs(getCD(nrp)) %>
 			<% end %>
 		</td>
 		<td>
-			<%= m.sender.firstname + " " + m.sender.lastname %>
+			<%= link_to m.sender.firstname + " " + m.sender.lastname, allUserCDs_path(m.sender.id) %>
 		</td>
 		<td class="middle">
 			<%= link_to "Annehmen", modified_accept_url(:id => m), :class => "btn success" %>
