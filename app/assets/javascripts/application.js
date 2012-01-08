@@ -270,7 +270,12 @@ function dragDropCD(){
 				$('#cds_mine').attr('value', $.unique($id_arr));
 				$('#cds_wanted').attr('value', $.unique($wanted_cds));
 				
-				if ($id_arr.toString() != "" && $wanted_cds.toString() != "" ){
+				var pattern = /[0-9]/g;
+
+				var id_arr_match = $id_arr.toString().match(pattern);
+				var wanted_cds_match = $wanted_cds.toString().match(pattern);
+				
+				if (id_arr_match != null && wanted_cds_match != null ){
 					$(this).hide();
 					$('.sendBtn').show();
 				} else {
@@ -300,7 +305,13 @@ function dragDropCD(){
 				$('#cds_mine').attr('value', $.unique($id_arr));
 				$('#cds_wanted').attr('value', $.unique($wanted_cds));
 				
-				if ($id_arr.toString() != "" && $wanted_cds.toString() != "" ){
+				var pattern = /[0-9]/g;
+
+				var id_arr_match = $id_arr.toString().match(pattern);
+				var wanted_cds_match = $wanted_cds.toString().match(pattern);
+				
+				
+				if (id_arr_match != null && wanted_cds_match != null ){
 					$(this).hide();
 					$('.sendBtn').show();
 				} else {
