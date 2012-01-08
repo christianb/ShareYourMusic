@@ -282,14 +282,36 @@ class CompactDiskController < ApplicationController
     if (!release.empty?)
       # get mbid of first
       mbid = release.entities[0].id.to_s;
+      
       logger.debug "size of entities: "+release.entities.length.to_s
-      if release.entities[1] != nil
-        mbid = release.entities[1].id.to_s;
-      end
+      #if release.entities[1] != nil
+      #  mbid = release.entities[1].id.to_s;
+      #end
     
-      release = query.get_release_by_id(mbid, :artist=>true, :tracks=>true, :release_events => true)
+      entities = release.entities
+      asin = ""
+      year = nil
+      tracks = nil
+      
+      entities.each { |e|
+        logger.debug "next entity"
+        mbid = e.id.to_s
+        r = query.get_release_by_id(mbid, :artist=>true, :tracks=>true, :release_events => true)
+        if (!r.asin.empty?)
+          asin = r.asin.to_s
+          if year.nil?
+            year = r.release_events[0].date.year
+          end
+          if tracks.nil?
+            tracks = r.tracks
+          end
+          break
+        end
+      }
+      
+      
       logger.debug 'url_rels: '+release.to_s
-      logger.debug "asin: "+release.asin.to_s
+      logger.debug "asin: "+asin
       
       #releations = release.get_relations( :relation_type => MusicBrainz::Model::NS_REL_1 + 'AmazonAsin' )
       #id = nil
@@ -297,8 +319,8 @@ class CompactDiskController < ApplicationController
       
       #logger.debug "id: "+id
       cover_url = nil
-      unless release.asin.nil?
-        cover_url = generate_cover_url(release.asin)
+      unless asin.nil?
+        cover_url = generate_cover_url(asin)
       else
         cover_url = ""
       end
@@ -313,9 +335,9 @@ class CompactDiskController < ApplicationController
       # keys :tracks, :cover_url, :genre, :release_date
       
       results_from_rbrainz = {
-          :tracks => release.tracks.to_a,
+          :tracks => tracks.to_a,
           :cover_url => cover_url,
-          :year => release.release_events[0].date.year
+          :year => year
       }
       
       #logger.debug "show cover from map: "+amap[:cover_url]
