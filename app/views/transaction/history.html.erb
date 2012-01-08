@@ -1,4 +1,25 @@
 <% @transactions.each do |t| %>
-	<%= t.swap_provider %>
-	<%= t.swap_receiver %><br />
+	<% if t.provider_id == current_user.id %>
+	
+		CD
+		<% t.swap_provider.each do |sp| %>
+			<%= image_tag getDiskById(sp.compact_disk_id).photo.url(:small) %>
+		<% end %>
+		
+		Getauscht gegen
+		<% t.swap_receiver.each do |sr| %>
+			<%= image_tag getDiskById(sr.compact_disk_id).photo.url(:small) %>
+		<% end %>
+		<br/>	
+	<% else %>
+		CD
+		<% t.swap_receiver.each do |sr| %>
+			<%= image_tag getDiskById(sr.compact_disk_id).photo.url(:small) %>
+		<% end %>
+		Getauscht gegen
+		<% t.swap_provider.each do |sp| %>
+			<%= image_tag getDiskById(sp.compact_disk_id).photo.url(:small) %>
+		<% end %>
+		<br/>
+	<% end %>
 <% end %>
