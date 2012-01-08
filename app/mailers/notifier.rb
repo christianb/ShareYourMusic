@@ -28,4 +28,9 @@ class Notifier < ActionMailer::Base
     @nick = nickname
     mail(:to => email, :subject => "Sie haben ein neues Angebot", :from => "kallisto.rails@gmail.com")  
   end
+  
+  def delete_transaction(email, name)
+    @name = name
+    mail(:to => email, :subject => "Tauschangebot geloescht", :from => "kallisto.rails@gmail.com")  
+  end
 end
