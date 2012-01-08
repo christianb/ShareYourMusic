@@ -1,20 +1,23 @@
 <div class="row">
-<!--	<div class="clearfix">-->
+<div class="clearfix">
 		<%= form.label "Titel" %>
         <div class="input">
             <%= form.text_field :title, :class => "span6" %>*
         </div>
-<!--	</div>-->
-	<div class="row">
-		<div class="span4 offset10"><%= link_to_function 'MusicBrainz Abfrage', 'mbrainz()', :class => "btn mbrainzBt" %></div>
-	</div>
+</div>
+	
 
 	<div class="clearfix">
 		<%= form.label "Artist" %>
         <div class="input">
-		<%= form.text_field :artist, :class => "span6" %>*
+            <%= form.text_field :artist, :class => "span6" %>* 
+                <span class="span6 offset10"style="float:right; padding-right:30px;">
+                    <%= link_to_function 'MusicBrainz Abfrage', 'mbrainz()', :class => "btn mbrainzBt" %>
+                    <%= image_tag ("information-white.png"), :class=>"information_symbol", :rel=>"popover", :title => 'MusicBrainz', :id => "Wenn Sie einen Titel und Interpreten einer CD eingegeben haben, koennen Sie mittels MusicBrainz, einer Open Music Enzyklopaedie, weitere Daten (z.B Songs oder Cover) automatisch fuellen lassen."  %>
+                </span>
 		</div>
     </div>
+    
 </div>
 <div class="row">
 	<div class="clearfix">
@@ -66,11 +69,11 @@
 			<%= link_to_add_fields '<span class="label success"> + </span>'.html_safe, form, :songs %>
 		</div>
 	</div>
-	
+		
 	<div class="clearfix">
     	<%= form.label t('.upload_cover') %>
         <div class="input">
-        	<%= form.file_field :photo, :class => "input-file" %>
+        	<%= form.file_field :photo, :class => "input-file" %> <span style=" margin-left:55px;  color: #808080;" class="small">max. 5 MB</span>
         </div>
   </div>
 
@@ -84,7 +87,7 @@
 	<div class="clearfix">
     	<%= form.label t('.demo_song') %>
         <div class="input">
-        	<%= form.file_field :audio, :class => "input-file" %>
+        	<%= form.file_field :audio, :class => "input-file" %>  <span style=" margin-left:55px;  color: #808080;" class="small">max. 5 MB</span>
         </div>
   </div>
 </div>

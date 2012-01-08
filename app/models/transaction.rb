@@ -46,6 +46,8 @@ class Transaction < ActiveRecord::Base
   
   has_many :compact_disks, :through => :swap_provider
   has_many :compact_disks, :through => :swap_receiver
+  has_many :swap_provider
+  has_many :swap_receiver
 end
 
 
