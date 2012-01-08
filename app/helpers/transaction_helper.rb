@@ -88,4 +88,9 @@ module TransactionHelper
     status_rejected = current_user.received_messages.find(:all, :conditions => ["body LIKE ?", "MAbgelehnt; #{msg_id}%"])
     return status_rejected[0]
   end
+  
+  def getDiskById(cd_id)
+    cd = CompactDisk.find(cd_id)
+    return cd
+  end
 end
