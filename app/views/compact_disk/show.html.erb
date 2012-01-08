@@ -52,7 +52,9 @@
 		
 		<% if @cd.audio_file_name != nil %>
 			<p>
-			<audio controls="controls">
+			<b>DemoSong</b>
+			</p>
+			<p> <audio controls="controls">
 				<!-- Dateiname ohne Extension -->
 				<% filename = File.basename(@cd.audio_file_name, File.extname(@cd.audio_file_name).downcase)%>
 				<% path = @cd.audio.url.chomp(@cd.audio_file_name) %>
@@ -85,6 +87,12 @@
 	<% if user_signed_in? && @cd.user_id == current_user.id%>
 		<%= link_to 'Zurück', myCDs_path, :class => "btn default" %>
 		<%= link_to 'Bearbeiten', edit_compact_disk_path(@cd), :class => "btn primary" %>
+		
+		<% if @cd.audio_file_name != nil %>
+		<div style=" float:right;">
+			<%= link_to "Demo Song löschen", delete_demo_songs_path(@cd), :confirm => "Wollen sie die Demo Songs wirklich löschen?", :method => :delete, :class => "btn danger" %>
+		</div>
+		<% end %>
 	<% else %>
 		<%= link_to 'Zurück', :back, :class => "btn default" %>
 		<% if user_signed_in? %>
@@ -98,6 +106,11 @@
 		<% end %>
 		<% if user_signed_in? && AdminController.isAdmin(current_user) %>
 			<div style=" float:right;">
+			<% if @cd.audio_file_name != nil %>
+				<%= link_to "Demosong löschen", delete_demo_songs_path(@cd), :confirm => "Wollen sie die Demo Songs wirklich löschen?", :method => :delete, :class => "btn danger" %>
+			<% end %>
+		
+			
 				<%= link_to "CD löschen", @cd, :confirm => "Wollen die CD \""+ @cd.title+"\" von "+User.find(@cd.user_id).firstname+" "+User.find(@cd.user_id).lastname+" wirklich löschen?", :method => :delete, :class => "btn danger" %>
 			</div>
 		<% end %>
