@@ -31,7 +31,7 @@
 			<% if !c.visible && !c.inTransaction %>
 				<%= link_to "Freigeben", makeVisible_path(c.id), :class => "btn" %>
 			<% elsif c.inTransaction %>
-				<span class="label warning">In einer Transaktion</span>
+				<span class="label warning">In einer Transaktion</span></br>
 			<% end %>
 			<% if c.created_at > (Time.now-60*60*24) %>
 				<span class="label success"> Neu </span>

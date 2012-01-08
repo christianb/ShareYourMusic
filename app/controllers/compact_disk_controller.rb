@@ -282,6 +282,10 @@ class CompactDiskController < ApplicationController
     if (!release.empty?)
       # get mbid of first
       mbid = release.entities[0].id.to_s;
+      logger.debug "size of entities: "+release.entities.length.to_s
+      if release.entities[1] != nil
+        mbid = release.entities[1].id.to_s;
+      end
     
       release = query.get_release_by_id(mbid, :artist=>true, :tracks=>true, :release_events => true)
       logger.debug 'url_rels: '+release.to_s

@@ -49,7 +49,7 @@ Projekt::Application.routes.draw do
     match 'compact_disk/:id' => 'compact_disk#destroy', :as => :delete_cd, :via => :delete
 
     
-    
+    match 'transaction/history' => 'transaction#history', :as => :history
     resources :transaction
     match 'transaction/destroy_sent_msg/:id' => 'transaction#destroy_sent_msg', :as => :destroy_sent_msg
     match 'transaction/destroy/:id' => 'transaction#destroy', :as => :destroy
