@@ -31,7 +31,7 @@
 				<% end %>
 			</td>
 			<td>
-				<%= sm.recipient.firstname + " " + sm.recipient.lastname %>
+				<%= link_to sm.recipient.firstname + " " + sm.recipient.lastname, allUserCDs_path(sm.recipient.id) %>
 			</td>
 			<% else %>
 			<tr>
