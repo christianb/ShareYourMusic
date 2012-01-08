@@ -32,7 +32,7 @@ gegen
 		<% if !@myCDs.empty? %>
 			<% @myCDs.each do |cd| %>
 				<% if !mcd.include? cd.id.to_s %>			
-						<%= image_tag cd.photo.url(:small), :alt => cd.id, :style => "border: 1px solid white;" %>
+						<%= image_tag cd.photo.url(:small), :alt => cd.id, :style => "border: 1px solid white;", :rel=>"popover", :title=>cd.title+" ("+cd.artist+")", :id=>getSongs(cd) %>
 				<% end %>
 			<% end %>
     	<% else %>
@@ -44,13 +44,13 @@ gegen
             <div class="page-header">Diese CD moechte ich haben </div>
 			<%= hidden_field_tag 'msg_id', @msg_id %>
 			<% wcd.each do |w| %>
-				<%= image_tag getCover(w).photo.url(:small), :alt => w, :style => "border: 1px solid white;", :rel=>"popover", :title=>cd.title+" ("+cd.artist+")", :id=>getSongs(cd) %>
+				<%= image_tag getCover(w).photo.url(:small), :alt => w, :style => "border: 1px solid white;", :rel=>"popover", :title=>getCD(w).title+" ("+getCD(w).artist+")", :id=>getSongs(getCD(w)) %>
 			<% end %>
 		</div>
         <div id="mine" class="mine box-swap">
-            <div class="page-header">Diese Cds tausche ich dafuer ein: </div>
+            <div class="page-header">Diese CDs tausche ich dafuer ein: </div>
 			<% mcd.each do |m| %>
-				<%= image_tag getCover(m).photo.url(:small), :alt => m, :style => "border: 1px solid white;", :rel=>"popover", :title=>cd.title+" ("+cd.artist+")", :id=>getSongs(cd) %>
+				<%= image_tag getCover(m).photo.url(:small), :alt => m, :style => "border: 1px solid white;", :rel=>"popover", :title=>getCD(m).title+" ("+getCD(m).artist+")", :id=>getSongs(getCD(m)) %>
 			<% end %>
 		</div>
     </div>
