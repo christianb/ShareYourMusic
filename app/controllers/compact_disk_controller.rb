@@ -27,7 +27,8 @@ class CompactDiskController < ApplicationController
     #@cds = CompactDisk.where(:user_id => current_user.id)
     #@cds = CompactDisk.all
     if user_signed_in?
-      @cds = CompactDisk.where(CompactDisk.arel_table[:user_id].not_eq(current_user.id)).paginate(:page => params[:page], :per_page => 10)
+      @cds = CompactDisk.where('user_id != ?', current_user.id).paginate(:page => params[:page], :per_page => 10)
+      #CompactDisk.where('user_id != ? AND in_transaction == ? AND visible == ?', current_user.id, false, true).order("id DESC").limit(10)
     else
       @cds = CompactDisk.paginate(:page => params[:page], :per_page => 10)
     end
@@ -220,7 +221,7 @@ class CompactDiskController < ApplicationController
     if (user_signed_in?)
       
       # get all cds those are not mine and those are not in an transaktion
-      @cds = CompactDisk.where('user_id != ? AND inTransaction == ? AND visible == ?', current_user.id, false, true).order("id DESC").limit(10)#.paginate(:page => params[:page], :per_page => 9)
+      @cds = CompactDisk.where('user_id != ?', current_user.id).order("id DESC").limit(10)#.paginate(:page => params[:page], :per_page => 9)
       #logger.debug "current_user.id = "+current_user.id.to_s
       #while @cds.size > 10 do
       #  @cds.pop
@@ -228,7 +229,7 @@ class CompactDiskController < ApplicationController
         
     
     else
-      @cds = CompactDisk.where('inTransaction == ?', false).limit(10)#.paginate(:page => params[:page], :per_page => 9)
+      @cds = CompactDisk.where('in_transaction == ?', false).limit(10)#.paginate(:page => params[:page], :per_page => 9)
     end
   end
   
@@ -262,7 +263,7 @@ class CompactDiskController < ApplicationController
       end
     end
 =end    
-    if !@cd.inTransaction
+    if !@cd.in_transaction
       @cd.visible = true
       @cd.save
       redirect_to myCDs_path
@@ -279,7 +280,7 @@ class CompactDiskController < ApplicationController
   end
   
   def best
-    @best = CompactDisk.where(:visible => true).order("rank DESC").limit(10)
+    @best = CompactDisk.order("rank DESC").limit(10)
   end
   
   # Songs eines Albums

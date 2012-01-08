@@ -4,7 +4,7 @@
     <div id="myCDs" class="span4 swap box-swap" style="padding:4px;" > 
         <span>Meine CDs:</span></br></br>
     	<% @myCDs.each do |cd| %>
-			<% if cd.visible && !cd.inTransaction %>
+			<% if cd.visible && !cd.in_transaction %>
 				<%= image_tag cd.photo.url(:small), :alt => cd.id, :rel=>"popover", :title=>cd.title+" ("+cd.artist+")", :id=>getSongs(cd) %>
 			<% end %>
 		<% end %>
@@ -21,7 +21,7 @@
     <div id="userCDs" class="span4 swap box-swap" style="margin-left:10px; padding:4px;"  >
 		<span>Weitere CDs von: <%= @user.firstname + " " + @user.lastname %></span></br></br>
 		<% @userCDs.each do |cd| %>
-			<% if cd.id != @cd.id && cd.visible && !cd.inTransaction %>
+			<% if cd.id != @cd.id && cd.visible && !cd.in_transaction %>
 				<%= image_tag cd.photo.url(:small), :alt => cd.id, :rel=>"popover", :title=>cd.title+" ("+cd.artist+")", :id=>getSongs(cd) %>
 			<% end %>
 		<% end %>

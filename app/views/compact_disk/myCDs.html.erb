@@ -28,9 +28,9 @@
             
 			<p class="blackFont"><%= c.artist %></p>
             <p><%= c.title %></p>
-			<% if !c.visible && !c.inTransaction %>
+			<% if !c.visible && !c.in_transaction %>
 				<%= link_to "Freigeben", makeVisible_path(c.id), :class => "btn" %>
-			<% elsif c.inTransaction %>
+			<% elsif c.in_transaction %>
 				<span class="label warning">In einer Transaktion</span></br>
 			<% end %>
 			<% if c.created_at > (Time.now-60*60*24) %>
