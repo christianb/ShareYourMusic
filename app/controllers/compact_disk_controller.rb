@@ -226,10 +226,8 @@ class CompactDiskController < ApplicationController
       #while @cds.size > 10 do
       #  @cds.pop
       #end
-        
-    
     else
-      @cds = CompactDisk.where('in_transaction == ?', false).limit(10)#.paginate(:page => params[:page], :per_page => 9)
+      @cds = CompactDisk.order("id DESC").limit(10)#.paginate(:page => params[:page], :per_page => 9)
     end
   end
   
