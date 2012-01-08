@@ -86,14 +86,20 @@
 		<%= link_to 'Zurück', myCDs_path, :class => "btn default" %>
 		<%= link_to 'Bearbeiten', edit_compact_disk_path(@cd), :class => "btn primary" %>
 	<% else %>
+		<%= link_to 'Zurück', :back, :class => "btn default" %>
 		<% if user_signed_in? %>
 			<!--<% if current_user.id != @cd.user_id %>
 				<%= link_to 'Like', like_cd_path(@cd.id), :class => "btn success" %>
 			<% end %>-->
-			<%= link_to 'Tauschen', swap_cd_path(@cd.id), :class => "btn primary" %>
+			
+			<% if !@cd.inTransaction %>
+				<%= link_to 'Tauschen', swap_cd_path(@cd.id), :class => "btn primary" %>
+			<% end %>
 		<% end %>
 		<% if user_signed_in? && AdminController.isAdmin(current_user) %>
-			<%= link_to "CD löschen", @cd, :confirm => "Wollen die CD \""+ @cd.title+"\" von "+User.find(@cd.user_id).firstname+" "+User.find(@cd.user_id).lastname+" wirklich löschen?", :method => :delete, :class => "btn danger" %>
+			<div style=" float:right;">
+				<%= link_to "CD löschen", @cd, :confirm => "Wollen die CD \""+ @cd.title+"\" von "+User.find(@cd.user_id).firstname+" "+User.find(@cd.user_id).lastname+" wirklich löschen?", :method => :delete, :class => "btn danger" %>
+			</div>
 		<% end %>
 	<% end %>
 	</div>
