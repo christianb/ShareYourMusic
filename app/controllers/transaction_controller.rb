@@ -43,8 +43,8 @@ def create
     message.sender = user
     message.recipient = dest
     if message.save
-      CompactDisk.update_all({:visible => false, :inTransaction => true}, {:id => seperated_mine_cds}) 
-      CompactDisk.update_all({:visible => false, :inTransaction => true}, {:id => seperated_wanted_cds})        
+      CompactDisk.update_all({:visible => false, :in_transaction => true}, {:id => seperated_mine_cds}) 
+      CompactDisk.update_all({:visible => false, :in_transaction => true}, {:id => seperated_wanted_cds})        
       redirect_to transaction_index_path
     end
     else
@@ -84,7 +84,7 @@ def destroy
   msg.mark_deleted(user)
   message.mark_deleted(user)
   
-  CompactDisk.update_all({:visible => true, :inTransaction => false}, {:id => cds_splitted}) 
+  CompactDisk.update_all({:visible => true, :in_transaction => false}, {:id => cds_splitted}) 
 
   redirect_to :action => "index"
 end
@@ -109,7 +109,7 @@ def destroy_sent_msg
     # Nachrichten als gelöscht markieren; Sobald Empfänger dies auch macht, wird Nachricht gelöscht
     msg.destroy
   
-    CompactDisk.update_all({:visible => true, :inTransaction => false}, {:id => cds_splitted}) 
+    CompactDisk.update_all({:visible => true, :in_transaction => false}, {:id => cds_splitted}) 
    
     redirect_to :action => "index"
   else
@@ -122,7 +122,7 @@ def destroy_sent_msg
     # Nachrichten als gelöscht markieren; Sobald Empfänger dies auch macht, wird Nachricht gelöscht
     msg.destroy
     prev_msg.destroy
-    CompactDisk.update_all({:visible => true, :inTransaction => false}, {:id => cds_splitted}) 
+    CompactDisk.update_all({:visible => true, :in_transaction => false}, {:id => cds_splitted}) 
    
     redirect_to :action => "index"
   end
@@ -225,8 +225,8 @@ def accept
     t = Transaction.new(:provider_id => dest.id, :receiver_id => user.id, :provider_disk_id => "2".to_i, :receiver_disk_id => "3".to_i)
     t.save
   
-    CompactDisk.update_all({:user_id => user.id, :visible => false, :inTransaction => false}, {:id => tauschCDs})
-    CompactDisk.update_all({:user_id => dest.id, :visible => false, :inTransaction => false}, {:id => wunschCDs})
+    CompactDisk.update_all({:user_id => user.id, :visible => false, :in_transaction => false}, {:id => tauschCDs})
+    CompactDisk.update_all({:user_id => dest.id, :visible => false, :in_transaction => false}, {:id => wunschCDs})
     
     tauschCDs.each do |tcd|
       sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => tcd.to_i)
@@ -319,8 +319,8 @@ def modify
   message.recipient = dest
   message.save
   
-  CompactDisk.update_all({:visible => false, :inTransaction => true}, {:id => splitted_mine})
-  CompactDisk.update_all({:visible => false, :inTransaction => true}, {:id => splitted_wanted})
+  CompactDisk.update_all({:visible => false, :in_transaction => true}, {:id => splitted_mine})
+  CompactDisk.update_all({:visible => false, :in_transaction => true}, {:id => splitted_wanted})
   
 
   msg.mark_deleted(user)
@@ -391,8 +391,8 @@ def modifyAccept
     t = Transaction.new(:provider_id => dest.id, :receiver_id => user.id, :provider_disk_id => "2".to_i, :receiver_disk_id => "3".to_i)
     t.save
     
-    CompactDisk.update_all({:user_id => dest.id, :visible => false, :inTransaction => false}, {:id => tauschCDs_neu})
-    CompactDisk.update_all({:user_id => user.id, :visible => false, :inTransaction => false}, {:id => wunschCDs_neu})
+    CompactDisk.update_all({:user_id => dest.id, :visible => false, :in_transaction => false}, {:id => tauschCDs_neu})
+    CompactDisk.update_all({:user_id => user.id, :visible => false, :in_transaction => false}, {:id => wunschCDs_neu})
     
     tauschCDs_neu.each do |tcd|
       sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => tcd.to_i)
@@ -404,8 +404,8 @@ def modifyAccept
       sr.save
     end
     
-    #CompactDisk.update_all({:visible => false, :inTransaction => false}, {:id => tauschCDs_neu})
-    #CompactDisk.update_all({:visible => false, :inTransaction => false}, {:id => wunschCDs_neu})
+    #CompactDisk.update_all({:visible => false, :in_transaction => false}, {:id => tauschCDs_neu})
+    #CompactDisk.update_all({:visible => false, :in_transaction => false}, {:id => wunschCDs_neu})
     
     
 =begin    
@@ -499,8 +499,8 @@ def modifyReject
     message.recipient = dest
     message.save
 
-    CompactDisk.update_all({:visible => true, :inTransaction => false}, {:id => tauschCDs_neu})
-    CompactDisk.update_all({:visible => true, :inTransaction => false}, {:id => wunschCDs_neu})
+    CompactDisk.update_all({:visible => true, :in_transaction => false}, {:id => tauschCDs_neu})
+    CompactDisk.update_all({:visible => true, :in_transaction => false}, {:id => wunschCDs_neu})
 
     message.mark_deleted(user)
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120107221836) do
+ActiveRecord::Schema.define(:version => 20120108200539) do
 
   create_table "compact_disks", :force => true do |t|
     t.integer  "user_id",                                 :null => false
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20120107221836) do
     t.integer  "year"
     t.integer  "rank",                 :default => 0
     t.string   "photo_remote_url"
-    t.boolean  "inTransaction",        :default => false
+    t.boolean  "in_transaction",       :default => false
     t.string   "last_audio_file_name", :default => ""
   end
 
