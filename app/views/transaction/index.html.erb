@@ -262,7 +262,7 @@
 		</td>
 		<td>
 			<% getNewReqProvide(m.subject).each do |nrp| %>
-				<%= linkt_to (image_tag getCover(nrp).photo.url(:small)), compact_disk_path(getCD(nrp).id), :rel=>"popover", :title=>getCD(nrp).title+" ("+getCD(nrp).artist+")", :id=>getSongs(getCD(nrp)) %>
+				<%= link_to (image_tag getCover(nrp).photo.url(:small)), compact_disk_path(getCD(nrp).id), :rel=>"popover", :title=>getCD(nrp).title+" ("+getCD(nrp).artist+")", :id=>getSongs(getCD(nrp)) %>
 			<% end %>
 		</td>
 		<td>
