@@ -39,7 +39,7 @@ class CompactDisk < ActiveRecord::Base
                       
   #validates_attachment_presence :photo
   validates_attachment_size :photo, :less_than => 5.megabytes
-  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png']
+  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png'], :message => "Der Content Type muss image/jpeg oder image/png sein. Evtl ist die Cover URL von MusicBrainz ungueltig!"
   
   has_attached_file :audio,
                     :url => "/system/audios/:id/:normalized_audio_file_name",
@@ -159,8 +159,16 @@ class CompactDisk < ActiveRecord::Base
      end
 
      def download_remote_image
+       logger.debug "call download remote image"
        self.photo = do_download_remote_image
        self.photo_remote_url = photo_url
+       
+       if self.photo_content_type == 'image/gif'
+        logger.debug "remote photo content_type"+self.photo_content_type
+        self.photo_url = "/assets/cd_default_:style.png"
+        self.photo = do_download_remote_image
+        self.photo_remote_url = photo_url
+       end
      end
 
      def do_download_remote_image
