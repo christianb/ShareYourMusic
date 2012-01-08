@@ -358,4 +358,17 @@ class CompactDiskController < ApplicationController
   def generate_cover_url (id)
     return ("http://images.amazon.com/images/P/"+id+".jpg")
   end
+  
+  def delete_demo_songs
+    @cd = CompactDisk.find(params[:id])
+    path = @cd.audio.path
+    filename_with_ext = @cd.audio_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')
+    path = path.chomp(filename_with_ext)
+    @cd.update_attribute(:audio_file_name, nil)
+    @cd.update_attribute(:last_audio_file_name, nil)
+    
+    system("rm -rf #{path}")
+    
+    redirect_to :back
+  end
 end

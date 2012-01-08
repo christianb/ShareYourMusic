@@ -75,15 +75,27 @@ class CompactDisk < ActiveRecord::Base
       cd = CompactDisk.find(self.id)
       path = cd.audio.path
       
+      
       audio_file_name = cd.audio_file_name
       audio_content_type = cd.audio_content_type
       logger.debug "audio_content_type: "+audio_content_type
       
       
-      filename = File.basename(cd.audio_file_name, File.extname(audio_file_name).downcase)
-      filename = filename.gsub( /[^a-zA-Z0-9_\.]/, '_')
+        filename = File.basename(cd.audio_file_name, File.extname(audio_file_name).downcase)
+        filename = filename.gsub( /[^a-zA-Z0-9_\.]/, '_')
       
+      current_filename = File.basename(self.audio_file_name, File.extname(self.audio_file_name).downcase)
+      current_filename = current_filename.gsub( /[^a-zA-Z0-9_\.]/, '_')
       
+      if cd.last_audio_file_name == current_filename
+        logger.debug "song is same as last one"
+        cd.last_audio_file_name = nil
+        cd.save
+      else
+        logger.debug "song is not same as last one"
+        logger.debug "cd.last_audio_file_name: "+cd.last_audio_file_name.to_s
+        logger.debug "current_filename: "+current_filename
+      end
       
       Resque.enqueue(AudioConverter, path, audio_file_name, audio_content_type, filename, cd.last_audio_file_name)
       

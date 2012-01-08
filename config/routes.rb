@@ -38,6 +38,7 @@ Projekt::Application.routes.draw do
     match 'compact_disk/mbrainz/' => 'compact_disk#mbrainz', :as => :mbrainz, :via => :get
     
     resources :compact_disk, :except => [:show, :destroy]
+    match '/comapct_disk/delete_demo_songs:id' => 'compact_disk#delete_demo_songs', :as => :delete_demo_songs, :via => :delete
     match '/compact_disk/latest' => 'compact_disk#latest', :as => :latest_cd
     match 'compact_disk/like/:id' => 'compact_disk#like', :as => :like_cd, :via => :get
     match 'comapct_disk/best' => 'compact_disk#best', :as => :best_cd, :via => :get
