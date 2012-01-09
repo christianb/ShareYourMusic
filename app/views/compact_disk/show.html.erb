@@ -52,7 +52,7 @@
 		
 		<% if @cd.audio_file_name != nil %>
 			<p>
-			<b>DemoSong</b>
+			<b>DemoSong:</b> <%= @cd.last_audio_file_name%>
 			</p>
 			<p> <audio controls="controls">
 				<!-- Dateiname ohne Extension -->
