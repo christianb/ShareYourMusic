@@ -38,11 +38,11 @@ class Transaction < ActiveRecord::Base
   belongs_to :user, :class_name => "User", :foreign_key => "provider_id"
   belongs_to :user, :class_name => "User", :foreign_key => "receiver_id"
   
-  belongs_to :compact_disk, :class_name => "CompactDisk", :foreign_key => "provider_disk_id"
-  belongs_to :compact_disk, :class_name => "CompactDisk", :foreign_key => "receiver_disk_id"
+ # belongs_to :compact_disk, :class_name => "CompactDisk", :foreign_key => "provider_disk_id"
+ # belongs_to :compact_disk, :class_name => "CompactDisk", :foreign_key => "receiver_disk_id"
   
-  validates_with SameForeignKeyValidator
-  validates_with ForeignKeyPresenceValidator
+  #validates_with SameForeignKeyValidator
+  #validates_with ForeignKeyPresenceValidator
   
   has_many :compact_disks, :through => :swap_provider
   has_many :compact_disks, :through => :swap_receiver
