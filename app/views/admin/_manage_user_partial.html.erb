@@ -71,11 +71,30 @@
 				<% end %>
 			</td>
 			<td> 	
-				<%= link_to (image_tag("cross-script.png")), delete_user_path(u.id), :method => :delete, :confirm => "Sind Sie sicher?" %> <br>
+				<%= link_to (image_tag("cross-script.png")), u, :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true %> <br>
 			</td>
 		<% end %>
     <!--<td><%= image_tag("cross-script.png")%></td>-->
 </tr>
+<div class="modal hide fade" id="modal-window">
+  <div class="modal-header">
+    <a href="#" class="close">×</a>
+    <h3>Loading...</h3>
+  </div>
+
+  <div class="modal-body center">
+		Wollen Sie den Benutzer <b><%= u.firstname %> <%= u.lastname %></b> wirklich löschen?
+  </div>
+
+  <div class="modal-footer">
+  	<%= link_to "Ja löschen", delete_user_path(u.id), :class => "btn danger", :method => :delete %>
+  </div>
+
+</div>
 <% end %>
+
+
+
+
 </tbody>
 </table>

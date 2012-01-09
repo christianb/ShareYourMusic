@@ -52,7 +52,9 @@
 		
 		<% if @cd.audio_file_name != nil %>
 			<p>
-			<b>DemoSong:</b> <%= @cd.last_audio_file_name%>
+			<b>DemoSong:</b> <%= @cd.last_audio_file_name%> 	<span class="span6 offset10"style="float:right; padding-right:30px;">
+	          <%= image_tag ("information-white.png"), :class=>"information_symbol", :rel=>"popover", :title => 'Demo Song', :id => "Haben Sie einen Song gerade hochgeladen kann es aufgrund von Konvertierungen zu kurzen Verzögerungen kommen bis Ihnen der Song zur Verfügung steht."  %>
+	      </span>
 			</p>
 			<p> <audio controls="controls">
 				<!-- Dateiname ohne Extension -->
@@ -66,6 +68,7 @@
 			  Your browser does not support the audio element.
 			</audio>
 			</p>
+			
 		<% end %>
 		
 		<p>
@@ -90,7 +93,7 @@
 		
 		<% if @cd.audio_file_name != nil %>
 		<div style=" float:right;">
-			<%= link_to "Demo Song löschen", delete_demo_songs_path(@cd), :confirm => "Wollen sie die Demo Songs wirklich löschen?", :method => :delete, :class => "btn danger" %>
+			<%= link_to "Song löschen", delete_demo_songs_path(@cd), :class => "btn danger", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true  %>
 		</div>
 		<% end %>
 	<% else %>
@@ -107,7 +110,7 @@
 		<% if user_signed_in? && AdminController.isAdmin(current_user) %>
 			<div style=" float:right;">
 			<% if @cd.audio_file_name != nil %>
-				<%= link_to "Demosong löschen", delete_demo_songs_path(@cd), :confirm => "Wollen sie die Demo Songs wirklich löschen?", :method => :delete, :class => "btn danger" %>
+				<%= link_to "Song löschen", :class => "btn danger", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true, @message=>'bla' %>
 			<% end %>
 		
 			
@@ -115,5 +118,20 @@
 			</div>
 		<% end %>
 	<% end %>
+	<div class="modal hide fade" id="modal-window">
+	  <div class="modal-header">
+	    <a href="#" class="close">×</a>
+	    <h3>Loading...</h3>
+	  </div>
+	  <div class="modal-body center">
+			Wollen Sie den Song <b><%= @cd.last_audio_file_name%></b> wirklich löschen?
+	  </div>
+	  <div class="modal-footer">
+	  	<%= link_to "Ja Song löschen", delete_demo_songs_path(@cd), :class => "btn danger", :method => :delete %>
+	  </div>
 	</div>
+	
+	</div>
+	
+	
 </div>

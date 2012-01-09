@@ -80,10 +80,24 @@
       <%= f.submit 'Bestätigen', :class => "btn primary" %>
 	  <% if user_signed_in? && current_user.id == @user.id %>
 	  	<div style=" float:right;">
-            <%= link_to t('.delete_account'), delete_user_path(@user), :class => "btn danger", :confirm => t('.confirm_changes'), :method => :delete %>
+						<%= link_to t('.delete_account'), delete_user_path(@user), :class => "btn danger", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true %>
         </div>
         <div style="clear:both;"></div>
       <% end %>
+  	</div>
+
+		<div class="modal hide fade" id="modal-window">
+		  <div class="modal-header">
+		    <a href="#" class="close">×</a>
+		    <h3>Loading...</h3>
+		  </div>
+		  <div class="modal-body center">
+				Wollen Sie ihr Profil wirklich löschen?
+		  </div>
+		  <div class="modal-footer">
+		  	<%= link_to "Ich bin einverstanden.", delete_user_path(@user), :class => "btn danger", :method => :delete %>
+		  </div>
+		</div>
   	</div>
 
 <% end %>

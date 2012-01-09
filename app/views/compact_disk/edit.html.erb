@@ -20,10 +20,27 @@
     	<%= f.submit "Bestätigen", :class => "btn primary" %> 
 		<% if current_user.id == @cd.user_id %>
             <div style=" float:right;">
-                <%= link_to "CD löschen", @cd, :confirm => "Wollen Sie Ihre CD \""+ @cd.title+"\" wirklich löschen?", :method => :delete, :class => "btn danger" %>
+                <%= link_to "CD löschen", @cd, :class => "btn danger", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true %>
             </div>
             <div style="clear:both"></div>
         <% end %>
+	</div>
+	
+	<div class="modal hide fade" id="modal-window">
+	  <div class="modal-header">
+	    <a href="#" class="close">×</a>
+	    <h3>Loading...</h3>
+	  </div>
+	
+	  <div class="modal-body center">
+			Wollen Sie die CD <b><%= @cd.title %> (<%= @cd.artist %>)</b> wirklich löschen?
+	  </div>
+	
+	  <div class="modal-footer">
+	  	<%= link_to "Ja löschen", compact_disk_path(@cd), :class => "btn danger", :method => :delete %>
+	  </div>
+	
+	</div>
 	</div>
 <% end %>
 
