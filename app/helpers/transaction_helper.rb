@@ -93,4 +93,8 @@ module TransactionHelper
     cd = CompactDisk.find(cd_id)
     return cd
   end
+  
+  #def isStillThere?(cd_id)  
+  #end
+  
 end

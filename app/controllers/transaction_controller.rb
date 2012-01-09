@@ -222,12 +222,13 @@ def accept
 
   #if @tausch_visible.empty? && @wunsch_visible.empty? && (still_myCDs.size == tauschCDs.size)
     # Transaktion erstellen
-    t = Transaction.new(:provider_id => dest.id, :receiver_id => user.id, :provider_disk_id => "2".to_i, :receiver_disk_id => "3".to_i)
+    t = Transaction.new(:provider_id => dest.id, :receiver_id => user.id)
     t.save
-  
+    logger.debug("Transaction-ID: #{t.id}")
+
     CompactDisk.update_all({:user_id => user.id, :visible => false, :in_transaction => false}, {:id => tauschCDs})
     CompactDisk.update_all({:user_id => dest.id, :visible => false, :in_transaction => false}, {:id => wunschCDs})
-    
+      
     tauschCDs.each do |tcd|
       sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => tcd.to_i)
       sp.save
@@ -388,7 +389,7 @@ def modifyAccept
 
 
     # Transaktion erstellen
-    t = Transaction.new(:provider_id => dest.id, :receiver_id => user.id, :provider_disk_id => "2".to_i, :receiver_disk_id => "3".to_i)
+    t = Transaction.new(:provider_id => dest.id, :receiver_id => user.id)
     t.save
     
     CompactDisk.update_all({:user_id => dest.id, :visible => false, :in_transaction => false}, {:id => tauschCDs_neu})
