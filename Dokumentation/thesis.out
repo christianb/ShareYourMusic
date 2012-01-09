@@ -1,0 +1,23 @@
+\BOOKMARK [-1][-]{Marke.-1}{Konzeption und Entwicklung einer CD-Tauschb\366rse mit Ruby on Rails}{}% 1
+\BOOKMARK [0][-]{chapter.1}{1 Einleitung}{Marke.-1}% 2
+\BOOKMARK [0][-]{chapter.2}{2 Ruby-on-Rails Framework}{Marke.-1}% 3
+\BOOKMARK [1][-]{section.2.1}{2.1 Rails-Konventionen}{chapter.2}% 4
+\BOOKMARK [1][-]{section.2.2}{2.2 Model-View-Controller \(MVC\)}{chapter.2}% 5
+\BOOKMARK [1][-]{section.2.3}{2.3 Don't Repeat Yourself \(DRY\)}{chapter.2}% 6
+\BOOKMARK [1][-]{section.2.4}{2.4 Object-Relation-Mapper \(ORM\)}{chapter.2}% 7
+\BOOKMARK [0][-]{chapter.3}{3 Anwendung}{Marke.-1}% 8
+\BOOKMARK [1][-]{section.3.1}{3.1 Projektmanagement}{chapter.3}% 9
+\BOOKMARK [2][-]{subsection.3.1.1}{3.1.1 Meilensteinplanung}{section.3.1}% 10
+\BOOKMARK [2][-]{subsection.3.1.2}{3.1.2 Versionsverwaltung von Quellcode}{section.3.1}% 11
+\BOOKMARK [2][-]{subsection.3.1.3}{3.1.3 Deployment}{section.3.1}% 12
+\BOOKMARK [1][-]{section.3.2}{3.2 Konzeption der Datenbasis}{chapter.3}% 13
+\BOOKMARK [1][-]{section.3.3}{3.3 Realisierung der Funktionalit\344t}{chapter.3}% 14
+\BOOKMARK [2][-]{subsection.3.3.1}{3.3.1 Benutzerverwaltung}{section.3.3}% 15
+\BOOKMARK [2][-]{subsection.3.3.2}{3.3.2 Compact Discs}{section.3.3}% 16
+\BOOKMARK [2][-]{subsection.3.3.3}{3.3.3 Tausch-Transaktionen}{section.3.3}% 17
+\BOOKMARK [2][-]{subsection.3.3.4}{3.3.4 Sonstige Anforderungen}{section.3.3}% 18
+\BOOKMARK [1][-]{section.3.4}{3.4 Graphical User Interface}{chapter.3}% 19
+\BOOKMARK [1][-]{section.3.5}{3.5 Internationalisierung}{chapter.3}% 20
+\BOOKMARK [0][-]{chapter.4}{4 Zusamenfassung}{Marke.-1}% 21
+\BOOKMARK [0][-]{appendix.A}{A Anhang}{Marke.-1}% 22
+\BOOKMARK [1][-]{section.A.1}{A.1 Aufgabenstellung}{appendix.A}% 23
