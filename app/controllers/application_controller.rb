@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   
   def after_sign_in_path_for(resource)
       flash.now[:notice] = nil
-      stored_location_for(resource) || myCDs_path(current_user)
+      myCDs_path(current_user)
   end
   
   def after_update_path_for(resource)
