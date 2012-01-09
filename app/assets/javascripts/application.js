@@ -360,35 +360,41 @@ function mbrainz(){
 	var cover_url = $('#compact_disk_photo_url').val();
 	var year = $('#compact_disk_year').val();
 	
-	// Falls bereits Felder vorhanden sind, werden diese entfernt
-	$('.mbrainz_fields').find('input').remove();
-	$('.mbrainz_fields').find('a').remove();
+	if (artist != "" && title != ""){
+		// Falls bereits Felder vorhanden sind, werden diese entfernt
+		$('.mbrainz_fields').find('input').remove();
+		$('.mbrainz_fields').find('a').remove();
+		$('#compact_disk_songs_attributes_0_title').remove();
+		$('.fields').find('.rmSongBt').remove();
 	
-	$.ajax({
-	    type: 'GET',
-		dataType: "xml",
-        url: '/compact_disk/mbrainz',
-		data: "artist="+artist+"&title="+title,
-		success: function(xml){
-			$(xml).find('tracks track').each(function(){
-				var ran_nr = Math.floor(Math.random()*100);
-				var new_id = (new Date().getTime()) * ran_nr;
-				var val = $(this).text();
-				$('<div class=\"input fields\">\n	<input id=\"compact_disk_songs_attributes_'+ new_id +'_title\" name=\"compact_disk[songs_attributes]['+ new_id +'][title]\" size=\"30\" type=\"text\" value=\"'+ val + '\"/>\n	<input id=\"compact_disk_songs_attributes_'+ new_id +'__destroy\" name=\"compact_disk[songs_attributes]['+ new_id +'][_destroy]\" type=\"hidden\" value=\"false\" /> \n	<a href=\"#\" onclick=\"remove_fields(this); return false;\"><span class=\"label important\"> - <\/span><\/a>\n<\/div>').appendTo('.mbrainz_fields');
-	 		});
+		$.ajax({
+		    type: 'GET',
+			dataType: "xml",
+	        url: '/compact_disk/mbrainz',
+			data: "artist="+artist+"&title="+title,
+			success: function(xml){
+				$(xml).find('tracks track').each(function(){
+					var ran_nr = Math.floor(Math.random()*100);
+					var new_id = (new Date().getTime()) * ran_nr;
+					var val = $(this).text();
+					$('<div class=\"input fields\">\n	<input id=\"compact_disk_songs_attributes_'+ new_id +'_title\" name=\"compact_disk[songs_attributes]['+ new_id +'][title]\" size=\"30\" type=\"text\" value=\"'+ val + '\"/>\n	<input id=\"compact_disk_songs_attributes_'+ new_id +'__destroy\" name=\"compact_disk[songs_attributes]['+ new_id +'][_destroy]\" type=\"hidden\" value=\"false\" /> \n	<a href=\"#\" onclick=\"remove_fields(this); return false;\"><span class=\"label important\"> - <\/span><\/a>\n<\/div>').appendTo('.mbrainz_fields');
+		 		});
 	
-			var cover_url_field =  $('#compact_disk_photo_url');
-			if (cover_url.length == 0) {
-				cover_url_field.attr('value',$(xml).find('cover-url').text());
-			}
+				var cover_url_field =  $('#compact_disk_photo_url');
+				if (cover_url.length == 0) {
+					cover_url_field.attr('value',$(xml).find('cover-url').text());
+				}
 			
 			
-			var year_field =  $('#compact_disk_year');
-			if (year.length == 0) {
-				year_field.attr('value',$(xml).find('year').text());
+				var year_field =  $('#compact_disk_year');
+				if (year.length == 0) {
+					year_field.attr('value',$(xml).find('year').text());
+				}
 			}
-		}
-	});
+		});
+	}else{
+		alert("Es muss ein Title und ein Artist angegeben werden")
+	}
 }
 
 
