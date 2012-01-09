@@ -282,9 +282,9 @@ def modifyRequest
   @msg_subject = msg.subject
   
   @user = User.find(msg.sender_id)
-  @userCDs = CompactDisk.where(:user_id => @user.id)
+  @userCDs = CompactDisk.where(:user_id => @user.id, :visible => true, :in_Transaction => false)
   
-  @myCDs = CompactDisk.where(:user_id => current_user.id)
+  @myCDs = CompactDisk.where(:user_id => current_user.id, :visible => true, :in_Transaction => false)
 end
 
 def modify

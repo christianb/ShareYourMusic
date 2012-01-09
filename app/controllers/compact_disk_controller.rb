@@ -54,10 +54,10 @@ class CompactDiskController < ApplicationController
     
     # path to songs
     path = @cd.audio.path
-    filename_with_ext = @cd.audio_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')
-    path = path.chomp(filename_with_ext)
-    
-    logger.debug "path to delete all songs: "+path
+    if !@cd.audio_file_name.nil?
+      filename_with_ext = @cd.audio_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')
+      path = path.chomp(filename_with_ext)
+    end
     
     if (@cd.user_id == current_user.id)
       redirect_to myCDs_path

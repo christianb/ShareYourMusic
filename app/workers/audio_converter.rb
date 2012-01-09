@@ -27,7 +27,7 @@ class AudioConverter
     if (audio_content_type != "audio/ogg" && audio_content_type != "audio/mp3")
       system("rm #{complete_path}")
       
-      if !last_audio_file_name.nil
+      if !last_audio_file_name.nil?
         delete = path+last_audio_file_name+".mp3"
         system("rm #{delete}")
       end

@@ -1,0 +1,71 @@
+\chapter{Ruby-on-Rails Framework}
+\label{sec:Ruby on Rails Framework}
+
+Ruby On Rails (Rails) ist ein Web-Framework welches auf der Programmiersprache Ruby basiert. Ruby ist eine Objektorientierte Programmiersprache. Anweisungen werden nicht durch ein Semikolon abgeschlossen sondern durch einen Zeilenumbruch. Jede Rails Anwendung hat eine feste Ordnerstruktur und verfolgt das Prinzip ''Convention Over Configuration''. Was bedeutet das der Konfigurationsaufwand durch einhalten von Konventionen so gering wie möglich gehalten werden soll. Zusätzlich zu allen erstellten Controllern wird auch ein so genannter Application-Controller erstellt. Alle weiteren Controller sind Unterklassen von diesem und erben daher auch alle Methoden die darin deklariert wurden. Im nächsten Abschnitt sind die wichtigsten Konventionen näher erläutert.
+\section{Rails-Konventionen}
+\label{KOnventionen}
+Wie oben erwähnt verfolgt Rails das Konzept ''Convention Over Configuration''. Darunter fallen z.B. die Namenskonventionen welche besagen, dass die Namen der Controller möglichst im Plural benannt werden und Models im Singular. Des Weiteren wird die Schreibweise von Variablen- und Klassennamen geregelt. Durch diese Konventionen weiss Rails welcher Controller zu welchen Modell gehört, sowie welche Views zu einem Controller. Dadurch entfällt die explizite Zuweisung zwischen den einzelnen Komponenten. Die Methoden im Controller werden Actions genannt. Zu jeder Action gibt es meist eine View welches Äquivalent zur Bezeichnung der Action benannt ist. Sobald einen View und eine Action den gleichen Namen haben, wird beim Aufruf dieser automatisch die entsprechende View geladen.
+\section{Model-View-Controller (MVC)}
+\label{MVC}
+Das Rails-Framework ist nach dem Model-View-Controller Konzept aufgebaut. Dabei dient das Model zur Kommunikation mit der Datenbank. Außerdem sorgt es durch Validierung dafür, dass Daten im korrekten Format in die Datenbank geschrieben werden. Die Views sind die HTML-Seiten, welche dem Nutzer angezeigt werden. Sie dienen zur Anzeige der Daten aus der Datenbank oder dem Erfassen von Nutzereingaben mit Hilfe von Formularen bzw. Eingabefeldern. Der Controller ist der Vermittler zwischen der View und dem Model. Er empfängt Daten von der View und sendet sie an das Model weiter. Umgekehrt werden Daten vom Model über den Controller der View zur Verfügung gestellt.
+\section{Don't Repeat Yourself (DRY)}
+\label{DRY}
+DRY beschreibt das ''Don't Repeat Yourself'' Konzept. Dies bedeutet das so wenig wie möglich Code dupliziert wird. Zur Einhaltung dessen gibt es in Rails einigen Vorkehrungen. Als erstes wären da die Helper-Methoden zu nennen. Dies sind Methoden welche oft dazu genutzt werden, häufig genutzten Code durch Schlüsselwörter zu ersetzen. Die Helper-Methoden werden meist in den Views verwendet um dort HTML-Code zu generieren. Ein oft verwendeter Helper ist beispielsweise ''link-to'', welcher den aus HTML bekannten Link-Tag generiert.
+
+Ein weiterer Punkt ist die Definition des Seitenlayouts. Das Layout legt die Darstellung bzw. das Aussehen der HTML-Seiten fest. Dabei kann ein globales, für alle Seiten gültiges Layout definiert werden oder auch Layout-Vorlagen für spezielle Seiten definiert werden. Das Layout welches mit ''application.html.erb'' benannt wird, ist für alle Seiten gültig. Falls ein anderes Layout verwendet werden soll, muss diese explizit eingebunden werden. Ansonsten wird immer das in der Datei ''application.html.erb'' definierte genutzt. Das gleiche gilt auch für den Application-Controller. Hier definierte Methoden sind in allen anderen Controllern verfügbar und müssen dadurch nicht in jedem Controller separat implementiert werden.
+
+Seit der Version 3.1 von Rails, wird standardmäßig jQuery als Javascript Framework verwendet. Auch hier gibt es eine globale Datei (application.js) auf die aus allen Views zugegriffen werden kann. Javascript Code wird in der Regel nicht in den Views eingefügt, sondern es wird auf die zu verändernden HTML Elemente durch dessen IDs oder Klassen zugegriffen. Dies dient den Prinzip des Unobtrusive (unaufdringlich) Javascript und erhöht die Lesbarkeit des Codes der Views. Eine weitere Neuerung der Version 3.1, ist die Asset-Pipeline. Darin werden die CSS und JavaScript Dateien gespeichert. Diese werden dann, vor Auslieferung an den Browser komprimiert, um die zu übertragene Datenmenge zu verringern und dadurch die Zugriffszeit zu erhöhen.
+
+\section{Object-Relation-Mapper (ORM)}
+\label{ORM}
+Um bei Rails Objekte in einer Datenbank zu speichern, kommt der Object-Relation-Mapper ActiveRecord zum Einsatz. Dabei werden die Tabellen als Klasse gesehen, die Zeilen als Objekt und die Spalten sind die Objekt-Attribute. Durch den ORM müssen keine SQL-Statements mehr geschrieben werden, sondern für den Zugriff auf die Datenbank werden Methoden genutzt. Beim erstellen einer Tabelle werden von Rails automatisch Methoden generiert. Eine Klasse hat unter andren die Methoden ''new'' und ''find''. Diese dienen zum erstellen oder finden eines Objekts. Das Objekt besitzt die Methoden ''save'', ''update'' und ''delete''. Diese werden zum Speichern, Aktualisieren und Löschen genutzt.
+
+\chapter{Anwendung}
+\label{sec:Anwendung}
+
+\section{Projektmanagement}
+\label{sec:Projektmanagement}
+
+Eine der wichtigsten Aufgaben bei der Realisierung eines informationstechnischen Projektes ist das Projektmanagement. Es ist äußerst wichtig eine genaue Planung sowie die Konzeption durchzuführen, damit alle Anforderungen, Termine und der Kostenrahmen eingehalten werden. In den nächsten Kapiteln wird es beschrieben wie das Projektmanagement erfolgte, wobei intensiv auf die Meilensteinplanung sowie die Versionsverwaltung und Deployment eingegangen wird.
+
+\subsection{Meilensteinplanung}
+\label{Meilensteinplanung}
+
+Um das Zeitmanagement zu organisieren, wurde die Meilensteinplanung durchgeführt. Es wurde vereinbart, dass bei der Entwicklung der meisten Funktionalitäten immer zwei Gruppenmitglieder beteiligt sein müssen, um bei krankheitsbedingten Ausfällen eines Gruppenmitglieds die Entwicklung fortsetzen zu können. 
+
+\begin{figure}[ht]
+\centering
+		\includegraphics[height=7.2cm]{images/pm.png}
+	\caption[Meilensteinplanung]{Meilensteinplanung}
+	\label{fig:Meilensteinplanung}
+\end{figure}
+
+Darüber hinaus wurde es bestrebt, die Konzeption sowie die Systemmodellierung als Gruppenarbeit durchzuführen. Für diese Zwecke wurden wöchentliche Termine (dienstags 12:00-14:00 und donnerstags 11:15 - 12:30) vereinbart. An diesen Terminen wurden in Rahmen einer Gruppenarbeit sowohl die aufgetretenen Schwierigkeiten gelöst, die wöchentliche Präsentation vorbereitet als auch der weitere Projektverlauf diskutiert.
+
+\subsection{Versionsverwaltung von Quellcode}
+\label{Versionsverwaltung von Quellcode}
+
+Für die Quellcode-Verwaltung wurde eine GitHub-Repository verwendet. Dabei wurde an das Branching-Modell orientiert, die in ( http://nvie.com/posts/a-successful-git-branching-model/) vorgestellt wird. 
+
+\begin{figure}[ht]
+\centering
+		\includegraphics[height=7cm]{images/verlauf.png}
+	\caption[Git - Function, Develop und Master Branches]{Git - Function, Develop und Master Branches}
+	\label{fig:git1}
+\end{figure}
+
+Dabei wird folgende Strategie verfolgt: Als erstes werden zwei Branches angelegt \textit{develop} und \textit{master}. Die eigentliche Entwicklung geschieht auf dem \textit{develop} Branch und lediglich die Zwischenversionen, die eine neue und vor allem fehlerfreie Implementierung einer zusätzlichen Funktionalität beinhalten, werden auf den \textit{master} Branch gelegt. Durch das Erstellen von weiteren Branches für die jeweilige Funktionalität kann weiterer Komfort bei der Entwicklung erreicht werden. Jede zusätzliche Funktionalität wird dabei separat Entwickelt, so dass eine Aufteilung der Aufgaben sowie die anschließende Zusammenführung der Quelltexte ohne Einschränkungen und Probleme erfolgen können. Wenn eine Funktion fertig gestellt worden ist, wird diese ins \textit{develop} Branch kopiert. Falls mehrere Funktionalitäten im \textit{develop} Branch getestet und die identifizierten Fehler behoben wurden, wird die Anwendung ins \textit{master} Branch gemergt. Bei der Einhaltung des vorgestellten Modells sieht die Quellcode-Verwaltung wie folgt aus:
+
+\begin{figure}[ht]
+\centering
+		\includegraphics[height=12cm]{images/gitfull.png}
+	\caption[Quellcodeverwaltung mit Git]{Git - Feature und Develop Branches}
+	\label{fig:git3}
+\end{figure}
+
+\subsection{Deployment}
+\label{Deployment}
+
+\textbf{Christian Bunk}
+%Da die Anwendung auf einem Webserver zur Verfügung gestellt werden soll, wurde dieser eingerichtet. Dafür wurde auf den uns zur Verfügung stehenden Server, als erstes die benötigte Software installiert. Um überhaupt Rails Anwendungen ausführen zu können, wurde Ruby in der Version 1.9.2 und Rails 3.1.1 installiert. Anschließend wurde der Apache Webserver installiert. Dieser wurde entsprechend konfiguriert sowie eine Datenbank installiert. Desweiteren wurde,  Capistrano  ein OpenSource Deployment-Tool für Rails-Anwendungen, installiert. Dabei handelt es sich um eine Software für das automatisierte Ausführen von Aufgaben auf einem oder mehreren entfernten Servern. Das zentrale Prinzip des Tools ist die vollständige Automatisierung des Verteilungsprozesses. Somit sind die einzelnen Schritte in einem zusammengefasst, wie: Auschecken der Software aus der Versionskontrolle,  Ausführen der Unit-Tests,  Übertragung der Software auf die Ziel-Server, Aktualisierung der Datenbanken und  Neustart des Webservers. Diese Schritte wären einzeln ausgeführt sehr zeitintensiv, fehleranfällig und zu dem auf Dauer langweilig, vor allem da in einem agilen Entwicklungsprozesses dies relativ häufig ausgeführt werden muss.
+

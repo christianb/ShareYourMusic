@@ -61,12 +61,14 @@
       @user = User.find(params[:id])
       #if (@user.email_notification)
       
+      if current_user.id != @user.id
        params = {
           'method' => 'deletion_confirmation',
           'email' => @user.email
         }
         
         Resque.enqueue(Email, params)
+      end
         #Notifier.deletion_confirmation(@user.email).deliver
       #end
       name = @user.firstname+" "+@user.lastname
@@ -118,13 +120,21 @@
         cds = CompactDisk.where(:user_id => @user.id)
         cds.each { |cd|
           path = cd.audio.path
-          filename_with_ext = cd.audio_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')
-          path = path.chomp(filename_with_ext)
-          system("rm -rf #{path}")
+          if !cd.audio_file_name.nil?
+            filename_with_ext = cd.audio_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')
+            path = path.chomp(filename_with_ext)
+            system("rm -rf #{path}")
+          end
         }
         
+        
+        if current_user.id == @user.id
+          redirect_to welcome_path
+        else
+          redirect_to :back
+        end
+        
         @user.destroy
-        redirect_to :back
       #end
   end
   
