@@ -110,7 +110,7 @@
 		<% if user_signed_in? && AdminController.isAdmin(current_user) %>
 			<div style=" float:right;">
 			<% if @cd.audio_file_name != nil %>
-				<%= link_to "Song löschen", :class => "btn danger", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true, @message=>'bla' %>
+				<%= link_to "Song löschen", @cd, :class => "btn danger", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true %>
 			<% end %>
 		
 			
@@ -118,10 +118,11 @@
 			</div>
 		<% end %>
 	<% end %>
+	
 	<div class="modal hide fade" id="modal-window">
 	  <div class="modal-header">
 	    <a href="#" class="close">×</a>
-	    <h3>Loading...</h3>
+	    <h3>Song löschen</h3>
 	  </div>
 	  <div class="modal-body center">
 			Wollen Sie den Song <b><%= @cd.last_audio_file_name%></b> wirklich löschen?
