@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120108200539) do
+ActiveRecord::Schema.define(:version => 20120109172537) do
 
   create_table "compact_disks", :force => true do |t|
     t.integer  "user_id",                                 :null => false
@@ -75,10 +75,8 @@ ActiveRecord::Schema.define(:version => 20120108200539) do
   end
 
   create_table "transactions", :force => true do |t|
-    t.integer  "provider_id",      :null => false
-    t.integer  "receiver_id",      :null => false
-    t.integer  "provider_disk_id", :null => false
-    t.integer  "receiver_disk_id", :null => false
+    t.integer  "provider_id", :null => false
+    t.integer  "receiver_id", :null => false
     t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"

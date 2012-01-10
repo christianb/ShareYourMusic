@@ -103,10 +103,10 @@ class ApplicationController < ActionController::Base
     def autoCompl
       if params[:term]
           like = "%".concat(params[:term].downcase.concat("%"))
+          
           cds_artist = CompactDisk.where("lower(artist) like ?", like)
           cds_title = CompactDisk.where("lower(title) like ?", like)
           cds_genre = CompactDisk.where("lower(genre) like ?", like)
-          
           songs = Song.where("lower(title) LIKE ?", like)
           
           user_first = User.where("lower(firstname) like ?", like)
@@ -119,6 +119,7 @@ class ApplicationController < ActionController::Base
              cds_artist = cds_artist.delete_if {|c| c.user_id == current_user.id}
              cds_title = cds_title.delete_if {|c| c.user_id == current_user.id}
              cds_genre = cds_genre.delete_if {|c| c.user_id == current_user.id}
+             songs = songs.delete_if {|s| s.compact_disk.user_id == current_user.id}
           end
           
           # entferne eigenen user
