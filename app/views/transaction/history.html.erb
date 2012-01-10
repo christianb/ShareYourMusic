@@ -1,3 +1,5 @@
+<% content_for :title, "Tausch Historie" %>
+
 <table class="bordered-table zebra-striped">
 	<thead>
 	<tr>
@@ -32,7 +34,7 @@
 				<% end %>	
 			<% end %>
 			</td>
-			<td><%= ur.firstname + ' ' + ur.lastname %></td>
+			<td><%= link_to ur.firstname + ' ' + ur.lastname, allUserCDs_path(ur) %></td>
 			<td><%= t.created_at%></td>
 			</tr>	
 		<% else %>
@@ -55,7 +57,7 @@
 				<% end %>
 			<% end %>
 			</td>
-			<td><%= up.firstname + ' ' + up.lastname %></td>
+			<td><%= link_to up.firstname + ' ' + up.lastname, allUserCDs_path(up) %></td>
 			<td><%= t.created_at%></td>
 			</tr>
 		<% end %>
