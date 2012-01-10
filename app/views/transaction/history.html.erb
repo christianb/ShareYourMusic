@@ -34,8 +34,8 @@
 				<% end %>	
 			<% end %>
 			</td>
-			<td><%= link_to ur.firstname + ' ' + ur.lastname, allUserCDs_path(ur) %></td>
-			<td><%= t.created_at%></td>
+			<td class="middle"><%= link_to ur.firstname + ' ' + ur.lastname, allUserCDs_path(ur) %></td>
+			<td class="middle"><%= t.created_at.strftime("%d.%m.%Y (%H:%M Uhr)") %></td>
 			</tr>	
 		<% else %>
 			<tr>
@@ -57,8 +57,8 @@
 				<% end %>
 			<% end %>
 			</td>
-			<td><%= link_to up.firstname + ' ' + up.lastname, allUserCDs_path(up) %></td>
-			<td><%= t.created_at%></td>
+			<td class="middle"><%= link_to up.firstname + ' ' + up.lastname, allUserCDs_path(up) %></td>
+			<td class="middle"><%= t.created_at.strftime("%d.%m.%Y (%H:%M Uhr)") %></td>
 			</tr>
 		<% end %>
 	<% end %>

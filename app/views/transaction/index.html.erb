@@ -38,7 +38,7 @@
 					<% end %>
 				<% end %>
 			</td>
-			<td>
+			<td class="middle">
 				<%= link_to sm.recipient.firstname + " " + sm.recipient.lastname, allUserCDs_path(sm.recipient.id) %>
 			</td>
 			<% else %>
@@ -61,7 +61,7 @@
 						<% end %>
 					<% end %>
 				</td>
-				<td>
+				<td class="middle">
 					<%= link_to sm.recipient.firstname + " " + sm.recipient.lastname, allUserCDs_path(sm.recipient.id) %>
 				</td>
 			<% end %>
@@ -127,7 +127,7 @@
 					<%= link_to (image_tag getCover(m).photo.url(:small)), compact_disk_path(getCD(m).id), :rel=>"popover", :title=>getCD(m).title+" ("+getCD(m).artist+")", :id=>getSongs(getCD(m)) %>
 				<% end %>
 			</td>
-			<td>
+			<td class="middle">
 				<%= link_to ma.sender.firstname + " " + ma.sender.lastname, allUserCDs_path(ma.sender.id) %>
 			</td>
 			<td class="middle">
@@ -281,7 +281,7 @@
 				<%= link_to (image_tag getCover(nrp).photo.url(:small)), compact_disk_path(getCD(nrp).id), :rel=>"popover", :title=>getCD(nrp).title+" ("+getCD(nrp).artist+")", :id=>getSongs(getCD(nrp)) %>
 			<% end %>
 		</td>
-		<td>
+		<td class="middle">
 			<%= link_to m.sender.firstname + " " + m.sender.lastname, allUserCDs_path(m.sender.id) %>
 		</td>
 		<td class="middle">
