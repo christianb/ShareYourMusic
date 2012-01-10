@@ -23,8 +23,8 @@ def create
   dest = User.find(user_id)
   
   # CDs suchen die nicht Sichtbar sind
-  @disks_mine = CompactDisk.where(:id => seperated_mine_cds, :in_Transaction => true)
-  @disks_wanted = CompactDisk.where(:id => seperated_wanted_cds, :in_Transaction => true)
+  @disks_mine = CompactDisk.where(:id => seperated_mine_cds, :in_transaction => true)
+  @disks_wanted = CompactDisk.where(:id => seperated_wanted_cds, :in_transaction => true)
 
   # Anfrage nur erstellen wenn CD noch visible ist, d.h Arrays der vorherigen Abfrage sind leer
   if (@disks_mine.empty? || @disks_wanted.empty?)
@@ -283,9 +283,9 @@ def modifyRequest
   @msg_subject = msg.subject
   
   @user = User.find(msg.sender_id)
-  @userCDs = CompactDisk.where(:user_id => @user.id, :visible => true, :in_Transaction => false)
+  @userCDs = CompactDisk.where(:user_id => @user.id, :visible => true, :in_transaction => false)
   
-  @myCDs = CompactDisk.where(:user_id => current_user.id, :visible => true, :in_Transaction => false)
+  @myCDs = CompactDisk.where(:user_id => current_user.id, :visible => true, :in_transaction => false)
 end
 
 def modify

@@ -31,7 +31,7 @@ gegen
         <div class="page-header">Meine restlichen CDs </div>
 		<% if !@myCDs.empty? %>
 			<% @myCDs.each do |cd| %>
-				<% if !mcd.include? cd.id.to_s || cd.visible || !cd.in_Transaction %>			
+				<% if !mcd.include? cd.id.to_s || cd.visible || !cd.in_transaction %>			
 						<%= image_tag cd.photo.url(:small), :alt => cd.id, :style => "border: 1px solid white;", :rel=>"popover", :title=>cd.title+" ("+cd.artist+")", :id=>getSongs(cd) %>
 				<% end %>
 			<% end %>
@@ -57,7 +57,7 @@ gegen
     <div id="userCDs" class="span4 swap box-swap" style="margin-left:10px; padding:4px;"  >
 		<div class="page-header">Weitere CDs von <%= @user.firstname + " " + @user.lastname %> </div>
 		<% @userCDs.each do |cd| %>
-			<% if !wcd.include? cd.id.to_s || cd.visible || cd.in_Transaction%>
+			<% if !wcd.include? cd.id.to_s || cd.visible || cd.in_transaction%>
 				<%= image_tag cd.photo.url(:small), :alt => cd.id, :style => "border: 1px solid white;", :rel=>"popover", :title=>cd.title+" ("+cd.artist+")", :id=>getSongs(cd) %>
 			<% end %>
 		<% end %>
