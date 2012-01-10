@@ -23,8 +23,8 @@ def create
   dest = User.find(user_id)
   
   # CDs suchen die nicht Sichtbar sind
-  @disks_mine = CompactDisk.where(:id => seperated_mine_cds, :visible => false)
-  @disks_wanted = CompactDisk.where(:id => seperated_wanted_cds, :visible => false)
+  @disks_mine = CompactDisk.where(:id => seperated_mine_cds, :in_Transaction => true)
+  @disks_wanted = CompactDisk.where(:id => seperated_wanted_cds, :in_Transaction => true)
 
   # Anfrage nur erstellen wenn CD noch visible ist, d.h Arrays der vorherigen Abfrage sind leer
   if (@disks_mine.empty? || @disks_wanted.empty?)
@@ -226,8 +226,8 @@ def accept
     t.save
     logger.debug("Transaction-ID: #{t.id}")
 
-    CompactDisk.update_all({:user_id => user.id, :visible => false, :in_transaction => false}, {:id => tauschCDs})
-    CompactDisk.update_all({:user_id => dest.id, :visible => false, :in_transaction => false}, {:id => wunschCDs})
+    CompactDisk.update_all({:user_id => user.id, :visible => true, :in_transaction => false}, {:id => tauschCDs})
+    CompactDisk.update_all({:user_id => dest.id, :visible => true, :in_transaction => false}, {:id => wunschCDs})
       
     tauschCDs.each do |tcd|
       sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => tcd.to_i)
@@ -392,8 +392,8 @@ def modifyAccept
     t = Transaction.new(:provider_id => dest.id, :receiver_id => user.id)
     t.save
     
-    CompactDisk.update_all({:user_id => dest.id, :visible => false, :in_transaction => false}, {:id => tauschCDs_neu})
-    CompactDisk.update_all({:user_id => user.id, :visible => false, :in_transaction => false}, {:id => wunschCDs_neu})
+    CompactDisk.update_all({:user_id => dest.id, :visible => true, :in_transaction => false}, {:id => tauschCDs_neu})
+    CompactDisk.update_all({:user_id => user.id, :visible => true, :in_transaction => false}, {:id => wunschCDs_neu})
     
     tauschCDs_neu.each do |tcd|
       sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => tcd.to_i)
