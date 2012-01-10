@@ -221,7 +221,7 @@ class CompactDiskController < ApplicationController
     if (user_signed_in?)
       
       # get all cds those are not mine and those are not in an transaktion
-      @cds = CompactDisk.where('user_id != ?', current_user.id).order("id DESC").limit(10)#.paginate(:page => params[:page], :per_page => 9)
+      @cds = CompactDisk.where('user_id != ?', current_user.id).order("created_at DESC").limit(10)#.paginate(:page => params[:page], :per_page => 9)
       #logger.debug "current_user.id = "+current_user.id.to_s
       #while @cds.size > 10 do
       #  @cds.pop

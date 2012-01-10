@@ -14,7 +14,11 @@ def run_worker(queue, count = 1)
 end
 
 namespace :resque do
-  task :setup => :environment
+  task :setup => :environment do 
+    ENV['QUEUE'] = '*'
+
+    Resque.before_fork = Proc.new { ActiveRecord::Base.establish_connection }
+  end
 
   desc "Restart running workers"
   task :restart_workers => :environment do

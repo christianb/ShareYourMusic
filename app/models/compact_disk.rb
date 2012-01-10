@@ -73,6 +73,7 @@ class CompactDisk < ActiveRecord::Base
     
     if (!self.audio_file_name.nil?)
       cd = CompactDisk.find(self.id)
+      cd.update_attribute(:song_being_converted, true)
       path = cd.audio.path
       
       
@@ -97,7 +98,7 @@ class CompactDisk < ActiveRecord::Base
         logger.debug "current_filename: "+current_filename
       end
       
-      Resque.enqueue(AudioConverter, path, audio_file_name, audio_content_type, filename, cd.last_audio_file_name)
+      Resque.enqueue(AudioConverter, cd.id, path, audio_file_name, audio_content_type, filename, cd.last_audio_file_name)
       
       #filename_with_ext = audio_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')
       
