@@ -81,7 +81,11 @@
         <%= form.label 'Cover URL' %>
         <div class="input">
 					 <%= form.text_field :photo_url %>
+					<span class="span6 offset10">
+	            <%= image_tag ("information-white.png"), :class=>"information_symbol", :rel=>"popover", :title => 'URL', :id => "Sollte die URL auf kein Bild verweisen wird das Standard Bild verwendet."  %>
+	        </span>
         </div>
+				
   </div>
 
 	<div class="clearfix">
