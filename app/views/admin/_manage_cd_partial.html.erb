@@ -47,26 +47,9 @@
 			<td><%= user.alias %> </td>
 		<% end %>
 		
-    	<td><%= link_to (image_tag("cross-script.png")), cd, :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true %> <br></td>
+    	<td><%= link_to (image_tag("cross-script.png")), delete_cd_path(cd.id), :method => :delete, :confirm => "Wollen sie diese CD wirklich löschen?" %> <br></td>
     <!--<td><%= image_tag("cross-script.png")%></td>-->
 </tr>
-
-<div class="modal hide fade" id="modal-window">
-  <div class="modal-header">
-    <a href="#" class="close">×</a>
-    <h3>Löschen der CD</h3>
-  </div>
-
-  <div class="modal-body center">
-		Wollen Sie die CD <b><%= cd.title %> (<%= cd.artist %>)</b> wirklich löschen?
-  </div>
-
-  <div class="modal-footer">
-  	<%= link_to "Ja löschen", compact_disk_path(cd), :class => "btn danger", :method => :delete %>
-  </div>
-
-</div>
-
 
 <% end %>
 </tbody>
