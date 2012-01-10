@@ -83,12 +83,14 @@ function dragDropCD(){
 				drop: function( event, ui ) {
 					deleteImage( ui.draggable );
 					//alert(ui.draggable.attr('alt'));
-					
+				//	var oldValue = $('#cds_mine').attr('value');
 					// CD IDs in Array speichern
 					$id_arr.push(ui.draggable.attr('alt'));
 					$('.sendBtn').hide();
 					$('.shareBt').show();
-					$('.modifyBt').show();					
+					$('.modifyBt').show();	
+					
+				//	$('#cds_mine').attr('value', oldValue + ui.draggable.attr('alt') + ',');
 				}
 			});
 			
@@ -98,12 +100,15 @@ function dragDropCD(){
 				drop: function( event, ui ) {
 					deleteImage2( ui.draggable );
 					//alert(ui.draggable.attr('alt'));
+					//var oldValue = $('#cds_wanted').attr('value');
 					
 					// CD IDs in Array speichern
 					$wanted_cds.push(ui.draggable.attr('alt'));
 						$('.sendBtn').hide();
 						$('.shareBt').show();
 						$('.modifyBt').show();
+						
+					//$('#cds_wanted').attr('value', oldValue + ui.draggable.attr('alt') + ',');
 				}
 			});
 
