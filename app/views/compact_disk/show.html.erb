@@ -51,23 +51,29 @@
 		<% end %>	
 		
 		<% if @cd.audio_file_name != nil %>
+			
 			<p>
-			<b>DemoSong:</b> <%= @cd.last_audio_file_name%> 	<span class="span6 offset10"style="float:right; padding-right:30px;">
-	          <%= image_tag ("information-white.png"), :class=>"information_symbol", :rel=>"popover", :title => 'Demo Song', :id => "Haben Sie einen Song gerade hochgeladen kann es aufgrund von Konvertierungen zu kurzen Verzögerungen kommen bis Ihnen der Song zur Verfügung steht."  %>
-	      </span>
+			<b>DemoSong:</b>
+				<% if @cd.song_being_converted %>
+					Song wird gerade konvertiert...
+				<% else %>
+					<%= @cd.last_audio_file_name%> 
+					
+					<p> <audio controls="controls">
+						<!-- Dateiname ohne Extension -->
+						<% filename = File.basename(@cd.audio_file_name, File.extname(@cd.audio_file_name).downcase)%>
+						<% path = @cd.audio.url.chomp(@cd.audio_file_name) %>
+						<!-- MP3 -->
+						<source src=<%='"'.html_safe+ path+filename+'.mp3"'.html_safe %> type=<%='"audio/mp3"'.html_safe %>  />
+
+						<!-- Ogg-->	
+						<source src=<%='"'.html_safe+ path+filename+'.ogg"'.html_safe %> type=<%='"audio/ogg"'.html_safe %>  />
+					  Your browser does not support the audio element.
+					</audio>
+					</p>
+				<% end %>
 			</p>
-			<p> <audio controls="controls">
-				<!-- Dateiname ohne Extension -->
-				<% filename = File.basename(@cd.audio_file_name, File.extname(@cd.audio_file_name).downcase)%>
-				<% path = @cd.audio.url.chomp(@cd.audio_file_name) %>
-				<!-- MP3 -->
-				<source src=<%='"'.html_safe+ path+filename+'.mp3"'.html_safe %> type=<%='"audio/mp3"'.html_safe %>  />
-				
-				<!-- Ogg-->	
-				<source src=<%='"'.html_safe+ path+filename+'.ogg"'.html_safe %> type=<%='"audio/ogg"'.html_safe %>  />
-			  Your browser does not support the audio element.
-			</audio>
-			</p>
+			
 			
 		<% end %>
 		
