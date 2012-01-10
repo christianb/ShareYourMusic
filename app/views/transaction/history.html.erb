@@ -16,12 +16,20 @@
 			<tr>
 			<td>
 			<% t.swap_provider.each do |sp| %>
-				<%= image_tag getDiskById(sp.compact_disk_id).photo.url(:small) %>
+				<% if CompactDisk.exists?(sp.compact_disk_id) %>
+					<%= image_tag getDiskById(sp.compact_disk_id).photo.url(:small) %>
+				<% else %>
+					CD nicht mehr verfuegbar
+				<% end %>
 			<% end %>
 			</td>
 			<td>
 			<% t.swap_receiver.each do |sr| %>
-				<%= image_tag getDiskById(sr.compact_disk_id).photo.url(:small) %>
+				<% if CompactDisk.exists?(sr.compact_disk_id) %>
+					<%= image_tag getDiskById(sr.compact_disk_id).photo.url(:small) %>
+				<% else %>
+					CD nicht mehr verfuegbar
+				<% end %>	
 			<% end %>
 			</td>
 			<td><%= ur.firstname + ' ' + ur.lastname %></td>
@@ -31,12 +39,20 @@
 			<tr>
 			<td>
 			<% t.swap_receiver.each do |sr| %>
-				<%= image_tag getDiskById(sr.compact_disk_id).photo.url(:small) %>
+				<% if CompactDisk.exists?(sr.compact_disk_id) %>
+					<%= image_tag getDiskById(sr.compact_disk_id).photo.url(:small) %>
+				<% else %>
+					CD nicht mehr verfuegbar
+				<% end %>
 			<% end %>
 			</td>
 			<td>
 			<% t.swap_provider.each do |sp| %>
-				<%= image_tag getDiskById(sp.compact_disk_id).photo.url(:small) %>
+				<% if CompactDisk.exists?(sp.compact_disk_id) %>
+					<%= image_tag getDiskById(sp.compact_disk_id).photo.url(:small) %>
+				<% else %>
+					CD nicht mehr verfuegbar
+				<% end %>
 			<% end %>
 			</td>
 			<td><%= up.firstname + ' ' + up.lastname %></td>

@@ -22,12 +22,20 @@
 			<% if !sm.body.include? "Modifikation" %>	
 			<td>
 				<% wcd.each do |m| %>
-					<%= link_to (image_tag getCover(m).photo.url(:small)), compact_disk_path(getCD(m).id), :rel=>"popover", :title=>getCD(m).title+" ("+getCD(m).artist+")", :id=>getSongs(getCD(m))  %>
+					<% if CompactDisk.exists?(m) %>
+						<%= link_to (image_tag getCover(m).photo.url(:small)), compact_disk_path(getCD(m).id), :rel=>"popover", :title=>getCD(m).title+" ("+getCD(m).artist+")", :id=>getSongs(getCD(m))  %>
+					<% else %>
+						CD nicht mehr Verfuegbar
+					<% end %>
 				<% end %>
 			</td>
 			<td>
 				<% mcd.each do |w| %>
-					<%= link_to (image_tag getCover(w).photo.url(:small)), compact_disk_path(getCD(w).id), :rel=>"popover", :title=>getCD(w).title+" ("+getCD(w).artist+")", :id=>getSongs(getCD(w)) %>
+					<% if CompactDisk.exists?(w) %>
+						<%= link_to (image_tag getCover(w).photo.url(:small)), compact_disk_path(getCD(w).id), :rel=>"popover", :title=>getCD(w).title+" ("+getCD(w).artist+")", :id=>getSongs(getCD(w)) %>
+					<% else %>
+						CD nicht mehr verfuegbar
+					<% end %>
 				<% end %>
 			</td>
 			<td>
@@ -37,12 +45,20 @@
 			<tr>
 				<td>
 					<% getNewReqProvide(sm.subject).each do |nrp| %>
-						<%= link_to (image_tag getCover(nrp).photo.url(:small)), compact_disk_path(getCD(nrp).id), :rel=>"popover", :title=>getCD(nrp).title+" ("+getCD(nrp).artist+")", :id=>getSongs(getCD(nrp)) %>
+						<% if CompactDisk.exists?(nrp) %>
+							<%= link_to (image_tag getCover(nrp).photo.url(:small)), compact_disk_path(getCD(nrp).id), :rel=>"popover", :title=>getCD(nrp).title+" ("+getCD(nrp).artist+")", :id=>getSongs(getCD(nrp)) %>
+						<% else %>
+							CD nicht mehr verfuegbar
+						<% end %>
 					<% end %>
 				</td>
 				<td>
 					<% getNewReqMine(sm.subject).each do |nrm| %>
-						<%= link_to (image_tag getCover(nrm).photo.url(:small)), compact_disk_path(getCD(nrm).id), :rel=>"popover", :title=>getCD(nrm).title+" ("+getCD(nrm).artist+")", :id=>getSongs(getCD(nrm)) %>
+						<% if CompactDisk.exists?(nrm) %>
+							<%= link_to (image_tag getCover(nrm).photo.url(:small)), compact_disk_path(getCD(nrm).id), :rel=>"popover", :title=>getCD(nrm).title+" ("+getCD(nrm).artist+")", :id=>getSongs(getCD(nrm)) %>
+						<% else %>
+							CD nicht mehr verfuegbar
+						<% end %>
 					<% end %>
 				</td>
 				<td>
