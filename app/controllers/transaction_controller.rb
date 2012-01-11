@@ -204,13 +204,6 @@ def accept
   message.recipient = dest
   message.save
 
-#    CompactDisk.update_all({:visible => false}, {:id => seperated_mine_cds})
-#    CompactDisk.update_all({:visible => false}, {:id => seperated_wanted_cds})
-
-  # CD tauschen
-  #cd_provider = CompactDisk.where(:id => rsv_message.subject)
-  #cd_receiver = CompactDisk.where(:id => 2)
-
 #  user = User.find(user)
 #  dest = User.find(dest)
   
@@ -319,6 +312,16 @@ def modify
   message.sender = user
   message.recipient = dest
   message.save
+  
+  cds_old = msg.subject
+  cd_array = cds_old.split(';')
+
+  tauschCDs_old = cd_array[0].split(',')
+  wunschCDs_old = cd_array[1].split(',')
+
+  CompactDisk.update_all({:visible => true, :in_transaction => false}, {:id => tauschCDs_old})
+  CompactDisk.update_all({:visible => true, :in_transaction => false}, {:id => wunschCDs_old})
+
   
   CompactDisk.update_all({:visible => false, :in_transaction => true}, {:id => splitted_mine})
   CompactDisk.update_all({:visible => false, :in_transaction => true}, {:id => splitted_wanted})

@@ -384,7 +384,7 @@ function mbrainz(){
 		// Falls bereits Felder vorhanden sind, werden diese entfernt
 		$('.mbrainz_fields').find('input').remove();
 		$('.mbrainz_fields').find('a').remove();
-		$('#compact_disk_songs_attributes_0_title').remove();
+		$('.fields').find('input').remove();
 		$('.fields').find('.rmSongBt').remove();
 	
 		$.ajax({
@@ -415,6 +415,7 @@ function mbrainz(){
 	}else{
 		alert("Es muss ein Title und ein Artist angegeben werden")
 	}
+	
 }
 
 
