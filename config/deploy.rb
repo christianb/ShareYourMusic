@@ -83,6 +83,6 @@ after "deploy:symlink", "deploy:restart_workers"
 namespace :deploy do
   desc "Restart Resque Workers"
   task :restart_workers, :roles => :db do
-    run "cd #{current_path}; rake resque:restart_workers"
+    run "cd #{current_path}; rake resque:restart_workers RAILS_ENV=production"
   end
 end
