@@ -1,10 +1,12 @@
 class AudioConverter
   @queue = :audio_queue
   
-  def self.perform(path, audio_file_name, audio_content_type, filename, last_audio_file_name)
+  def self.perform(id, path, audio_file_name, audio_content_type, filename, last_audio_file_name)
     filename_with_ext = audio_file_name.gsub( /[^a-zA-Z0-9_\.]/, '_')
     complete_path = path
     path = path.chomp(filename_with_ext)
+
+    cd = CompactDisk.find(id)
 
     #logger.debug "path: "+path
     #logger.debug "cd.audio.path = "+cd.audio.path
@@ -32,6 +34,10 @@ class AudioConverter
         system("rm #{delete}")
       end
     end
+    cd.update_attribute(:song_being_converted, false)
+    
   end
+  
+  
 end
 
