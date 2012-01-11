@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120110225547) do
+ActiveRecord::Schema.define(:version => 20120111095706) do
 
   create_table "compact_disks", :force => true do |t|
     t.integer  "user_id",                                 :null => false
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(:version => 20120110225547) do
     t.boolean  "email_notification",                    :default => true
     t.boolean  "search_own_cds",                        :default => true
     t.string   "photo_remote_url"
+    t.datetime "last_like"
   end
 
 end

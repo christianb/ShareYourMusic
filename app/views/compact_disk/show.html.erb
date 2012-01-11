@@ -79,9 +79,12 @@
 		
 		<p>
 			<b>Sterne:</b> <%= @cd.rank.to_s %> 
-			<% if current_user.id != @cd.user_id %>
+			<% if current_user.id != @cd.user_id && current_user.last_like != nil && current_user.last_like < (Time.now-60*60) %>
 				(<%= link_to 'Like', like_cd_path(@cd.id) %>)
 			<% end %>
+			<span class="span6 offset10">
+          <%= image_tag ("information-white.png"), :class=>"information_symbol", :rel=>"popover", :title => 'Like', :id => "Sie können nur einmal je Stunde eine CD liken."  %>
+      </span>
 		</p>
 		
 	</div>
