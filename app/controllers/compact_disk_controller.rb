@@ -46,6 +46,11 @@ class CompactDiskController < ApplicationController
     #@songs = Song.where(:compact_disk_id => @cd.id)
     @songs = @cd.songs
     @user = User.find(@cd.user_id)
+    
+    if current_user.last_like == nil
+      current_user.update_attribute(:last_like, Time.now-60*60)
+    end
+    
   end
   
   def destroy
@@ -275,13 +280,11 @@ class CompactDiskController < ApplicationController
     cd = CompactDisk.find(params[:id])
     
     user = User.find(current_user.id)
-    if user.last_like != nil
       if user.last_like < (Time.now-60*60)
         # es ist mehr als 1 Stunde seit dem letzten like vergangen
         user.update_attribute(:last_like, Time.now+60*60)
         cd.update_attribute(:rank,(cd.rank+1))
       end
-    end
     redirect_to :back
   end
   
