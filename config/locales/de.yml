@@ -103,7 +103,7 @@ de:
               
     attributes:
       user:
-        password: "Neues Passwort: "
+        password: "Passwort: "
         password_confirmation: "Neues Passwort bestätigen: "
         current_password: "Aktuelles Passwort: "
     
