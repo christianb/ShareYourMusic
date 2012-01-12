@@ -124,7 +124,7 @@ class CompactDiskController < ApplicationController
     map = searchMBrainz(params[:artist], params[:title])
     @tracks = map[:tracks]
     logger.debug "cover url: "+map[:cover_url]
-    #@tr = @tracks.to_a.map! {|t| Hash[value: t]}
+    @tr = @tracks.to_a.map! {|t| Hash[value: t]}
     #respond_to do |format|
      # format.html
       #format.js
@@ -315,7 +315,7 @@ class CompactDiskController < ApplicationController
         logger.debug "next entity"
         mbid = e.id.to_s
         r = query.get_release_by_id(mbid, :artist=>true, :tracks=>true, :release_events => true)
-        if (!r.asin.empty?)
+        if (!r.asin.nil?)
           asin = r.asin.to_s
           if year.nil?
             year = r.release_events[0].date.year
