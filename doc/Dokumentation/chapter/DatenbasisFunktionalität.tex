@@ -1,0 +1,155 @@
+\section{Konzeption der Datenbasis}
+\label{sec:Konzeption der Datenbasis}
+
+Für die Realisierung der gestellten Aufgabe, wurde im Rahmen einer Gruppenarbeit das Entity-Relationship-Model entwickelt, um eine fundierte Datenbasis zu erstellen:
+
+\begin{figure}[ht]
+\centering
+		\includegraphics[height=7cm]{images/ERTauschbooerse.png}
+	\caption[Erste Version des ER-Models für die CD-Tauschbörse]{Erste Version des ER-Models für die CD-Tauschbörse}
+	\label{fig:ER}
+\end{figure}
+
+Um eine Arbeitsgrundlage zu erstellen, wurde zuerst das Datenbankschema in Rails erstellt. Rails bietet dazu einen ActiveRecord an der als Layer zwischen dem SourceCode und der Datenbank fungiert. Dazu wird für jede Tabelle ein Model erstellt. Zwar bietet Rails die Möglichkeit mit einem einzigen Kommando sowohl Model, Controller und Views zu generieren. Davon wurde aber kein Gebrauch gemacht, da es entschieden wurde die Anwendung Schritt für Schritt zu entwickeln, um größtmögliche Kontrolle zu erreichen. Es wurden fünf Models mit dem Kommando \textit{rails generate model <Bezeichnung>} erstellt. Das einzige was Rails noch macht ist für jedes Model eine TestKlasse anzulegen. Nachdem alle erforderlichen Modele angelegt wurden, konnte das Schema in die Datenbank migriert werden mit dem Ziel das Modelierte Schema zu testen. Rails bietet dazu eine geeignete Testumgebung an. Hierzu wurden die Unit Tests entwickelt. Auf diese Art und Weise wird es sichergestellt, dass das Datenbankschema einwandfrei funktioniert ohne auch dafür eine einzige Zeile Code geschrieben (z.B. für Controller oder View) zu haben. Basierend auf einer funktionierenden Datenbank werden die einzelnen Views und Controller integriert. Die Änderungen im Datenbankschema können nachträglich ohne Probleme integriert werden.
+
+Nach der Bekanntgabe der Änderungen im Pflichtenheft, wurde sofort ersichtlich, dass das erstellte Datenbankschema modifiziert werden soll. Für die Realisierung eines Austauschs mit mehreren CD's, wurde die n:m Beziehung bei den Transaktionen hinzugefügt. Dabei wurden zwei zusätzliche Tabellen mit aufgenommen. Darüber hinaus sind weitere Attribute für die Realisierung anderer Funktionalitäten hinzugekommen. Folgende Abbildung stellt das endgültige Schema der Datenbasis dar:
+
+\begin{figure}[ht]
+\centering
+		\includegraphics[height=8cm]{images/ermnew.png}
+	\caption[ER-Model für die CD-Tauschbörse]{ER-Model für die CD-Tauschbörse}
+	\label{fig:ER2}
+\end{figure}
+
+\section{Realisierung der Funktionalität}
+\label{sec:Realisierung der Funktionalität}
+
+Die Grundlage der Anwendung, wurde mit dem Erstellen von Models, geschaffen. Für die Realisierung der geforderten Funktionalität wurden Gedanken über die benötigten Controller und Views gemacht werden. Controller werden in Rails mittels des Kommandos \textit{rails generate controller <Bezeichnung>} erstellt. Zu jedem Controller können mehrere Views gehören. In der Datei \textit{routes.rb} wird definiert welche Methode im Controller auszuführen ist, wenn eine bestimmte View im Browser aufgerufen wird. Des Weiteren wurden, für jede Anforderung im Pflichtenheft, User Stories geschrieben, um die Aufgaben besser zu verteilen. 
+
+\subsection{Benutzerverwaltung}
+\label{sec:Benutzerverwaltung}
+
+Als erstes wurde untersucht, ob eine eigene Implementierung aufwendig ist, oder nicht. Hierzu wurde mittels eines Tutoriell die Benutzerverwaltung realisiert. Es muss gesagt werden, dass diese Implementierung nur ein Grundgerüst der Autorisierung-Funktionalität darstellt und mehrere Sicherheitsrisiken ausweist. Aus diesem Grund wurde entschieden ein sicherer und gut dokumentierter Plug-In zu verwenden.
+
+Für diese Zwecke wurden mehrere Plug-Ins evaluiert, sodass wir auf die Entscheidung gekommen sind Devise zu verwenden. Diese Erweiterung bietet eine flexible Lösung zur Benutzerauthentifizierung für Rails und besteht aus 12 Modulen wie zum Beispiel:
+
+\begin{enumerate}
+	\item Confirmable
+	\item Authenticatable
+	\item Recoverable	
+	\item Registerable	
+	\item Rememberable (Cookies)
+	\item Validatable
+	\item Encryptable
+	\item ...
+\end{enumerate}
+
+Alle diese Module sind nach dem MVC-Prinzip implementiert und können nach Bedarf kombiniert werden. Dadurch wird erreicht, dass jede Applikation nur die geforderten Funktionalitäten hat. Die Installation dieses Plug-Ins ist entsprechend einfach und kann nur in wenigen Schritten realisiert werden:
+
+\begin{enumerate}
+	\item Gemfile: gem 'devise' 
+	\item \textit{bundle install} -->  fehlende Gems installieren 
+	\item \textit{rails generate devise:install} --> Plug-In installieren 
+  \item Migration(en) anpassen oder mit \textit{rails generate device user} ein neues Model erstellen
+  \item Migrationen ausführen \textit{rake db:migrate}
+\end{enumerate}
+
+Da das Plug-In \textit{Devise} nur die Benutzerauthentifizierung gewährleistet wurde nach einem Rollenverwaltungstool recherchiert, um ein Rollenmanagement zu realisieren, dadurch den Nutzern unterschiedliche Rechte zu geben und dadurch die Anwendung zu schützen. Hierzu wurde \textit{CanCan} analysiert und getestet.  \textit{CanCan} ist ein Plug-In, welches auf Device aufgebaut wird. Nach der Installation wird eine neue Klasse activity angelegt, die nach Bedürfnissen konfiguriert werden soll. Somit bietet diese Erweiterung die Definition von mehreren Gruppen (Gast, Benutzer, Admin) sowie eine einfache und vor allem schnelle Rechtevergabe.
+
+\subsection{Compact Discs}
+\label{sec:Compact Discs}
+
+Für die Darstellung von mehreren CD's auf einer Seite wurde das Plug-In \textit{WillPaginate} für Rails untersucht und implementiert. Denn wenn die CD's einem Benutzer angezeigt werden, ist es nicht erwünscht immer alle CD's auf einer Seite zeigen, da die Anzahl sogar mehrere hundert CD's betragen kann. Einerseits wäre diese Darstellung zu unübersichtlich und zum Anderen ist auch die Zeit die der Server für die Antwort der Anfrage benötigen würde wäre viel zu lang. Daher ist es sinnvoll, die CD's auf mehrere Seiten aufzuteilen. Genau das macht \textit{WillPaginate}. Es muss lediglich definiert werden wie viele CD's in der View gezeigt werden müssen. Sind mehr CD's vorhanden als auf der Seite dargestellt, sind diese über weitere Seiten (1,2,...) erreichbar.
+
+\subsection{Tausch-Transaktionen}
+\label{sec:Tausch-Transaktionen}
+
+Für die Realisierung der Hauptfunktionalität wurde überlegt wie der Austausch von CD's erfolgen kann. Da diese Funktion mit einem Plug-In bzw. durch die Verwendung eines internen Messaging-Systems realisiert werden sollte, wurde ermittelt welche davon in Frage kommen. Es wurde entschieden ein Plug-In für die interne Kommunikation bzw. den Nachrichtenaustauch auszuwählen und für unsere Zwecke zu verwenden. Hierzu wurden mehrere Plug-Ins recherchiert und mit einander verglichen:
+
+\begin{itemize}
+	\item has-messages
+	\item simple-messaging
+	\item simple-private-message
+\end{itemize}
+
+Diese Plug-Ins wurden hinsichtlich der Funktionalität, Dokumentation, Verbreitung sowie der Weiterentwicklung bzw. Support untersucht. Es wurde herausgestellt, dass simple-private-message die erforderlichen Funktionalitäten zur Verfügung stellt und zu den wenigsten Plug-Ins gehört, die fertiggestellt sind und auch mit der Rails Version 3.0.1 kompatibel sind. Darüber hinaus wurde die Funktionalität anhand eines Tutorialls überprüft. Die Installation dieses Plug-Ins ist sehr einfach und benötigt lediglich drei Schritte:
+
+\begin{enumerate}
+	\item Gem File anpassen + \textit{bundle install}
+	\item \textit{rails generate simple-private-messages:model User Message}
+	\item Controller ''Transaktionen'' erstellen
+\end{enumerate}
+
+Um die Implementierung der Funktionalität zu vereinfachen wurde die Kommunikation visuell dargestellt. Somit konnten alle Anforderungen hinsichtlich der Sicherheit erfüllt werden.
+
+\begin{figure}[ht]
+\centering
+		\includegraphics[height=9cm]{images/Transaktionen.png}
+	\caption[Verlauf CD-Tauschbörse]{Verlauf CD-Tauschbörse}
+	\label{fig:ER}
+\end{figure}
+
+Bei der Implementierung dieser Funktionalität wurde sowohl auf die Korrektheit, als auch auf die Sicherheit des Transaktionsaustauschs geachtet. Falls die Anfrage abgelehnt wird, werden die zugehörigen Nachrichten gelöscht, ohne einen Datenbank Eintrag zu machen. Wenn der Austausch akzeptiert wird bzw. zustande kommt, werden die CDs ausgetauscht und die gesamte Transaktion in der Datenbank gespeichert. Somit besteht die Möglichkeit es zu jeder Zeit zu prüfen, wer mit wem welche CD's getauscht hat. Am 1. Dezember erfolgten die Änderungen des Pflichtenhefts, so dass es erforderlich war die Vorgehensweise etwas zu Verändern. Darüber hinaus wurden weitere Tabellen in die Datenbank aufgenommen.
+
+Wie im Pflichtenheft gewünscht ist, wurde der Austausch von CDs durch ein internes Messaging-System realisiert. Bei der Implementierung wurde darauf geachtet, dass die Transaktionen sicher durchgeführt werden, sodass in der vordefinierten Reihenfolge die Datenbankeinträge gemacht werden und keine Information verloren gehen können. Nun wurde der Fall nicht berücksichtigt, falls ein Benutzer die CD löscht, die immer noch im Anfragemodus befindet. Nach einer Diskussion wurden zwei Möglichkeiten überlegt:
+
+\begin{enumerate}
+	\item Wenn eine CD gelöscht wird, wird es geprüft ob es die Anfragen mit dieser CD gibt, oder nicht. Wenn das nicht der Fall ist, kann die CD gelöscht werden. Wenn allerdings eine Anfrage besteht, wird diese automatisch abgebrochen und die Beteiligten erhalten eine Nachricht.
+	\item Die einfachere Methode ist es das Löschen zu verbieten solange eine Anfrage besteht. D.h. bevor eine CD gelöscht werden kann, müssen alle zugehörigen Abfragen gelöscht werden.
+\end{enumerate}
+
+\subsection{Sonstige Anforderungen}
+\label{sec:Sonstige Anforderungen}
+
+Darüber hinaus wurde die Anforderung erfüllt, den Austausch mit Drag and Drop zu entwickeln. Die Drag and Drop Funktionalität wurde durch jQuery realisiert. Dafür wurde die View, auf der der CD-Tausch vollzogen wird, in vier Bereiche (DIV-Elemente) unterteilt. Alle vier Bereiche bzw. alle darin enthaltenen Elemente (CDs) bieten die Drag und Drop Funktion. Dafür werden die von jQuery bereitgestellten Methoden draggable und droppable genutzt. Diese Methoden werden den einzelnen Div-Elementen zugewiesen. Zur Identifizierung und Nutzung der Div-Elemente innerhalb der jQuery Javascript Datei, dient die eindeutige ID, welche jedes Element besitzt.
+
+\begin{figure}[ht]
+\centering
+		\includegraphics[height=7cm]{images/draganddrop.png}
+	\caption[Drag nad Drop Funktionalität]{Drag nad Drop Funktionalität}
+	\label{fig:ER}
+\end{figure}
+
+
+Die Grafik zeigt den Schematischen Aufbau der Seite. Die äußeren Bereiche zeigen alle CDs, des aktuell angemeldeten Benutzers (MyCDs) und des Tauschpartners (UserCDs), an. Diese CDs können dann in einen der mittleren Bereiche gezogen werden (WantedCDs oder SwapCDs).
+Um sicherzustellen, dass die Bereiche WantedCDs und SwapCDs nur nur Elemente aufnehmen welche aus einem bestimmten Div-Container kommen, wurden Beschränkungen in jQuery definiert. Dies geschieht durch die Option accept, welches die droppable Elemente bieten. 
+
+\$('\#swapCDs').droppable({
+
+	accept: ''\#myCDs > img''
+	
+});
+
+Wie im Beispiel zu sehen, akzeptiert das Element swapCDs nur img-Elemente aus dem MyCDs Bereich. Dadurch kann verhindert werden, dass ein Nutzer CDs aus der Sammlung des Tauschpartners in beide Bereiche (WantedCDs und SwapCDs) zieht und somit eine Anfrage erstellen kann, ohne eine CD aus seiner eigenen Sammlung zum Tausch angeboten zu haben.
+Die IDs der CDs, die auf dem Swap oder Wanted Bereich gezogen werden, werden in einem Array gespeichert (Für jeden Bereich ein separates Array). Falls ein Element wieder  aus einem der mittleren Bereiche entfernt wird, wird es auch aus dem entsprechenden Array gelöscht. Sobald eine Anfrage Abgeschickt werden soll, werden die Werte des Arrays ausgelesen und als Parameter an den Link zur Action im Controller angefügt. 
+
+\section{Graphical User Interface}
+\label{sec:Graphical User Interface}
+
+In der ersten Woche wurden erste Entwürfe zum Design der CD-Tausch-Plattform erstellt. Diese wurden während der Teammeetings in Form von einfachen Skizzen in analoger Form festgehalten und im Anschluss mittels Adobe Photoshop als Mockups ausgearbeitet. Basierend auf diesen Entwürfen wurde ein HTML5 Layout mittels CSS-Stylesheet erstellt.
+
+\begin{figure}[ht]
+\centering
+		\includegraphics[height=7cm]{images/design1.jpg}
+	\caption[Design 1]{Design 1}
+	\label{fig:ER}
+\end{figure}
+
+Im Laufe der Entwicklung wurde das Design noch einmal überarbeitet, da es dem ersten Entwurf an Struktur fehlte. Im Team wurde entschieden dieses noch einmal zu überarbeiten und dafür ein Template zu nutzen, um eine einheitliche Darstellung zu erzielen. Zur engeren Auswahl standen Blueprint CSS, 960gs und Bootstrap. Die Entscheidung fiel auf Bootstrap von Twitter. Bootstrap ist ein spezielles Toolkit, das im Wesentlichen ein HTML- und CSS-Template bereitstellt, in das Twitter seine Erfahrungen einfließen ließ. Webentwickler, die Bootstrap in ihr Frontend einbinden, sollen so auf praxiserprobte Frontend-Entwurfsmuster zurückgreifen können und
+unter anderem ohne größeren Aufwand ein Grid-System einbinden, das bei Twitter erprobte Styling für typographische Elemente übernehmen, Formulare und Buttons verwenden oder ihre Seiten mit Modal-Boxen, Tooltipps und Popovers ergänzen. Dieses Template enthält viele Lösungsansätze zur Realisierung von Javascript Effekten. So auch die von Tooltips und Popover. Für die Realisierung von den Tooltips haben wir die Funktion .popover von Bootstrap verwendet. Dort wird in einer Variable, der anzuzeigenden Text an. Dieser wird in einem Popover angezeigt, wenn mit dem Mauszeiger über die verlinkte Region gefahren wird.
+
+\begin{figure}[ht]
+\centering
+		\includegraphics[height=7cm]{images/design2.jpg}
+	\caption[Design 2]{Design 2}
+	\label{fig:ER}
+\end{figure}
+
+\section{Internationalisierung}
+\label{sec:Internationalisierung}
+
+Da es vor der Bekanntgabe der Änderungen nicht bekannt war, welche Funktionalitäten hinzukommen, wurden Gedanken über eine Internationalisierung der Anwendung gemacht. Unser Team ist davon überzeugt, dass jede gute Webanwendung mehrere Sprachen unterstützen soll, um eine möglichst große Nutzerzahl zu erreichen.
+
+Das Einbinden von verschiedenen Sprachen erfolgt in Rails über eine \textit{localize} Datei. Diese hat den Namen der Sprache, also z.B.: de.yml. In den Views werden nun Variablen für die Bezeichnungen eingetragen. In der \textit{localize} Datei steht dann zu jeder Variablen die entsprechende Übersetzung. Fürs erste haben wir uns auf die deutsche Sprache beschränkt, da es hierzu keine Anforderungen gab. Am Ende der Entwicklung ist es sehr einfach andere Sprachen zu implementieren. Die localize Datei muss dazu nur kopiert werden. Die Neue Datei bekommt den Namen der neuen Sprache z.B.: en.yml. Nun müssen alle Bezeichnungen übersetzt werden, sodass dadurch die Lokalisierung bzw. Internationalisierung realisiert werden kann. 
+
+Damit Rails auch weiß, für welche Komponenten eine Lokalisierung zur Verfügung steht, muss diese noch in den jeweiligen Controllern ein gepflegt werden. Dazu müssen auch für alle Routen entsprechende Einträge vorgenommen werden. Dabei zählt auch welche Sprachen unterstützt werden sollen. Das sind aber nur einmalige Anpassungen, die wenig Zeitaufwand ausweisen. Herauszufinden welche Sprache der Benutzer hat kann über die HTTP Header geschehen. Alternativ kann der Benutzer selber eine Sprache auswählen. Eine Sprache kann auch als Standard gesetzt werden wenn keine Informationen vorliegen. Dabei wurde herausgestellt, dass eine Anwendung zu internationalisieren erfordert nur einmalig ein wenig Aufwand. Danach kann man aber leicht die Anwendung um jede gewünschte Sprache erweitern.
