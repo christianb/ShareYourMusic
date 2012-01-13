@@ -26,12 +26,12 @@
 	<li>
         <%= link_to (image_tag c.photo.url(:normal)), compact_disk_path(c), :rel=>"popover", :title=>c.title+" ("+c.artist+")", :id=>getSongs(c)%>
             
-			<p class="blackFont"><%= c.artist %></p>
-            <p><%= c.title %></p>
+			<div class="blackFont"><%= c.artist %></div>
+            <p class="line_height08"><%= c.title %></p>
 			<% if !c.visible && !c.in_transaction %>
 				<%= link_to "Freigeben", makeVisible_path(c.id), :class => "btn" %>
 			<% elsif c.in_transaction %>
-				<span class="label warning">In einer Transaktion</span></br>
+				<span class="label warning line_height1">In einer Transaktion</span></br>
 			<% end %>
 			<% if c.created_at > (Time.now-60*60*24) %>
 				<span class="label success"> Neu </span>

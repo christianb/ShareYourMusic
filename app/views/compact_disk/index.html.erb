@@ -35,15 +35,15 @@
 		<% else %>
 			<%= link_to (image_tag c.photo.url(:normal)), allUserCDs_path(c.user_id), :rel=>"popover", :title=>c.title+" ("+c.artist+")", :id=>getSongs(c)%>
 		<% end %>
-		<p class="blackFont"><%= c.artist %></p>
-		<p><%= c.title %></p>
+		<div class="blackFont"><%= c.artist %></div>
+		<p class="line_height08"><%= c.title %></p>
 		<p>
 			<!--<%= link_to 'Show', compact_disk_path(c) %>-->
 			<% if user_signed_in? && current_user.id != c.user_id && !c.in_transaction && c.visible %>
 				<%= link_to 'Tauschen', swap_cd_path(c.id) %>
 			<% end %>
 			<% if user_signed_in? && c.in_transaction %>
-				<span class="label warning">In einer Transaktion</span></br>
+				<span class="label warning line_height1">In einer Transaktion</span></br>
 			<% end %>
 		</p>
 	</li>

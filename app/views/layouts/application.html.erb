@@ -14,53 +14,47 @@
 		        <div class="container">
 		          <%= link_to "SwaRmusik", welcome_path, :class => "brand" %>
 		          <ul class="nav">
-								<% if !user_signed_in? %>
-									<li><a href="<%=new_user_registration_path%>">Registrieren</a></li>
-								<% end %>
-								<li class="dropdown">
-                    <a class="dropdown-toggle" href="#">Kategorien</a>
-                    <ul class="dropdown-menu">
-                        <li><%= link_to t('.cd_all'), compact_disk_index_path %></li>
-                        <li><%= link_to 'Neueste CDs', latest_cd_path %></li>  
-												<li><%= link_to "Aktivste Benutzer", most_active_user_path %></li>
-												<li><%= link_to "Tollste CDs", best_cd_path %></li>
-                    </ul>
-                </li>
-								<% if !user_signed_in? %>
-										
-											</ul>
-													<ul class="nav secondary-nav">
-								
+						<% if !user_signed_in? %>
+							<li><a href="<%=new_user_registration_path%>">Registrieren</a></li>
+						<% end %>
+		 			<li class="dropdown">
+	                    <a class="dropdown-toggle" href="#">Kategorien</a>
+	                    <ul class="dropdown-menu">
+	                        <li><%= link_to t('.cd_all'), compact_disk_index_path %></li>
+	                        <li><%= link_to 'Neueste CDs', latest_cd_path %></li>  
+							<li><%= link_to "Aktivste Benutzer", most_active_user_path %></li>
+							<li><%= link_to "Tollste CDs", best_cd_path %></li>
+	                    </ul>
+	                </li>
+						<% if !user_signed_in? %>					
+					</ul>
+						<ul class="nav secondary-nav">			
                             <%= form_for("user", :url => user_session_path, :class => "pull-right") do |f| %>
                                 <%= f.text_field :email, :class => "input-small", :placeholder => "Email" %>
                                 <%= f.password_field :password, :class => "input-small", :placeholder => "Password" %>			
                                 <%= f.submit 'Login'%>
                             <% end %>
-													</ul>
+						</ul>
                      <% end %>
-
-		            
-							<% if user_signed_in? %>
-								<li>
-									<%= form_tag(search_path, :method => "get") do %>
-								  	<%= text_field_tag :querry, nil, :placeholder => 'Suche nach Benutzer oder CDs'%>
-									<% end %>
-								</li>
-		          	</ul>
+					<% if user_signed_in? %>
+						<li>
+							<%= form_tag(search_path, :method => "get") do %>
+						  	<%= text_field_tag :querry, nil, :placeholder => 'Suche nach Benutzer oder CDs'%>
 							<% end %>
-		
-							<% if user_signed_in? %>
-		          <ul class="nav secondary-nav">
-									<% if current_user.role_id == User.admin %>
-										<li>
-											<a class="dropdown-toggle" href="#">Admin</a>
-											<ul class="dropdown-menu">
-												<li><%= link_to "Nutzerverwaltung", adminAllUsers_path %></li>
-												<li><%= link_to "CD Verwaltung", adminAllCDs_path %></li>
-											</ul>
-										</li>
-									<% end %>
-								
+						</li>
+		          	</ul>
+					<% end %>
+					<% if user_signed_in? %>
+		          	<ul class="nav secondary-nav">
+					<% if current_user.role_id == User.admin %>
+						<li class="dropdown">
+							<a class="dropdown-toggle" href="#">Admin</a>
+							<ul class="dropdown-menu">
+								<li><%= link_to "Nutzerverwaltung", adminAllUsers_path %></li>
+								<li><%= link_to "CD Verwaltung", adminAllCDs_path %></li>
+							</ul>
+						</li>
+					<% end %>			
 		            <li class="dropdown">
 									<% if getUnreadMessageCount(current_user.id) > 0 %>
 		             		<a href="#" class="dropdown-toggle"><%= current_user.firstname+" "+current_user.lastname+" ("+getUnreadMessageCount(current_user.id).to_s+")" %></a>

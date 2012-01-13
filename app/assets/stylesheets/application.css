@@ -352,8 +352,12 @@ a:active {
 #selectable .ui-selecting { background: #FECA40; }
 #selectable .ui-selected { background: #F39814; color: white; }
 #selectable { list-style-type: none; margin: 2px; padding: 2px; }
-#selectable li { margin: 10px; padding: 15px; float: left; width: 140px; height: 130px; font-size: 2em; text-align: center; margin-bottom: 85px; }
-.blackFont {color: black;}
+#selectable li { margin: 10px; padding: 15px; float: left; width: 140px; height: 145px; font-size: 2em; text-align: center; margin-bottom: 85px; }
+
+.blackFont {
+	color: black;
+	font-size: 13px;
+}
 
 #myCDs{
 	background-color: #CED7FC;
@@ -362,6 +366,7 @@ a:active {
 
 #mine{
 	background-color: #CED7FC;
+	overflow-y:auto;
 }
 
 #userCDs{
@@ -371,6 +376,7 @@ a:active {
 
 #wanted{
 	background-color: #FCE9CE;
+	overflow-y:auto;
 }
 
 .middle{
@@ -380,5 +386,13 @@ a:active {
 
 .information_symbol{
     margin-left:5px;
+}
+
+.line_height1{
+	line-height: 1.0px;
+}
+
+.line_height08{
+	line-height: 0.8em;
 }
 

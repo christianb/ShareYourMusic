@@ -397,17 +397,17 @@ def modifyAccept
     
     CompactDisk.update_all({:user_id => dest.id, :visible => true, :in_transaction => false}, {:id => tauschCDs_neu})
     CompactDisk.update_all({:user_id => user.id, :visible => true, :in_transaction => false}, {:id => wunschCDs_neu})
-    
-    tauschCDs_neu.each do |tcd|
-      sp = SwapProvider.new(:transaction_id => t.id, :compact_disk_id => tcd.to_i)
-      sp.save
-    end
  
-    wunschCDs_neu.each do |wcd|
-      sr = SwapReceiver.create(:transaction_id => t.id, :compact_disk_id => wcd.to_i)
+    tauschCDs_neu.each do |tcd|
+      sr = SwapReceiver.new(:transaction_id => t.id, :compact_disk_id => tcd.to_i)
       sr.save
     end
-    
+
+    wunschCDs_neu.each do |wcd|
+      sp = SwapProvider.create(:transaction_id => t.id, :compact_disk_id => wcd.to_i)
+      sp.save
+    end 
+
     #CompactDisk.update_all({:visible => false, :in_transaction => false}, {:id => tauschCDs_neu})
     #CompactDisk.update_all({:visible => false, :in_transaction => false}, {:id => wunschCDs_neu})
     

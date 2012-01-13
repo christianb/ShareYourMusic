@@ -49,9 +49,9 @@
   
   def most_active
     if (user_signed_in?)
-      @users = User.where(User.arel_table[:id].not_eq(current_user.id)).order("sign_in_count DESC").limit(9)
+      @users = User.where(User.arel_table[:id].not_eq(current_user.id)).order("sign_in_count DESC").limit(10)
     else
-      @users = User.order("sign_in_count DESC").limit(9)
+      @users = User.order("sign_in_count DESC").limit(10)
     end
   end
   
