@@ -19,7 +19,7 @@
 			<td>
 			<% t.swap_provider.each do |sp| %>
 				<% if CompactDisk.exists?(sp.compact_disk_id) %>
-					<%= image_tag getDiskById(sp.compact_disk_id).photo.url(:small) %>
+					<%= link_to (image_tag getDiskById(sp.compact_disk_id).photo.url(:small)), compact_disk_path(sp.compact_disk_id), :rel=>"popover", :title=>getCD(sp.compact_disk_id).title+" ("+getCD(sp.compact_disk_id).artist+")", :id=>getSongs(getCD(sp.compact_disk_id)) %>
 				<% else %>
 					CD nicht mehr verfuegbar
 				<% end %>
@@ -28,7 +28,7 @@
 			<td>
 			<% t.swap_receiver.each do |sr| %>
 				<% if CompactDisk.exists?(sr.compact_disk_id) %>
-					<%= image_tag getDiskById(sr.compact_disk_id).photo.url(:small) %>
+					<%= link_to (image_tag getDiskById(sr.compact_disk_id).photo.url(:small)), compact_disk_path(sr.compact_disk_id), :rel=>"popover", :title=>getCD(sr.compact_disk_id).title+" ("+getCD(sr.compact_disk_id).artist+")", :id=>getSongs(getCD(sr.compact_disk_id))  %>
 				<% else %>
 					CD nicht mehr verfuegbar
 				<% end %>	
@@ -42,7 +42,7 @@
 			<td>
 			<% t.swap_receiver.each do |sr| %>
 				<% if CompactDisk.exists?(sr.compact_disk_id) %>
-					<%= image_tag getDiskById(sr.compact_disk_id).photo.url(:small) %>
+					<%= link_to (image_tag getDiskById(sr.compact_disk_id).photo.url(:small)), compact_disk_path(sr.compact_disk_id), :rel=>"popover", :title=>getCD(sr.compact_disk_id).title+" ("+getCD(sr.compact_disk_id).artist+")", :id=>getSongs(getCD(sr.compact_disk_id)) %>
 				<% else %>
 					CD nicht mehr verfuegbar
 				<% end %>
@@ -51,7 +51,7 @@
 			<td>
 			<% t.swap_provider.each do |sp| %>
 				<% if CompactDisk.exists?(sp.compact_disk_id) %>
-					<%= image_tag getDiskById(sp.compact_disk_id).photo.url(:small) %>
+					<%= link_to (image_tag getDiskById(sp.compact_disk_id).photo.url(:small)), compact_disk_path(sp.compact_disk_id), :rel=>"popover", :title=>getCD(sp.compact_disk_id).title+" ("+getCD(sp.compact_disk_id).artist+")", :id=>getSongs(getCD(sp.compact_disk_id)) %>
 				<% else %>
 					CD nicht mehr verfuegbar
 				<% end %>
