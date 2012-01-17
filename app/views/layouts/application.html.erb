@@ -21,9 +21,9 @@
 	                    <a class="dropdown-toggle" href="#">Kategorien</a>
 	                    <ul class="dropdown-menu">
 	                        <li><%= link_to t('.cd_all'), compact_disk_index_path %></li>
-	                        <li><%= link_to 'Neueste CDs', latest_cd_path %></li>  
-							<li><%= link_to "Aktivste Benutzer", most_active_user_path %></li>
-							<li><%= link_to "Tollste CDs", best_cd_path %></li>
+	                        <li><%= link_to t('.latest_cd'), latest_cd_path %></li>  
+							<li><%= link_to t('.most_active_users'), most_active_user_path %></li>
+							<li><%= link_to t('.best_cds'), best_cd_path %></li>
 	                    </ul>
 	                </li>
 						<% if !user_signed_in? %>					
@@ -39,7 +39,7 @@
 					<% if user_signed_in? %>
 						<li>
 							<%= form_tag(search_path, :method => "get") do %>
-						  	<%= text_field_tag :querry, nil, :placeholder => 'Suche nach Benutzer oder CDs'%>
+						  	<%= text_field_tag :querry, nil, :placeholder => t('.search_text')%>
 							<% end %>
 						</li>
 		          	</ul>
@@ -50,8 +50,8 @@
 						<li class="dropdown">
 							<a class="dropdown-toggle" href="#">Admin</a>
 							<ul class="dropdown-menu">
-								<li><%= link_to "Nutzerverwaltung", adminAllUsers_path %></li>
-								<li><%= link_to "CD Verwaltung", adminAllCDs_path %></li>
+								<li><%= link_to t('.manage_users'), adminAllUsers_path %></li>
+								<li><%= link_to t('.manage_cds'), adminAllCDs_path %></li>
 							</ul>
 						</li>
 					<% end %>			
@@ -67,9 +67,9 @@
                     </li>
                     <li>
 												<% if getUnreadMessageCount(current_user.id) > 0 %>
-                        	<%= link_to "Anfragen (" + getUnreadMessageCount(current_user.id).to_s + ")", transaction_index_path %>
+                        	<%= link_to t('.transactions')+ " (" + getUnreadMessageCount(current_user.id).to_s + ")", transaction_index_path %>
 												<% else %>
-													<%= link_to "Anfragen", transaction_index_path %>
+													<%= link_to t('.transactions'), transaction_index_path %>
 												<% end %>
                     </li>
 										<li class="divider"></li>
@@ -78,7 +78,7 @@
                     </li>
 		                
 										<li>
-											<%= link_to('Logout', destroy_user_session_path) %>
+											<%= link_to(t('.logout'), destroy_user_session_path) %>
 										</li>
 		              </ul>
 		            </li>

@@ -20,6 +20,9 @@ de:
       edit_account: "Bearbeiten"
       delete_account: "Profil löschen"
       confirm_changes: "Sind Sie sicher?"
+      
+    most_active:
+        headline: "Aktivste Benutzer"
   
   devise:
     sessions:
@@ -33,9 +36,16 @@ de:
         reference2: "(um Änderungen zu bestätigen)"
         submit_form: "Absenden"
         cancel: "Abbrechen"
+        confirm: "Bestätigen"
         delete_account: "Profil löschen"
         confirm_changes: "Sind Sie sicher?"
         upload_photo: "Ihr Bild"
+        upload_url: "Bild via URL hochladen"
+        notifications: "benachrichtigungen"
+        search_own_cds: "eigene cd's in suchergebnis anzeigen?"
+        delete_text: "Sind sie sicher das sie Ihren Account löschen wollen? Alle mit diesem Konto verbunden Daten werden gelöscht!"
+        delete_headline: "Löschen des Accounts"
+        delete_confirm: "Ich bin einverstanden."
       new:
         sign_up: "Erstellen"
         headline: "Erstellen eines persöhnlichen Profils"
@@ -51,6 +61,8 @@ de:
         upload_cover: "Cover"
         demo_song: "Demosong"
         create: "Neue CD erstellen"
+        headline: "Neue CD"
+        
       myCDs: 
         my_cds: "Meine CD's"
       exchange:
@@ -58,9 +70,21 @@ de:
       swap:
         swap_cd: "CD's Tauschen"
       form_fields:
-        upload_cover: "Cover"
-        demo_song: "Demosong"
+        upload_cover: "cover"
+        demo_song: "demosong"
         create: "Neue CD erstellen"
+        artist: "interpret"
+        title: "titel"
+        genre: "genre"
+        release_year: "erscheinungsjahr"
+        description: "beschreibung"
+        your_description: "Ihre Beschreibung der CD"
+        music_brainz: "MusicBrainz Abfrage"
+        pflichtfeld: "Pflichfelder"
+      latest:
+          latest_cd: "Neueste CDs"
+      best:
+          headline: "Tollste CDs"
         
   session:
       new:
@@ -70,9 +94,17 @@ de:
      application:
          user_edit: "Account anpassen"
          user_logout: "Ausloggen"
-         user_show: "Account Daten"
+         user_show: "Profil Daten"
          user_cd_index: "Meine CDs"
          cd_all: "Alle CDs"
+         latest_cd: "Neueste CDs"
+         most_active_users: "Aktivste Benutzer"
+         best_cds: "Tollste CDs"
+         search_text: "Suche nach Benutzer oder CDs"
+         manage_users: "Nutzerverwaltung"
+         manage_cds: "CD Verwaltung"
+         transactions: "Anfragen"
+         logout: "Ausloggen"
          
   errors:
     messages:

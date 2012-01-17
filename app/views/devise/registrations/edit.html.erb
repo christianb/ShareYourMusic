@@ -28,14 +28,14 @@
       </div>
 
 	<div class="clearfix">
-		<%= f.label "Benachrichtigungen" %>
+		<%= f.label t('.notifications') %>
     	<div class="input">
 			<%= f.check_box :email_notification %>
 		</div>
 	</div>
 	
 	<div class="clearfix">
-		<%= f.label "Eigene CDs in Suche einbeziehen? " %>
+		<%= f.label t('.search_own_cds') %>
     	<div class="input">
 			<%= f.check_box :search_own_cds %>
 		</div>
@@ -69,7 +69,7 @@
       </div>
 
 			<div class="clearfix">
-            <%= f.label 'Upload via URL' %>
+            <%= f.label t('.upload_url') %>
             <div class="input">
 							 <%= f.text_field :photo_url %>
             </div>
@@ -77,7 +77,7 @@
 
 	<div class="actions"> 
 			<%= link_to t('.cancel'), user_path(current_user), :class => "btn default" %>
-      <%= f.submit 'Bestätigen', :class => "btn primary" %>
+      <%= f.submit t('.confirm'), :class => "btn primary" %>
 	  <% if user_signed_in? && current_user.id == @user.id %>
 	  	<div style=" float:right;">
 						<%= link_to t('.delete_account'), delete_user_path(@user), :class => "btn danger", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true %>
@@ -89,13 +89,13 @@
 		<div class="modal hide fade" id="modal-window">
 		  <div class="modal-header">
 		    <a href="#" class="close">×</a>
-		    <h3>Löschen des Accounts</h3>
+		    <h3><%= t('.delete_headline')%></h3>
 		  </div>
 		  <div class="modal-body center">
-				Sind sie sicher das sie Ihren Account löschen wollen? Alle mit diesem Konto verbunden Daten werden gelöscht!
+				<%= t('.delete_text')%>
 		  </div>
 		  <div class="modal-footer">
-		  	<%= link_to "Ich bin einverstanden.", delete_user_path(@user), :class => "btn danger", :method => :delete %>
+		  	<%= link_to t('.delete_confirm'), delete_user_path(@user), :class => "btn danger", :method => :delete %>
 		  </div>
 		</div>
   	</div>
