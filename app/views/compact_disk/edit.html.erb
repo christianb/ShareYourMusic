@@ -1,4 +1,4 @@
-<% content_for :title, "CD bearbeiten" %>
+<% content_for :title, t('.headline') %>
 
 <% if @cd.errors.any? %>
     <div class="alert-message block-message error" style="margin-left:17px;">
@@ -16,11 +16,11 @@
 	<%= render 'form_fields', :form => f %>
 
 	<div class="actions"> 
-			<%= link_to 'Abbrechen', compact_disk_path(@cd), :class => "btn default" %>
-    	<%= f.submit "Bestätigen", :class => "btn primary" %> 
+			<%= link_to t('.button_cancel'), compact_disk_path(@cd), :class => "btn default" %>
+    	<%= f.submit t('.button_confirm'), :class => "btn primary" %> 
 		<% if current_user.id == @cd.user_id %>
             <div style=" float:right;">
-                <%= link_to "CD löschen", @cd, :class => "btn danger", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true %>
+                <%= link_to t('.button_delete_cd'), @cd, :class => "btn danger", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true %>
             </div>
             <div style="clear:both"></div>
         <% end %>

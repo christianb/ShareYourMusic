@@ -20,6 +20,15 @@ de:
       edit_account: "Bearbeiten"
       delete_account: "Profil löschen"
       confirm_changes: "Sind Sie sicher?"
+      button_back: "Zurück"
+    show_partial:
+      notification: "Receive email Notification?"
+      notification_state_yes: "Ja bitte."
+      notification_state_no: "Nein danke."
+      search_own_cds: "Eigene CDs in Suche einbeziehen?"
+      
+    most_active:
+        headline: "Aktivste Benutzer"
   
   devise:
     sessions:
@@ -33,9 +42,16 @@ de:
         reference2: "(um Änderungen zu bestätigen)"
         submit_form: "Absenden"
         cancel: "Abbrechen"
+        confirm: "Bestätigen"
         delete_account: "Profil löschen"
         confirm_changes: "Sind Sie sicher?"
         upload_photo: "Ihr Bild"
+        upload_url: "Bild via URL hochladen"
+        notifications: "benachrichtigungen"
+        search_own_cds: "eigene cd's in suchergebnis anzeigen?"
+        delete_text: "Sind sie sicher das sie Ihren Account löschen wollen? Alle mit diesem Konto verbunden Daten werden gelöscht!"
+        delete_headline: "Löschen des Accounts"
+        delete_confirm: "Ich bin einverstanden."
       new:
         sign_up: "Erstellen"
         headline: "Erstellen eines persöhnlichen Profils"
@@ -47,20 +63,63 @@ de:
         cd_headline: "CD Sammlung"
         cd_new: "Neue CD anlegen"
         cd_all: "Alle CDs"
+        paginate_further: "Weiter"
+        paginate_back: "Zurück"
+        label_transaction: "In einer Transaktion"
+        label_new: "Neu"
+        share: "Tauschen"
       new:
         upload_cover: "Cover"
         demo_song: "Demosong"
         create: "Neue CD erstellen"
+        headline: "Neue CD"
+        
       myCDs: 
         my_cds: "Meine CD's"
+        label_transaction: "In einer Transaktion"
+        label_new: "Neu"
+        paginate_further: "Weiter"
+        paginate_back: "Zurück"
       exchange:
         cd_exchange: "CD Tauschen - Anfrage stellen"
       swap:
         swap_cd: "CD's Tauschen"
+      edit:
+          headline: "CD Bearbeiten"
+          button_cancel: "Abbrechen"
+          button_confirm: "Bestätigen"
+          button_delete_cd: "Lösche CD"
       form_fields:
-        upload_cover: "Cover"
-        demo_song: "Demosong"
+        upload_cover: "cover"
+        demo_song: "demosong"
         create: "Neue CD erstellen"
+        artist: "interpret"
+        title: "titel"
+        genre: "genre"
+        release_year: "erscheinungsjahr"
+        description: "beschreibung"
+        your_description: "Ihre Beschreibung der CD"
+        music_brainz: "MusicBrainz Abfrage"
+        pflichtfeld: "Pflichfelder"
+      latest:
+          latest_cd: "Neueste CDs"
+          share: "Tauschen"
+          label_transaction: "In einer Transaktion"
+      best:
+        headline: "Tollste CDs"
+        share: "Tauschen"
+        label_transaction: "In einer Transaktion"
+      show:
+          genre: "Genre: "
+          year: "Erscheinungsjahr: "
+          description: "Beschreibung"
+          stars: "Sterne"
+          button_back: "Zurück"
+          button_edit: "Bearbeiten"
+          delete_song: "Song löschen"
+          share: "Tauschen"
+          delete_cd: "CD löschen"
+          owner: "Besitzer: "
         
   session:
       new:
@@ -70,9 +129,19 @@ de:
      application:
          user_edit: "Account anpassen"
          user_logout: "Ausloggen"
-         user_show: "Account Daten"
+         user_show: "Profil Daten"
          user_cd_index: "Meine CDs"
          cd_all: "Alle CDs"
+         latest_cd: "Neueste CDs"
+         most_active_users: "Aktivste Benutzer"
+         best_cds: "Tollste CDs"
+         search_text: "Suche nach Benutzer oder CDs"
+         manage_users: "Nutzerverwaltung"
+         manage_cds: "CD Verwaltung"
+         transactions: "Anfragen"
+         logout: "Ausloggen"
+         categories: "Kategorien"
+         register: "Registrieren"
          
   errors:
     messages:

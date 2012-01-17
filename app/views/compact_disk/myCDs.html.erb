@@ -19,7 +19,7 @@
 </div>
 
 <div style="padding-left:20px;">
-<%= will_paginate @myCDs, :previous_label => "Zurück", :next_label => "Weiter"  %>
+<%= will_paginate @myCDs, :previous_label => t('.paginate_back'), :next_label => t('.paginate_further')  %>
 </div>
 <ul id="selectable">
 <% @myCDs.each do |c| %>
@@ -31,10 +31,10 @@
 			<% if !c.visible && !c.in_transaction %>
 				<%= link_to "Freigeben", makeVisible_path(c.id), :class => "btn" %>
 			<% elsif c.in_transaction %>
-				<span class="label warning line_height1">In einer Transaktion</span></br>
+				<span class="label warning line_height1"><%= t('.label_transaction')%></span></br>
 			<% end %>
 			<% if c.created_at > (Time.now-60*60*24) %>
-				<span class="label success"> Neu </span>
+				<span class="label success"><%= t('.label_new')%> </span>
 			<% end %>
         
 	</li>
@@ -42,6 +42,6 @@
 </ul>
 <div class="row">
 	<div style="padding-left:20px;">
-		<%= will_paginate @myCDs, :previous_label => "Zurück", :next_label => "Weiter"  %>
+		<%= will_paginate @myCDs, :previous_label => t('.paginate_back'), :next_label => t('.paginate_further')  %>
 	</div>
 </div>

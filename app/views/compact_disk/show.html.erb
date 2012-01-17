@@ -13,28 +13,28 @@
 		
 		<% if !user_signed_in? || current_user.id != @cd.user_id %>
 			<p>
-				<b>Im Showcase von:</b>
+				<b><%= t('.owner')%></b>
 				<%= link_to @user.firstname + ' ' + @user.lastname, allUserCDs_path(@cd.user_id) %>
 			</p>
 		<% end %>
 		
 		<% if !@cd.genre.empty?%>
 			<p>
-				<b>Genre:</b>
+				<b><%= t('.genre')%></b>
 				<%= @cd.genre %>
 			</p>
 		<% end %>
 		
 		<% if @cd.year != nil %>
 			<p>
-				<b>Erscheinungsjahr:</b>
+				<b><%= t('.year')%></b>
 				<%= @cd.year %>
 			</p>
 		<% end %>
 		
 		<% if !@cd.description.empty? %>
 			<p>
-				<b>Beschreibung:</b>
+				<b><%= t('.description')%></b>
 				<%= @cd.description %>
 			</p>
 		<% end %>
@@ -78,7 +78,7 @@
 		<% end %>
 		
 		<p>
-			<b>Sterne:</b> <%= @cd.rank.to_s %> 
+			<b><%= t('.stars')%></b> <%= @cd.rank.to_s %> 
 			<% if current_user.id != @cd.user_id && current_user.last_like != nil && current_user.last_like < (Time.now-60*60) %>
 				(<%= link_to 'Like', like_cd_path(@cd.id) %>)
 				<span class="span6 offset10">
@@ -102,12 +102,12 @@
 	
 	<div class="actions"> 
 	<% if user_signed_in? && @cd.user_id == current_user.id%>
-		<%= link_to 'Zurück', myCDs_path, :class => "btn default" %>
-		<%= link_to 'Bearbeiten', edit_compact_disk_path(@cd), :class => "btn primary" %>
+		<%= link_to t('.button_back'), myCDs_path, :class => "btn default" %>
+		<%= link_to t('.button_edit'), edit_compact_disk_path(@cd), :class => "btn primary" %>
 		
 		<% if @cd.audio_file_name != nil %>
 		<div style=" float:right;">
-			<%= link_to "Song löschen", delete_demo_songs_path(@cd), :class => "btn danger", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true  %>
+			<%= link_to t('.delete_song'), delete_demo_songs_path(@cd), :class => "btn danger", :remote => true, 'data-controls-modal' =>  "modal-window", 'data-backdrop' => true, 'data-keyboard' => true  %>
 		</div>
 		<% end %>
 	<% else %>
@@ -118,7 +118,7 @@
 			<% end %>-->
 			
 			<% if !@cd.in_transaction && @cd.visible %>
-				<%= link_to 'Tauschen', swap_cd_path(@cd.id), :class => "btn primary" %>
+				<%= link_to t('.share'), swap_cd_path(@cd.id), :class => "btn primary" %>
 			<% end %>
 		<% end %>
 		<% if user_signed_in? && AdminController.isAdmin(current_user) %>
@@ -128,7 +128,7 @@
 			<% end %>
 		
 			
-				<%= link_to "CD löschen", @cd, :confirm => "Wollen die CD \""+ @cd.title+"\" von "+User.find(@cd.user_id).firstname+" "+User.find(@cd.user_id).lastname+" wirklich löschen?", :method => :delete, :class => "btn danger" %>
+				<%= link_to t('.delete_cd'), @cd, :confirm => "Wollen die CD \""+ @cd.title+"\" von "+User.find(@cd.user_id).firstname+" "+User.find(@cd.user_id).lastname+" wirklich löschen?", :method => :delete, :class => "btn danger" %>
 			</div>
 		<% end %>
 	<% end %>

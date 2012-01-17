@@ -1,37 +1,177 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
   
   welcome:
       index:
-          headline: "Welcome"
-
-  user:
-      show:
-          user_show_title: "User Profil"
-          user_name: "Name"
-          user_alias: "Alias"
-          user_email: "eMail"
-          edit_profil: "Edit User Profil"
-          delete_profil: "Delete Account"
+          headline: "Willkommen"
           
+  user:
+    # global user variables
+    alias: "Alias"
+    email: "eMail"
+    firstname: "first name"
+    lastname: "last name"
+    password: "password"
+    new_password: "new password"
+    password_confirm: "confirm new password"
+    
+    show:
+      user_show_title: "Account Daten"
+      user_name: "Name"
+      edit_account: "Edit"
+      delete_account: "Delete Account"
+      confirm_changes: "Sind Sie sicher?"
+      button_back: "Back"
+    show_partial:
+      notification: "Receive email Notification?"
+      notification_state_yes: "Yes please."
+      notification_state_no: "No thank you."
+      search_own_cds: "Show own discs in search results?"
+      
+    most_active:
+      headline: "Most Active User"
+  
   devise:
+    sessions:
+        user:
+            signed_out: "Abmeldung erfolgreich."
     registrations:
       edit:
-        user_email: "email"
-        user_firstname: "Firstname"
-          
+        headline: "Change Account"
+        password_current: "password"
+        notifications: "notifications"
+        reference1: "(freilassen, falls es nicht geändert werden soll)"
+        reference2: "(um Änderungen zu bestätigen)"
+        submit_form: "Absenden"
+        cancel: "Cancel"
+        confirm: "Confirm"
+        delete_account: "Delete Account"
+        confirm_changes: "Sind Sie sicher?"
+        upload_photo: "your picture"
+        upload_url: "upload picture url"
+        search_own_cds: "show own discs in search results?"
+        delete_text: "Do you really want to delete your account?"
+        delete_headline: "Delete your Account"
+        delete_confirm: "Yes, delete my account!"
+      new:
+        sign_up: "Erstellen"
+        headline: "Erstellen eines persöhnlichen Profils"
+      user:
+          updated: "Profil erfolgreich geändert."
+
   compact_disk:
       index:
-          cd_headline: "CD Collection"
-          cd_new: "Add new CD"
-          cd_all: "All CDs"
-      
-  layouts:
-      application:
-         user_edit: "Edit Account"
-         user_logout: "Logout"
-         user_show: "User Account"
-         user_cd_index: "CD Collection"
+        cd_headline: "CD Sammlung"
+        cd_new: "Neue CD anlegen"
+        cd_all: "All Discs"
+        paginate_further: "Next"
+        paginate_back: "Back"
+        label_transaction: "in transaction"
+        label_new: "new"
+        share: "Share"
+      new:
+        upload_cover: "Cover"
+        demo_song: "Demosong"
+        create: "Create New Disc"
+        headline: "New Disc"
+        
+      myCDs: 
+        my_cds: "Meine CD's"
+        label_transaction: "in transaction"
+        label_new: "new"
+        paginate_further: "Next"
+        paginate_back: "Back"
+      exchange:
+        cd_exchange: "CD Tauschen - Anfrage stellen"
+      swap:
+        swap_cd: "CD's Tauschen"
+      edit:
+          headline: "Edit Disc"
+          button_cancel: "Cancel"
+          button_confirm: "Confirm"
+          button_delete_cd: "Delete Disc"
+      form_fields:
+        upload_cover: "Cover"
+        demo_song: "Demosong"
+        create: "Neue CD erstellen"
+        artist: "artist"
+        title: "title"
+        genre: "genre"
+        release_year: "release year"
+        description: "descritpion"
+        your_description: "Your description of your disc"
+        music_brainz: "MusicBrainz"
+        pflichtfeld: "Recommend Field"
+      latest:
+        latest_cd: "Latest Discs"
+        share: "Swap"
+        label_transaction: "in transaction"
+      best:
+        headline: "Best Discs"
+        share: "Swap"
+        label_transaction: "in transaction"
+      show: 
+        genre: "Genre: "
+        year: "Release year: "
+        description: "Description"
+        stars: "Stars"
+        button_back: "Back"
+        button_edit: "Edit"
+        delete_song: "Delete Song"
+        share: "Swap"
+        delete_cd: "Delete Disc"
+        owner: "Owner: "
+        
+  session:
+      new:
+        sign_in: "Login"
           
+  layouts:
+     application:
+         user_edit: "Account anpassen"
+         user_logout: "Logout"
+         user_show: "Account Data"
+         user_cd_index: "My Dics"
+         cd_all: "All Discs"
+         latest_cd: "Latest Discs"
+         most_active_users: "Most Active User"
+         best_cds: "Best Discs"
+         search_text: "Search users and discs "
+         manage_users: "Manage User"
+         manage_cds: "Manage Discs"
+         transactions: "Transactions"
+         logout: "Logout"
+         categories: "Categories"
+         register: "Sign up"
+         
+  errors:
+    messages:
+      not_saved: "Anfrage konnte aufgrund folgender Fehler nicht gesendet werden:"
+  
+  activerecord:
+    errors:
+      models:
+        compact_disk:
+            attributes:
+                title:  
+                    blank: "darf nicht leer sein."
+                artist:
+                    blank: "darf nicht leer sein."
+        user:
+          attributes:
+            password:
+              confirmation: "Das neue Passwort muss zur Kontrolle einmal bestätigt werden."
+              too_short: "Das gewählte Passwort ist zu kurz. Es muss mindestens 6 Zeichen beinhalten."
+            current_password:
+              blank: "Das aktuelle Passwort darf nicht leer sein."
+              invalid: "Passwort ungültig!"
+            role:
+              blank: "Rolle existiert nicht! Bitte kontaktieren Sie einen Admin."
+            email:
+                taken: "Email Adresse bereits vergeben!"
+                invalid: "Bitte eine korrekte Email eingeben (z.B: name@provider.domain)"
+              
+    attributes:
+      user:
+        password: "Password "
+        password_confirmation: "Neues Passwort bestätigen: "
+        current_password: "Aktuelles Passwort: "
