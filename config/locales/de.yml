@@ -12,7 +12,7 @@ de:
     lastname: "Nachname"
     password: "Passwort"
     new_password: "Neues Passwort"
-    password_confirm: "Passwort bestätigen"
+    password_confirm: "Neues Passwort bestätigen"
     
     show:
       user_show_title: "Account Daten"
@@ -22,7 +22,7 @@ de:
       confirm_changes: "Sind Sie sicher?"
       button_back: "Zurück"
     show_partial:
-      notification: "Receive email Notification?"
+      notification: "EMail Benachrichtigungen?"
       notification_state_yes: "Ja bitte."
       notification_state_no: "Nein danke."
       search_own_cds: "Eigene CDs in Suche einbeziehen?"
