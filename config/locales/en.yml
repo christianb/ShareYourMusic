@@ -17,9 +17,15 @@ en:
     show:
       user_show_title: "Account Daten"
       user_name: "Name"
-      edit_account: "Bearbeiten"
-      delete_account: "Profil löschen"
+      edit_account: "Edit"
+      delete_account: "Delete Account"
       confirm_changes: "Sind Sie sicher?"
+      button_back: "Back"
+    show_partial:
+      notification: "Receive email Notification?"
+      notification_state_yes: "Yes please."
+      notification_state_no: "No thank you."
+      search_own_cds: "Show own discs in search results?"
       
     most_active:
       headline: "Most Active User"
@@ -57,6 +63,11 @@ en:
         cd_headline: "CD Sammlung"
         cd_new: "Neue CD anlegen"
         cd_all: "All Discs"
+        paginate_further: "Next"
+        paginate_back: "Back"
+        label_transaction: "in transaction"
+        label_new: "new"
+        share: "Share"
       new:
         upload_cover: "Cover"
         demo_song: "Demosong"
@@ -65,10 +76,19 @@ en:
         
       myCDs: 
         my_cds: "Meine CD's"
+        label_transaction: "in transaction"
+        label_new: "new"
+        paginate_further: "Next"
+        paginate_back: "Back"
       exchange:
         cd_exchange: "CD Tauschen - Anfrage stellen"
       swap:
         swap_cd: "CD's Tauschen"
+      edit:
+          headline: "Edit Disc"
+          button_cancel: "Cancel"
+          button_confirm: "Confirm"
+          button_delete_cd: "Delete Disc"
       form_fields:
         upload_cover: "Cover"
         demo_song: "Demosong"
@@ -83,8 +103,23 @@ en:
         pflichtfeld: "Recommend Field"
       latest:
         latest_cd: "Latest Discs"
+        share: "Swap"
+        label_transaction: "in transaction"
       best:
         headline: "Best Discs"
+        share: "Swap"
+        label_transaction: "in transaction"
+      show: 
+        genre: "Genre: "
+        year: "Release year: "
+        description: "Description"
+        stars: "Stars"
+        button_back: "Back"
+        button_edit: "Edit"
+        delete_song: "Delete Song"
+        share: "Swap"
+        delete_cd: "Delete Disc"
+        owner: "Owner: "
         
   session:
       new:
@@ -105,6 +140,8 @@ en:
          manage_cds: "Manage Discs"
          transactions: "Transactions"
          logout: "Logout"
+         categories: "Categories"
+         register: "Sign up"
          
   errors:
     messages:

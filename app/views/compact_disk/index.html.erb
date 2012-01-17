@@ -23,7 +23,7 @@
 <%
 =end %>
 <div style="padding-left:20px;">
-<%= will_paginate @cds, :next_label => "Weiter", :previous_label => "Zurück" %>
+<%= will_paginate @cds, :next_label => t('.paginate_further'), :previous_label => t('.paginate_back') %>
 </div>
 <div style="height:494px;">
 <ol id="selectable">
@@ -40,10 +40,10 @@
 		<p>
 			<!--<%= link_to 'Show', compact_disk_path(c) %>-->
 			<% if user_signed_in? && current_user.id != c.user_id && !c.in_transaction && c.visible %>
-				<%= link_to 'Tauschen', swap_cd_path(c.id) %>
+				<%= link_to t('.share'), swap_cd_path(c.id) %>
 			<% end %>
 			<% if user_signed_in? && c.in_transaction %>
-				<span class="label warning line_height1">In einer Transaktion</span></br>
+				<span class="label warning line_height1"><%= t('.label_transaction')%></span></br>
 			<% end %>
 		</p>
 	</li>
@@ -52,6 +52,6 @@
 </div>
 <div class="row">
 	<div style="padding-left:20px;">
-	<%= will_paginate @cds, :next_label => "Weiter", :previous_label => "Zurück"  %>
+	<%= will_paginate @cds, :next_label => t('.paginate_further'), :previous_label => t('.paginate_back')  %>
 	</div>
 </div>

@@ -15,10 +15,10 @@
 		          <%= link_to "SwaRmusik", welcome_path, :class => "brand" %>
 		          <ul class="nav">
 						<% if !user_signed_in? %>
-							<li><a href="<%=new_user_registration_path%>">Registrieren</a></li>
+							<li><a href="<%=new_user_registration_path%>"><%= t('.register')%></a></li>
 						<% end %>
 		 			<li class="dropdown">
-	                    <a class="dropdown-toggle" href="#">Kategorien</a>
+	                    <a class="dropdown-toggle" href="#"><%= t('.categories')%></a>
 	                    <ul class="dropdown-menu">
 	                        <li><%= link_to t('.cd_all'), compact_disk_index_path %></li>
 	                        <li><%= link_to t('.latest_cd'), latest_cd_path %></li>  

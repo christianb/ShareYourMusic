@@ -20,6 +20,12 @@ de:
       edit_account: "Bearbeiten"
       delete_account: "Profil löschen"
       confirm_changes: "Sind Sie sicher?"
+      button_back: "Zurück"
+    show_partial:
+      notification: "Receive email Notification?"
+      notification_state_yes: "Ja bitte."
+      notification_state_no: "Nein danke."
+      search_own_cds: "Eigene CDs in Suche einbeziehen?"
       
     most_active:
         headline: "Aktivste Benutzer"
@@ -57,6 +63,11 @@ de:
         cd_headline: "CD Sammlung"
         cd_new: "Neue CD anlegen"
         cd_all: "Alle CDs"
+        paginate_further: "Weiter"
+        paginate_back: "Zurück"
+        label_transaction: "In einer Transaktion"
+        label_new: "Neu"
+        share: "Tauschen"
       new:
         upload_cover: "Cover"
         demo_song: "Demosong"
@@ -65,10 +76,19 @@ de:
         
       myCDs: 
         my_cds: "Meine CD's"
+        label_transaction: "In einer Transaktion"
+        label_new: "Neu"
+        paginate_further: "Weiter"
+        paginate_back: "Zurück"
       exchange:
         cd_exchange: "CD Tauschen - Anfrage stellen"
       swap:
         swap_cd: "CD's Tauschen"
+      edit:
+          headline: "CD Bearbeiten"
+          button_cancel: "Abbrechen"
+          button_confirm: "Bestätigen"
+          button_delete_cd: "Lösche CD"
       form_fields:
         upload_cover: "cover"
         demo_song: "demosong"
@@ -83,8 +103,23 @@ de:
         pflichtfeld: "Pflichfelder"
       latest:
           latest_cd: "Neueste CDs"
+          share: "Tauschen"
+          label_transaction: "In einer Transaktion"
       best:
-          headline: "Tollste CDs"
+        headline: "Tollste CDs"
+        share: "Tauschen"
+        label_transaction: "In einer Transaktion"
+      show:
+          genre: "Genre: "
+          year: "Erscheinungsjahr: "
+          description: "Beschreibung"
+          stars: "Sterne"
+          button_back: "Zurück"
+          button_edit: "Bearbeiten"
+          delete_song: "Song löschen"
+          share: "Tauschen"
+          delete_cd: "CD löschen"
+          owner: "Besitzer: "
         
   session:
       new:
@@ -105,6 +140,8 @@ de:
          manage_cds: "CD Verwaltung"
          transactions: "Anfragen"
          logout: "Ausloggen"
+         categories: "Kategorien"
+         register: "Registrieren"
          
   errors:
     messages:
