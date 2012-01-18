@@ -59,6 +59,11 @@ de:
           updated: "Profil erfolgreich geändert."
 
   compact_disk:
+      all_user_cds:
+            share: "Tauschen"
+            label_transaction: "In einer Transaktion"
+            headline: "Showcase von"
+            
       index:
         cd_headline: "CD Sammlung"
         cd_new: "Neue CD anlegen"

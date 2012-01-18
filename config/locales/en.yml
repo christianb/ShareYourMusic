@@ -59,6 +59,10 @@ en:
           updated: "Profil erfolgreich geändert."
 
   compact_disk:
+      all_user_cds:
+          share: "Swap"
+          label_transaction: "in transaction"
+          headline: "Showcase from"
       index:
         cd_headline: "CD Sammlung"
         cd_new: "Neue CD anlegen"
@@ -67,7 +71,7 @@ en:
         paginate_back: "Back"
         label_transaction: "in transaction"
         label_new: "new"
-        share: "Share"
+        share: "Swap"
       new:
         upload_cover: "Cover"
         demo_song: "Demosong"
